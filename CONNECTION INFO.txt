@@ -1,0 +1,10 @@
+Deployed App
+AppIcon :	NetworkTest
+AppName :	NetworkTest
+App Version :	1.0
+Organization name :	SoapyDev
+Environment :	PRODUCTION
+Description :	testing the networking code
+API KEY :	439c555cc07424fcefa72589975e9e8047c720c155577151937969cf23c113b1
+SECRET KEY :	1d85a06cf2105700dc78f697fe6eb896d8d86640c64e06e4b4abde8c5b2108f8
+Development Center :	 Please visit our AppWarp development center to get started.
