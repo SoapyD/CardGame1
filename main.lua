@@ -64,34 +64,45 @@ function createDeck()
 		cardtext = ""
 		decks[i] = {}
      	for j=1, 32 do
-    	    local tempCard = suits[i]..j;
+    	    --local tempCard = suits[i]..j;
+    	    local tempCard = j;
     	    table.insert(decks[i],tempCard);
-    	    cardtext = cardtext .. tempCard .. ",";
+    	    --cardtext = cardtext .. tempCard .. ",";
      	end
 
-     	print(cardtext)
+     	--print(cardtext)
     end
 end
 
 function SetupButtons()
 	dealBtn = display.newImage("Images\\" .. "deal_btn.png",250,460);
 
-	tempCard, listpos = DrawCard(1)
-	if ( listpos > 9) then
-		listpos = listpos - 9
-	end
-	--print(id)
-	LoadImage( "w\\" .. listpos .. ".jpg",0,150);
+	DrawCard(2)				
 end
 
+
 function DrawCard(deck_index)
+	tempCard = CheckDeck(deck_index)
+	if ( tempCard > 18) then
+		tempCard = tempCard - 18
+	end
+	--print(tempCard)
+	LoadImage( suits[deck_index] .. "\\" .. tempCard .. ".jpg",0,150);
+end
+
+function CheckDeck(deck_index)
+
+	--RANDOMLY GENERATE A NUMBER FROM THE SIZE OF THE ECK
 	local randIndex = math.random(#decks[deck_index])
 	print("indexnum: ", randIndex)
 
+	--GET THE CARD NAME SAVED AT THAT LIST INDEX POSITION
 	tempCard = decks[deck_index][randIndex]
 	print("card: ", tempCard)
+
+	--REMOVE THE VALUE FROM THE LIST
 	table.remove(decks[deck_index],randIndex)
 	print("listSize: ", table.maxn(decks[deck_index]))
 
-	return tempCard, randIndex
+	return tempCard
 end
