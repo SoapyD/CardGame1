@@ -44,8 +44,54 @@ function loadGame()
 	networkSetup();
 	networkConnection(); 
 	--BOXES TO TEST THE NETWORK CONNECTION
-	Test();
-	LoadImage("Icon.png",0,150);
+	--Test();
+	--LoadImage("Icon.png",0,150);
+	createDeck();
+	SetupButtons();
 	--ADVANCE THE GAMESTATE
 	GameInfo.gamestate = GameInfo.gamestate + 1
+end
+
+
+
+local deck; -- The deck of Cards
+local suits = {"w","p","f","s"}; -- weapon, physical, focus, speed
+local dealBtn; -- the deal buttons
+
+function createDeck()
+	decks = {};
+	for i=1, 4 do
+		cardtext = ""
+		decks[i] = {}
+     	for j=1, 32 do
+    	    local tempCard = suits[i]..j;
+    	    table.insert(decks[i],tempCard);
+    	    cardtext = cardtext .. tempCard .. ",";
+     	end
+
+     	print(cardtext)
+    end
+end
+
+function SetupButtons()
+	dealBtn = display.newImage("Images\\" .. "deal_btn.png",250,460);
+
+	tempCard, listpos = DrawCard(1)
+	if ( listpos > 9) then
+		listpos = listpos - 9
+	end
+	--print(id)
+	LoadImage( "w\\" .. listpos .. ".jpg",0,150);
+end
+
+function DrawCard(deck_index)
+	local randIndex = math.random(#decks[deck_index])
+	print("indexnum: ", randIndex)
+
+	tempCard = decks[deck_index][randIndex]
+	print("card: ", tempCard)
+	table.remove(decks[deck_index],randIndex)
+	print("listSize: ", table.maxn(decks[deck_index]))
+
+	return tempCard, randIndex
 end

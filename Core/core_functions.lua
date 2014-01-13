@@ -11,7 +11,7 @@ function Test()
 		box1,
 	}
 
-	GenerateButton(button_array, true);
+	GenerateButton(button_array, false);
 end
 
 function GenerateButton(button_array, moveable)
@@ -26,7 +26,9 @@ function GenerateButton(button_array, moveable)
 		if (moveable == true) then
 			button:addEventListener( "touch", onTouch )
 		end
-		
+
+		button:addEventListener( "touch", onPress )
+
 	  -- assign ids to buttons and insert in table
 	  button.id = tostring(item.id)
 	  GameInfo.myButtons[button.id] = button
@@ -34,6 +36,28 @@ function GenerateButton(button_array, moveable)
 	  print("button x:", GameInfo.myButtons[button.id].x) 
 	end
 
+end
+
+function onPress( event )
+	local t = event.target
+	local phase = event.phase
+
+	if "began" == phase then
+		
+		local parent = t.parent
+		parent:insert( t )
+		display.getCurrentStage():setFocus( t )	
+		t.isFocus = true
+
+	elseif t.isFocus then
+		if "ended" == phase then
+			display.getCurrentStage():setFocus( nil )
+			t.isFocus = false
+			print("PRESS WORKED!")
+		end
+	end
+
+	return true
 end
 
 function onTouch( event )
@@ -60,7 +84,7 @@ function onTouch( event )
 	      print("moved button id ".. tostring(t.id))
 	      -- send the update to others in the game room. space delimit the values and parse accordingly
 	      -- in onUpdatePeersReceived notification
-	      appWarpClient.sendUpdatePeers(tostring(t.id) .. " " .. tostring(t.x).." ".. tostring(t.y))
+	      --appWarpClient.sendUpdatePeers(tostring(t.id) .. " " .. tostring(t.x).." ".. tostring(t.y))
 			end
 		end
 		return true
@@ -72,7 +96,21 @@ function LoadImage(filename,x,y)
     local icon = display.newImage(group, "Images\\" .. filename, 
         x, y)
 
+    icon:addEventListener( "touch", onTouch )
+    --icon:addEventListener( "touch", onPress )
+    icon:scale( 0.35, 0.35 )
+
     GameInfo.images[table.getn(GameInfo.images)+1] = icon
+
+	--local box1 = cButtonClass:new(icon.x,icon.y,100,100,10,255,0,128,1);
+	--local button_array =
+	--{
+	--	box1,
+	--}
+	--GenerateButton(button_array, true);
+
+	
+
 end
 
 
