@@ -93,7 +93,7 @@ end
 function LoadImage(filename,x,y)
 	local group = display.newGroup()
     -- width, height, x, y
-    local icon = display.newImage(group, "Images\\" .. filename, 
+    local icon = display.newImage(group, "Images/" .. filename, 
         x, y)
 
     icon:addEventListener( "touch", onTouch )
@@ -108,9 +108,30 @@ function LoadImage(filename,x,y)
 	--	box1,
 	--}
 	--GenerateButton(button_array, true);
-
+ 
+	--camera:add(icon, 4, true)
+	--camera:setFocus(icon)
+	--camera:track()
 	
 
 end
 
+--MULITOUCH
+--system.activate("multitouch")
+ 
+--local bg = display.newRect( 0, 0, 320, 480 )
+--local output = native.newTextBox( 0, 20, 320, 240 )
+--output.size = 12
+ 
 
+--function showTouch(event)
+    -- Display the Event info on the screen
+--    output.text = output.text .. "\nPhase: " .. event.phase
+--    output.text = output.text .. "\n(" .. event.x .. "," .. event.y .. ")"
+--    output.text = output.text .. "\nId: " .. tostring( event.id )
+--end
+ 
+--bg:addEventListener("touch", showTouch)
+
+-- Deactivate multitouch after 5 seconds
+--timer.performWithDelay( 8000, function() system.deactivate("multitouch") end )

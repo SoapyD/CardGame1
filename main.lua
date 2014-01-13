@@ -4,6 +4,8 @@ require("Core.INC_Class")
 require("Core.class")
 require("Core.statements")
 require("Core.core_functions")
+--require("Core.perspective")
+require("Core.camera_controls")
 require("Network.networking")
 
 GameInfo = cGameInfo:new(0)
@@ -27,6 +29,7 @@ local function GameLoop( event )
     if (GameInfo.frame_num > 60) then
     	GameInfo.frame_num = 0
     end
+
 
     --CHECK THE NETWORK CONNECTION
     appWarpClient.Loop()
@@ -75,9 +78,11 @@ function createDeck()
 end
 
 function SetupButtons()
-	dealBtn = display.newImage("Images\\" .. "deal_btn.png",250,460);
+	dealBtn = display.newImage("Images/" .. "deal_btn.png",250,460);
 
-	DrawCard(2)				
+	DrawCard(2)
+	--DrawCard(2)
+	--DrawCard(2)				
 end
 
 
@@ -87,7 +92,7 @@ function DrawCard(deck_index)
 		tempCard = tempCard - 18
 	end
 	--print(tempCard)
-	LoadImage( suits[deck_index] .. "\\" .. tempCard .. ".jpg",0,150);
+	LoadImage( suits[deck_index] .. "/" .. tempCard .. ".jpg",0,150);
 end
 
 function CheckDeck(deck_index)
