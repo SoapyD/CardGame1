@@ -7,7 +7,10 @@ function cGameInfo.methods:init(gamestate)
 	self.gamestate = gamestate
 	self.frame_num = 0
 	self.myButtons = {}
-	self.images = {}
+	self.cards = {}
+	self.table_cards = {}
+	self.height = display.actualContentHeight
+	self.width = display.actualContentWidth
 end
 
 --{ x=50, y=10, w=100, h=100, r=10, red=255, green=0, blue=128, id = 1 },
