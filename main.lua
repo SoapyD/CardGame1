@@ -303,12 +303,7 @@ function Rotate_button()
 		-- Make the button instance respond to touch events
 	rotate_button.width = boxwidth
 	rotate_button.height = boxheight	
-
-    --function tapRotateLeftButton( e )
-    --    transition.to(icon, {time=500, 
-    --        rotation=-180.0, onComplete=restore})
-    --end
-	
+	rotate_button:addEventListener( "touch", finishCard )
 end
 
 
@@ -374,4 +369,33 @@ function onStrafe_vert( event )
 			end
 		end
 		return true
+end
+
+function finishCard( event )
+	local t = event.target
+	local phase = event.phase
+
+	if "began" == phase then
+		
+		local parent = t.parent
+		parent:insert( t )
+		display.getCurrentStage():setFocus( t )	
+		t.isFocus = true
+
+	elseif t.isFocus then
+		if "ended" == phase then
+			display.getCurrentStage():setFocus( nil )
+			t.isFocus = false
+			id = GameInfo.current_card_int
+			if(id ~= -1) then
+				GameInfo.table_cards[id].finalised = true
+				camera:add(GameInfo.table_cards[id], 4, true)
+				camera:setFocus(GameInfo.table_cards[id])
+				camera:track()
+
+			end
+		end
+	end
+
+	return true
 end
