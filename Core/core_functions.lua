@@ -27,7 +27,7 @@ function GenerateButton(button_array, moveable)
 			button:addEventListener( "touch", onTouch )
 		end
 
-		button:addEventListener( "touch", onPress )
+		--button:addEventListener( "touch", onPress )
 
 	  -- assign ids to buttons and insert in table
 	  button.id = tostring(item.id)
@@ -35,7 +35,6 @@ function GenerateButton(button_array, moveable)
 	  print("button id:", button.id)
 	  print("button x:", GameInfo.myButtons[button.id].x) 
 	end
-
 end
 
 function onPress( event )
@@ -72,6 +71,11 @@ function onTouch( event )
 			-- Store initial position
 			t.x0 = event.x - t.x
 			t.y0 = event.y - t.y
+			t.moved = true
+			t.touched = true
+
+			GameInfo.hand.hide = true
+			print("touched")
 		elseif t.isFocus then
 			if "moved" == phase then
 				-- Make object move (we subtract t.x0,t.y0 so that moves are
@@ -81,16 +85,22 @@ function onTouch( event )
 			elseif "ended" == phase or "cancelled" == phase then
 				display.getCurrentStage():setFocus( nil )
 				t.isFocus = false
-	      print("moved button id ".. tostring(t.id))
-	      -- send the update to others in the game room. space delimit the values and parse accordingly
-	      -- in onUpdatePeersReceived notification
-	      --appWarpClient.sendUpdatePeers(tostring(t.id) .. " " .. tostring(t.x).." ".. tostring(t.y))
+	      		print("moved button id ".. tostring(t.id))
+	      		-- send the update to others in the game room. space delimit the values and parse accordingly
+	      		-- in onUpdatePeersReceived notification
+	      		--appWarpClient.sendUpdatePeers(tostring(t.id) .. " " .. tostring(t.x).." ".. tostring(t.y))
+				appWarpClient.sendUpdatePeers(tostring(t.filename) .. " " .. tostring(t.x).." ".. tostring(t.y))
+
+				if (t.drawn == false) then
+					t.isVisible = false	
+				end
+				t.moved = false
 			end
 		end
 		return true
 end
 
-function LoadImage(filename,x,y)
+function LoadCard(filename,x,y)
 	local group = display.newGroup()
     -- width, height, x, y
     local icon = display.newImage(group, "Images/" .. filename, 
@@ -98,10 +108,15 @@ function LoadImage(filename,x,y)
 
     icon:addEventListener( "touch", onTouch )
     --icon:addEventListener( "touch", onPress )
-    icon:scale( 0.35, 0.35 )
+    --icon:scale( 0.35, 0.35 )
 
-    GameInfo.images[table.getn(GameInfo.images)+1] = icon
+    id = table.getn(GameInfo.cards)+1
 
+    GameInfo.cards[id] = icon
+    GameInfo.cards[id].touched = false
+    GameInfo.cards[id].id = id 
+    GameInfo.cards[id].filename = filename
+    GameInfo.cards[id].drawn = false
 	--local box1 = cButtonClass:new(icon.x,icon.y,100,100,10,255,0,128,1);
 	--local button_array =
 	--{
@@ -116,22 +131,37 @@ function LoadImage(filename,x,y)
 
 end
 
---MULITOUCH
---system.activate("multitouch")
- 
---local bg = display.newRect( 0, 0, 320, 480 )
---local output = native.newTextBox( 0, 20, 320, 240 )
---output.size = 12
- 
 
---function showTouch(event)
-    -- Display the Event info on the screen
---    output.text = output.text .. "\nPhase: " .. event.phase
---    output.text = output.text .. "\n(" .. event.x .. "," .. event.y .. ")"
---    output.text = output.text .. "\nId: " .. tostring( event.id )
---end
- 
---bg:addEventListener("touch", showTouch)
+function AddCard(filename,x,y)
+	local group = display.newGroup()
+    -- width, height, x, y
+    local icon = display.newImage(group, "Images/" .. filename, 
+        x, y)
 
--- Deactivate multitouch after 5 seconds
---timer.performWithDelay( 8000, function() system.deactivate("multitouch") end )
+    icon:addEventListener( "touch", onTouch )
+    icon:addEventListener( "tap" , tapRotateLeftButton )
+
+    icon:scale( 0.75, 0.75 )
+
+    id = table.getn(GameInfo.table_cards)+1
+
+    GameInfo.table_cards[id] = icon
+    GameInfo.table_cards[id].touched = false
+    GameInfo.table_cards[id].id = id 
+    GameInfo.table_cards[id].filename = filename
+    GameInfo.table_cards[id].drawn = true
+    GameInfo.table_cards[id].rotation = 0
+end
+
+--ALLOW THE CARDS PLACED ON THE TABLE TO BE ROTATED IF CLICKED ON
+function tapRotateLeftButton( e )
+    local t = e.target
+    transition.to(t, {time=500, 
+    rotation= t.rotation -90.0, onComplete=updationrotation(t)})
+end
+
+local test_int = 0
+
+function updationrotation(t)
+	--do nothing on completion
+end
