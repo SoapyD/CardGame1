@@ -95,6 +95,7 @@ function onTouch( event )
 
 					if (t.drawn == false) then
 						t.isVisible = false	
+						print("now non visible: ".. tostring(t.filename))
 					end
 					t.moved = false
 				end
@@ -140,7 +141,7 @@ function AddCard(filename,x,y)
 	local group = display.newGroup()
     -- width, height, x, y
     local icon = display.newImage(group, "Images/" .. filename, 
-        x, y)
+        x - camera.scrollX, y - camera.scrollY)
 
     icon:addEventListener( "touch", onTouch )
     icon:addEventListener( "tap" , tapRotateLeftButton )

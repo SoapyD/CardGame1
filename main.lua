@@ -38,6 +38,11 @@ local function GameLoop( event )
     	GameInfo.frame_num = 0
     end
 
+	boundX1 = -camera.scrollX
+	boundX2 = -camera.scrollX + display.contentWidth
+	boundY1 = -camera.scrollY
+	boundY2 = -camera.scrollY + display.contentHeight
+
 
     --CREATE TOOLS TO KEEP THE CARD AND SCROLL IT UP AND DOWN THE SCREEN
     
@@ -99,8 +104,9 @@ local function GameLoop( event )
 			current_card.rotation = 0
 		end
 
-
+		--ONLY APPLY THIS CODE WHEN THE CARD ISN'T ROTATING
 		if ( current_card.saved_rotation == current_card.rotation) then
+			--TWO DIFFERENT TYPES OF POSITION DEPENDING ON THE ORIENTATION OF THE CARD
 			if ( current_card.rotation == 0 or current_card.rotation == -180 ) then
 				x_pos = current_card.x
 				y_pos = current_card.y
@@ -114,6 +120,19 @@ local function GameLoop( event )
 				current_card.x = (x_itts * x_space) --+ (x_space / 2)
 				current_card.y = (y_itts * y_space) --+ (y_space / 2)
 				--print("x:", x_itts, " y:", y_itts, "|")
+
+				if (current_card.x - (current_card.width / 2) <= boundX1) then
+					current_card.x =  boundX1 + (current_card.width / 2)
+				end
+				if (current_card.x + (current_card.width / 2) >= boundX2) then
+					current_card.x =  boundX2 - (current_card.width / 2)
+				end
+				if (current_card.y - (current_card.height / 2) <= boundY1) then
+					current_card.y =  boundY1 + (current_card.height / 2)
+				end
+				if (current_card.y + (current_card.height / 2) >= boundY2) then
+					current_card.y =  boundY2 - (current_card.height / 2)
+				end													
 			else
 				x_pos = current_card.x
 				y_pos = current_card.y
@@ -132,6 +151,25 @@ local function GameLoop( event )
 
 		current_card.saved_rotation = current_card.rotation
 	end
+
+
+	button1.x = -camera.scrollX
+	button1.y = -camera.scrollY
+	button2.x = -camera.scrollX + display.contentWidth
+	button2.y = -camera.scrollY
+	button3.x = -camera.scrollX 
+	button3.y = -camera.scrollY + display.contentHeight
+	button4.x = -camera.scrollX + display.contentWidth
+	button4.y = -camera.scrollY + display.contentHeight
+
+
+	print_string = "CameraX:" .. math.round(camera.scrollX)
+	print_string = print_string .. "\nCameraY:" .. math.round(camera.scrollY)
+
+	statusText.text = print_string
+	statusText.x = statusText.width / 2
+	statusText.y = display.contentHeight - statusText.height / 2
+	--print("cameraX1:",camera.scrollX)
 
     --CHECK THE NETWORK CONNECTION
     appWarpClient.Loop()
@@ -202,6 +240,38 @@ function SetupButtons()
 	DrawCard(1)
 
 	--Portrait()				
+	EndBounds()
+end
+
+function EndBounds()
+	button1 = display.newRoundedRect( 0, 0, 50, 50, 1 )
+			button1:setFillColor( 0, 0, 0 )
+			button1.strokeWidth = 6
+			button1:setStrokeColor( 200,200,200,255 )
+
+    camera:add(button1, 4, true)
+
+	button2 = display.newRoundedRect( 0, 0, 50, 50, 1 )
+			button2:setFillColor( 0, 0, 0 )
+			button2.strokeWidth = 6
+			button2:setStrokeColor( 200,200,200,255 )
+
+    camera:add(button2, 4, true)
+
+	button3 = display.newRoundedRect( 0, 0, 50, 50, 1 )
+			button3:setFillColor( 0, 0, 0 )
+			button3.strokeWidth = 6
+			button3:setStrokeColor( 200,200,200,255 )
+
+    camera:add(button3, 4, true)
+
+	button4 = display.newRoundedRect( 0, 0, 50, 50, 1 )
+			button4:setFillColor( 0, 0, 0 )
+			button4.strokeWidth = 6
+			button4:setStrokeColor( 200,200,200,255 )
+
+    camera:add(button4, 4, true)        
+
 end
 
 
