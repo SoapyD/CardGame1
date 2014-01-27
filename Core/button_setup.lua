@@ -173,11 +173,7 @@ function finishCard( event )
 				camera:add(GameInfo.table_cards[id], 1, true)
 				camera:setFocus(GameInfo.table_cards[id])
 
-				camera:track()
-				--print("tableX:" .. GameInfo.table_cards[id].x)
-				--print("tableY:" .. GameInfo.table_cards[id].y)	
-				--print("scrollX:" .. camera.scrollX)
-				--print("scrollY:" .. camera.scrollY)								
+				camera:track()								
 			end
 		end
 	end

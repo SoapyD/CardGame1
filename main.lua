@@ -8,6 +8,7 @@ require("Core.button_setup")
 require("Core.button_loop")
 require("Core.card_setup")
 require("Core.card_loop")
+require("Core.colors-rgb")
 require("Network.networking")
 
 GameInfo = cGameInfo:new(0)
@@ -109,29 +110,29 @@ end
 
 
 function EndBounds()
-	button1 = display.newRoundedRect( 0, 0, 50, 50, 1 )
-			button1:setFillColor( 255, 128, 0 )
+	button1 = display.newRoundedRect( 0, 0, 150, 150, 1 )
+			button1:setFillColor( colorsRGB.RGB("green") )
 			button1.strokeWidth = 6
 			button1:setStrokeColor( 200,200,200,255 )
 
     camera:add(button1, 4, true)
 
-	button2 = display.newRoundedRect( 0, 0, 50, 50, 1 )
-			button2:setFillColor( 255, 128, 0 )
+	button2 = display.newRoundedRect( 0, 0, 150, 150, 1 )
+			button2:setFillColor( colorsRGB.RGB("green") )
 			button2.strokeWidth = 6
 			button2:setStrokeColor( 200,200,200,255 )
 
     camera:add(button2, 4, true)
 
-	button3 = display.newRoundedRect( 0, 0, 50, 50, 1 )
-			button3:setFillColor( 255, 128, 0 )
+	button3 = display.newRoundedRect( 0, 0, 150, 150, 1 )
+			button3:setFillColor( colorsRGB.RGB("green"))
 			button3.strokeWidth = 6
 			button3:setStrokeColor( 200,200,200,255 )
 
     camera:add(button3, 4, true)
 
-	button4 = display.newRoundedRect( 0, 0, 50, 50, 1 )
-			button4:setFillColor( 255, 128, 0 )
+	button4 = display.newRoundedRect( 0, 0, 150, 150, 1 )
+			button4:setFillColor( colorsRGB.RGB("green") )
 			button4.strokeWidth = 6
 			button4:setStrokeColor( 200,200,200,255 )
 

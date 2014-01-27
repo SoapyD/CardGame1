@@ -1,3 +1,5 @@
+require("Network.update_cards")
+
 function onJoinRoomDone(resultCode)
   if(resultCode == WarpResponseResultCode.SUCCESS) then
     appWarpClient.subscribeRoom(STATIC_ROOM_ID)
@@ -39,38 +41,33 @@ function onUpdatePeersReceived(update)
   --local id = tostring(func())
   --local x = func()
   --local y = func()
-  local filename = tostring(func())
-  local x = tonumber(func())
-  local y = tonumber(func())
+  local update_type = tostring(func())
+    print(update_type)
 
-  --if (table.getn(GameInfo.table_cards) < tonumber(id)) then
-  --  print("not on table")
-  --end
-  found = false
-  saved_id = -1
-  for i = 1, table.getn(GameInfo.table_cards) do    
-      temp_filename = GameInfo.table_cards[i].filename
-      print("table_card: " .. temp_filename)
-      if ( temp_filename == filename) then
-        found = true
-        saved_id = i
-      end
+  if (update_type == "position") then
+    local unique_id = tostring(func())
+    local filename = tostring(func())
+    local x = tonumber(func())
+    local y = tonumber(func())
+
+    Update_Pos(unique_id, filename, x, y)
   end
 
-  if ( found == false) then
-    print(filename, " not on table")
-    AddCard(filename, x, y)
-  else
-    GameInfo.table_cards[saved_id].x = x
-    GameInfo.table_cards[saved_id].y = y
+  if (update_type == "rotation") then
+    local unique_id = tostring(func())
+    local username = tostring(func()) 
+    local angle = tonumber(func())
+
+    Update_Rotation(unique_id, username, angle)
   end
-  --local button = GameInfo.myButtons[id]
-  --button.x = tonumber(x)
-  --button.y = tonumber(y)
-  --print("someone moved button id ".. id)
 end
+
+function UpdatenetRotation(t)
+end
+
 
 appWarpClient.addRequestListener("onConnectDone", onConnectDone)
 appWarpClient.addRequestListener("onJoinRoomDone", onJoinRoomDone)
 appWarpClient.addRequestListener("onSubscribeRoomDone", onSubscribeRoomDone)
 appWarpClient.addNotificationListener("onUpdatePeersReceived", onUpdatePeersReceived)
+appWarpClient.addNotificationListener("UpdateClientRotation", UpdateClientRotation)

@@ -18,5 +18,7 @@ function networkConnection()
 	--statusText = display.newText( "Connecting..", 100, display.contentHeight, native.systemFontBold, 24 )
 	--statusText.width = 300
 	-- start connecting with a random name
-	appWarpClient.connectWithUserName(tostring(os.clock()))
+	GameInfo.username  = tostring(os.clock())
+	appWarpClient.connectWithUserName(GameInfo.username)
+	--print(GameInfo.username)
 end

@@ -14,8 +14,8 @@ function cGameInfo.methods:init(gamestate)
 	self.current_card_int = -1
 
 	self.zoom = 0.5
-
 	self.portrait_start = 400; --NEEDED FOR THE POSITIONING OF PLAYER HAND BUTTONS
+	self.username = ""
 end
 
 --{ x=50, y=10, w=100, h=100, r=10, red=255, green=0, blue=128, id = 1 },
