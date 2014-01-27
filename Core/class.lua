@@ -12,6 +12,8 @@ function cGameInfo.methods:init(gamestate)
 	self.height = display.actualContentHeight
 	self.width = display.actualContentWidth
 	self.current_card_int = -1
+
+	self.portrait_start = 400; --NEEDED FOR THE POSITIONING OF PLAYER HAND BUTTONS
 end
 
 --{ x=50, y=10, w=100, h=100, r=10, red=255, green=0, blue=128, id = 1 },
