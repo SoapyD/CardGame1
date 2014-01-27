@@ -4,7 +4,6 @@ require("Core.INC_Class")
 require("Core.class")
 require("Core.statements")
 require("Core.core_functions")
-require("Core.camera_controls")
 require("Core.button_setup")
 require("Core.button_loop")
 require("Core.card_setup")
@@ -12,6 +11,9 @@ require("Core.card_loop")
 require("Network.networking")
 
 GameInfo = cGameInfo:new(0)
+
+require("Core.camera_controls") --REQUIRES THE ZOOM VALUE FROM GAMEINFO
+
 --local hand;
 
 local board = {}
@@ -38,9 +40,9 @@ local function GameLoop( event )
 
     --BOUNDS NEEDED TO KEEP THE SYNCING OF SCREEN AND GAME SPACES TOGETHER
 	boundX1 = -camera.scrollX
-	boundX2 = -camera.scrollX + display.contentWidth
+	boundX2 = -camera.scrollX + (display.contentWidth / camera.xScale)
 	boundY1 = -camera.scrollY
-	boundY2 = -camera.scrollY + display.contentHeight
+	boundY2 = -camera.scrollY + (display.contentHeight / camera.yScale)
 
 
     --CREATE TOOLS TO KEEP THE CARD AND SCROLL IT UP AND DOWN THE SCREEN
@@ -51,12 +53,12 @@ local function GameLoop( event )
  	--SOME TEMPORARY DRAWN BUTTONS I'M USING TO TEST THE CAMERA AND IT'S SPACING
 	button1.x = -camera.scrollX
 	button1.y = -camera.scrollY
-	button2.x = -camera.scrollX + display.contentWidth
+	button2.x = -camera.scrollX + (display.contentWidth / camera.xScale)
 	button2.y = -camera.scrollY
 	button3.x = -camera.scrollX 
-	button3.y = -camera.scrollY + display.contentHeight
-	button4.x = -camera.scrollX + display.contentWidth
-	button4.y = -camera.scrollY + display.contentHeight
+	button3.y = -camera.scrollY + (display.contentHeight / camera.yScale)
+	button4.x = -camera.scrollX + (display.contentWidth / camera.xScale)
+	button4.y = -camera.scrollY + (display.contentHeight / camera.yScale)
 
 
 	print_string = "CameraX:" .. math.round(camera.scrollX)
@@ -108,34 +110,31 @@ end
 
 function EndBounds()
 	button1 = display.newRoundedRect( 0, 0, 50, 50, 1 )
-			button1:setFillColor( 0, 0, 0 )
+			button1:setFillColor( 255, 128, 0 )
 			button1.strokeWidth = 6
 			button1:setStrokeColor( 200,200,200,255 )
 
     camera:add(button1, 4, true)
 
 	button2 = display.newRoundedRect( 0, 0, 50, 50, 1 )
-			button2:setFillColor( 0, 0, 0 )
+			button2:setFillColor( 255, 128, 0 )
 			button2.strokeWidth = 6
 			button2:setStrokeColor( 200,200,200,255 )
 
     camera:add(button2, 4, true)
 
 	button3 = display.newRoundedRect( 0, 0, 50, 50, 1 )
-			button3:setFillColor( 0, 0, 0 )
+			button3:setFillColor( 255, 128, 0 )
 			button3.strokeWidth = 6
 			button3:setStrokeColor( 200,200,200,255 )
 
     camera:add(button3, 4, true)
 
 	button4 = display.newRoundedRect( 0, 0, 50, 50, 1 )
-			button4:setFillColor( 0, 0, 0 )
+			button4:setFillColor( 255, 128, 0 )
 			button4.strokeWidth = 6
 			button4:setStrokeColor( 200,200,200,255 )
 
     camera:add(button4, 4, true)        
 
 end
-
-
-

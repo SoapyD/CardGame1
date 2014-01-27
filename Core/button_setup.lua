@@ -170,10 +170,14 @@ function finishCard( event )
 			id = GameInfo.current_card_int
 			if(id ~= -1) then
 				GameInfo.table_cards[id].finalised = true
-				camera:add(GameInfo.table_cards[id], 4, true)
+				camera:add(GameInfo.table_cards[id], 1, true)
 				camera:setFocus(GameInfo.table_cards[id])
-				camera:track()
 
+				camera:track()
+				--print("tableX:" .. GameInfo.table_cards[id].x)
+				--print("tableY:" .. GameInfo.table_cards[id].y)	
+				--print("scrollX:" .. camera.scrollX)
+				--print("scrollY:" .. camera.scrollY)								
 			end
 		end
 	end

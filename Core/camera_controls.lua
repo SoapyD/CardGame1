@@ -4,6 +4,10 @@ camera=perspective.createView()
 
 camera:setBounds(-5000,5000, -5000,5000)
 
+
+camera.xScale = GameInfo.zoom
+camera.yScale = GameInfo.zoom
+
 print_string = ""
 statusText = display.newText( print_string, 100, display.contentHeight / 2, native.systemFontBold, 48 )
 

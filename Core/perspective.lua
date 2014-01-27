@@ -19,10 +19,10 @@ Changes for v1.4.2
 local abs			= math.abs
 local inf			= math.huge
 local ng			= display.newGroup
-local ccx			= display.contentCenterX
-local ccy			= display.contentCenterY
-local cw			= display.contentWidth
-local ch			= display.contentHeight
+local ccx			= display.contentCenterX / GameInfo.zoom
+local ccy			= display.contentCenterY / GameInfo.zoom
+local cw			= display.contentWidth / GameInfo.zoom
+local ch			= display.contentHeight / GameInfo.zoom
 local drm			= display.remove
 
 
