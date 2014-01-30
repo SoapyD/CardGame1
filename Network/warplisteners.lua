@@ -37,12 +37,8 @@ end
 
 function onUpdatePeersReceived(update)
   local func = string.gmatch(update, "%S+")
-  -- extract the sent values which are space delimited
-  --local id = tostring(func())
-  --local x = func()
-  --local y = func()
+
   local update_type = tostring(func())
-    print(update_type)
 
   if (update_type == "position") then
     local unique_id = tostring(func())
@@ -50,6 +46,7 @@ function onUpdatePeersReceived(update)
     local x = tonumber(func())
     local y = tonumber(func())
 
+    print("id_to_use" .. filename)
     Update_Pos(unique_id, filename, x, y)
   end
 
@@ -70,4 +67,3 @@ appWarpClient.addRequestListener("onConnectDone", onConnectDone)
 appWarpClient.addRequestListener("onJoinRoomDone", onJoinRoomDone)
 appWarpClient.addRequestListener("onSubscribeRoomDone", onSubscribeRoomDone)
 appWarpClient.addNotificationListener("onUpdatePeersReceived", onUpdatePeersReceived)
-appWarpClient.addNotificationListener("UpdateClientRotation", UpdateClientRotation)

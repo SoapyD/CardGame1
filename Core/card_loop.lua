@@ -1,9 +1,9 @@
 
-local x_space = 250
-local y_space = 250
---local x_land = 187.5
---local y_land = 187.5
+--local x_space = 250
+--local y_space = 250
 
+local x_space = 125
+local y_space = 125
 
 function run_card_loop()
 
@@ -38,7 +38,7 @@ function run_card_loop()
 			local used_x = current_card.x
 			local used_y = current_card.y
 
-			if ( current_card.rotation == 0 or current_card.rotation == -180 ) then
+			--if ( current_card.rotation == 0 or current_card.rotation == -180 ) then
 				x_itts = used_x / x_space
 				y_itts = used_y / y_space
 
@@ -48,17 +48,17 @@ function run_card_loop()
 				current_card.x = (x_itts * x_space) --+ (x_space / 2)
 				current_card.y = (y_itts * y_space) --+ (y_space / 2)
 				--print("x:", x_itts, " y:", y_itts, "|")												
-			else
-				x_itts = (used_x - (x_space / 2)) / x_space
-				y_itts = (used_y - (y_space / 2)) / y_space
+			--else
+				--x_itts = (used_x - (x_space / 2)) / x_space
+				--y_itts = (used_y - (y_space / 2)) / y_space
 
-				x_itts = math.round(x_itts)
-				y_itts = math.round(y_itts)
+				--x_itts = math.round(x_itts)
+				--y_itts = math.round(y_itts)
 
-				current_card.x = (x_itts * x_space) + (x_space / 2) --+ (x_space / 2)
-				current_card.y = (y_itts * y_space) + (y_space / 2) --+ (y_space / 2)
+				--current_card.x = (x_itts * x_space) + (x_space / 2) --+ (x_space / 2)
+				--current_card.y = (y_itts * y_space) + (y_space / 2) --+ (y_space / 2)
 				--print("x:", x_itts, " y:", y_itts, "|")
-			end
+			--end
 		end
 
 		--NOT ENTIRELY ELEGENT FOR BOTH DIRECTIONS BUT IT DOES THE JOB.

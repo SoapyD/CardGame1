@@ -169,11 +169,26 @@ function finishCard( event )
 			t.isFocus = false
 			id = GameInfo.current_card_int
 			if(id ~= -1) then
-				GameInfo.table_cards[id].finalised = true
-				camera:add(GameInfo.table_cards[id], 1, true)
-				camera:setFocus(GameInfo.table_cards[id])
+				--current_card = GameInfo.table_cards[id]
 
-				camera:track()								
+				--current_card.finalised = true
+				--camera:add(current_card, 1, true)
+				--camera:setFocus(current_card)
+				--camera:track()
+
+				appWarpClient.sendUpdatePeers(
+					tostring("position") .. " " ..
+					tostring(current_card.unique_id) .. " " ..
+					tostring(current_card.filename) .. " " .. 
+					tostring(current_card.x).." ".. 
+					tostring(current_card.y))
+
+				appWarpClient.sendUpdatePeers(
+					tostring("rotation") .. " " ..
+					tostring(current_card.unique_id) .. " " .. 
+					tostring(GameInfo.username) .. " " ..		
+					tostring(current_card.rotation))
+												
 			end
 		end
 	end

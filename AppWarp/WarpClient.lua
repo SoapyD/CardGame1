@@ -53,9 +53,6 @@
       if(NotificationListenerTable.onUpdatePeersReceived ~= nil) then
         NotificationListenerTable.onUpdatePeersReceived(payLoad)
       end 
-      --if(NotificationListenerTable.UpdateClientRotation ~= nil) then
-      --  NotificationListenerTable.UpdateClientRotation(payLoad)
-      --end 
 
       return
     end    

@@ -89,21 +89,16 @@ function onTouch( event )
 				elseif "ended" == phase or "cancelled" == phase then
 					display.getCurrentStage():setFocus( nil )
 					t.isFocus = false
-		      		print("moved button id ".. tostring(t.id))
+		      		print("moved button id ".. t.unique_id)
 		      		-- send the update to others in the game room. space delimit the values and parse accordingly
 		      		-- in onUpdatePeersReceived notification
-		      		--appWarpClient.sendUpdatePeers(tostring(t.id) .. " " .. tostring(t.x).." ".. tostring(t.y))
-					--appWarpClient.sendUpdatePeers(tostring(t.filename) .. " " .. tostring(t.x).." ".. tostring(t.y))
-					appWarpClient.sendUpdatePeers(
-						tostring("position") .. " " ..
-						tostring(t.unique_id) .. " " ..
-						tostring(t.filename) .. " " .. 
-						tostring(t.x).." ".. 
-						tostring(t.y))
-
 					--appWarpClient.sendUpdatePeers(
-					--	tostring("rotation") .. " " ..
-					--	tostring(t.rotation))
+					--	tostring("position") .. " " ..
+					--	tostring(t.unique_id) .. " " ..
+					--	tostring(t.filename) .. " " .. 
+					--	tostring(t.x).." ".. 
+					--	tostring(t.y))
+					Update_Pos2(t.unique_id, t.filename, t.x, t.y)
 
 					if (t.drawn == false) then
 						t.isVisible = false	
@@ -138,12 +133,19 @@ function LoadCard(filename,x,y)
 end
 
 
-function AddCard(unique_id,filename,x,y)
+function AddCard(unique_id,filename,x,y,scale)
 	local group = display.newGroup()
     -- width, height, x, y
-    local icon = display.newImage(group, "Images/" .. filename, 
-        (x / camera.xScale) - camera.scrollX, (y / camera.yScale) - camera.scrollY)
+    --it's this that's causing the misalignment of cards being laid down over the network
+    local icon;
 
+    if (scale == true) then
+	    icon = display.newImage(group, "Images/" .. filename, 
+	        (x / camera.xScale) - camera.scrollX, (y / camera.yScale) - camera.scrollY)
+	else
+	    icon = display.newImage(group, "Images/" .. filename, 
+	        x, y)
+	end
     icon:addEventListener( "touch", onTouch )
     icon:addEventListener( "tap" , tapRotateLeftButton )
 
@@ -155,13 +157,15 @@ function AddCard(unique_id,filename,x,y)
     GameInfo.table_cards[id].touched = false
     GameInfo.table_cards[id].id = id 
     GameInfo.table_cards[id].unique_id = unique_id
-    GameInfo.cards[id].filename = filename
+    GameInfo.table_cards[id].filename = filename
     --print (GameInfo.table_cards[id].unique_id)
     GameInfo.table_cards[id].drawn = true
     GameInfo.table_cards[id].rotation = 0
     GameInfo.table_cards[id].finalised = false
 
     GameInfo.current_card_int = id
+
+    print("unique_card_id:", GameInfo.table_cards[id].unique_id)
 
     --ADD THE CARD TO THE CAMERA BUT DON'T MAKE IT THE FOCUS YET
     camera:add(GameInfo.table_cards[id], 1, false)
@@ -183,20 +187,9 @@ function tapRotateLeftButton( e )
 	end
 end
 
-local test_int = 0
-
 function UpdateRotation(t)
-	--do nothing on completion
-	print("t_rotation is:", t.rotation)
-	--UpdateClientRotation(
-	--	tostring(t.unique_id) .. " " .. 
-	--	tostring(GameInfo.username) .. " " .. 
-	--	tostring(t.rotation))
 
-
-	--UpdateClientRotation( 
-	--	tostring(t.rotation))
-
+	--SEND AN UPDATE TO THE OTHER PLAYERS THAT THE CARD'S ROTATING AND BY WHAT ANGLE
 	appWarpClient.sendUpdatePeers(
 		tostring("rotation") .. " " ..
 		tostring(t.unique_id) .. " " .. 
