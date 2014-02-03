@@ -26,6 +26,14 @@ local ch			= display.contentHeight / GameInfo.zoom
 local drm			= display.remove
 
 
+function Update_Per_Scaling()
+	ccx = display.contentCenterX / GameInfo.zoom
+	ccy = display.contentCenterY / GameInfo.zoom
+	cw = display.contentWidth / GameInfo.zoom
+	ch = display.contentHeight / GameInfo.zoom
+end
+
+
 local Perspective={
 	version="1.4.2",
 	author="Caleb P - Gymbyl Coding"

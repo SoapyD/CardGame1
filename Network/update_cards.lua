@@ -20,7 +20,7 @@ function Update_Pos(unique_id, filename, x, y)
 
       current_card = GameInfo.table_cards[table.getn(GameInfo.table_cards)]
       current_card.finalised = true
-      camera:add(current_card, 1, true)
+      camera:add(current_card, 7, true)
       camera:setFocus(current_card)
       camera:track()
 
@@ -30,7 +30,7 @@ function Update_Pos(unique_id, filename, x, y)
 
       current_card = GameInfo.table_cards[saved_id]
       current_card.finalised = true
-      camera:add(current_card, 1, true)
+      camera:add(current_card, 7, true)
       camera:setFocus(current_card)
       camera:track()
 

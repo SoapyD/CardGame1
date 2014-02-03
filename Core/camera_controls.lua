@@ -29,9 +29,16 @@ function CheckZoom()
 		end
 
 		if(GameInfo.zoom_saved ~= 0) then
-			GameInfo.zoom =  GameInfo.zoom - ((GameInfo.zoom_saved - GameInfo.zoom_dis) / 500)
+			GameInfo.zoom =  GameInfo.zoom - ((GameInfo.zoom_saved - GameInfo.zoom_dis) / 1000)
+			if (GameInfo.zoom < 0.25) then
+				GameInfo.zoom = 0.25
+			end
+			if (GameInfo.zoom > 1.0) then
+				GameInfo.zoom = 1.0
+			end			
 			camera.xScale = GameInfo.zoom
 			camera.yScale = GameInfo.zoom
+			Update_Per_Scaling()
 		end
 
 		GameInfo.zoom_saved = GameInfo.zoom_dis
