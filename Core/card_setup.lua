@@ -70,7 +70,8 @@ function onTouch( event )
 				t.touched = true
 
 				GameInfo.hand.hide = true
-				print("touched")
+
+				--print("touched")
 			elseif t.isFocus then
 				if "moved" == phase then
 					-- Make object move (we subtract t.x0,t.y0 so that moves are
@@ -90,14 +91,6 @@ function onTouch( event )
 					display.getCurrentStage():setFocus( nil )
 					t.isFocus = false
 		      		print("moved button id ".. t.unique_id)
-		      		-- send the update to others in the game room. space delimit the values and parse accordingly
-		      		-- in onUpdatePeersReceived notification
-					--appWarpClient.sendUpdatePeers(
-					--	tostring("position") .. " " ..
-					--	tostring(t.unique_id) .. " " ..
-					--	tostring(t.filename) .. " " .. 
-					--	tostring(t.x).." ".. 
-					--	tostring(t.y))
 					Update_Pos2(t.unique_id, t.filename, t.x, t.y)
 
 					if (t.drawn == false) then
@@ -108,6 +101,7 @@ function onTouch( event )
 				end
 			end
 		end
+		--GameInfo.touches[ table.getn(GameInfo.touches)+1 ] = event
 		return true
 end
 

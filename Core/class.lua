@@ -16,6 +16,10 @@ function cGameInfo.methods:init(gamestate)
 	self.zoom = 0.5
 	self.portrait_start = 400; --NEEDED FOR THE POSITIONING OF PLAYER HAND BUTTONS
 	self.username = ""
+	self.touches  = {}
+	self.zoom_dis  = 0
+	self.zoom_saved  = 0
+	self.table_item = {}
 end
 
 --{ x=50, y=10, w=100, h=100, r=10, red=255, green=0, blue=128, id = 1 },

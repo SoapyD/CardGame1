@@ -11,7 +11,6 @@ function SetupButtons()
 	DrawCard(1)
 
 	--Portrait()				
-	EndBounds()
 end
 
 
