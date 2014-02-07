@@ -39,6 +39,7 @@ function CheckZoom()
 			camera.xScale = GameInfo.zoom
 			camera.yScale = GameInfo.zoom
 			Update_Per_Scaling()
+			camera.damping = 0
 		end
 
 		GameInfo.zoom_saved = GameInfo.zoom_dis

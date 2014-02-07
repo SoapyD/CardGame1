@@ -174,6 +174,7 @@ function finishCard( event )
 				--camera:add(current_card, 1, true)
 				--camera:setFocus(current_card)
 				--camera:track()
+				camera.damping = 10
 
 				appWarpClient.sendUpdatePeers(
 					tostring("position") .. " " ..

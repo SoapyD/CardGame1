@@ -34,8 +34,6 @@ local function GameLoop( event )
     		end,
     	[1] = loadGame,--SET ANYTHING THAT ONLY NEEDS LOADING ONCE 
     	[2] = function()
-    			--LoadTable( "table2" .. ".jpg",0,0) 
-    			--GameInfo.gamestate = GameInfo.gamestate + 1
     			run_main_loop()
     		end,
 	    --[3] = function () 
@@ -61,7 +59,7 @@ function loadGame()
 	networkSetup();
 	networkConnection(); 
 	--BOXES TO TEST THE NETWORK CONNECTION
-	LoadTable( "table2" .. ".jpg",0,0);
+	LoadTable( "table2" .. ".jpg",1000,1000);
 	setBoards();
 
 
@@ -71,42 +69,6 @@ function loadGame()
 	run_main_loop()
 	--ADVANCE THE GAMESTATE
 	GameInfo.gamestate = GameInfo.gamestate + 1
-end
-
-
-function setBoards()
-	board = {};
-	for i=-14, 16 do
-		--cardtext = ""
-		board[i] = {}
-     	for j=-14, 16 do
-     		local tempSpace;
-    	    table.insert(board[i],tempSpace);
-    	    --cardtext = cardtext .. i .. "," .. j .. "||";
-    	    board[i] =display.newRoundedRect( 
-    	    	((j - 1) * 125), 
-    	    	((i - 1) * 125), 
-    	    	50, 50, 1 )
-    	    board[i]:setFillColor( colorsRGB.RGB("blue") )
-    	    camera:add(board[i], 1, false)
-     	end
-     	--print(cardtext)
-    end
-
-    	    --item1 =display.newRoundedRect( 
-    	    --	0, 
-    	    --	0, 
-    	    --	150, 150, 1 )
-    	    --item1:setFillColor( colorsRGB.RGB("blue") )
-    	    --camera:add(item1, 1, false)
-
-    	    --item2 =display.newRoundedRect( 
-    	    --	GameInfo.table_item.x, 
-    	    --	GameInfo.table_item.y, 
-    	    --	150, 150, 1 )
-    	    --item2:setFillColor( colorsRGB.RGB("red") )
-    	    --camera:add(item2, 1, false)
-
 end
 
 

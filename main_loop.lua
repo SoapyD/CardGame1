@@ -48,8 +48,7 @@ function run_main_loop()
 
 	print_string = "CameraX:" .. math.round(camera.scrollX)
 	print_string = print_string .. "\nCameraY:" .. math.round(camera.scrollY)
-	print_string = print_string .. "\nTouches:" .. table.getn(GameInfo.touches)
-	print_string = print_string .. "\nZoom:" .. GameInfo.zoom_dis
+	print_string = print_string .. "\nDamping:" .. camera.damping	
 	--print_string = print_string .. "\nTable:" .. GameInfo.table_item.x .. "," .. GameInfo.table_item.y
 	--print_string = print_string .. "\nTouches:" .. CountDictionary(GameInfo.touches)
 
