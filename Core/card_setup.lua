@@ -46,64 +46,6 @@ function CheckDeck(deck_index)
 	return tempCard
 end
 
-function onTouch( event )
-		local t = event.target
-		local phase = event.phase
-
-		if (t.finalised == false) then
-			if "began" == phase then
-				-- Make target the top-most object
-				local parent = t.parent
-				parent:insert( t )
-				display.getCurrentStage():setFocus( t )
-				t.isFocus = true
-				-- Store initial position
-
-				if (t.drawn == false) then
-					t.x0 = event.x - t.x
-					t.y0 = event.y - t.y
-				else
-					t.x0 = (event.x / camera.xScale) - t.x
-					t.y0 = (event.y / camera.xScale) - t.y
-				end
-				t.moved = true
-				t.touched = true
-
-				GameInfo.hand.hide = true
-
-				--print("touched")
-			elseif t.isFocus then
-				if "moved" == phase then
-					-- Make object move (we subtract t.x0,t.y0 so that moves are
-					-- relative to initial grab point, rather than object "snapping").
-					t.x = (event.x / camera.xScale) - t.x0
-					t.y = (event.y / camera.xScale) - t.y0
-
-					if (t.drawn == false) then
-						t.x = event.x - t.x0
-						t.y = event.y - t.y0
-					else
-						t.x = (event.x / camera.xScale) - t.x0
-						t.y = (event.y / camera.xScale) - t.y0
-					end
-
-				elseif "ended" == phase or "cancelled" == phase then
-					display.getCurrentStage():setFocus( nil )
-					t.isFocus = false
-		      		print("moved button id ".. t.unique_id)
-					Update_Pos2(t.unique_id, t.filename, t.x, t.y)
-
-					if (t.drawn == false) then
-						t.isVisible = false	
-						print("now non visible: ".. tostring(t.filename))
-					end
-					t.moved = false
-				end
-			end
-		end
-		--GameInfo.touches[ table.getn(GameInfo.touches)+1 ] = event
-		return true
-end
 
 function LoadCard(filename,x,y)
 	local group = display.newGroup()
@@ -112,9 +54,6 @@ function LoadCard(filename,x,y)
         x, y)
 
     icon:addEventListener( "touch", onTouch )
-    --icon:addEventListener( "touch", onPress )
-    --icon:scale( 0.35, 0.35 )
-
     id = table.getn(GameInfo.cards)+1
 
     GameInfo.cards[id] = icon
@@ -140,11 +79,8 @@ function AddCard(unique_id,filename,x,y,scale)
 	    icon = display.newImage(group, "Images/" .. filename, 
 	        x, y)
 	end
-    icon:addEventListener( "touch", onTouch )
     icon:addEventListener( "tap" , tapRotateLeftButton )
-
-    --icon:scale( 0.75, 0.75 )
-
+    icon:addEventListener( "touch", onTouch )
     id = table.getn(GameInfo.table_cards)+1
 
     GameInfo.table_cards[id] = icon
@@ -152,42 +88,12 @@ function AddCard(unique_id,filename,x,y,scale)
     GameInfo.table_cards[id].id = id 
     GameInfo.table_cards[id].unique_id = unique_id
     GameInfo.table_cards[id].filename = filename
-    --print (GameInfo.table_cards[id].unique_id)
     GameInfo.table_cards[id].drawn = true
     GameInfo.table_cards[id].rotation = 0
     GameInfo.table_cards[id].finalised = false
 
     GameInfo.current_card_int = id
-
-    print("unique_card_id:", GameInfo.table_cards[id].unique_id)
-
+    --print("unique_card_id:", GameInfo.table_cards[id].unique_id)
     --ADD THE CARD TO THE CAMERA BUT DON'T MAKE IT THE FOCUS YET
     camera:add(GameInfo.table_cards[id], 1, false)
-    --if(id - 1 > 0) then
-   -- 	camera:setFocus(GameInfo.table_cards[id - 1])
-    --end
-end
-
---ALLOW THE CARDS PLACED ON THE TABLE TO BE ROTATED IF CLICKED ON
-function tapRotateLeftButton( e )
-    local t = e.target
-
-    if (t.finalised == false) then
-	    if ( t.rotation == 0 or t.rotation == -90 or 
-	    	t.rotation == -180 or t.rotation == -270) then
-	    	transition.to(t, {time=250, 
-	    	rotation= t.rotation -90.0, onComplete=UpdateRotation(t)})
-		end
-	end
-end
-
-function UpdateRotation(t)
-
-	--SEND AN UPDATE TO THE OTHER PLAYERS THAT THE CARD'S ROTATING AND BY WHAT ANGLE
-	appWarpClient.sendUpdatePeers(
-		tostring("rotation") .. " " ..
-		tostring(t.unique_id) .. " " .. 
-		tostring(GameInfo.username) .. " " ..		
-		tostring(t.rotation - 90))
-
 end

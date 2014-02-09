@@ -59,9 +59,6 @@ function onUpdatePeersReceived(update)
   end
 end
 
-function UpdatenetRotation(t)
-end
-
 
 appWarpClient.addRequestListener("onConnectDone", onConnectDone)
 appWarpClient.addRequestListener("onJoinRoomDone", onJoinRoomDone)

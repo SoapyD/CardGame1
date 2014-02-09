@@ -10,19 +10,49 @@ function run_card_loop()
     --KEEP THE CARD ALONG THE HAND BAR IF THEY'RE NOT BEING CARRIED
     hide = false
 	for i = 1, table.getn(GameInfo.cards) do
-		if(GameInfo.cards[i].touched == false) then
-	    	GameInfo.cards[i].x = GameInfo.hand.x - (GameInfo.hand.width / 2) + (GameInfo.cards[i].width / 2)
-	    	GameInfo.cards[i].x = GameInfo.cards[i].x + (GameInfo.cards[i].width * (i -1))
-	     	GameInfo.cards[i].x = GameInfo.cards[i].x + (10 * (i -1))   	
-	    	GameInfo.cards[i].y = GameInfo.hand.y
+		local hand_card = GameInfo.cards[i]
+		if(hand_card.touched == false) then
+	    	hand_card.x = GameInfo.hand.x - (GameInfo.hand.width / 2) + (hand_card.width / 2)
+	    	hand_card.x = hand_card.x + (GameInfo.cards[i].width * (i -1))
+	     	hand_card.x = hand_card.x + (10 * (i -1))   	
+	    	hand_card.y = GameInfo.hand.y
     	end
-    	if(GameInfo.cards[i].moved == true) then
-    		hide = true
+    	--if(hand_card.moved == true) then
+    	--	hide = true
+    	--end
+    	local screen_x = (hand_card.x) * camera.xScale
+    	local screen_y = (hand_card.y) * camera.yScale  
+
+
+    	if(hand_card.moved == true) then   		   		
+    		print_string = print_string .. "\nScreenX:" .. screen_x
+    		print_string = print_string .. "\nScreenY:" .. screen_y
+
+    		if ( screen_y > 600) then
+    			--hide = false
+    			GameInfo.hand.hide = false
+    			GameInfo.hand.show = true
+    		else
+    			GameInfo.hand.hide = true
+    		end   		
     	end
+
+    	--THIS ALLOW FOR THE NON PLACED CARD TO GO BACK IN THE PLAYERS HAND
+    	--IF THE CARD IS BELOW A CERTAIN HEIGHT ON THE SCREEN
+    	if(hand_card.touched == true and hand_card.moved == false
+    		and screen_y > 600) then
+    		print("worked")
+    		hand_card.touched = false
+    		hand_card.isVisible = true
+    		--hand_card.x = screen_x
+    		--hand_card.y = screen_y
+    		print(hand_card.y)
+    	end
+
 	end
-	if ( hide == false) then
-		GameInfo.hand.hide = false
-	end
+	--if ( hide == false) then
+	--	GameInfo.hand.hide = false
+	--end
 
 	--TABLE_CARD LOOP
 	for i = 1, table.getn(GameInfo.table_cards) do

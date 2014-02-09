@@ -1,9 +1,9 @@
 function setBoards()
     board = {};
-    for i=0, 8 do
+    for i=0, 16 do
         --cardtext = ""
         board[i] = {}
-        for j=0, 8 do
+        for j=0, 16 do
             local tempSpace;
             table.insert(board[i],tempSpace);
             --cardtext = cardtext .. i .. "," .. j .. "||";
@@ -21,16 +21,17 @@ function setBoards()
 end
 
 function LoadTable(filename,x,y)
-	local group = display.newGroup()
+    local group = display.newGroup()
     -- width, height, x, y
-    GameInfo.table_item = display.newImage(group, "Images/" .. filename, 
+    local table_item = display.newImage(group, "Images/" .. filename, 
         x, y)  
 
-    GameInfo.table_item:addEventListener( "touch", MultiTouch )
-    camera:add(GameInfo.table_item, 8, true)
-    camera:setFocus(GameInfo.table_item)
-    camera.damping = 0
-    camera:track() 
+    table_item:addEventListener( "touch", MultiTouch )
+    camera:add(table_item, 8, true)
+    GameInfo.table_items[ table.getn(GameInfo.table_items)+1 ] = table_item
+    --camera:setFocus(table_item)
+    --camera.damping = 0
+    --camera:track() 
 end
 
 function MultiTouch( event )

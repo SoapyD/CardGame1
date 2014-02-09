@@ -10,13 +10,25 @@ function run_button_loop()
 	end
 
 	--MAKE THE HAND HIDE AWAY IF THE PLAYER IS CURRENTLY HOLDING A CARD
-	if ( GameInfo.hand.hide == true and tab.y < GameInfo.height - (tab.height / 2)) then
-		tab.y = tab.y + 50
+	if ( GameInfo.hand.hide == true) then
+		if (tab.y < GameInfo.height - (tab.height / 2)) then
+			tab.y = tab.y + 50
 
-		if(tab.y > GameInfo.height - (tab.height / 2)) then
-			tab.y = GameInfo.height - (tab.height / 2)
-		end
+			if(tab.y > GameInfo.height - (tab.height / 2)) then
+				tab.y = GameInfo.height - (tab.height / 2)
+			end
+		end		
 	end
+
+	if ( GameInfo.hand.show == true) then
+		tab.y = tab.y - 50
+
+		if(tab.y < GameInfo.height - GameInfo.hand.height - bar.height - boxheight / 2) then
+			tab.y = GameInfo.height - GameInfo.hand.height - bar.height - boxheight / 2
+			GameInfo.hand.show = false
+		end	
+	end
+
 	--STOP THE BAR GOING BEYOND THE PORTRAIT OR FAR RIGHT OF THE SCREEN
 	if(bar.x < GameInfo.width - (bar.width / 2) ) then
 		bar.x = GameInfo.width - (bar.width / 2)

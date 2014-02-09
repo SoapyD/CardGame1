@@ -30,6 +30,7 @@ function PlayerHand()
 	GameInfo.hand.width = boxwidth
 	GameInfo.hand.height = boxheight
 	GameInfo.hand.hide = false
+	GameInfo.hand.show = false
 end
 
 function ScrollBar()

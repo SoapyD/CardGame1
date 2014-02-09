@@ -23,6 +23,7 @@ function Update_Pos(unique_id, filename, x, y)
       camera:add(current_card, 7, true)
       camera:setFocus(current_card)
       camera:track()
+      camera.damping = 10
 
     else
       GameInfo.table_cards[saved_id].x = x
@@ -33,6 +34,7 @@ function Update_Pos(unique_id, filename, x, y)
       camera:add(current_card, 7, true)
       camera:setFocus(current_card)
       camera:track()
+      camera.damping = 10
 
     end	
 
@@ -66,6 +68,8 @@ end
 function Update_Rotation(unique_id, username, angle)
     found = false
     saved_id = -1
+
+    --FIND THE CARD TO ROTATE
     for i = 1, table.getn(GameInfo.table_cards) do    
         temp_unique_id = GameInfo.table_cards[i].unique_id
 
@@ -75,6 +79,7 @@ function Update_Rotation(unique_id, username, angle)
         end
     end
 
+    --IF THE ROTATING CARD WASN'T YOUR CARD, UPDATE ITS ROTATION
     if ( found == true) then
       t = GameInfo.table_cards[saved_id]
 
@@ -83,4 +88,7 @@ function Update_Rotation(unique_id, username, angle)
           rotation= angle, onComplete=UpdatenetRotation(t)})
       end
     end
+end
+
+function UpdatenetRotation(t)
 end

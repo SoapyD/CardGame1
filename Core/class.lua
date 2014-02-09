@@ -19,7 +19,7 @@ function cGameInfo.methods:init(gamestate)
 	self.touches  = {}
 	self.zoom_dis  = 0
 	self.zoom_saved  = 0
-	self.table_item = {}
+	self.table_items = {}
 end
 
 --{ x=50, y=10, w=100, h=100, r=10, red=255, green=0, blue=128, id = 1 },

@@ -1,6 +1,8 @@
 
 function run_main_loop()
 
+	print_string = ""
+
 	GameInfo.frame_num= GameInfo.frame_num + 1;
     if (GameInfo.frame_num > 60) then
     	GameInfo.frame_num = 0
@@ -46,9 +48,9 @@ function run_main_loop()
 		button2.y = (GameInfo.touches[2].y  / camera.yScale) - camera.scrollY
 	end 
 
-	print_string = "CameraX:" .. math.round(camera.scrollX)
+	print_string = print_string .. "\nCameraX:" .. math.round(camera.scrollX)
 	print_string = print_string .. "\nCameraY:" .. math.round(camera.scrollY)
-	print_string = print_string .. "\nDamping:" .. camera.damping	
+	--print_string = print_string .. "\nDamping:" .. camera.damping	
 	--print_string = print_string .. "\nTable:" .. GameInfo.table_item.x .. "," .. GameInfo.table_item.y
 	--print_string = print_string .. "\nTouches:" .. CountDictionary(GameInfo.touches)
 

@@ -7,6 +7,7 @@ require("Core.core_functions")
 require("main_loop")
 require("Core.button_setup")
 require("Core.button_loop")
+require("Core.card_functions")
 require("Core.card_setup")
 require("Core.card_loop")
 require("Core.colors-rgb")
@@ -58,8 +59,15 @@ function loadGame()
 	
 	networkSetup();
 	networkConnection(); 
-	--BOXES TO TEST THE NETWORK CONNECTION
+	--MAXIMUM 2000x2000 SCALE TEXTURES. THE BOARD IS LOADED IN 4 PARTS
 	LoadTable( "table2" .. ".jpg",1000,1000);
+	LoadTable( "table2" .. ".jpg",3000,1000);
+	LoadTable( "table2" .. ".jpg",1000,3000);
+	LoadTable( "table2" .. ".jpg",3000,3000);
+	--THEN THE CAMERA IS SET TO THE MIDDLE OF THOSE SECTIONS
+	camera:toPoint(2000, 2000)
+	camera.damping = 0
+	--SET THE MARKERS
 	setBoards();
 
 
