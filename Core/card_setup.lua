@@ -81,15 +81,17 @@ function AddCard(unique_id,filename,x,y,scale)
 	end
     icon:addEventListener( "tap" , tapRotateLeftButton )
     icon:addEventListener( "touch", onTouch )
-    id = table.getn(GameInfo.table_cards)+1
 
     if ( GameInfo.current_card_int ~= -1) then
         if (GameInfo.table_cards[GameInfo.current_card_int].finalised == false) then
-            --Restore_HandCard()
-            --Remove_CurrentCard()
+            Restore_HandCard()
+            Remove_CurrentCard()
+            tab.hide_once = true
         end
     end
+    print("card added")
 
+    id = table.getn(GameInfo.table_cards)+1
     GameInfo.table_cards[id] = icon
     GameInfo.table_cards[id].touched = false
     GameInfo.table_cards[id].id = id 

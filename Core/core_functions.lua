@@ -1,6 +1,7 @@
 local widget = require("widget")
 
 function Remove_CurrentCard()
+	local current_card = GameInfo.table_cards[GameInfo.current_card_int]
 	current_card:removeSelf()
 	camera:remove(GameInfo.table_cards[GameInfo.current_card_int])
 	table.remove(GameInfo.table_cards, GameInfo.current_card_int)

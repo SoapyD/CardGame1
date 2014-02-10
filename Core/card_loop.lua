@@ -58,7 +58,7 @@ function run_card_loop()
 	--for i = 1, table.getn(GameInfo.table_cards) do
 	if ( GameInfo.current_card_int ~= -1) then
 		--current_card = GameInfo.table_cards[i]
-		current_card = GameInfo.table_cards[GameInfo.current_card_int]
+		local current_card = GameInfo.table_cards[GameInfo.current_card_int]
 
 		--ONLY APPLY THIS CODE WHEN THE CARD ISN'T ROTATING
 		if ( current_card.saved_rotation == current_card.rotation) then
@@ -109,9 +109,10 @@ function run_card_loop()
 				hand_card.x = screen_x
 				hand_card.y = screen_y		
 
-    			print_string = print_string .. "\nScreenX:" .. screen_x
-    			print_string = print_string .. "\nScreenY:" .. screen_y
-
+    			--print_string = print_string .. "\nScreenX:" .. screen_x
+    			--print_string = print_string .. "\nScreenY:" .. screen_y
+            	--GameInfo.hand.show = true
+            	--GameInfo.hand.hide = true
 				if ( hand_card.y > 600 / GameInfo.zoom) then
 					hand_card.isVisible = true
 					hand_card.touched = false

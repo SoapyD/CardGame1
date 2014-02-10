@@ -138,6 +138,7 @@ function onStrafe_vert( event )
 			-- Store initial position
 			--t.x0 = event.x - t.x
 			t.y0 = event.y - t.y
+			tab.hide_once = true
 		elseif t.isFocus then
 			if "moved" == phase then
 				-- Make object move (we subtract t.x0,t.y0 so that moves are
@@ -176,6 +177,8 @@ function finishCard( event )
 				--camera:setFocus(current_card)
 				--camera:track()
 				camera.damping = 10
+
+				local current_card = GameInfo.table_cards[GameInfo.current_card_int]
 
 				appWarpClient.sendUpdatePeers(
 					tostring("position") .. " " ..

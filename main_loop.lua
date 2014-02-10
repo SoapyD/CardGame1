@@ -53,6 +53,9 @@ function run_main_loop()
 	--print_string = print_string .. "\nDamping:" .. camera.damping	
 	--print_string = print_string .. "\nTable:" .. GameInfo.table_item.x .. "," .. GameInfo.table_item.y
 	--print_string = print_string .. "\nTouches:" .. CountDictionary(GameInfo.touches)
+	--print_string = print_string .. "\nCurrentID:" .. GameInfo.current_card_int
+	--print_string = print_string .. "\nSize:" .. table.getn(GameInfo.table_cards)
+    --print_string = print_string .. "\nshow/hide:" .. tostring(GameInfo.hand.show) .. ":" .. tostring(GameInfo.hand.hide)
 
 	GameInfo.touches = {}	
 
