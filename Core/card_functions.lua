@@ -50,11 +50,6 @@ function onTouch( event )
 					end
 					if (t.drawn == false) then
 						t.isVisible = false
-						--linked_Card = GameInfo.table_cards[table.getn(GameInfo.table_cards)]
-			    		--local screen_x = (linked_Card.x + camera.scrollX) * camera.xScale
-			    		--local screen_y = (linked_Card.y + camera.scrollY) * camera.yScale 						
-						--t.x = screen_x
-						--t.y = screen_y
 					end
 					t.moved = false
 
@@ -108,6 +103,11 @@ end
 
 function UpdateRotation(t)
 	--print("updating rotation")
+
+	if ( t.rotation <= -360 ) then
+		t.rotation = 0
+	end
+
 	CheckBoard_Pos(t)
 	--SEND AN UPDATE TO THE OTHER PLAYERS THAT THE CARD'S ROTATING AND BY WHAT ANGLE
 	appWarpClient.sendUpdatePeers(

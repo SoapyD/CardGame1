@@ -68,7 +68,7 @@ function Tab()
 	tab:addEventListener( "touch", onStrafe_vert )
 	tab.width = boxwidth
 	tab.height = boxheight	
-	
+	tab.hide_once = true
 end
 
 function Finalise_button()

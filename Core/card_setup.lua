@@ -83,6 +83,13 @@ function AddCard(unique_id,filename,x,y,scale)
     icon:addEventListener( "touch", onTouch )
     id = table.getn(GameInfo.table_cards)+1
 
+    if ( GameInfo.current_card_int ~= -1) then
+        if (GameInfo.table_cards[GameInfo.current_card_int].finalised == false) then
+            --Restore_HandCard()
+            --Remove_CurrentCard()
+        end
+    end
+
     GameInfo.table_cards[id] = icon
     GameInfo.table_cards[id].touched = false
     GameInfo.table_cards[id].id = id 

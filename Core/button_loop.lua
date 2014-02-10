@@ -16,12 +16,14 @@ function run_button_loop()
 
 			if(tab.y > GameInfo.height - (tab.height / 2)) then
 				tab.y = GameInfo.height - (tab.height / 2)
+				GameInfo.hand.hide  = false
 			end
 		end		
 	end
 
 	if ( GameInfo.hand.show == true) then
 		tab.y = tab.y - 50
+		tab.hide_once = true
 
 		if(tab.y < GameInfo.height - GameInfo.hand.height - bar.height - boxheight / 2) then
 			tab.y = GameInfo.height - GameInfo.hand.height - bar.height - boxheight / 2

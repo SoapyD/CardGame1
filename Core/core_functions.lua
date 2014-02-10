@@ -1,5 +1,35 @@
 local widget = require("widget")
 
+function Remove_CurrentCard()
+	current_card:removeSelf()
+	camera:remove(GameInfo.table_cards[GameInfo.current_card_int])
+	table.remove(GameInfo.table_cards, GameInfo.current_card_int)
+
+	print("card removed")
+	GameInfo.current_card_int = -1
+
+end
+
+function Restore_HandCard()
+	local current_card = GameInfo.table_cards[GameInfo.current_card_int]
+
+	for i = 1, table.getn(GameInfo.cards) do
+		local hand_card = GameInfo.cards[i]
+
+		if (hand_card.unique_id == current_card.unique_id and
+			current_card.finalised == false) then
+
+			local screen_x = (current_card.x + camera.scrollX) * camera.xScale
+			local screen_y = (current_card.y + camera.scrollY) * camera.yScale 						
+			hand_card.x = screen_x
+			hand_card.y = screen_y		
+
+			hand_card.isVisible = true
+			hand_card.touched = false	
+		end
+	end
+end
+
 
 function Test()
 
