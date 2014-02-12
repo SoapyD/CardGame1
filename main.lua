@@ -4,6 +4,7 @@ require("Core.INC_Class")
 require("Core.class")
 require("Core.statements")
 require("Core.core_functions")
+require("main_setup")
 require("main_loop")
 require("Core.button_setup")
 require("Core.button_loop")
@@ -17,6 +18,7 @@ GameInfo = cGameInfo:new(0)
 
 require("Core.camera_controls") --REQUIRES THE ZOOM VALUE FROM GAMEINFO
 require("Core.table_setup")
+require("Core.faceoff_setup")
 
 --local hand;
 local board = {}
@@ -53,60 +55,3 @@ end
 Runtime:addEventListener( "enterFrame", GameLoop )
 
 
-function loadGame()
-	--HERE'S WHERE WE CAN LOAD ANYTHING THAT ONLY NEEDS INITIALISING
-	print( "LOAD INFO")
-	
-	networkSetup();
-	networkConnection(); 
-	--MAXIMUM 2000x2000 SCALE TEXTURES. THE BOARD IS LOADED IN 4 PARTS
-	LoadTable( "table2" .. ".jpg",1000,1000);
-	LoadTable( "table2" .. ".jpg",3000,1000);
-	LoadTable( "table2" .. ".jpg",1000,3000);
-	LoadTable( "table2" .. ".jpg",3000,3000);
-	--THEN THE CAMERA IS SET TO THE MIDDLE OF THOSE SECTIONS
-	camera:toPoint(2000, 2000)
-	camera.damping = 0
-	--SET THE MARKERS
-	setBoards();
-
-
-	EndBounds();
-	createDeck();
-	SetupButtons();
-	run_main_loop()
-	--ADVANCE THE GAMESTATE
-	GameInfo.gamestate = GameInfo.gamestate + 1
-end
-
-
-function EndBounds()
-	button1 = display.newRoundedRect( 0, 0, 150, 150, 1 )
-			button1:setFillColor( colorsRGB.RGB("green") )
-			button1.strokeWidth = 6
-			button1:setStrokeColor( 200,200,200,255 )
-
-    camera:add(button1, 1, false)
-
-	button2 = display.newRoundedRect( 0, 0, 150, 150, 1 )
-			button2:setFillColor( colorsRGB.RGB("green") )
-			button2.strokeWidth = 6
-			button2:setStrokeColor( 200,200,200,255 )
-
-    camera:add(button2, 1, false)
-
-	button3 = display.newRoundedRect( 0, 0, 150, 150, 1 )
-			button3:setFillColor( colorsRGB.RGB("green"))
-			button3.strokeWidth = 6
-			button3:setStrokeColor( 200,200,200,255 )
-
-    camera:add(button3, 1, false)
-
-	button4 = display.newRoundedRect( 0, 0, 150, 150, 1 )
-			button4:setFillColor( colorsRGB.RGB("green") )
-			button4.strokeWidth = 6
-			button4:setStrokeColor( 200,200,200,255 )
-
-    camera:add(button4, 1, false)        
-
-end

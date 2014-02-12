@@ -20,6 +20,7 @@ function cGameInfo.methods:init(gamestate)
 	self.zoom_dis  = 0
 	self.zoom_saved  = 0
 	self.table_items = {}
+	self.faceoff_screen = {}
 end
 
 --{ x=50, y=10, w=100, h=100, r=10, red=255, green=0, blue=128, id = 1 },

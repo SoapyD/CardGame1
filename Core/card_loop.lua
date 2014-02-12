@@ -9,16 +9,21 @@ function run_card_loop()
 
     --KEEP THE CARD ALONG THE HAND BAR IF THEY'RE NOT BEING CARRIED
     hide = false
+    local pos_count = 0
 	for i = 1, table.getn(GameInfo.cards) do
 		local hand_card = GameInfo.cards[i]
 		if(hand_card.touched == false) then
 	    	hand_card.x = GameInfo.hand.x - (GameInfo.hand.width / 2) + (hand_card.width / 2)
-	    	hand_card.x = hand_card.x + (GameInfo.cards[i].width * (i -1))
-	     	hand_card.x = hand_card.x + (10 * (i -1))   	
+	    	hand_card.x = hand_card.x + (GameInfo.cards[i].width * pos_count) --(i -1))
+	     	hand_card.x = hand_card.x + (10 * pos_count) --(i -1))   	
 	    	hand_card.y = GameInfo.hand.y
 	    --else
 	    --	print("not in hand")
     	end
+    	if(hand_card.touched == false or hand_card.moved == true) then
+    		pos_count = pos_count + 1
+    	end
+
     	--if(hand_card.moved == true) then
     	--	hide = true
     	--end
@@ -109,11 +114,15 @@ function run_card_loop()
 				hand_card.x = screen_x
 				hand_card.y = screen_y		
 
-    			--print_string = print_string .. "\nScreenX:" .. screen_x
-    			--print_string = print_string .. "\nScreenY:" .. screen_y
+				local max_hight = display.contentHeight - (300 * GameInfo.zoom)--600 / GameInfo.zoom
+
+    			print_string = print_string .. "\nScreenX:" .. screen_x
+    			print_string = print_string .. "\nScreenY:" .. screen_y
+    			print_string = print_string .. "\nTrigger:" .. max_hight
             	--GameInfo.hand.show = true
             	--GameInfo.hand.hide = true
-				if ( hand_card.y > 600 / GameInfo.zoom) then
+
+				if ( hand_card.y > max_hight) then
 					hand_card.isVisible = true
 					hand_card.touched = false
 					GameInfo.hand.show = true

@@ -89,7 +89,7 @@ function AddCard(unique_id,filename,x,y,scale)
             tab.hide_once = true
         end
     end
-    print("card added")
+    --print("card added")
 
     id = table.getn(GameInfo.table_cards)+1
     GameInfo.table_cards[id] = icon
@@ -102,7 +102,4 @@ function AddCard(unique_id,filename,x,y,scale)
     GameInfo.table_cards[id].finalised = false
 
     GameInfo.current_card_int = id
-    --print("unique_card_id:", GameInfo.table_cards[id].unique_id)
-    --ADD THE CARD TO THE CAMERA BUT DON'T MAKE IT THE FOCUS YET
-    camera:add(GameInfo.table_cards[id], 1, false)
 end
