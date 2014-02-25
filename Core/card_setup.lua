@@ -26,7 +26,7 @@ function DrawCard(deck_index)
 		tempCard = tempCard - 15
 	end
 	--print(tempCard)
-	LoadCard( suits[deck_index] .. "/" .. tempCard .. ".jpg",0,150);
+	LoadCard( suits[deck_index] .. "/" .. tempCard .. ".png",0,150);
 end
 
 function CheckDeck(deck_index)

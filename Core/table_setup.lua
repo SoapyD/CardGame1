@@ -1,15 +1,15 @@
 function setBoards()
     board = {};
-    for i=0, 16 do
+    for i=0, 10 do
         --cardtext = ""
         board[i] = {}
-        for j=0, 16 do
+        for j=0, 10 do
             local tempSpace;
             table.insert(board[i],tempSpace);
             --cardtext = cardtext .. i .. "," .. j .. "||";
 
-            board[i].x = ((j) * 250)
-            board[i].y = ((i) * 250)
+            board[i].x = ((j) * 350)
+            board[i].y = ((i) * 350)
 
             board[i].item_area =display.newRoundedRect( 
                 board[i].x, board[i].y, 50, 50, 1 )

@@ -2,8 +2,8 @@
 --local x_space = 250
 --local y_space = 250
 
-local x_space = 125
-local y_space = 125
+local x_space = 350
+local y_space = 350
 
 function run_card_loop()
 

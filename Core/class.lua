@@ -13,7 +13,7 @@ function cGameInfo.methods:init(gamestate)
 	self.width = display.actualContentWidth
 	self.current_card_int = -1
 
-	self.zoom = 0.5
+	self.zoom = 0.6
 	self.portrait_start = 400; --NEEDED FOR THE POSITIONING OF PLAYER HAND BUTTONS
 	self.username = ""
 	self.touches  = {}

@@ -17,8 +17,8 @@ end
 function PlayerHand()
 	print("height: ", display.contentHeight)
 
-	boxwidth = 1100
-	boxheight = 510
+	boxwidth = 1800
+	boxheight = 360
 
 	GameInfo.hand = display.newRoundedRect(
 		GameInfo.portrait_start + boxwidth / 2,
@@ -36,7 +36,7 @@ end
 function ScrollBar()
 	print("height: ", display.contentHeight)
 
-	boxwidth = 1100
+	boxwidth = 1800
 	boxheight = 100
 
 	bar = display.newRoundedRect(
