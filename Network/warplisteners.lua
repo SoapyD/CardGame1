@@ -46,7 +46,7 @@ function onUpdatePeersReceived(update)
     local x = tonumber(func())
     local y = tonumber(func())
 
-    print("id_to_use" .. filename)
+    --print("id_to_use" .. filename)
     Update_Pos(unique_id, filename, x, y)
   end
 

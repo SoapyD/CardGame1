@@ -1,9 +1,9 @@
 function setBoards()
     board = {};
-    for i=0, 10 do
+    for i=0, GameInfo.world_height do
         --cardtext = ""
         board[i] = {}
-        for j=0, 10 do
+        for j=0, GameInfo.world_width do
             local tempSpace;
             table.insert(board[i],tempSpace);
             --cardtext = cardtext .. i .. "," .. j .. "||";

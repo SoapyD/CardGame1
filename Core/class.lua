@@ -11,9 +11,11 @@ function cGameInfo.methods:init(gamestate)
 	self.table_cards = {}
 	self.height = display.actualContentHeight
 	self.width = display.actualContentWidth
+	self.world_width = 10
+	self.world_height = 10
 	self.current_card_int = -1
 
-	self.zoom = 0.6
+	self.zoom = 0.5
 	self.portrait_start = 400; --NEEDED FOR THE POSITIONING OF PLAYER HAND BUTTONS
 	self.username = ""
 	self.touches  = {}
@@ -21,6 +23,8 @@ function cGameInfo.methods:init(gamestate)
 	self.zoom_saved  = 0
 	self.table_items = {}
 	self.faceoff_screen = {}
+
+	self.quads = {}
 end
 
 --{ x=50, y=10, w=100, h=100, r=10, red=255, green=0, blue=128, id = 1 },

@@ -180,6 +180,22 @@ function finishCard( event )
 
 				local current_card = GameInfo.table_cards[GameInfo.current_card_int]
 
+				local Pos_Info = CheckBoard_Pos(current_card)
+				--width + width * current_height
+				section_num = Pos_Info[3]--Pos_Info[1] + (Pos_Info[2] * GameInfo.world_width)
+				local quad_info = {}
+				quad_info.section_num = section_num
+				quad_info.filename = current_card.filename
+				local list_pos = Quad_Add(GameInfo.quads, quad_info)
+
+				print( "list pos:" .. list_pos)
+				--GameInfo.quads[list_pos].subquads[1] = "test"
+			    for i = 1, table.getn(GameInfo.quads) do
+			    	print("quad name#" .. i .. " " .. GameInfo.quads[i].section_num 
+			    		.. " file name:" .. GameInfo.quads[i].filename )
+			    end
+
+
 				appWarpClient.sendUpdatePeers(
 					tostring("position") .. " " ..
 					tostring(current_card.unique_id) .. " " ..
