@@ -45,14 +45,20 @@ function Update_Pos2(unique_id, filename, x, y)
         end
     end
 
+    local current_card = {}
+
     if ( found == false) then
       AddCard(unique_id,filename, x, y, true)
       current_card = GameInfo.table_cards[table.getn(GameInfo.table_cards)]
       camera:add(current_card, 7, false)
     else
-      GameInfo.table_cards[saved_id].x = x
-      GameInfo.table_cards[saved_id].y = y
+      current_card = GameInfo.table_cards[saved_id]
+      current_card.x = x
+      current_card.y = y
     end 
+
+    local pos_info = CheckBoard_Pos(current_card)
+    Check_Quad_Region(pos_info[3])    
 
 end
 

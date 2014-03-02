@@ -1,23 +1,26 @@
 --THIS IS A TEST TO SEE IF THE SYNC WORKS
 
-require("Core.INC_Class")
+require("Core.functions.INC_Class")
+require("Core.functions.statements")
+require("Core.functions.core_functions")
+require("Core.functions.quad_method")
+require("Core.functions.colors-rgb")
+
 require("Core.class")
-require("Core.statements")
-require("Core.core_functions")
-require("Core.quad_method")
 require("main_setup")
 require("main_loop")
-require("Core.button_setup")
-require("Core.button_loop")
-require("Core.card_functions")
-require("Core.card_setup")
-require("Core.card_loop")
-require("Core.colors-rgb")
+require("Core.button.button_functions")
+require("Core.button.button_setup")
+require("Core.button.button_loop")
+require("Core.card.card_functions")
+require("Core.card.card_types")
+require("Core.card.card_setup")
+require("Core.card.card_loop")
 require("Network.networking")
 
 GameInfo = cGameInfo:new(0)
 
-require("Core.camera_controls") --REQUIRES THE ZOOM VALUE FROM GAMEINFO
+require("Core.functions.camera_controls") --REQUIRES THE ZOOM VALUE FROM GAMEINFO
 require("Core.table_setup")
 require("Core.faceoff_setup")
 

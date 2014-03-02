@@ -44,18 +44,18 @@ function onTouch( event )
 				elseif "ended" == phase or "cancelled" == phase then
 					display.getCurrentStage():setFocus( nil )
 					t.isFocus = false
-		      		--print("moved button id ".. t.unique_id)
-		      		if (GameInfo.hand.hide == true) then
+		      		--If the card is being placed from the hand, add it to the table
+		      		--then make the "hand card" non-visible
+		      		if (t.drawn == false) then
 						Update_Pos2(t.unique_id, t.filename, t.x, t.y)
-					end
-					if (t.drawn == false) then
 						t.isVisible = false
+						--print("pos not checked")
+					else
+						local pos_info = CheckBoard_Pos(t)
+						Check_Quad_Region(pos_info[3])
+						GameInfo.hand.hide = false
 					end
 					t.moved = false
-
-					local pos_info = CheckBoard_Pos(t)
-					Check_Quad_Region(pos_info[3])
-					GameInfo.hand.hide = false
 				end
 			end
 		end
@@ -77,11 +77,9 @@ function CheckBoard_Pos(card)
 	section_num = x_itts + (y_itts * GameInfo.world_width)
 
 	--CAN'T CAPTURE ROTATION HERE PROPERLY
-	print("grid_x:" .. x_itts .."  grid_y:" .. y_itts .. " rotation:" .. card.rotation)
-
+	--print("grid_x:" .. x_itts .."  grid_y:" .. y_itts .. " rotation:" .. card.rotation)
 	--verticle card, y must be ODD, x must be EVEN
 	--horizontal card, y must be EVEN, x must be ODD
-
 	--divide end position values by 2 to get the table grid reference
 	local return_info = {}
 	return_info[1] = x_itts 

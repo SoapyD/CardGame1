@@ -1,5 +1,5 @@
 
-local perspective=require("Core.perspective")
+local perspective=require("Core.functions.perspective")
 camera=perspective.createView()
 
 camera:setBounds(-5000,5000, -5000,5000)
