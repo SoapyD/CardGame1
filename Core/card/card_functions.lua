@@ -52,7 +52,7 @@ function onTouch( event )
 						--print("pos not checked")
 					else
 						local pos_info = CheckBoard_Pos(t)
-						Check_Quad_Region(pos_info[3])
+						Check_Quad_Region(t, pos_info[3])
 						GameInfo.hand.hide = false
 					end
 					t.moved = false
@@ -61,31 +61,6 @@ function onTouch( event )
 		end
 		--GameInfo.touches[ table.getn(GameInfo.touches)+1 ] = event
 		return true
-end
-
-function CheckBoard_Pos(card)
-	local used_x = card.x
-	local used_y = card.y
-	local x_space = 350		
-	local y_space = 350
-
-	x_itts = used_x / x_space
-	y_itts = used_y / y_space
-
-	x_itts = math.round(x_itts) + 1
-	y_itts = math.round(y_itts)
-	section_num = x_itts + (y_itts * GameInfo.world_width)
-
-	--CAN'T CAPTURE ROTATION HERE PROPERLY
-	--print("grid_x:" .. x_itts .."  grid_y:" .. y_itts .. " rotation:" .. card.rotation)
-	--verticle card, y must be ODD, x must be EVEN
-	--horizontal card, y must be EVEN, x must be ODD
-	--divide end position values by 2 to get the table grid reference
-	local return_info = {}
-	return_info[1] = x_itts 
-	return_info[2] = y_itts
-	return_info[3] = section_num
-	return return_info
 end
 
 --ALLOW THE CARDS PLACED ON THE TABLE TO BE ROTATED IF CLICKED ON
@@ -113,7 +88,8 @@ function UpdateRotation(t)
 		t.rotation = 0
 	end
 
-	CheckBoard_Pos(t)
+	local pos_info = CheckBoard_Pos(t)
+	Check_Quad_Region(t, pos_info[3])
 	--SEND AN UPDATE TO THE OTHER PLAYERS THAT THE CARD'S ROTATING AND BY WHAT ANGLE
 	appWarpClient.sendUpdatePeers(
 		tostring("rotation") .. " " ..
@@ -121,4 +97,29 @@ function UpdateRotation(t)
 		tostring(GameInfo.username) .. " " ..		
 		--tostring(t.rotation - 90))
 		tostring(t.rotation))
+end
+
+function CheckBoard_Pos(card)
+	local used_x = card.x
+	local used_y = card.y
+	local x_space = 350		
+	local y_space = 350
+
+	x_itts = used_x / x_space
+	y_itts = used_y / y_space
+
+	x_itts = math.round(x_itts) + 1
+	y_itts = math.round(y_itts)
+	section_num = x_itts + (y_itts * GameInfo.world_width)
+
+	--CAN'T CAPTURE ROTATION HERE PROPERLY
+	--print("grid_x:" .. x_itts .."  grid_y:" .. y_itts .. " rotation:" .. card.rotation)
+	--verticle card, y must be ODD, x must be EVEN
+	--horizontal card, y must be EVEN, x must be ODD
+	--divide end position values by 2 to get the table grid reference
+	local return_info = {}
+	return_info[1] = x_itts 
+	return_info[2] = y_itts
+	return_info[3] = section_num
+	return return_info
 end
