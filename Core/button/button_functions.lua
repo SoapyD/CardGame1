@@ -85,6 +85,7 @@ function finishCard( event )
 				quad_info.section_num = section_num
 				quad_info.filename = current_card.filename
 				quad_info.rotation = current_card.rotation
+				quad_info.unique_id = current_card.unique_id
 				local list_pos = Quad_Add(GameInfo.quads, quad_info)
 
 				--print( "list pos:" .. list_pos)

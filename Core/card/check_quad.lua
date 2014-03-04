@@ -5,6 +5,9 @@ function Check_Quad_Region(current_card, search_section)
 	local current_info = retrieve_card(current_card.filename)
     local allow_placement = true
 
+    local touch_count = 0
+    local current_check = false
+
 
     if (table.getn(GameInfo.quads) > 0) then
 
@@ -47,12 +50,29 @@ function Check_Quad_Region(current_card, search_section)
                         if ( temp_allow == false) then
                             allow_placement = false
                         end
+
+                        print("previous:" .. GameInfo.previous_card_int)
+                        if (quad.unique_id ==
+                            GameInfo.table_cards[GameInfo.previous_card_int].unique_id) then
+                            current_check = true
+                        end
+                        touch_count = touch_count + 1
                     end
     				pos_num = pos_num + 1
     			end
     		end
     	end
     end
+
+    --CHECK TO SEE THAT THE CARD IS CONNECTED TO OTHER CARDS
+    if ( touch_count == 0 and table.getn(GameInfo.quads) > 0) then
+            allow_placement = false
+    end
+
+    if (current_check == false and table.getn(GameInfo.quads) > 0) then
+        allow_placement = false
+    end
+
 
     if ( allow_placement == true) then
         finalise_button.isVisible = true

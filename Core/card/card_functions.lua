@@ -112,8 +112,6 @@ function CheckBoard_Pos(card)
 	y_itts = math.round(y_itts)
 	section_num = x_itts + (y_itts * GameInfo.world_width)
 
-	--CAN'T CAPTURE ROTATION HERE PROPERLY
-	--print("grid_x:" .. x_itts .."  grid_y:" .. y_itts .. " rotation:" .. card.rotation)
 	--verticle card, y must be ODD, x must be EVEN
 	--horizontal card, y must be EVEN, x must be ODD
 	--divide end position values by 2 to get the table grid reference

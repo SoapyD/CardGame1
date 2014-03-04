@@ -88,6 +88,8 @@ function AddCard(unique_id,filename,x,y,scale)
             Remove_CurrentCard()
             tab.hide_once = true
         end
+
+        GameInfo.previous_card_int = GameInfo.current_card_int
     end
     --print("card added")
 
@@ -101,5 +103,6 @@ function AddCard(unique_id,filename,x,y,scale)
     GameInfo.table_cards[id].rotation = 0
     GameInfo.table_cards[id].finalised = false
 
+    
     GameInfo.current_card_int = id
 end
