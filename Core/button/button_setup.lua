@@ -75,17 +75,17 @@ function Finalise_button()
 	boxwidth = 300
 	boxheight = 100
 
-	rotate_button = display.newRoundedRect(
+	finalise_button = display.newRoundedRect(
 		GameInfo.portrait_start + boxwidth / 2,
 		GameInfo.height - GameInfo.hand.height - bar.height - boxheight / 2,
 		boxwidth,boxheight, 0 )
-	rotate_button:setFillColor( 1, 1, 1 )
-	rotate_button.strokeWidth = 6
-	rotate_button:setStrokeColor( 200,200,200,225 )
+	finalise_button:setFillColor( 1, 1, 1 )
+	finalise_button.strokeWidth = 6
+	finalise_button:setStrokeColor( 200,200,200,225 )
 		-- Make the button instance respond to touch events
-	rotate_button.width = boxwidth
-	rotate_button.height = boxheight	
-	rotate_button:addEventListener( "touch", finishCard )
+	finalise_button.width = boxwidth
+	finalise_button.height = boxheight	
+	finalise_button:addEventListener( "touch", finishCard )
 end
 
 

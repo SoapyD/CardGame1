@@ -1,8 +1,14 @@
 local function set_stats(card_info, top, bottom, left, right, arms, legs, either_limb, damage)
-	card_info.top = top
-	card_info.bottom = bottom
-	card_info.left = left
-	card_info.right = right
+	--card_info.top = top
+	--card_info.bottom = bottom
+	--card_info.left = left
+	--card_info.right = right
+    card_info.strat_scores = {}
+    card_info.strat_scores[1] = top
+    card_info.strat_scores[2] = right
+    card_info.strat_scores[3] = bottom
+    card_info.strat_scores[4] = left        
+
 	card_info.arms = arms
 	card_info.legs = legs
 	card_info.either_limb = either_limb
@@ -36,7 +42,7 @@ function retrieve_card(filename)
     		end,
     	["w/2.png"] = function()
     			card_info.name = "cleave"
-    			set_stats(card_info, 0,1,9,9,2,0,0,20)
+    			set_stats(card_info, 0,9,9,9,2,0,0,20)
     			card_info.actions[table.getn(card_info.actions) + 1] = set_action("defender health", -2)
     		end,
      	["w/3.png"] = function()

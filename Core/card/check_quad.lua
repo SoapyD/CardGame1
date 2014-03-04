@@ -3,6 +3,8 @@ function Check_Quad_Region(current_card, search_section)
 
 	local pos_num = 1
 	local current_info = retrieve_card(current_card.filename)
+    local allow_placement = true
+
 
     if (table.getn(GameInfo.quads) > 0) then
 
@@ -13,7 +15,6 @@ function Check_Quad_Region(current_card, search_section)
     				local check_pos = search_section
     				check_pos = check_pos + x
     				check_pos = check_pos + (y * GameInfo.world_width)
-    				--print("check pos" .. pos_num .. ":" .. check_pos)
 
                     local return_info = {}
                     local search_quad = {}
@@ -22,20 +23,16 @@ function Check_Quad_Region(current_card, search_section)
 
                     local direction = -1
                     if (x == 0 and y == -1) then
-                        --direction = "top"
                         direction = 1
                     end
                     if (x == 0 and y == 1) then
-                        --direction = "bottom"
-                        direction = 4
+                        direction = 3
                     end
                     if (y == 0 and x == -1) then
-                        --direction = "left"
-                        direction = 2
+                        direction = 4
                     end
                     if (y == 0 and x == 1) then
-                        --direction = "right"
-                        direction = 3
+                        direction = 2
                     end
 
                     if (return_info[2] == -1) then
@@ -43,12 +40,13 @@ function Check_Quad_Region(current_card, search_section)
                     else
                     	local quad = GameInfo.quads[return_info[2]]
                         local surrounding_info = retrieve_card(quad.filename)
-                        --print(direction .. ", card:" .. card_info.name)
-                        --print("current rotation:" .. current_card.rotation 
-                        --	.. " quad card rotation" .. quad.rotation)
 
-                        compare_card_info(direction, current_card, current_info,
+                        local temp_allow = compare_card_info(direction, current_card, current_info,
                             quad, surrounding_info)
+
+                        if ( temp_allow == false) then
+                            allow_placement = false
+                        end
                     end
     				pos_num = pos_num + 1
     			end
@@ -56,10 +54,70 @@ function Check_Quad_Region(current_card, search_section)
     	end
     end
 
+    if ( allow_placement == true) then
+        finalise_button.isVisible = true
+    else
+        finalise_button.isVisible = false
+    end
+
 end
 
 
 function compare_card_info(clash_dir, current_card, current_info, quad, surrounding_info)
+
+    local current_add = 0
+
+    --Get the clash location on the opposite card
+    local opp_strat = 0
+    if ( clash_dir == 1) then
+        opp_strat = 3
+    end
+    if ( clash_dir == 3) then
+        opp_strat = 1
+    end
+    if ( clash_dir == 2) then
+        opp_strat = 4
+    end
+    if ( clash_dir == 4) then
+        opp_strat = 2
+    end
+
+    --get the rotation offset of the opposite card
+    if ( quad.rotation == 0) then
+        current_add = 0
+    end    
+    if ( quad.rotation == -90) then
+        current_add = 1
+    end
+    if ( quad.rotation == -270) then
+        current_add = 3
+    end
+    if ( quad.rotation == -180) then
+        current_add = 2
+    end 
+
+    opp_strat = opp_strat + current_add
+    if ( opp_strat > 4) then
+        opp_strat = opp_strat - 4
+    end
+
+
+    --create an offset value for the current card's rotation
+    if ( current_card.rotation == 0) then
+        current_add = 0
+    end    
+    if ( current_card.rotation == -90) then
+        current_add = 1
+    end
+    if ( current_card.rotation == -270) then
+        current_add = 3
+    end
+    if ( current_card.rotation == -180) then
+        current_add = 2
+    end    
+
+    --get the action clashing strat of the current card
+    clash_dir = clash_dir + current_add
 
     local current_strat = 0
     current_strat = current_strat + clash_dir
@@ -67,24 +125,21 @@ function compare_card_info(clash_dir, current_card, current_info, quad, surround
         current_strat = current_strat - 4
     end
 
-    local current_add = 0
-    if ( current_card.rotation == 0) then
-        current_add = 1
-    end    
-    if ( current_card.rotation == -90) then
-        current_add = 2
-    end
-    if ( current_card.rotation == -270) then
-        current_add = 3
-    end
-    if ( current_card.rotation == -180) then
-        current_add = 4
-    end    
+    --print("current_strat:" .. current_strat .. " add" .. current_add
+    --    .. " opp_strat:" .. opp_strat)
 
-    local opp_strat = 5 - clash_dir
+    local current_val = current_info.strat_scores[current_strat]
+    local opposite_val = surrounding_info.strat_scores[opp_strat]
 
-    --print("current rotation:" .. current_card.rotation)
-    print("current_strat:" .. current_strat .. " add" .. current_add
-        .. " opp_strat:" .. opp_strat)
+    local return_info = false
+
+    if (current_val >= opposite_val) then
+        print("placement available, curr:" .. current_val .. ", opp:" .. opposite_val)
+        return_info = true
+    --else
+    --    print("CAN'T PLACE")
+    end
+
+    return return_info
 
 end
