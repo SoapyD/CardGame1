@@ -68,12 +68,6 @@ function finishCard( event )
 			t.isFocus = false
 			id = GameInfo.current_card_int
 			if(id ~= -1) then
-				--current_card = GameInfo.table_cards[id]
-
-				--current_card.finalised = true
-				--camera:add(current_card, 1, true)
-				--camera:setFocus(current_card)
-				--camera:track()
 				camera.damping = 10
 
 				local current_card = GameInfo.table_cards[GameInfo.current_card_int]
@@ -88,14 +82,6 @@ function finishCard( event )
 				quad_info.unique_id = current_card.unique_id
 				local list_pos = Quad_Add(GameInfo.quads, quad_info)
 
-				--print( "list pos:" .. list_pos)
-				--GameInfo.quads[list_pos].subquads[1] = "test"
-			    for i = 1, table.getn(GameInfo.quads) do
-			    --	print("quad name#" .. i .. " " .. GameInfo.quads[i].section_num 
-			    --		.. " file name:" .. GameInfo.quads[i].filename
-			    --		.. " rotation:" .. GameInfo.quads[i].rotation)
-			    end
-
 
 				appWarpClient.sendUpdatePeers(
 					tostring("position") .. " " ..
@@ -109,7 +95,18 @@ function finishCard( event )
 					tostring(current_card.unique_id) .. " " .. 
 					tostring(GameInfo.username) .. " " ..		
 					tostring(current_card.rotation))
-												
+
+				GameInfo.current_player = GameInfo.current_player + 1
+				if ( GameInfo.current_player > table.getn(GameInfo.player_list)) then
+					GameInfo.current_player = 1
+				end								
+
+				if ( GameInfo.username ~= GameInfo.player_list[GameInfo.current_player].username) then
+					finalise_button.isVisible = false
+				else
+					finalise_button.isVisible = true
+				end
+
 			end
 		end
 	end

@@ -86,6 +86,10 @@ function Finalise_button()
 	finalise_button.width = boxwidth
 	finalise_button.height = boxheight	
 	finalise_button:addEventListener( "touch", finishCard )
+
+	if ( GameInfo.username ~= GameInfo.player_list[GameInfo.current_player].username) then
+		finalise_button.isVisible = false
+	end
 end
 
 

@@ -1,9 +1,15 @@
+
+function LoadConnection()
+	print("SET CONNECTION")
+	networkSetup();
+	networkConnection(); 
+	GameInfo.gamestate = GameInfo.gamestate + 1
+end
+
+
 function loadGame()
 	--HERE'S WHERE WE CAN LOAD ANYTHING THAT ONLY NEEDS INITIALISING
 	print( "LOAD INFO")
-	
-	networkSetup();
-	networkConnection(); 
 	--MAXIMUM 2000x2000 SCALE TEXTURES. THE BOARD IS LOADED IN 4 PARTS
 	LoadTable( "table2" .. ".jpg",875,875);
 	LoadTable( "table2" .. ".jpg",2656,875);

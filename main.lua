@@ -7,6 +7,7 @@ require("Core.functions.quad_method")
 require("Core.functions.colors-rgb")
 
 require("Core.class")
+require("Core.player.player_setup")
 require("main_setup")
 require("main_loop")
 require("Core.button.button_functions")
@@ -40,13 +41,11 @@ local function GameLoop( event )
     	[0] = function()	--GIVE THE CAMERA TIME TO READJUST
     		GameInfo.gamestate = GameInfo.gamestate + 1
     		end,
-    	[1] = loadGame,--SET ANYTHING THAT ONLY NEEDS LOADING ONCE 
-    	[2] = function()
-    			run_main_loop()
-    		end,
-	    --[3] = function () 
-	    		--run_main_loop()
-	    --	end,
+   		[1] = LoadConnection,--SET ANYTHING THAT ONLY NEEDS LOADING ONCE 
+    	[2] = player_check, --REGISTER BOTH PLAYERS
+    	[3] = loadGame,--SET ANYTHING THAT ONLY NEEDS LOADING ONCE 
+    	[4] = run_main_loop,
+
 	   	default = function () print( "ERROR - gamestate not within switch") end,
 	}
 
@@ -58,5 +57,3 @@ end
 
 -- assign the above function as an "enterFrame" listener
 Runtime:addEventListener( "enterFrame", GameLoop )
-
-

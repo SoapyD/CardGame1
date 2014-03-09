@@ -4,7 +4,8 @@ function onTouch( event )
 		local t = event.target
 		local phase = event.phase
 
-		if (t.finalised == false) then
+		if (t.finalised == false and 
+			GameInfo.username == GameInfo.player_list[GameInfo.current_player].username) then
 			if "began" == phase then
 				-- Make target the top-most object
 				local parent = t.parent

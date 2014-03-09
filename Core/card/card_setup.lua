@@ -105,4 +105,6 @@ function AddCard(unique_id,filename,x,y,scale)
 
     
     GameInfo.current_card_int = id
+    print("current card: " .. GameInfo.current_card_int)
+    print("previous card: " .. GameInfo.previous_card_int)
 end

@@ -40,6 +40,36 @@ function onUpdatePeersReceived(update)
 
   local update_type = tostring(func())
 
+  --//////////////////////////////////////////////////////////////////////////
+  --////////////////////NETWORKING SOLUTIONS
+  --//////////////////////////////////////////////////////////////////////////
+  if (update_type == "check_player") then
+    local username = tostring(func())
+    --AddPlayer(username)
+
+    if (username == GameInfo.username) then
+      GameInfo.attacker_ready = true
+    end
+    if (username ~= GameInfo.username) then
+      GameInfo.opponent_ready = true
+    end
+  end
+  if (update_type == "add_player") then
+    local username = tostring(func())
+    AddPlayer(username)
+  end
+  if (update_type == "set_player_1") then
+    local username = tostring(func())
+    
+    if (GameInfo.player_1_id == "") then
+      GameInfo.player_1_id = username
+      print("player 1 is: " .. username)
+    end 
+  end
+
+  --//////////////////////////////////////////////////////////////////////////
+  --////////////////////GAME SOLUTIONS
+  --//////////////////////////////////////////////////////////////////////////
   if (update_type == "position") then
     local unique_id = tostring(func())
     local filename = tostring(func())

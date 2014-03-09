@@ -8,7 +8,6 @@ function Check_Quad_Region(current_card, search_section)
     local touch_count = 0
     local current_check = false
 
-
     if (table.getn(GameInfo.quads) > 0) then
 
     	for y = -1, 1 do
