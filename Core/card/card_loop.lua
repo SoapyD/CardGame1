@@ -144,4 +144,8 @@ function run_card_loop()
 	--end
 	end
 
+
+    print_string = print_string .. "\nCurrent:" .. GameInfo.current_card_int
+    print_string = print_string .. "\nPrevious:" .. GameInfo.previous_card_int
+
 end

@@ -5,6 +5,7 @@ require("Core.functions.statements")
 require("Core.functions.core_functions")
 require("Core.functions.quad_method")
 require("Core.functions.colors-rgb")
+require("Core.functions.end_turn_functions")
 
 require("Core.class")
 require("Core.player.player_setup")

@@ -50,7 +50,7 @@ function Check_Quad_Region(current_card, search_section)
                             allow_placement = false
                         end
 
-                        print("previous:" .. GameInfo.previous_card_int)
+                        --print("previous:" .. GameInfo.previous_card_int)
                         if (quad.unique_id ==
                             GameInfo.table_cards[GameInfo.previous_card_int].unique_id) then
                             current_check = true

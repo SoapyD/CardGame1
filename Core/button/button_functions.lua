@@ -72,16 +72,26 @@ function finishCard( event )
 
 				local current_card = GameInfo.table_cards[GameInfo.current_card_int]
 
-				local Pos_Info = CheckBoard_Pos(current_card)
-				--width + width * current_height
-				section_num = Pos_Info[3]--Pos_Info[1] + (Pos_Info[2] * GameInfo.world_width)
-				local quad_info = {}
-				quad_info.section_num = section_num
-				quad_info.filename = current_card.filename
-				quad_info.rotation = current_card.rotation
-				quad_info.unique_id = current_card.unique_id
-				local list_pos = Quad_Add(GameInfo.quads, quad_info)
+				EndTurn(current_card)
+				--local Pos_Info = CheckBoard_Pos(current_card)
+				--section_num = Pos_Info[3]
+				--local quad_info = {}
+				--quad_info.section_num = section_num
+				--quad_info.filename = current_card.filename
+				--quad_info.rotation = current_card.rotation
+				--quad_info.unique_id = current_card.unique_id
+				--local list_pos = Quad_Add(GameInfo.quads, quad_info)
 
+				--GameInfo.current_player = GameInfo.current_player + 1
+				--if ( GameInfo.current_player > table.getn(GameInfo.player_list)) then
+				--	GameInfo.current_player = 1
+				--end								
+
+				--if ( GameInfo.username ~= GameInfo.player_list[GameInfo.current_player].username) then
+				--	finalise_button.isVisible = false
+				--else
+				--	finalise_button.isVisible = true
+				--end
 
 				appWarpClient.sendUpdatePeers(
 					tostring("position") .. " " ..
@@ -95,18 +105,6 @@ function finishCard( event )
 					tostring(current_card.unique_id) .. " " .. 
 					tostring(GameInfo.username) .. " " ..		
 					tostring(current_card.rotation))
-
-				GameInfo.current_player = GameInfo.current_player + 1
-				if ( GameInfo.current_player > table.getn(GameInfo.player_list)) then
-					GameInfo.current_player = 1
-				end								
-
-				if ( GameInfo.username ~= GameInfo.player_list[GameInfo.current_player].username) then
-					finalise_button.isVisible = false
-				else
-					finalise_button.isVisible = true
-				end
-
 			end
 		end
 	end

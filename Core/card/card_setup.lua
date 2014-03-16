@@ -83,12 +83,15 @@ function AddCard(unique_id,filename,x,y,scale)
     icon:addEventListener( "touch", onTouch )
 
     if ( GameInfo.current_card_int ~= -1) then
+
         if (GameInfo.table_cards[GameInfo.current_card_int].finalised == false) then
             Restore_HandCard()
             Remove_CurrentCard()
             tab.hide_once = true
-        end
+        end 
+    end
 
+    if ( GameInfo.current_card_int ~= -1) then
         GameInfo.previous_card_int = GameInfo.current_card_int
     end
     --print("card added")
