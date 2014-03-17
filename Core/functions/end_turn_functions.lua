@@ -1,6 +1,16 @@
 
 function EndTurn(current_card)
 
+        --(applied_to, value)
+    local card_info = retrieve_card(current_card.filename)
+    print("actions size:" .. table.getn(card_info.actions))
+    if ( table.getn(card_info.actions) > 0) then
+      for i=1, table.getn(card_info.actions) do
+        local action = card_info.actions[i]
+        CheckAbility(action.name, action.applied_to, action.value)
+      end
+    end
+
       local Pos_Info = CheckBoard_Pos(current_card)
       section_num = Pos_Info[3]
       local quad_info = {}

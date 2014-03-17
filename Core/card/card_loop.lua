@@ -32,8 +32,8 @@ function run_card_loop()
 
 
     	if(hand_card.moved == true) then   		   		
-    			print_string = print_string .. "\nScreenX:" .. screen_x
-    			print_string = print_string .. "\nScreenY:" .. screen_y  
+    			--GameInfo.print_string = GameInfo.print_string .. "\nScreenX:" .. screen_x
+    			--GameInfo.print_string = GameInfo.print_string .. "\nScreenY:" .. screen_y  
     		if ( screen_y > 600) then
     			--hide = false
     			GameInfo.hand.hide = false
@@ -116,11 +116,9 @@ function run_card_loop()
 
 				local max_hight = display.contentHeight - (300 * GameInfo.zoom)--600 / GameInfo.zoom
 
-    			print_string = print_string .. "\nScreenX:" .. screen_x
-    			print_string = print_string .. "\nScreenY:" .. screen_y
-    			print_string = print_string .. "\nTrigger:" .. max_hight
-            	--GameInfo.hand.show = true
-            	--GameInfo.hand.hide = true
+    			--GameInfo.print_string = GameInfo.print_string .. "\nScreenX:" .. screen_x
+    			--GameInfo.print_string = GameInfo.print_string .. "\nScreenY:" .. screen_y
+    			--GameInfo.print_string = GameInfo.GameInfo.print_string .. "\nTrigger:" .. max_hight
 
 				if ( hand_card.y > max_hight) then
 					hand_card.isVisible = true
@@ -145,7 +143,23 @@ function run_card_loop()
 	end
 
 
-    print_string = print_string .. "\nCurrent:" .. GameInfo.current_card_int
-    print_string = print_string .. "\nPrevious:" .. GameInfo.previous_card_int
+    --GameInfo.print_string = GameInfo.print_string .. "\nCurrent:" .. GameInfo.current_card_int
+    --print_string = GameInfo.print_string .. "\nPrevious:" .. GameInfo.previous_card_int
+	GameInfo.print_string = GameInfo.print_string .. "\nPLAYER1:"
+	local health = "" .. GameInfo.player_list[1].health
+	local armour = "" .. GameInfo.player_list[1].armour
+	local arms = "" .. GameInfo.player_list[1].arms
+	local legs = "" .. GameInfo.player_list[1].legs
+    GameInfo.print_string = GameInfo.print_string .. "\nHP:" .. health .. " AR:" ..armour
+    GameInfo.print_string = GameInfo.print_string .. "\nAR:" ..armour .. " A:" .. arms .. " L:" .. legs  
+
+
+	GameInfo.print_string = GameInfo.print_string .. "\nPLAYER2:"
+	health = "" .. GameInfo.player_list[2].health
+	larmour = "" .. GameInfo.player_list[2].armour
+	arms = "" .. GameInfo.player_list[2].arms
+	legs = "" .. GameInfo.player_list[2].legs
+    GameInfo.print_string = GameInfo.print_string .. "\nHP:" .. health .. " AR:" ..armour
+    GameInfo.print_string = GameInfo.print_string .. "\nAR:" ..armour .. " A:" .. arms .. " L:" .. legs  
 
 end

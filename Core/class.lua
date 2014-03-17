@@ -33,6 +33,8 @@ function cGameInfo.methods:init(gamestate)
 	self.attacker_ready = false
 	self.player_1_id = ""
 	self.current_player = 1
+
+	self.print_string = ""
 end
 
 --{ x=50, y=10, w=100, h=100, r=10, red=255, green=0, blue=128, id = 1 },

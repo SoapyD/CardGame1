@@ -8,6 +8,9 @@ require("Core.functions.colors-rgb")
 require("Core.functions.end_turn_functions")
 
 require("Core.class")
+
+GameInfo = cGameInfo:new(0)
+
 require("Core.player.player_setup")
 require("main_setup")
 require("main_loop")
@@ -16,12 +19,11 @@ require("Core.button.button_setup")
 require("Core.button.button_loop")
 require("Core.card.card_functions")
 require("Core.card.check_quad")
+require("Core.card.check_ability")
 require("Core.card.card_types")
 require("Core.card.card_setup")
 require("Core.card.card_loop")
 require("Network.networking")
-
-GameInfo = cGameInfo:new(0)
 
 require("Core.functions.camera_controls") --REQUIRES THE ZOOM VALUE FROM GAMEINFO
 require("Core.table_setup")
@@ -51,8 +53,6 @@ local function GameLoop( event )
 	}
 
 	CheckState:case(GameInfo.gamestate)
-
-
 end
 
 

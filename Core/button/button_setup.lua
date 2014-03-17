@@ -10,7 +10,7 @@ function SetupButtons()
 	DrawCard(1)
 	DrawCard(1)
 
-	--Portrait()				
+	Portrait()				
 end
 
 
@@ -96,11 +96,17 @@ end
 function Portrait()
 	print("height: ", display.contentHeight)
 
-	button = display.newRoundedRect( 60,display.actualContentHeight - 140,
-		120,180, 10 )
-	button:setFillColor( 0, 128, 128 )
-	button.strokeWidth = 6
-	button:setStrokeColor( 200,200,200,255 )
+	portrait = display.newRoundedRect( GameInfo.portrait_start / 2,GameInfo.height - GameInfo.hand.height / 2 ,
+		GameInfo.portrait_start,GameInfo.hand.height, 0 )
+	portrait:setFillColor( 0, 128, 128 )
+	portrait.strokeWidth = 6
+	portrait:setStrokeColor( 200,200,200,255 )
+
+
+	GameInfo.print_string = ""
+	statusText = display.newText( GameInfo.print_string, 100, display.contentHeight / 2, native.systemFontBold, 48 )
+	statusText:setFillColor( 0, 0, 0 )
+
 end
 
 

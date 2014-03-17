@@ -56,13 +56,13 @@ function retrieve_card(filename)
     	["w/4.png"] = function()
     			card_info.name = "dismember"
     			set_stats(card_info, 3,1,3,1,1,0,0,10,"weapon")
-    			card_info.actions[table.getn(card_info.actions) + 1] = set_action("cripple arm", 2, 1)
+    			card_info.actions[table.getn(card_info.actions) + 1] = set_action("cripple arm", -2, 1)
     		end,
     	["w/5.png"] = function()
     			card_info.name = "morningstar"
     			set_stats(card_info, 7,4,7,7,1,0,0,15,"weapon")
-    			card_info.actions[table.getn(card_info.actions) + 1] = set_action("cripple arm", 1, 1)
-       			card_info.actions[table.getn(card_info.actions) + 1] = set_action("cripple leg", 1, 0) 			
+    			card_info.actions[table.getn(card_info.actions) + 1] = set_action("cripple arm", -1, 1)
+       			card_info.actions[table.getn(card_info.actions) + 1] = set_action("cripple leg", -1, 0) 			
     		end,    		    		   		
     	["w/6.png"] = function()
     			card_info.name = "parry"

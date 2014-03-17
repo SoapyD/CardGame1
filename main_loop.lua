@@ -1,7 +1,7 @@
 
 function run_main_loop()
 
-	print_string = ""
+	GameInfo.print_string = ""
 
 	GameInfo.frame_num= GameInfo.frame_num + 1;
     if (GameInfo.frame_num > 60) then
@@ -40,12 +40,12 @@ function run_main_loop()
 		button2.y = (GameInfo.touches[2].y  / camera.yScale) - camera.scrollY
 	end 
 
-	print_string = print_string .. "\nCameraX:" .. math.round(camera.scrollX)
-	print_string = print_string .. "\nCameraY:" .. math.round(camera.scrollY)
+	--GameInfo.print_string = GameInfo.print_string .. "\nCameraX:" .. math.round(camera.scrollX)
+	--GameInfo.print_string = GameInfo.print_string .. "\nCameraY:" .. math.round(camera.scrollY)
 
 	GameInfo.touches = {}	
-
-	statusText.text = print_string
+	--print("text: " .. GameInfo.print_string)
+	statusText.text = GameInfo.print_string
 	statusText.x = statusText.width / 2
 	statusText.y = display.contentHeight - statusText.height / 2
 
