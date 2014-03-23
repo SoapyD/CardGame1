@@ -11,6 +11,7 @@ function DrawTempCard( event )
 
         if (t.item_loaded == false) then
             print("loading")
+
             local icon = display.newRoundedRect( 
                 t.x, t.y, 350, 350, 1 )
                     icon:setFillColor( colorsRGB.RGB("white") )
@@ -40,8 +41,11 @@ function DrawTempCard( event )
             if (t.item_loaded == true) then
                 local max_hight = display.contentHeight - (300 * GameInfo.zoom)
                 if (GameInfo.temp_card.icon.y > max_hight) then
-                    print("card drawn")
+                    print("card drawn" .. t.type_int)
                     Hide_DrawTable()
+                    DrawCard(t.type_int, true)
+                    portrait:toFront()
+                    statusText:toFront()
                 end
                 GameInfo.temp_card.icon:removeSelf()
                 GameInfo.temp_card.icon.text:removeSelf()
@@ -62,6 +66,7 @@ function Hide_DrawTable()
     GameInfo.draw_screen.card5.icon.isVisible  = false
     GameInfo.draw_screen.card6.icon.isVisible  = false
     TitleText.text = ""
+    GameInfo.pause_main = false
 end
 
 function Show_DrawTable()
@@ -73,6 +78,7 @@ function Show_DrawTable()
     GameInfo.draw_screen.card5.icon.isVisible  = true
     GameInfo.draw_screen.card6.icon.isVisible  = true
     TitleText.text = "Draw Card"
+    GameInfo.pause_main = true
 end
 
 
@@ -94,18 +100,20 @@ function LoadDrawCard()
     draw_item.card5 = {}
     draw_item.card6 = {}
 
-    AddCardZone(draw_item.card1,130,300,"red","speed");
-    AddCardZone(draw_item.card2,400,300,"blue","focus");
-    AddCardZone(draw_item.card3,670,300,"green","armour");
-    AddCardZone(draw_item.card4,130,570,"yellow","weapon");
-    AddCardZone(draw_item.card5,400,570,"purple","physical");
-    AddCardZone(draw_item.card6,670,570,"aqua","cheat");
+    AddCardZone(draw_item.card1,130,300,"red","weapon",1);
+    AddCardZone(draw_item.card2,400,300,"blue","physical",2);
+    AddCardZone(draw_item.card3,670,300,"green","focus",3);
+    AddCardZone(draw_item.card4,130,570,"yellow","speed",4);
+    AddCardZone(draw_item.card5,400,570,"purple","armour",5);
+    AddCardZone(draw_item.card6,670,570,"aqua","cheat",6);
     --draw_item.image.isVisible  = false
 
     GameInfo.draw_screen = draw_item
+    --GameInfo.pause_main = true
+    Hide_DrawTable()
 end
 
-function AddCardZone(draw_card,x,y,colour,type)
+function AddCardZone(draw_card,x,y,colour,type, type_int)
 
     local icon = display.newRoundedRect( 
         x, y, 250, 250, 1 )
@@ -116,5 +124,6 @@ function AddCardZone(draw_card,x,y,colour,type)
     icon:addEventListener( "touch", DrawTempCard )
     icon.item_loaded = false
     icon.card_type = type
+    icon.type_int = type_int
     draw_card.icon = icon
 end

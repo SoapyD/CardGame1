@@ -16,6 +16,8 @@ function cGameInfo.methods:init(gamestate)
 	self.current_card_int = -1
 	self.previous_card_int = -1
 
+	self.pause_main = false
+
 	self.zoom = 0.75
 	self.portrait_start = 400; --NEEDED FOR THE POSITIONING OF PLAYER HAND BUTTONS
 	self.username = ""
@@ -37,6 +39,8 @@ function cGameInfo.methods:init(gamestate)
 	self.current_player = 1
 
 	self.print_string = ""
+
+	self.card_group = display.newGroup()
 end
 
 --{ x=50, y=10, w=100, h=100, r=10, red=255, green=0, blue=128, id = 1 },

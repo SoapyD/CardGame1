@@ -24,7 +24,7 @@ function networkConnection()
 end
 
 local connection_state = 0
-local connection_count = 120
+local connection_count = 200
 local internal_count = 0
 
 function player_check()

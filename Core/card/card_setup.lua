@@ -1,13 +1,13 @@
 
 
 local deck; -- The deck of Cards
-local suits = {"w","p","f","s"}; -- weapon, physical, focus, speed
+local suits = {"w","p","f","s","a","c"}; -- weapon, physical, focus, speed, armour, cheat
 local dealBtn; -- the deal buttons
 
 --CREATE 4 DECKS CONTAINING 30 CARDS EACH. EACH DECK CONTAINS 2 OF THE EACH CARD (15 SETS)
 function createDeck()
 	decks = {};
-	for i=1, 4 do
+	for i=1, 6 do
 		cardtext = ""
 		decks[i] = {}
      	for j=1, 30 do
@@ -51,6 +51,7 @@ end
 
 function LoadCard(filename,x,y)
 	local group = display.newGroup()
+    --local group = GameInfo.card_group[1]
     -- width, height, x, y
     local icon = display.newImage(group, "Images/" .. filename, 
         x, y)

@@ -9,12 +9,13 @@ function onStrafe( event )
 			t.isFocus = true
 			-- Store initial position
 			t.x0 = event.x - t.x
-			--t.y0 = event.y - t.y
+			t.y0 = event.y - t.y
 		elseif t.isFocus then
 			if "moved" == phase then
 				-- Make object move (we subtract t.x0,t.y0 so that moves are
 				-- relative to initial grab point, rather than object "snapping").
 				t.x = event.x - t.x0
+
 				--t.y = event.y - t.y0
 			elseif "ended" == phase or "cancelled" == phase then
 				display.getCurrentStage():setFocus( nil )

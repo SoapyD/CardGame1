@@ -5,7 +5,8 @@ function onTouch( event )
 		local phase = event.phase
 
 		if (t.finalised == false and 
-			GameInfo.username == GameInfo.player_list[GameInfo.current_player].username) then
+			GameInfo.username == GameInfo.player_list[GameInfo.current_player].username and
+			GameInfo.pause_main == false) then
 			if "began" == phase then
 				-- Make target the top-most object
 				local parent = t.parent
