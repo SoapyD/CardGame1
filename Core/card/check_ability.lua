@@ -2,19 +2,25 @@
 
 function CheckAbility(ability, applied_to, value)
 
+    local temp_mods = {}
+    temp_mods.play = false
+    temp_mods.draw = false
+
     print("ability passed" .. ability)
     Check_Ab = switch { 
     	["health"] = function (x) mod_health(applied_to, value) end,
         ["armour"] = function (x) mod_armour(applied_to, value) end,
-        ["cripple arm"] = function (x) mod_arm(applied_to, value) end,
-    	["cripple leg"] = function (x) mod_leg(applied_to, value) end, 
-    	--["draw card"] = run_main_loop,
-    	--["play card"]
+        ["arm"] = function (x) mod_arm(applied_to, value) end,
+    	["leg"] = function (x) mod_leg(applied_to, value) end, 
+    	["draw"] = function (x) temp_mods.draw = true end,
+    	["play"] = function (x) temp_mods.play = true end, 
 
 	   	default = function () print( "ERROR - ability not within switch") end,
 	}
 
 	Check_Ab:case(ability)
+
+    return temp_mods
 end
 
 function find_applied_to(applied_to)
@@ -67,6 +73,9 @@ function mod_arm(applied_to, value)
     if (applied_player.arms < 0 ) then
         applied_player.arms = 0
     end
+    if (applied_player.arms > applied_player.max_arms ) then
+        applied_player.arms = applied_player.max_arms
+    end
     print("arms add:" .. value)
 end
 
@@ -78,6 +87,9 @@ function mod_leg(applied_to, value)
     applied_player.legs = applied_player.legs + value
     if (applied_player.legs < 0 ) then
         applied_player.legs = 0
+    end
+    if (applied_player.legs > applied_player.max_legs ) then
+        applied_player.legs = applied_player.max_legs
     end
     print("legs add:" .. value)
 end

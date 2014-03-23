@@ -20,16 +20,12 @@ function createDeck()
 end
 
 --DRAW A CARD BY AMENDING THE DECK CHOSEN AND LOADING THE CARD AS AN OBJECT
-function DrawCard(deck_index)
-	tempCard = CheckDeck(deck_index)
-	if ( tempCard > 15) then
-		tempCard = tempCard - 15
-	end
-	--print(tempCard)
+function DrawCard(deck_index, remove_item)
+	tempCard = CheckDeck(deck_index, remove_item)
 	LoadCard( suits[deck_index] .. "/" .. tempCard .. ".png",0,150);
 end
 
-function CheckDeck(deck_index)
+function CheckDeck(deck_index, remove_item)
 
 	--RANDOMLY GENERATE A NUMBER FROM THE SIZE OF THE DECK
 	local randIndex = math.random(#decks[deck_index])
@@ -40,8 +36,14 @@ function CheckDeck(deck_index)
 	print("card: ", tempCard)
 
 	--REMOVE THE VALUE FROM THE LIST
-	table.remove(decks[deck_index],randIndex)
-	print("listSize: ", table.maxn(decks[deck_index]))
+    if (remove_item == true) then
+    	table.remove(decks[deck_index],randIndex)
+    	print("listSize: ", table.maxn(decks[deck_index]))
+    end
+
+    if ( tempCard > 15) then
+        tempCard = tempCard - 15
+    end
 
 	return tempCard
 end

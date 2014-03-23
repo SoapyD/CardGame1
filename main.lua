@@ -26,8 +26,9 @@ require("Core.card.card_loop")
 require("Network.networking")
 
 require("Core.functions.camera_controls") --REQUIRES THE ZOOM VALUE FROM GAMEINFO
-require("Core.table_setup")
-require("Core.faceoff_setup")
+require("Core.table.table_setup")
+require("Core.table.faceoff_setup")
+require("Core.table.draw_setup")
 
 --local hand;
 local board = {}

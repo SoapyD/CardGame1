@@ -1,8 +1,4 @@
 local function set_stats(card_info, top, bottom, left, right, arms, legs, either_limb, damage, card_type)
-	--card_info.top = top
-	--card_info.bottom = bottom
-	--card_info.left = left
-	--card_info.right = right
     card_info.strat_scores = {}
     card_info.strat_scores[1] = top
     card_info.strat_scores[2] = right
@@ -17,7 +13,6 @@ local function set_stats(card_info, top, bottom, left, right, arms, legs, either
     card_info.card_type = card_type
 
 	card_info.actions = {}
-
 end 
 
 function set_action(action_name, value, applied_to)
@@ -56,19 +51,19 @@ function retrieve_card(filename)
     	["w/4.png"] = function()
     			card_info.name = "dismember"
     			set_stats(card_info, 3,1,3,1,1,0,0,10,"weapon")
-    			card_info.actions[table.getn(card_info.actions) + 1] = set_action("cripple arm", -2, 1)
+    			card_info.actions[table.getn(card_info.actions) + 1] = set_action("arm", -2, 1)
     		end,
     	["w/5.png"] = function()
     			card_info.name = "morningstar"
     			set_stats(card_info, 7,4,7,7,1,0,0,15,"weapon")
-    			card_info.actions[table.getn(card_info.actions) + 1] = set_action("cripple arm", -1, 1)
-       			card_info.actions[table.getn(card_info.actions) + 1] = set_action("cripple leg", -1, 0) 			
+    			card_info.actions[table.getn(card_info.actions) + 1] = set_action("arm", -1, 1)
+       			card_info.actions[table.getn(card_info.actions) + 1] = set_action("leg", -1, 0) 			
     		end,    		    		   		
     	["w/6.png"] = function()
     			card_info.name = "parry"
     			set_stats(card_info, 15,1,4,4,1,0,0,5,"weapon")
-    			card_info.actions[table.getn(card_info.actions) + 1] = set_action("draw card", 1, 0)
-    			card_info.actions[table.getn(card_info.actions) + 1] = set_action("play card", 1, 0)
+    			card_info.actions[table.getn(card_info.actions) + 1] = set_action("draw", 1, 0)
+    			card_info.actions[table.getn(card_info.actions) + 1] = set_action("play", 1, 0)
     		end,
     	["w/7.png"] = function()
     			card_info.name = "skewer"

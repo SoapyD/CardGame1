@@ -24,6 +24,8 @@ function cGameInfo.methods:init(gamestate)
 	self.zoom_saved  = 0
 	self.table_items = {}
 	self.faceoff_screen = {}
+	self.draw_screen = {}
+	self.temp_card = {}
 
 	self.quads = {}
 

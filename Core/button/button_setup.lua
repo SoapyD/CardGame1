@@ -5,10 +5,10 @@ function SetupButtons()
 	Tab()
 	Finalise_button()
 
-	DrawCard(1)
-	DrawCard(1)
-	DrawCard(1)
-	DrawCard(1)
+	DrawCard(1, true)
+	DrawCard(1, true)
+	DrawCard(1, true)
+	DrawCard(1, true)
 
 	Portrait()				
 end
