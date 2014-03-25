@@ -51,7 +51,7 @@ function run_button_loop()
     	end
     end
     local bar_start = bar.x - (bar.width / 2)
-    local card_diff = (GameInfo.cards[pos_count].x - GameInfo.cards[pos_count].width / 2) - bar_start
+    --local card_diff = (GameInfo.cards[pos_count].x - GameInfo.cards[pos_count].width / 2) - bar_start
     
 
     --print("card diff" .. card_diff)

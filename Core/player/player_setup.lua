@@ -10,6 +10,8 @@ function AddPlayer(username)
 	player_info.arms = player_info.max_arms	
 	player_info.max_legs = 2
 	player_info.legs = player_info.max_legs	
+	player_info.character_info = CheckCharacter("pirate")
+
 
 	local add = true
 	for i=1, table.getn(GameInfo.player_list) do
@@ -25,4 +27,13 @@ function AddPlayer(username)
 	else
 		print("player already on list")
 	end
+end
+
+function SetGame()
+    portrait:toFront()
+    statusText:toFront()
+
+    if ( GameInfo.username ~= GameInfo.player_list[1].username) then
+      finalise_button.isVisible = false
+    end
 end

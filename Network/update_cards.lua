@@ -65,8 +65,8 @@ end
 
 
 function Update_Rotation(unique_id, username, angle)
-    found = false
-    saved_id = -1
+    local found = false
+    local saved_id = -1
 
     --FIND THE CARD TO ROTATE
     for i = 1, table.getn(GameInfo.table_cards) do    
@@ -91,3 +91,9 @@ end
 
 function UpdatenetRotation(t)
 end
+
+--function UpdateDeck(username, remove_pos)
+--  if ( username ~= GameInfo.username) then
+--    RemoveDeckCard(deck_index, remove_pos)
+--  end
+--end

@@ -70,6 +70,49 @@ function onUpdatePeersReceived(update)
   --//////////////////////////////////////////////////////////////////////////
   --////////////////////GAME SOLUTIONS
   --//////////////////////////////////////////////////////////////////////////
+  if (update_type == "remove_card") then
+    local username = tostring(func())
+    local deck_index = tonumber(func())
+    local remove_pos = tonumber(func())
+
+    if (username ~= GameInfo.username) then
+      RemoveDeckCard(deck_index, remove_pos)
+
+      if (table.getn(GameInfo.cards) == 0) then
+        --DrawCard(1, true)
+        --DrawCard(1, true)
+        --DrawCard(1, true)
+        --DrawCard(1, true)
+        --DrawCard(1, true)
+        --DrawCard(1, true)
+        --DrawCard(1, true)
+        DrawCharacterCards()
+
+        appWarpClient.sendUpdatePeers(
+          tostring("finish_draw") .. " " ..
+          tostring(GameInfo.username))    
+      end
+    end
+  end
+
+  if (update_type == "finish_draw") then --REGISTER THAT THE RECEIVER HAS RECEIVED A MESSAGE
+    local username = tostring(func())
+
+    if (username ~= GameInfo.username) then
+         appWarpClient.sendUpdatePeers(
+            tostring("complete_action") .. " " .. 
+            tostring(username)) 
+    end
+  end
+
+  if (update_type == "complete_action") then --TURN A SWITCH IN GAMEINFO
+    local username = tostring(func())
+
+    if (username == GameInfo.username) then
+      GameInfo.switch1 = true
+    end
+  end
+
   if (update_type == "position") then
     local unique_id = tostring(func())
     local filename = tostring(func())

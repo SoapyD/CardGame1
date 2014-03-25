@@ -145,21 +145,23 @@ function run_card_loop()
 
     --GameInfo.print_string = GameInfo.print_string .. "\nCurrent:" .. GameInfo.current_card_int
     --print_string = GameInfo.print_string .. "\nPrevious:" .. GameInfo.previous_card_int
-	GameInfo.print_string = GameInfo.print_string .. "\nPLAYER1:"
-	local health = "" .. GameInfo.player_list[1].health
-	local armour = "" .. GameInfo.player_list[1].armour
-	local arms = "" .. GameInfo.player_list[1].arms
-	local legs = "" .. GameInfo.player_list[1].legs
-    GameInfo.print_string = GameInfo.print_string .. "\nHP:" .. health .. " AR:" ..armour
-    GameInfo.print_string = GameInfo.print_string .. "\nAR:" ..armour .. " A:" .. arms .. " L:" .. legs  
+	
+    if (table.getn(GameInfo.player_list) > 0) then
+		GameInfo.print_string = GameInfo.print_string .. "\nPLAYER1:"
+		local health = "" .. GameInfo.player_list[1].health
+		local armour = "" .. GameInfo.player_list[1].armour
+		local arms = "" .. GameInfo.player_list[1].arms
+		local legs = "" .. GameInfo.player_list[1].legs
+	    GameInfo.print_string = GameInfo.print_string .. "\nHP:" .. health .. " AR:" ..armour
+	    GameInfo.print_string = GameInfo.print_string .. "\nAR:" ..armour .. " A:" .. arms .. " L:" .. legs  
 
 
-	GameInfo.print_string = GameInfo.print_string .. "\nPLAYER2:"
-	health = "" .. GameInfo.player_list[2].health
-	larmour = "" .. GameInfo.player_list[2].armour
-	arms = "" .. GameInfo.player_list[2].arms
-	legs = "" .. GameInfo.player_list[2].legs
-    GameInfo.print_string = GameInfo.print_string .. "\nHP:" .. health .. " AR:" ..armour
-    GameInfo.print_string = GameInfo.print_string .. "\nAR:" ..armour .. " A:" .. arms .. " L:" .. legs  
-
+		GameInfo.print_string = GameInfo.print_string .. "\nPLAYER2:"
+		health = "" .. GameInfo.player_list[2].health
+		larmour = "" .. GameInfo.player_list[2].armour
+		arms = "" .. GameInfo.player_list[2].arms
+		legs = "" .. GameInfo.player_list[2].legs
+	    GameInfo.print_string = GameInfo.print_string .. "\nHP:" .. health .. " AR:" ..armour
+	    GameInfo.print_string = GameInfo.print_string .. "\nAR:" ..armour .. " A:" .. arms .. " L:" .. legs  
+	end 
 end

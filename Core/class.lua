@@ -40,6 +40,8 @@ function cGameInfo.methods:init(gamestate)
 
 	self.print_string = ""
 
+	self.switch1 = false
+
 	self.card_group = display.newGroup()
 end
 

@@ -1,6 +1,6 @@
 
 
-local deck; -- The deck of Cards
+local decks; -- The deck of Cards
 local suits = {"w","p","f","s","a","c"}; -- weapon, physical, focus, speed, armour, cheat
 local dealBtn; -- the deal buttons
 
@@ -16,7 +16,29 @@ function createDeck()
     	    --cardtext = cardtext .. tempCard .. ",";
      	end
      	--print(cardtext)
-    end
+    end  
+end
+
+function DrawCharacterCards()
+    print("check draw")
+    for i=1, table.getn(GameInfo.player_list) do
+        if (GameInfo.player_list[i].username == GameInfo.username) then
+            print("player found")
+            local user_info = GameInfo.player_list[i]
+
+            for stat=1, table.getn(user_info.character_info) do
+                print("stat: " .. stat)
+                local card_num = user_info.character_info[stat]
+                print("card num: " .. card_num)
+                if (card_num > 0) then
+                    for card_itt=1, card_num do
+                        DrawCard(stat, true)      
+                    end 
+                end
+            end          
+
+        end
+    end   
 end
 
 --DRAW A CARD BY AMENDING THE DECK CHOSEN AND LOADING THE CARD AS AN OBJECT
@@ -33,12 +55,17 @@ function CheckDeck(deck_index, remove_item)
 
 	--GET THE CARD NAME SAVED AT THAT LIST INDEX POSITION
 	tempCard = decks[deck_index][randIndex]
-	print("card: ", tempCard)
+	--print("card: ", tempCard)
 
 	--REMOVE THE VALUE FROM THE LIST
     if (remove_item == true) then
-    	table.remove(decks[deck_index],randIndex)
-    	print("listSize: ", table.maxn(decks[deck_index]))
+        RemoveDeckCard(deck_index, randIndex)
+
+        appWarpClient.sendUpdatePeers(
+            tostring("remove_card") .. " " ..
+            tostring(GameInfo.username) .. " " .. 
+            tostring(deck_index).." ".. 
+            tostring(randIndex))        
     end
 
     if ( tempCard > 15) then
@@ -48,6 +75,11 @@ function CheckDeck(deck_index, remove_item)
 	return tempCard
 end
 
+function RemoveDeckCard(deck_index, remove_pos)
+    --print("deck index" .. deck_index .. " remove_pos " .. remove_pos .. " deck " .. table.getn(decks))
+    table.remove(decks[deck_index],remove_pos)
+    print("Deck_listSize: ", table.maxn(decks[deck_index]))   
+end
 
 function LoadCard(filename,x,y)
 	local group = display.newGroup()

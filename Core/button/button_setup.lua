@@ -4,12 +4,6 @@ function SetupButtons()
 	ScrollBar()
 	Tab()
 	Finalise_button()
-
-	DrawCard(1, true)
-	DrawCard(1, true)
-	DrawCard(1, true)
-	DrawCard(1, true)
-
 	Portrait()				
 end
 
@@ -87,9 +81,9 @@ function Finalise_button()
 	finalise_button.height = boxheight	
 	finalise_button:addEventListener( "touch", finishCard )
 
-	if ( GameInfo.username ~= GameInfo.player_list[GameInfo.current_player].username) then
-		finalise_button.isVisible = false
-	end
+	--if ( GameInfo.username ~= GameInfo.player_list[GameInfo.current_player].username) then
+	--	finalise_button.isVisible = false
+	--end
 end
 
 

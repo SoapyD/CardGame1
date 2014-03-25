@@ -11,6 +11,7 @@ require("Core.class")
 
 GameInfo = cGameInfo:new(0)
 
+require("Core.player.character_classes")
 require("Core.player.player_setup")
 require("main_setup")
 require("main_loop")
@@ -48,8 +49,10 @@ local function GameLoop( event )
     		GameInfo.gamestate = GameInfo.gamestate + 1
     		end,
    		[1] = LoadConnection,--SET ANYTHING THAT ONLY NEEDS LOADING ONCE 
-    	[2] = player_check, --REGISTER BOTH PLAYERS
-    	[3] = loadGame,--SET ANYTHING THAT ONLY NEEDS LOADING ONCE 
+    	--[2] = player_check, --REGISTER BOTH PLAYERS
+    	--[3] = loadGame,--SET ANYTHING THAT ONLY NEEDS LOADING ONCE 
+        [2] = loadGame,--SET ANYTHING THAT ONLY NEEDS LOADING ONCE 
+        [3] = player_check, --REGISTER BOTH PLAYERS
     	[4] = run_main_loop,
 
 	   	default = function () print( "ERROR - gamestate not within switch") end,

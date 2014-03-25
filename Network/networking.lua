@@ -29,7 +29,7 @@ local internal_count = 0
 
 function player_check()
 
-    CheckState = switch { 
+    local CheckState = switch { 
         [0] = function()    --CHECK PLAYERS ARE CONNECTED
 
                 if (GameInfo.attacker_ready == true and
@@ -55,6 +55,7 @@ function player_check()
                     tostring("add_player") .. " " ..
                     tostring(GameInfo.username))
                            
+                    --ONLY ADVANCE WHEN BOTH PLAYERS DATA HAS BEEN ADDED
                     if (table.getn(GameInfo.player_list) >= 2) then
                         connection_state = connection_state + 1  
                     end
@@ -105,10 +106,21 @@ function player_check()
                     current_arr = current_arr + 1
                 end
                 GameInfo.player_list = temp_list
-                --for i=1, table.getn(temp_list) do
-                --    print("temp_name " .. i .. ":" .. temp_list[i].username)
-                --end
-        		GameInfo.gamestate = GameInfo.gamestate + 1
+
+        		--GameInfo.gamestate = GameInfo.gamestate + 1
+                connection_state = connection_state + 1
+            end,
+        [4] = function() --ADVANCE THE GAMESTATE
+                if(GameInfo.player_list[1].username == GameInfo.username) then
+                    SetPlayerCards_Networked()
+                else
+                    if (GameInfo.switch1 == true) then
+                        GameInfo.switch1 = false
+                        GameInfo.gamestate = GameInfo.gamestate + 1
+                        SetGame()
+                    end
+                end
+                --GameInfo.gamestate = GameInfo.gamestate + 1
             end,
         default = function () print( "ERROR - connection_state not within switch") end,
     }
@@ -117,5 +129,52 @@ function player_check()
     CheckState:case(connection_state)
 
     appWarpClient.Loop()
+
+end
+
+
+local SetCards_state = 0
+
+function SetPlayerCards_Networked()
+
+    local setup_complete = false
+
+    CheckState = switch { 
+        [0] = function()    --SEND CARD DATA
+                --DrawCard(1, true)
+                --DrawCard(1, true)
+                --DrawCard(1, true)
+                --DrawCard(1, true)
+                --DrawCard(1, true)
+                --DrawCard(1, true)
+                --DrawCard(1, true)
+                DrawCharacterCards()
+
+                SetGame()
+
+                appWarpClient.sendUpdatePeers(
+                    tostring("finish_draw") .. " " ..
+                    tostring(GameInfo.username))  
+
+                SetCards_state = SetCards_state + 1
+            end,
+        [1] = function()    --WAIT TO RECEIVE THE COMPLETE STATUS
+                if (GameInfo.switch1 == true) then
+
+                    GameInfo.switch1 = false
+                    SetCards_state = SetCards_state + 1
+                    --print("switch triggered")
+                end
+            end,
+        [2] = function()    --WAIT FOR THE OPPONENT TO FINISH DRAWING
+                GameInfo.gamestate = GameInfo.gamestate + 1
+            end,
+
+        default = function () print( "ERROR - SetCards_state not within switch") end,
+    }
+
+    CheckState:case(SetCards_state)
+
+    return setup_complete;
 
 end
