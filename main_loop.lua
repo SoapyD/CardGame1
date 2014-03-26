@@ -36,6 +36,11 @@ function run_main_loop()
         		--run_main_state = run_main_state + 1
             	run_main_state = 0
             end,
+        [2] = function()    --TURN ON THE DISCARD CARDS SCREEN
+                Show_DiscardTable()
+                --run_main_state = run_main_state + 1
+                run_main_state = 0
+            end,
         --[2] = function()    --CHECK FOR DRAW TO FINISH
         		
         --    end,
@@ -81,20 +86,50 @@ end
 
 function CheckActionState()
 
+    local Action = GameInfo.actions[action_state]
+
     local CheckState = switch { 
         ["draw"] = function()    --RUN THE DRAW LOOP
         		if (action_internal_state == 0) then
         			run_main_state = 1
         			action_internal_state = 1
+                    SetDrawMax(Action.value)
         		end
+            end,
+        ["discard"] = function()    --RUN THE DISCARD LOOP
+                if (action_internal_state == 0) then
+                    run_main_state = 2
+                    action_internal_state = 1
+                    SetDiscardMax(Action.value)
+                end
             end,
 
         default = function () print( "ERROR - GameInfo Action not within switch") end,
     }
 
-    if (table.getn(GameInfo.actions) > 0 and
-    	GameInfo.username == GameInfo.player_list[GameInfo.current_player].username) then
-    	CheckState:case(GameInfo.actions[action_state])
-    	--print(GameInfo.actions[action_state])
+    if (table.getn(GameInfo.actions) > 0 ) then
+        --print("applied to" .. GameInfo.actions[action_state].applied_to)
+    	if (GameInfo.actions[action_state].applied_to == 1 and
+            GameInfo.username == GameInfo.player_list[GameInfo.current_player].username) then
+    	   CheckState:case(GameInfo.actions[action_state].type)
+        end
+        if (GameInfo.actions[action_state].applied_to == 0 and
+            GameInfo.username ~= GameInfo.player_list[GameInfo.current_player].username) then
+           CheckState:case(GameInfo.actions[action_state].type)
+        end
 	end
+end
+
+function CheckActionPos(network_used)
+    local list_size = table.getn(GameInfo.actions)
+    print("list size:" .. list_size .. " action_state:" .. action_state)
+    if (action_state < list_size) then
+        action_state = action_state + 1
+    end
+
+    if ( network_used == false) then
+        appWarpClient.sendUpdatePeers(
+        tostring("advance_actions") .. " " .. 
+        tostring(username)) 
+    end
 end

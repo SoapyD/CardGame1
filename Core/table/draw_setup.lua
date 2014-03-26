@@ -1,3 +1,5 @@
+local draw_max = 0
+
 function DrawTempCard( event )
     local t = event.target
     local phase = event.phase
@@ -42,10 +44,16 @@ function DrawTempCard( event )
                 local max_hight = display.contentHeight - (300 * GameInfo.zoom)
                 if (GameInfo.temp_card.icon.y > max_hight) then
                     print("card drawn" .. t.type_int)
-                    Hide_DrawTable()
                     DrawCard(t.type_int, true)
                     portrait:toFront()
                     statusText:toFront()
+
+                    if (draw_max <= 1) then
+                        Hide_DrawTable()
+                    else
+                        draw_max = draw_max - 1
+                    end
+
                 end
                 GameInfo.temp_card.icon:removeSelf()
                 GameInfo.temp_card.icon.text:removeSelf()
@@ -58,7 +66,7 @@ function DrawTempCard( event )
 end
 
 function Hide_DrawTable()
-    GameInfo.draw_screen.image.isVisible  = false
+    GameInfo.screen_elements.image.isVisible  = false
     GameInfo.draw_screen.card1.icon.isVisible  = false
     GameInfo.draw_screen.card2.icon.isVisible  = false
     GameInfo.draw_screen.card3.icon.isVisible  = false
@@ -67,10 +75,11 @@ function Hide_DrawTable()
     GameInfo.draw_screen.card6.icon.isVisible  = false
     TitleText.text = ""
     GameInfo.pause_main = false
+    CheckActionPos(false)
 end
 
 function Show_DrawTable()
-    GameInfo.draw_screen.image.isVisible  = true
+    GameInfo.screen_elements.image.isVisible  = true
     GameInfo.draw_screen.card1.icon.isVisible  = true
     GameInfo.draw_screen.card2.icon.isVisible  = true
     GameInfo.draw_screen.card3.icon.isVisible  = true
@@ -79,6 +88,12 @@ function Show_DrawTable()
     GameInfo.draw_screen.card6.icon.isVisible  = true
     TitleText.text = "Draw Card"
     GameInfo.pause_main = true
+    
+end
+
+function SetDrawMax(draw_value)
+    draw_max = draw_value
+    --print("draw value" .. draw_max)
 end
 
 
@@ -86,11 +101,11 @@ function LoadDrawCard()
     local group = display.newGroup()
     -- width, height, x, y
     local draw_item = {}
-    draw_item.image = display.newImage(group, "Images/" .. "black marble.jpg", 
-        1200 / 2, 1600 / 2)  
+    --draw_item.image = display.newImage(group, "Images/" .. "black marble.jpg", 
+    --    1200 / 2, 1600 / 2)  
 
-    TitleText = display.newText( "Draw Card", 
-        display.contentWidth / 2, 100, native.systemFontBold, 68 )
+    --TitleText = display.newText( "Draw Card", 
+    --    display.contentWidth / 2, 100, native.systemFontBold, 68 )
 
     --AddCardZone(draw_item);
     draw_item.card1 = {}
@@ -106,10 +121,8 @@ function LoadDrawCard()
     AddCardZone(draw_item.card4,130,570,"yellow","speed",4);
     AddCardZone(draw_item.card5,400,570,"purple","armour",5);
     AddCardZone(draw_item.card6,670,570,"aqua","cheat",6);
-    --draw_item.image.isVisible  = false
 
     GameInfo.draw_screen = draw_item
-    --GameInfo.pause_main = true
     Hide_DrawTable()
 end
 

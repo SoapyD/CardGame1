@@ -17,7 +17,7 @@ function Check_PhysicalCards(filename)
     	["p/2.png"] = function()
     			card_info.name = "batter"
     			set_stats(card_info, 5,2,3,3,1,0,0,5,"physical")
-    			card_info.actions[table.getn(card_info.actions) + 1] = set_action("discard", -2, 1)
+    			card_info.actions[table.getn(card_info.actions) + 1] = set_action("discard", 2, 1)
     		end,
      	["p/3.png"] = function()
     			card_info.name = "body-slam"
@@ -66,7 +66,7 @@ function Check_PhysicalCards(filename)
      	["p/12.png"] = function()
     			card_info.name = "roundhouse-ick"
     			set_stats(card_info, 5,15,5,5,0,2,0,15,"physical")
-    			card_info.actions[table.getn(card_info.actions) + 1] = set_action("discard", -1, 1)
+    			card_info.actions[table.getn(card_info.actions) + 1] = set_action("discard", 1, 1)
     		end,    		
     	["p/13.png"] = function()
     			card_info.name = "suplex"
@@ -78,7 +78,7 @@ function Check_PhysicalCards(filename)
     	["p/14.png"] = function()
     			card_info.name = "sweep"
     			set_stats(card_info, 3,7,5,5,0,1,0,10,"physical")
-    			card_info.actions[table.getn(card_info.actions) + 1] = set_action("discard", -1, 1)
+    			card_info.actions[table.getn(card_info.actions) + 1] = set_action("discard", 1, 1)
     		end,
     	["p/15.png"] = function()
     			card_info.name = "throw"

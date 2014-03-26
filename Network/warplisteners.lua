@@ -70,6 +70,14 @@ function onUpdatePeersReceived(update)
   --//////////////////////////////////////////////////////////////////////////
   --////////////////////GAME SOLUTIONS
   --//////////////////////////////////////////////////////////////////////////
+  if (update_type == "advance_actions") then
+    local username = tostring(func())
+
+    if (username ~= GameInfo.username) then
+      CheckActionPos(true)
+    end
+  end
+
   if (update_type == "remove_card") then
     local username = tostring(func())
     local deck_index = tonumber(func())

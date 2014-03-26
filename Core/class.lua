@@ -16,8 +16,6 @@ function cGameInfo.methods:init(gamestate)
 	self.current_card_int = -1
 	self.previous_card_int = -1
 
-	self.pause_main = false
-
 	self.zoom = 0.75
 	self.portrait_start = 400; --NEEDED FOR THE POSITIONING OF PLAYER HAND BUTTONS
 	self.username = ""
@@ -26,7 +24,10 @@ function cGameInfo.methods:init(gamestate)
 	self.zoom_saved  = 0
 	self.table_items = {}
 	self.faceoff_screen = {}
+	self.screen_elements = {}
 	self.draw_screen = {}
+	self.discard_screen = {}
+	self.limb_screen = {}
 	self.temp_card = {}
 
 	self.quads = {}
@@ -42,6 +43,8 @@ function cGameInfo.methods:init(gamestate)
 
 	self.actions = {}
 	self.switch1 = false
+	self.pause_main = false
+	self.pause_add = false
 
 	self.card_group = display.newGroup()
 end

@@ -5,8 +5,9 @@ function onTouch( event )
 		local phase = event.phase
 
 		if (t.finalised == false and 
-			GameInfo.username == GameInfo.player_list[GameInfo.current_player].username and
-			GameInfo.pause_main == false) then
+			(GameInfo.username == GameInfo.player_list[GameInfo.current_player].username and
+			GameInfo.pause_main == false) or
+			GameInfo.pause_add == true) then
 			if "began" == phase then
 				-- Make target the top-most object
 				local parent = t.parent
@@ -48,14 +49,24 @@ function onTouch( event )
 					t.isFocus = false
 		      		--If the card is being placed from the hand, add it to the table
 		      		--then make the "hand card" non-visible
-		      		if (t.drawn == false) then
-						Update_Pos2(t.unique_id, t.filename, t.x, t.y)
-						t.isVisible = false
-						--print("pos not checked")
+		      		if (GameInfo.pause_add == false) then
+			      		if (t.drawn == false) then
+							Update_Pos2(t.unique_id, t.filename, t.x, t.y)
+							t.isVisible = false
+							--print("pos not checked")
+						else
+							local pos_info = CheckBoard_Pos(t)
+							Check_Quad_Region(t, pos_info[3])
+							GameInfo.hand.hide = false
+						end
 					else
-						local pos_info = CheckBoard_Pos(t)
-						Check_Quad_Region(t, pos_info[3])
-						GameInfo.hand.hide = false
+						if (t.x > GameInfo.discard_screen.card1.icon.bbox_min_x and
+							t.x < GameInfo.discard_screen.card1.icon.bbox_max_x and
+							t.y > GameInfo.discard_screen.card1.icon.bbox_min_y and
+							t.y < GameInfo.discard_screen.card1.icon.bbox_max_y) then
+								t.isVisible = false
+								CheckDiscard()
+						end
 					end
 					t.moved = false
 				end

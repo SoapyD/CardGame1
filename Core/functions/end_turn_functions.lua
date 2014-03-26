@@ -10,22 +10,26 @@ function EndTurn(current_card)
     for i=1, table.getn(card_info.actions) do
       local action = card_info.actions[i]
       local temp_mods = {}
+      --print("adding action" .. action.name)
       temp_mods = CheckAbility(action.name, action.applied_to, action.value)
-
-      if (table.getn(temp_mods) > 0) then
-        for n=1, table.getn(temp_mods) do
-          if (temp_mods[n] ~= "play") then
-            GameInfo.actions[table.getn(GameInfo.actions) + 1] = temp_mods[n]
+      --print("mods" .. temp_mods[1].type)
+      if (temp_mods.type ~= "") then
+          if (temp_mods.type ~= "play") then
+            local arr_pos = table.getn(GameInfo.actions) + 1
+            GameInfo.actions[arr_pos] = {}
+            GameInfo.actions[arr_pos] = temp_mods
+            --print("action added" .. temp_mods.type)
+            --GameInfo.actions[table.getn(GameInfo.actions)].type = temp_mods.type
           end
 
-          if (temp_mods[n] == "play") then
+          if (temp_mods.type == "play") then
             pospone_play = true
+
           end
-        end
       end
     end
   end
-
+  print("action num" .. table.getn(GameInfo.actions))
   --GameInfo.actions = {}
   --if (draw_cards == true) then
   --  GameInfo.actions[table.getn(GameInfo.actions) + 1] = "draw"

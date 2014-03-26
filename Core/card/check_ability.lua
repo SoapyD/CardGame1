@@ -2,21 +2,34 @@
 
 function CheckAbility(ability, applied_to, value)
 
+    local add_info = false
     local temp_mods = {}
-
-    print("ability passed" .. ability)
+    temp_mods.type = ""
+    --print("ability passed" .. ability)
     Check_Ab = switch { 
     	["health"] = function (x) mod_health(applied_to, value) end,
         ["armour"] = function (x) mod_armour(applied_to, value) end,
         ["arm"] = function (x) mod_arm(applied_to, value) end,
     	["leg"] = function (x) mod_leg(applied_to, value) end, 
-        ["draw"] = function (x) temp_mods[table.getn(temp_mods) + 1] = "draw" end,
-        ["play"] = function (x) temp_mods[table.getn(temp_mods) + 1] = "play" end, 
-
+        ["draw"] = function (x) 
+                add_info = true
+                end,
+        ["play"] = function (x) 
+                add_info = true
+                end, 
+        ["discard"] = function (x) 
+                add_info = true
+                end, 
 	   	default = function () print( "ERROR - ability not within switch") end,
 	}
 
 	Check_Ab:case(ability)
+
+    if (add_info == true) then
+        temp_mods.type = ability
+        temp_mods.applied_to = applied_to
+        temp_mods.value = value
+    end
 
     return temp_mods
 end
