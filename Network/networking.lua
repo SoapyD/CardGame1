@@ -141,13 +141,6 @@ function SetPlayerCards_Networked()
 
     CheckState = switch { 
         [0] = function()    --SEND CARD DATA
-                --DrawCard(1, true)
-                --DrawCard(1, true)
-                --DrawCard(1, true)
-                --DrawCard(1, true)
-                --DrawCard(1, true)
-                --DrawCard(1, true)
-                --DrawCard(1, true)
                 DrawCharacterCards()
 
                 SetGame()

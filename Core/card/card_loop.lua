@@ -1,7 +1,3 @@
-
---local x_space = 250
---local y_space = 250
-
 local x_space = 350
 local y_space = 350
 
@@ -17,25 +13,17 @@ function run_card_loop()
 	    	hand_card.x = hand_card.x + (GameInfo.cards[i].width * pos_count) --(i -1))
 	     	hand_card.x = hand_card.x + (10 * pos_count) --(i -1))   	
 	    	hand_card.y = GameInfo.hand.y
-	    --else
-	    --	print("not in hand")
     	end
     	if(hand_card.touched == false or hand_card.moved == true) then
     		pos_count = pos_count + 1
     	end
 
-    	--if(hand_card.moved == true) then
-    	--	hide = true
-    	--end
     	local screen_x = (hand_card.x) * camera.xScale
     	local screen_y = (hand_card.y) * camera.yScale  
 
 
     	if(hand_card.moved == true) then   		   		
-    			--GameInfo.print_string = GameInfo.print_string .. "\nScreenX:" .. screen_x
-    			--GameInfo.print_string = GameInfo.print_string .. "\nScreenY:" .. screen_y  
     		if ( screen_y > 600) then
-    			--hide = false
     			GameInfo.hand.hide = false
     			GameInfo.hand.show = true
     		else
@@ -49,20 +37,13 @@ function run_card_loop()
     		and screen_y > 600) then  	
     		hand_card.touched = false
     		hand_card.isVisible = true
-    		--hand_card.x = screen_x
-    		--hand_card.y = screen_y
     		print(hand_card.y)
     	end
 
 	end
-	--if ( hide == false) then
-	--	GameInfo.hand.hide = false
-	--end
 
 	--TABLE_CARD LOOP
-	--for i = 1, table.getn(GameInfo.table_cards) do
 	if ( GameInfo.current_card_int ~= -1) then
-		--current_card = GameInfo.table_cards[i]
 		local current_card = GameInfo.table_cards[GameInfo.current_card_int]
 
 		--ONLY APPLY THIS CODE WHEN THE CARD ISN'T ROTATING
@@ -116,10 +97,6 @@ function run_card_loop()
 
 				local max_hight = display.contentHeight - (300 * GameInfo.zoom)--600 / GameInfo.zoom
 
-    			--GameInfo.print_string = GameInfo.print_string .. "\nScreenX:" .. screen_x
-    			--GameInfo.print_string = GameInfo.print_string .. "\nScreenY:" .. screen_y
-    			--GameInfo.print_string = GameInfo.GameInfo.print_string .. "\nTrigger:" .. max_hight
-
 				if ( hand_card.y > max_hight) then
 					hand_card.isVisible = true
 					hand_card.touched = false
@@ -139,13 +116,8 @@ function run_card_loop()
 		if ( remove_id == true) then
 			Remove_CurrentCard()
 		end
-	--end
 	end
 
-
-    --GameInfo.print_string = GameInfo.print_string .. "\nCurrent:" .. GameInfo.current_card_int
-    --print_string = GameInfo.print_string .. "\nPrevious:" .. GameInfo.previous_card_int
-	
     if (table.getn(GameInfo.player_list) > 0) then
 		GameInfo.print_string = GameInfo.print_string .. "\nPLAYER1:"
 		local health = "" .. GameInfo.player_list[1].health

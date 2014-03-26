@@ -77,21 +77,6 @@ function onUpdatePeersReceived(update)
 
     if (username ~= GameInfo.username) then
       RemoveDeckCard(deck_index, remove_pos)
-
-      if (table.getn(GameInfo.cards) == 0) then
-        --DrawCard(1, true)
-        --DrawCard(1, true)
-        --DrawCard(1, true)
-        --DrawCard(1, true)
-        --DrawCard(1, true)
-        --DrawCard(1, true)
-        --DrawCard(1, true)
-        DrawCharacterCards()
-
-        appWarpClient.sendUpdatePeers(
-          tostring("finish_draw") .. " " ..
-          tostring(GameInfo.username))    
-      end
     end
   end
 
@@ -102,6 +87,14 @@ function onUpdatePeersReceived(update)
          appWarpClient.sendUpdatePeers(
             tostring("complete_action") .. " " .. 
             tostring(username)) 
+
+      if (table.getn(GameInfo.cards) == 0) then
+        DrawCharacterCards()
+
+        appWarpClient.sendUpdatePeers(
+          tostring("finish_draw") .. " " ..
+          tostring(GameInfo.username))    
+      end
     end
   end
 

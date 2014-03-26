@@ -20,16 +20,16 @@ function createDeck()
 end
 
 function DrawCharacterCards()
-    print("check draw")
+    --print("check draw")
     for i=1, table.getn(GameInfo.player_list) do
         if (GameInfo.player_list[i].username == GameInfo.username) then
-            print("player found")
+            --print("player found")
             local user_info = GameInfo.player_list[i]
 
             for stat=1, table.getn(user_info.character_info) do
-                print("stat: " .. stat)
+                --print("stat: " .. stat)
                 local card_num = user_info.character_info[stat]
-                print("card num: " .. card_num)
+                --print("card num: " .. card_num)
                 if (card_num > 0) then
                     for card_itt=1, card_num do
                         DrawCard(stat, true)      
@@ -50,8 +50,9 @@ end
 function CheckDeck(deck_index, remove_item)
 
 	--RANDOMLY GENERATE A NUMBER FROM THE SIZE OF THE DECK
-	local randIndex = math.random(#decks[deck_index])
-	--print("indexnum: ", randIndex)
+	--local randIndex = math.random(#decks[deck_index])
+	local randIndex = 6
+    --print("indexnum: ", randIndex)
 
 	--GET THE CARD NAME SAVED AT THAT LIST INDEX POSITION
 	tempCard = decks[deck_index][randIndex]

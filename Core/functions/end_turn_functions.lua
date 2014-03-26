@@ -1,22 +1,42 @@
 
 function EndTurn(current_card)
 
-  --(applied_to, value)
   local pospone_play = false
 
+  GameInfo.actions = {}
   local card_info = retrieve_card(current_card.filename)
-  print("actions size:" .. table.getn(card_info.actions))
+
   if ( table.getn(card_info.actions) > 0) then
     for i=1, table.getn(card_info.actions) do
       local action = card_info.actions[i]
       local temp_mods = {}
       temp_mods = CheckAbility(action.name, action.applied_to, action.value)
-      if (temp_mods.play == true) then
-        pospone_play = true
+
+      if (table.getn(temp_mods) > 0) then
+        for n=1, table.getn(temp_mods) do
+          if (temp_mods[n] ~= "play") then
+            GameInfo.actions[table.getn(GameInfo.actions) + 1] = temp_mods[n]
+          end
+
+          if (temp_mods[n] == "play") then
+            pospone_play = true
+          end
+        end
       end
     end
   end
 
+  --GameInfo.actions = {}
+  --if (draw_cards == true) then
+  --  GameInfo.actions[table.getn(GameInfo.actions) + 1] = "draw"
+  --end
+  --if (table.getn(GameInfo.actions) > 0) then
+  --  for n=1 to table.getn(GameInfo.actions) do
+  --    if (GameInfo.actions[n] = "play") then
+  --      pospone_play = true
+  --    end
+  --  end
+  --end
 
   local Pos_Info = CheckBoard_Pos(current_card)
   section_num = Pos_Info[3]

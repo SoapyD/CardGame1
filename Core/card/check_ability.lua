@@ -3,8 +3,6 @@
 function CheckAbility(ability, applied_to, value)
 
     local temp_mods = {}
-    temp_mods.play = false
-    temp_mods.draw = false
 
     print("ability passed" .. ability)
     Check_Ab = switch { 
@@ -12,8 +10,8 @@ function CheckAbility(ability, applied_to, value)
         ["armour"] = function (x) mod_armour(applied_to, value) end,
         ["arm"] = function (x) mod_arm(applied_to, value) end,
     	["leg"] = function (x) mod_leg(applied_to, value) end, 
-    	["draw"] = function (x) temp_mods.draw = true end,
-    	["play"] = function (x) temp_mods.play = true end, 
+        ["draw"] = function (x) temp_mods[table.getn(temp_mods) + 1] = "draw" end,
+        ["play"] = function (x) temp_mods[table.getn(temp_mods) + 1] = "play" end, 
 
 	   	default = function () print( "ERROR - ability not within switch") end,
 	}

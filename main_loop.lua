@@ -1,4 +1,8 @@
 
+local run_main_state = 0
+local action_state = 1
+local action_internal_state = 0
+
 function run_main_loop()
 
 	GameInfo.print_string = ""
@@ -9,16 +13,37 @@ function run_main_loop()
     end
 
     --BOUNDS NEEDED TO KEEP THE SYNCING OF SCREEN AND GAME SPACES TOGETHER
+    --USED TO KEEP CARDS WITHIN THE TABLE BOUNDS
 	boundX1 = -camera.scrollX
 	boundX2 = -camera.scrollX + (display.contentWidth / camera.xScale)
 	boundY1 = -camera.scrollY
 	boundY2 = -camera.scrollY + (display.contentHeight / camera.yScale)
 
 
-    --CREATE TOOLS TO KEEP THE CARD AND SCROLL IT UP AND DOWN THE SCREEN
+    --INPUTS AND MAIN FUNCTIONS FOR THE GAME
  	run_button_loop()
  	run_card_loop()
  	CheckZoom()
+
+ 	CheckActionState()
+
+    local CheckState = switch { 
+        [0] = function()    --MAIN GAME
+
+            end,
+        [1] = function()    --TURN ON THE DRAW CARDS SCREEN
+        		Show_DrawTable()
+        		--run_main_state = run_main_state + 1
+            	run_main_state = 0
+            end,
+        --[2] = function()    --CHECK FOR DRAW TO FINISH
+        		
+        --    end,
+        default = function () print( "ERROR - ruN_main_state not within switch") end,
+    }
+
+    CheckState:case(run_main_state)
+
 
  	--SOME TEMPORARY DRAWN BUTTONS I'M USING TO TEST THE CAMERA AND IT'S SPACING
 	button1.x = -camera.scrollX
@@ -52,4 +77,24 @@ function run_main_loop()
     --CHECK THE NETWORK CONNECTION
     appWarpClient.Loop()
 
+end
+
+function CheckActionState()
+
+    local CheckState = switch { 
+        ["draw"] = function()    --RUN THE DRAW LOOP
+        		if (action_internal_state == 0) then
+        			run_main_state = 1
+        			action_internal_state = 1
+        		end
+            end,
+
+        default = function () print( "ERROR - GameInfo Action not within switch") end,
+    }
+
+    if (table.getn(GameInfo.actions) > 0 and
+    	GameInfo.username == GameInfo.player_list[GameInfo.current_player].username) then
+    	CheckState:case(GameInfo.actions[action_state])
+    	--print(GameInfo.actions[action_state])
+	end
 end
