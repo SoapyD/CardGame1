@@ -35,16 +35,24 @@ function run_main_loop()
         		Show_DrawTable()
         		--run_main_state = run_main_state + 1
             	run_main_state = 0
+                --action_internal_state = 0
             end,
         [2] = function()    --TURN ON THE DISCARD CARDS SCREEN
                 Show_DiscardTable()
                 --run_main_state = run_main_state + 1
                 run_main_state = 0
+                --action_internal_state = 0
+            end,
+        [3] = function()    --END ROUND
+                EndRound()
+                --run_main_state = run_main_state + 1
+                --run_main_state = 0
+                --action_internal_state = 0
             end,
         --[2] = function()    --CHECK FOR DRAW TO FINISH
         		
         --    end,
-        default = function () print( "ERROR - ruN_main_state not within switch") end,
+        default = function () print( "ERROR - run_main_state not within switch") end,
     }
 
     CheckState:case(run_main_state)
@@ -84,6 +92,10 @@ function run_main_loop()
 
 end
 
+function ResetActionState()
+    action_state = 1
+end
+
 function CheckActionState()
 
     local Action = GameInfo.actions[action_state]
@@ -103,7 +115,12 @@ function CheckActionState()
                     SetDiscardMax(Action.value)
                 end
             end,
-
+        ["end_round"] = function()    --RUN THE DISCARD LOOP
+                if (action_internal_state == 0) then
+                    run_main_state = 3
+                    action_internal_state = 1
+                end
+            end,
         default = function () print( "ERROR - GameInfo Action not within switch") end,
     }
 
@@ -115,6 +132,10 @@ function CheckActionState()
         end
         if (GameInfo.actions[action_state].applied_to == 0 and
             GameInfo.username ~= GameInfo.player_list[GameInfo.current_player].username) then
+           CheckState:case(GameInfo.actions[action_state].type)
+        end
+        if (GameInfo.actions[action_state].applied_to == -1) then
+            --print("-1 used")
            CheckState:case(GameInfo.actions[action_state].type)
         end
 	end

@@ -72,6 +72,24 @@ function Check_Quad_Region(current_card, search_section)
         allow_placement = false
     end
 
+    if (GameInfo.previous_card_int ~= -1) then
+        --Check to see if the attacking card type is blocked
+        local last_card_info = GameInfo.table_cards[GameInfo.previous_card_int]
+        local last_card = retrieve_card(last_card_info.filename)
+        --print("file name: " .. last_card_info.filename .. " size: " .. table.getn(last_card.actions))
+
+        if (table.getn(last_card.actions) > 0) then
+            for n=1 , table.getn(last_card.actions) do
+                if (last_card.actions[n].name == "block") then
+                    --print("card with block")
+                    if (current_info.card_value == last_card.actions[n].value) then
+                        allow_placement = false
+                        print(current_info.card_type .. " card type block")
+                    end
+                end
+            end
+        end
+    end
 
     if ( allow_placement == true) then
         finalise_button.isVisible = true
@@ -153,7 +171,7 @@ function compare_card_info(clash_dir, current_card, current_info, quad, surround
     local return_info = false
 
     if (current_val >= opposite_val) then
-        print("placement available, curr:" .. current_val .. ", opp:" .. opposite_val)
+        --print("placement available, curr:" .. current_val .. ", opp:" .. opposite_val)
         return_info = true
     --else
     --    print("CAN'T PLACE")

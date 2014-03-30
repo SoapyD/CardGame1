@@ -10,7 +10,7 @@ function AddPlayer(username)
 	player_info.arms = player_info.max_arms	
 	player_info.max_legs = 2
 	player_info.legs = player_info.max_legs	
-	player_info.character_info = CheckCharacter("pirate")
+	player_info.character_info = CheckCharacter("test")
 
 
 	local add = true

@@ -112,7 +112,10 @@ function player_check()
             end,
         [4] = function() --ADVANCE THE GAMESTATE
                 if(GameInfo.player_list[1].username == GameInfo.username) then
-                    SetPlayerCards_Networked()
+                    local SetupComplete = SetPlayerCards_Networked()
+                    if (SetupComplete == true) then
+                        GameInfo.gamestate = GameInfo.gamestate + 1
+                    end
                 else
                     if (GameInfo.switch1 == true) then
                         GameInfo.switch1 = false
@@ -134,6 +137,10 @@ end
 
 
 local SetCards_state = 0
+
+function Reset_SetCards_state()
+    SetCards_state = 0
+end
 
 function SetPlayerCards_Networked()
 
@@ -160,7 +167,8 @@ function SetPlayerCards_Networked()
                 end
             end,
         [2] = function()    --WAIT FOR THE OPPONENT TO FINISH DRAWING
-                GameInfo.gamestate = GameInfo.gamestate + 1
+                --GameInfo.gamestate = GameInfo.gamestate + 1
+                setup_complete = true
             end,
 
         default = function () print( "ERROR - SetCards_state not within switch") end,

@@ -73,7 +73,7 @@ function finishCard( event )
 
 				local current_card = GameInfo.table_cards[GameInfo.current_card_int]
 
-				EndTurn(current_card)
+				--EndTurn(current_card)
 
 				appWarpClient.sendUpdatePeers(
 					tostring("position") .. " " ..

@@ -2,6 +2,7 @@
 function Update_Pos(unique_id, filename, x, y)
     found = false
     saved_id = -1
+
     for i = 1, table.getn(GameInfo.table_cards) do    
         temp_unique_id = GameInfo.table_cards[i].unique_id
 
@@ -30,6 +31,8 @@ function Update_Pos(unique_id, filename, x, y)
       camera:add(current_card, 7, true)
       camera:track()
       camera.damping = 10
+      --print("ending turn")
+      EndTurn(current_card)
     end	
 
 end

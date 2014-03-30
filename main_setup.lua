@@ -32,6 +32,7 @@ function loadGame()
 	SetupButtons();
 	run_main_loop() --NEEDS TO RUN ONCE IN THE LOAD GAME LOOP
 
+	Reset_SetCards_state()
 
 	--ADVANCE THE GAMESTATE
 	GameInfo.gamestate = GameInfo.gamestate + 1

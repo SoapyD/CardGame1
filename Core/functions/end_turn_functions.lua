@@ -35,8 +35,8 @@ function EndTurn(current_card)
   --  GameInfo.actions[table.getn(GameInfo.actions) + 1] = "draw"
   --end
   --if (table.getn(GameInfo.actions) > 0) then
-  --  for n=1 to table.getn(GameInfo.actions) do
-  --    if (GameInfo.actions[n] = "play") then
+  --  for n=1, table.getn(GameInfo.actions) do
+  --    if (GameInfo.actions[n] == "play") then
   --      pospone_play = true
   --    end
   --  end
@@ -63,4 +63,74 @@ function EndTurn(current_card)
   else
     finalise_button.isVisible = true
   end
+end
+
+
+
+local EndRound_state = 1
+
+function EndRound()
+
+  --print("round ended")
+
+
+    local CheckState = switch { 
+        [1] = function()    --RESET THE CARDS ON THE BOARD
+
+              for i=1, table.getn(GameInfo.cards) do
+                local card = GameInfo.cards[i]
+                card:removeSelf()
+              end
+
+              GameInfo.cards = {}
+
+              for i=1, table.getn(GameInfo.table_cards) do
+                local card = GameInfo.table_cards[i]
+                card:removeSelf()
+                camera:remove(card)
+              end
+
+              GameInfo.table_cards = {}
+              ResetActionState()
+
+              GameInfo.current_card_int = -1
+              GameInfo.previous_card_int = -1
+              camera:toPoint(1750, 1750)
+
+              Reset_SetCards_state()
+              GameInfo.current_player = 1
+
+              if ( GameInfo.username ~= GameInfo.player_list[GameInfo.current_player].username) then
+                finalise_button.isVisible = false
+              else
+                finalise_button.isVisible = true
+              end
+
+              EndRound_state = EndRound_state + 1
+
+            end,
+        [2] = function()    --DRAW CARDS ON BOTH SIDES
+
+                if(GameInfo.player_list[1].username == GameInfo.username) then
+                    local SetupComplete = SetPlayerCards_Networked()
+                    if (SetupComplete == true) then
+                        EndRound_state = EndRound_state + 1
+                    end
+                else
+                    if (GameInfo.switch1 == true) then
+                        GameInfo.switch1 = false
+                        EndRound_state = EndRound_state + 1
+                        SetGame()
+                    end
+                end
+
+              end,
+        [3] = function()    --END
+
+            end,
+        default = function () print( "ERROR - run_main_state not within switch") end,
+    }
+
+    CheckState:case(EndRound_state)
+
 end

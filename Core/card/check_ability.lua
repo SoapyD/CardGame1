@@ -1,5 +1,6 @@
 
 
+
 function CheckAbility(ability, applied_to, value)
 
     local add_info = false
@@ -18,6 +19,13 @@ function CheckAbility(ability, applied_to, value)
                 add_info = true
                 end, 
         ["discard"] = function (x) 
+                add_info = true
+                end, 
+        ["block"] = function (x) 
+        --        add_info = true
+                --value translates to {1="w",2="p",3="f",4="s",5="a",6="c"}
+                end,
+        ["end_round"] = function (x)
                 add_info = true
                 end, 
 	   	default = function () print( "ERROR - ability not within switch") end,

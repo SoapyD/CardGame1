@@ -1,4 +1,4 @@
-function set_stats(card_info, top, bottom, left, right, arms, legs, either_limb, damage, card_type)
+function set_stats(card_info, top, bottom, left, right, arms, legs, either_limb, damage, card_type, card_value)
     card_info.strat_scores = {}
     card_info.strat_scores[1] = top
     card_info.strat_scores[2] = right
@@ -11,6 +11,7 @@ function set_stats(card_info, top, bottom, left, right, arms, legs, either_limb,
 	card_info.damage = damage					
 
     card_info.card_type = card_type
+    card_info.card_value = card_value
 
 	card_info.actions = {}
 end 
@@ -31,7 +32,7 @@ function retrieve_card(filename)
     card_info.name = ""
     set_stats(card_info, 0,0,0,0,0,0,0,0,"")
     card_info.actions = {}
-    print("checking" .. filename)
+    --print("checking" .. filename)
 
     local return_info = Check_WeaponCards(filename)
     if (return_info.found == true) then
@@ -41,9 +42,7 @@ function retrieve_card(filename)
     if (return_info.found == true) then
         card_info = return_info.card_info
     end
-
-    print("card checked: " .. card_info.name)
-
+    --print("card checked: " .. card_info.name)
 	return card_info
 
 end
