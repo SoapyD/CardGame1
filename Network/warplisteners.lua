@@ -131,6 +131,12 @@ function onUpdatePeersReceived(update)
 
     Update_Rotation(unique_id, username, angle)
   end
+
+  if (update_type == "cripple_limb") then
+    local damage_type = tostring(func())
+    UpdateLimbs(damage_type)
+  end
+
 end
 
 

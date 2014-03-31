@@ -32,6 +32,7 @@ require("Core.functions.camera_controls") --REQUIRES THE ZOOM VALUE FROM GAMEINF
 require("Core.table.screen_elements")
 require("Core.table.table_setup")
 require("Core.table.faceoff_setup")
+require("Core.table.limb_setup")
 require("Core.table.draw_setup")
 require("Core.table.discard_setup")
 

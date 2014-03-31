@@ -28,6 +28,9 @@ function CheckAbility(ability, applied_to, value)
         ["end_round"] = function (x)
                 add_info = true
                 end, 
+        ["limb"] = function (x)
+                add_info = true
+                end, 
 	   	default = function () print( "ERROR - ability not within switch") end,
 	}
 

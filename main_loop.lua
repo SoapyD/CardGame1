@@ -43,7 +43,13 @@ function run_main_loop()
                 run_main_state = 0
                 --action_internal_state = 0
             end,
-        [3] = function()    --END ROUND
+        [3] = function()    --TURN ON THE DISCARD CARDS SCREEN
+                Show_LimbTable()
+                --run_main_state = run_main_state + 1
+                run_main_state = 0
+                --action_internal_state = 0
+            end,
+        [4] = function()    --END ROUND
                 EndRound()
                 --run_main_state = run_main_state + 1
                 --run_main_state = 0
@@ -115,9 +121,16 @@ function CheckActionState()
                     SetDiscardMax(Action.value)
                 end
             end,
-        ["end_round"] = function()    --RUN THE DISCARD LOOP
+        ["limb"] = function()    --RUN THE DISCARD LOOP
                 if (action_internal_state == 0) then
                     run_main_state = 3
+                    action_internal_state = 1
+                    SetDiscardMax(Action.value)
+                end
+            end,
+        ["end_round"] = function()    --RUN THE DISCARD LOOP
+                if (action_internal_state == 0) then
+                    run_main_state = 4
                     action_internal_state = 1
                 end
             end,

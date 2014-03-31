@@ -51,7 +51,7 @@ function CheckDeck(deck_index, remove_item)
 
 	--RANDOMLY GENERATE A NUMBER FROM THE SIZE OF THE DECK
 	--local randIndex = math.random(#decks[deck_index])
-	local randIndex = 3
+	local randIndex = 4
     --print("indexnum: ", randIndex)
 
 	--GET THE CARD NAME SAVED AT THAT LIST INDEX POSITION
@@ -79,7 +79,7 @@ end
 function RemoveDeckCard(deck_index, remove_pos)
     --print("deck index" .. deck_index .. " remove_pos " .. remove_pos .. " deck " .. table.getn(decks))
     table.remove(decks[deck_index],remove_pos)
-    print("Deck_listSize: ", table.maxn(decks[deck_index]))   
+    --print("Deck_listSize: ", table.maxn(decks[deck_index]))   
 end
 
 function LoadCard(filename,x,y)

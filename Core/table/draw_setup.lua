@@ -101,13 +101,7 @@ function LoadDrawCard()
     local group = display.newGroup()
     -- width, height, x, y
     local draw_item = {}
-    --draw_item.image = display.newImage(group, "Images/" .. "black marble.jpg", 
-    --    1200 / 2, 1600 / 2)  
 
-    --TitleText = display.newText( "Draw Card", 
-    --    display.contentWidth / 2, 100, native.systemFontBold, 68 )
-
-    --AddCardZone(draw_item);
     draw_item.card1 = {}
     draw_item.card2 = {}
     draw_item.card3 = {}
