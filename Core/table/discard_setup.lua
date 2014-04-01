@@ -5,7 +5,7 @@ function Hide_DiscardTable()
     GameInfo.discard_screen.card1.icon.isVisible  = false
     TitleText.text = ""
     GameInfo.pause_add = false
-    CheckActionPos()
+    CheckActionPos(false)
 end
 
 function Show_DiscardTable()

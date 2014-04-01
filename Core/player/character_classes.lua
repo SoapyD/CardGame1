@@ -5,9 +5,9 @@ function CheckCharacter(character_name)
 
     CheckState = switch { 
         ["test"] = function()    --
-                character_info[1] = 0
-                character_info[2] = 3
-                character_info[3] = 2
+                character_info[1] = 3
+                character_info[2] = 2
+                character_info[3] = 0
                 character_info[4] = 0
                 character_info[5] = 0
                 character_info[6] = 0

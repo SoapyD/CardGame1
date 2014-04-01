@@ -49,7 +49,14 @@ function run_main_loop()
                 run_main_state = 0
                 --action_internal_state = 0
             end,
-        [4] = function()    --END ROUND
+        [4] = function()    --PASS TURN
+                PassTurn()
+                --run_main_state = run_main_state + 1
+                run_main_state = 0
+                print("ending turn")
+                --action_internal_state = 0
+            end,
+        [5] = function()    --END ROUND
                 EndRound()
                 --run_main_state = run_main_state + 1
                 --run_main_state = 0
@@ -101,6 +108,9 @@ end
 function ResetActionState()
     action_state = 1
 end
+function ResetActionInternalState()
+    action_internal_state = 0
+end
 
 function CheckActionState()
 
@@ -128,9 +138,15 @@ function CheckActionState()
                     SetDiscardMax(Action.value)
                 end
             end,
-        ["end_round"] = function()    --RUN THE DISCARD LOOP
+        ["pass_turn"] = function()    --RUN THE DISCARD LOOP
                 if (action_internal_state == 0) then
                     run_main_state = 4
+                    action_internal_state = 1
+                end
+            end,
+        ["end_round"] = function()    --RUN THE DISCARD LOOP
+                if (action_internal_state == 0) then
+                    run_main_state = 5
                     action_internal_state = 1
                 end
             end,
@@ -156,14 +172,22 @@ end
 
 function CheckActionPos(network_used)
     local list_size = table.getn(GameInfo.actions)
-    print("list size:" .. list_size .. " action_state:" .. action_state)
-    if (action_state < list_size) then
-        action_state = action_state + 1
-    end
 
-    if ( network_used == false) then
-        appWarpClient.sendUpdatePeers(
-        tostring("advance_actions") .. " " .. 
-        tostring(username)) 
+    if (list_size > 0) then
+        --print("list size:" .. list_size .. " action_state:" .. action_state)
+        if (action_state < list_size) then
+            action_state = action_state + 1
+        else
+            GameInfo.actions = {}
+        end
+
+        if ( network_used == false) then
+            appWarpClient.sendUpdatePeers(
+            tostring("advance_actions") .. " " .. 
+            tostring(username)) 
+        end
+
+        ResetActionInternalState()
     end
+    --print("NEW ACTION POS: " .. action_state)
 end

@@ -118,22 +118,26 @@ function run_card_loop()
 		end
 	end
 
-    if (table.getn(GameInfo.player_list) > 0) then
-		GameInfo.print_string = GameInfo.print_string .. "\nPLAYER1:"
-		local health = "" .. GameInfo.player_list[1].health
-		local armour = "" .. GameInfo.player_list[1].armour
-		local arms = "" .. GameInfo.player_list[1].arms
-		local legs = "" .. GameInfo.player_list[1].legs
-	    GameInfo.print_string = GameInfo.print_string .. "\nHP:" .. health .. " AR:" ..armour
-	    GameInfo.print_string = GameInfo.print_string .. "\nAR:" ..armour .. " A:" .. arms .. " L:" .. legs  
+    if (table.getn(GameInfo.player_list) >= 2) then
 
+    	if(GameInfo.player_list[1].username == GameInfo.username) then
+			GameInfo.print_string = GameInfo.print_string .. "\nPLAYER1:"
+			local health = "" .. GameInfo.player_list[1].health
+			local armour = "" .. GameInfo.player_list[1].armour
+			local arms = "" .. GameInfo.player_list[1].arms
+			local legs = "" .. GameInfo.player_list[1].legs
+		    GameInfo.print_string = GameInfo.print_string .. "\nHP:" .. health .. " AR:" ..armour
+		    GameInfo.print_string = GameInfo.print_string .. "\nAR:" ..armour .. " A:" .. arms .. " L:" .. legs  
 
-		GameInfo.print_string = GameInfo.print_string .. "\nPLAYER2:"
-		health = "" .. GameInfo.player_list[2].health
-		larmour = "" .. GameInfo.player_list[2].armour
-		arms = "" .. GameInfo.player_list[2].arms
-		legs = "" .. GameInfo.player_list[2].legs
-	    GameInfo.print_string = GameInfo.print_string .. "\nHP:" .. health .. " AR:" ..armour
-	    GameInfo.print_string = GameInfo.print_string .. "\nAR:" ..armour .. " A:" .. arms .. " L:" .. legs  
+		else
+
+			GameInfo.print_string = GameInfo.print_string .. "\nPLAYER2:"
+			health = "" .. GameInfo.player_list[2].health
+			armour = "" .. GameInfo.player_list[2].armour
+			arms = "" .. GameInfo.player_list[2].arms
+			legs = "" .. GameInfo.player_list[2].legs
+		    GameInfo.print_string = GameInfo.print_string .. "\nHP:" .. health .. " AR:" ..armour
+		    GameInfo.print_string = GameInfo.print_string .. "\nAR:" ..armour .. " A:" .. arms .. " L:" .. legs  
+		end
 	end 
 end

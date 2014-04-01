@@ -8,7 +8,7 @@ function Hide_LimbTable()
     GameInfo.limb_screen.card4.icon.isVisible  = false
     TitleText.text = ""
     GameInfo.pause_add = false
-    CheckActionPos()
+    CheckActionPos(false)
 end
 
 function Show_LimbTable()
@@ -94,22 +94,7 @@ function CrippleLimb_button( event )
 
         elseif "ended" == phase then
             display.getCurrentStage():setFocus( nil )
-
-            --local apply_to = find_applied_to(1) --apply this to the defender
-            --local applied_player = GameInfo.player_list[apply_to]
-
-            --if (t.card_type == "cripple_arm") then
-            --    if (applied_player.arms > 1) then
-            --        applied_player.arms = applied_player.arms - 1
-            --    end
-            --end
-            --if (t.card_type == "cripple_leg") then
-            --    if (applied_player.legs > 1) then
-            --        applied_player.legs = applied_player.legs - 1
-            --    end
-            --end
-            --CheckLimbs()
-
+            
             appWarpClient.sendUpdatePeers(
             tostring("cripple_limb") .. " " .. 
             tostring(t.card_type)) 

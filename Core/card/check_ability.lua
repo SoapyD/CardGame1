@@ -22,7 +22,7 @@ function CheckAbility(ability, applied_to, value)
                 add_info = true
                 end, 
         ["block"] = function (x) 
-        --        add_info = true
+                --add_info = true
                 --value translates to {1="w",2="p",3="f",4="s",5="a",6="c"}
                 end,
         ["end_round"] = function (x)

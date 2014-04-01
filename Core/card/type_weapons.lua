@@ -37,7 +37,7 @@ function Check_WeaponCards(filename)
     	["w/6.png"] = function()
     			card_info.name = "parry"
     			set_stats(card_info, 15,1,4,4,1,0,0,5,"weapon",1)
-    			card_info.actions[table.getn(card_info.actions) + 1] = set_action("draw", 1, 0)
+    			card_info.actions[table.getn(card_info.actions) + 1] = set_action("draw", 1, 1)
     			card_info.actions[table.getn(card_info.actions) + 1] = set_action("play", 1, 0)
     		end,
     	["w/7.png"] = function()
