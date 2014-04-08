@@ -70,13 +70,6 @@ function onUpdatePeersReceived(update)
   --//////////////////////////////////////////////////////////////////////////
   --////////////////////GAME SOLUTIONS
   --//////////////////////////////////////////////////////////////////////////
-  if (update_type == "advance_actions") then
-    local username = tostring(func())
-
-    if (username ~= GameInfo.username) then
-      CheckActionPos(true)
-    end
-  end
 
   if (update_type == "remove_card") then
     local username = tostring(func())
@@ -132,9 +125,42 @@ function onUpdatePeersReceived(update)
     Update_Rotation(unique_id, username, angle)
   end
 
+  --//////////////////////////////////////////////////////////////////////////
+  --////////////////////CARD ACTIONS
+  --//////////////////////////////////////////////////////////////////////////
+
+  if (update_type == "advance_actions") then
+    local username = tostring(func())
+
+    if (username ~= GameInfo.username) then
+      CheckActionPos(true)
+    end
+  end
+
   if (update_type == "cripple_limb") then
     local damage_type = tostring(func())
     UpdateLimbs(damage_type)
+  end
+
+  if (update_type == "steal") then
+    local username = tostring(func())
+    local filename = tostring(func())
+
+    if (username ~= GameInfo.username) then
+      --print("network stealing card")
+      LoadCard(filename,0,150);
+      SetGame()
+    end
+  end
+
+  if (update_type == "shrapnel") then
+    local username = tostring(func())
+    local damage = tonumber(func())
+
+    if (username ~= GameInfo.username) then
+      --print("inflicting damage: " .. damage)
+      mod_health(1,damage)
+    end
   end
 
 end

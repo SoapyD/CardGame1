@@ -42,6 +42,22 @@ function retrieve_card(filename)
     if (return_info.found == true) then
         card_info = return_info.card_info
     end
+    local return_info = Check_FocusCards(filename)
+    if (return_info.found == true) then
+        card_info = return_info.card_info
+    end
+    local return_info = Check_SpeedCards(filename)
+    if (return_info.found == true) then
+        card_info = return_info.card_info
+    end
+    local return_info = Check_ArmourCards(filename)
+    if (return_info.found == true) then
+        card_info = return_info.card_info
+    end
+    local return_info = Check_CheatCards(filename)
+    if (return_info.found == true) then
+        card_info = return_info.card_info
+    end
     --print("card checked: " .. card_info.name)
 	return card_info
 

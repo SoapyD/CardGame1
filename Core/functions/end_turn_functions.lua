@@ -42,9 +42,9 @@ function EndTurn(current_card)
     GameInfo.actions[arr_pos] = temp_mods
   end
 
-  --for i=1, table.getn(GameInfo.actions) do
-  --  print(GameInfo.actions[i].type)
-  --end
+  for i=1, table.getn(GameInfo.actions) do
+    print(GameInfo.actions[i].type)
+  end
 
 end
 

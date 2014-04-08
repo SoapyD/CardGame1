@@ -49,14 +49,19 @@ function run_main_loop()
                 run_main_state = 0
                 --action_internal_state = 0
             end,
-        [4] = function()    --PASS TURN
+        --[4] = function()    --STEAL THE CARDS THEN SEND THEM TO OTHER PLAYER
+                --run_main_state = run_main_state + 1
+         --       run_main_state = 0
+                --action_internal_state = 0
+        --    end,
+        [14] = function()    --PASS TURN
                 PassTurn()
                 --run_main_state = run_main_state + 1
                 run_main_state = 0
                 print("ending turn")
                 --action_internal_state = 0
             end,
-        [5] = function()    --END ROUND
+        [15] = function()    --END ROUND
                 EndRound()
                 --run_main_state = run_main_state + 1
                 --run_main_state = 0
@@ -131,22 +136,36 @@ function CheckActionState()
                     SetDiscardMax(Action.value)
                 end
             end,
-        ["limb"] = function()    --RUN THE DISCARD LOOP
+        ["limb"] = function()    --RUN THE LIMB LOOP
                 if (action_internal_state == 0) then
                     run_main_state = 3
                     action_internal_state = 1
                     SetDiscardMax(Action.value)
                 end
             end,
-        ["pass_turn"] = function()    --RUN THE DISCARD LOOP
+        ["steal"] = function()    --RUN THE STEAL FUNCTION
                 if (action_internal_state == 0) then
-                    run_main_state = 4
+                    run_main_state = 0
+                    action_internal_state = 1
+                    StealCards(Action.value)
+                end
+            end,
+        ["shrapnel"] = function()    --RUN THE SHRAPNEL FUNCTION
+                if (action_internal_state == 0) then
+                    run_main_state = 0
+                    action_internal_state = 1
+                    InjureEnemy()
+                end
+            end,
+        ["pass_turn"] = function()    --RUN THE PASS_TURN
+                if (action_internal_state == 0) then
+                    run_main_state = 14
                     action_internal_state = 1
                 end
             end,
-        ["end_round"] = function()    --RUN THE DISCARD LOOP
+        ["end_round"] = function()    --RUN THE END_ROUND
                 if (action_internal_state == 0) then
-                    run_main_state = 5
+                    run_main_state = 15
                     action_internal_state = 1
                 end
             end,

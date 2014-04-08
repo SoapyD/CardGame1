@@ -30,6 +30,12 @@ function CheckAbility(ability, applied_to, value)
                 end, 
         ["limb"] = function (x)
                 add_info = true
+                end,
+        ["steal"] = function (x)
+                add_info = true
+                end, 
+        ["shrapnel"] = function (x)
+                add_info = true
                 end, 
 	   	default = function () print( "ERROR - ability not within switch") end,
 	}
