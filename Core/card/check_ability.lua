@@ -12,32 +12,35 @@ function CheckAbility(ability, applied_to, value)
         ["armour"] = function (x) mod_armour(applied_to, value) end,
         ["arm"] = function (x) mod_arm(applied_to, value) end,
     	["leg"] = function (x) mod_leg(applied_to, value) end, 
-        ["draw"] = function (x) 
-                add_info = true
-                end,
-        ["play"] = function (x) 
-                add_info = true
-                end, 
-        ["discard"] = function (x) 
-                add_info = true
-                end, 
         ["block"] = function (x) 
                 --add_info = true
                 --value translates to {1="w",2="p",3="f",4="s",5="a",6="c"}
                 end,
-        ["end_round"] = function (x)
-                add_info = true
-                end, 
-        ["limb"] = function (x)
+        --["draw"] = function (x) 
+        --        add_info = true
+        --        end,
+        --["play"] = function (x) 
+        --        add_info = true
+        --        end, 
+        --["discard"] = function (x) 
+        --        add_info = true
+        --        end, 
+        --["end_round"] = function (x)
+        --        add_info = true
+        --        end, 
+        --["limb"] = function (x)
+        --        add_info = true
+        --        end,
+        --["steal"] = function (x)
+        --        add_info = true
+        --        end, 
+        --["shrapnel"] = function (x)
+        --        add_info = true
+        --        end, 
+	   	default = function () 
+                --print( "ERROR - ability not within switch") 
                 add_info = true
                 end,
-        ["steal"] = function (x)
-                add_info = true
-                end, 
-        ["shrapnel"] = function (x)
-                add_info = true
-                end, 
-	   	default = function () print( "ERROR - ability not within switch") end,
 	}
 
 	Check_Ab:case(ability)

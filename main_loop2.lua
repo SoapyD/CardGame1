@@ -27,55 +27,6 @@ function run_main_loop()
 
  	CheckActionState()
 
-    local CheckState = switch { 
-        [0] = function()    --MAIN GAME
-
-            end,
-        [1] = function()    --TURN ON THE DRAW CARDS SCREEN
-        		Show_DrawTable()
-        		--run_main_state = run_main_state + 1
-            	run_main_state = 0
-                --action_internal_state = 0
-            end,
-        [2] = function()    --TURN ON THE DISCARD CARDS SCREEN
-                Show_DiscardTable()
-                --run_main_state = run_main_state + 1
-                run_main_state = 0
-                --action_internal_state = 0
-            end,
-        [3] = function()    --TURN ON THE DISCARD CARDS SCREEN
-                Show_LimbTable()
-                --run_main_state = run_main_state + 1
-                run_main_state = 0
-                --action_internal_state = 0
-            end,
-        --[4] = function()    --STEAL THE CARDS THEN SEND THEM TO OTHER PLAYER
-                --run_main_state = run_main_state + 1
-         --       run_main_state = 0
-                --action_internal_state = 0
-        --    end,
-        [14] = function()    --PASS TURN
-                PassTurn()
-                --run_main_state = run_main_state + 1
-                run_main_state = 0
-                print("ending turn")
-                --action_internal_state = 0
-            end,
-        [15] = function()    --END ROUND
-                EndRound()
-                --run_main_state = run_main_state + 1
-                --run_main_state = 0
-                --action_internal_state = 0
-            end,
-        --[2] = function()    --CHECK FOR DRAW TO FINISH
-        		
-        --    end,
-        default = function () print( "ERROR - run_main_state not within switch") end,
-    }
-
-    CheckState:case(run_main_state)
-
-
  	--SOME TEMPORARY DRAWN BUTTONS I'M USING TO TEST THE CAMERA AND IT'S SPACING
 	button1.x = -camera.scrollX
 	button1.y = -camera.scrollY
@@ -123,25 +74,62 @@ function CheckActionState()
 
     local CheckState = switch { 
         ["draw"] = function()    --RUN THE DRAW LOOP
-        		if (action_internal_state == 0) then
-        			run_main_state = 1
-        			action_internal_state = 1
-                    SetDrawMax(Action.value)
-        		end
+
+                local CheckState = switch { 
+                    [0] = function()    --SETUP ACTION
+                        --run_main_state = 1
+                        action_internal_state = 1
+                        SetDrawMax(Action.value)
+                        end,
+                    [1] = function()    --TURN ON THE DRAW CARDS SCREEN
+                        Show_DrawTable()
+                        action_internal_state = 2
+                        end,
+                    [2] = function()    --WAIT FOR THE ACTION TO COMPLETE
+                        end,
+                    default = function () print( "ERROR - run_main_state not within switch") end,
+                }
+
+                CheckState:case(action_internal_state)
             end,
         ["discard"] = function()    --RUN THE DISCARD LOOP
-                if (action_internal_state == 0) then
-                    run_main_state = 2
-                    action_internal_state = 1
-                    SetDiscardMax(Action.value)
-                end
+                local CheckState = switch { 
+                    [0] = function()    --SETUP ACTION
+                        --run_main_state = 1
+                        action_internal_state = 1
+                        SetDiscardMax(Action.value)
+                        end,
+                    [1] = function()    --TURN ON THE DISCARD CARDS SCREEN
+                        Show_DiscardTable()
+                        action_internal_state = 2
+                        end,
+                    [2] = function()    --WAIT FOR THE ACTION TO COMPLETE
+                        end,
+                    default = function () print( "ERROR - run_main_state not within switch") end,
+                }
+
+                print("discard")
+                CheckState:case(action_internal_state)
+
             end,
         ["limb"] = function()    --RUN THE LIMB LOOP
-                if (action_internal_state == 0) then
-                    run_main_state = 3
-                    action_internal_state = 1
-                    SetCrippleMax(Action.value)
-                end
+                local CheckState = switch { 
+                    [0] = function()    --SETUP ACTION
+                        --run_main_state = 1
+                        action_internal_state = 1
+                        SetCrippleMax(Action.value)
+                        end,
+                    [1] = function()    --TURN ON THE LIMB SCREEN
+                        Show_LimbTable()
+                        action_internal_state = 2
+                        end,
+                    [2] = function()    --WAIT FOR THE ACTION TO COMPLETE
+                        end,
+                    default = function () print( "ERROR - run_main_state not within switch") end,
+                }
+
+                CheckState:case(action_internal_state)
+
             end,
         ["steal"] = function()    --RUN THE STEAL FUNCTION
                 if (action_internal_state == 0) then
@@ -158,16 +146,40 @@ function CheckActionState()
                 end
             end,
         ["pass_turn"] = function()    --RUN THE PASS_TURN
-                if (action_internal_state == 0) then
-                    run_main_state = 14
-                    action_internal_state = 1
-                end
+                local CheckState = switch { 
+                    [0] = function()    --SETUP ACTION
+                        --run_main_state = 1
+                        action_internal_state = 1
+                        end,
+                    [1] = function()    --PASS THE TURN
+                        PassTurn()
+                        action_internal_state = 2
+                        end,
+                    [2] = function()    --WAIT FOR THE ACTION TO COMPLETE
+                        end,
+                    default = function () print( "ERROR - run_main_state not within switch") end,
+                }
+
+                CheckState:case(action_internal_state)
+
             end,
         ["end_round"] = function()    --RUN THE END_ROUND
-                if (action_internal_state == 0) then
-                    run_main_state = 15
-                    action_internal_state = 1
-                end
+
+                local CheckState = switch { 
+                    [0] = function()    --SETUP ACTION
+                        --run_main_state = 1
+                        action_internal_state = 1
+                        end,
+                    [1] = function()    --TURN ON THE DISCARD CARDS SCREEN
+                        EndRound()
+                        action_internal_state = 2
+                        end,
+                    [2] = function()    --WAIT FOR THE ACTION TO COMPLETE
+                        end,
+                    default = function () print( "ERROR - run_main_state not within switch") end,
+                }
+
+                CheckState:case(action_internal_state)                
             end,
         default = function () print( "ERROR - GameInfo Action not within switch") end,
     }
