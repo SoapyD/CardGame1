@@ -102,7 +102,7 @@ function CheckActionState()
                         SetDiscardMax(Action.value)
                         end,
                     [1] = function()    --TURN ON THE DISCARD CARDS SCREEN
-                        Show_DiscardTable()
+                        Show_DiscardTable(Action.sub_action)
                         action_internal_state = 2
                         end,
                     [2] = function()    --WAIT FOR THE ACTION TO COMPLETE
@@ -110,7 +110,7 @@ function CheckActionState()
                     default = function () print( "ERROR - run_main_state not within switch") end,
                 }
 
-                print("discard")
+                --print("discard")
                 CheckState:case(action_internal_state)
 
             end,
@@ -154,11 +154,12 @@ function CheckActionState()
                         action_internal_state = 1
                         end,
                     [1] = function()    --PASS THE TURN
+                        --CheckActionPos(false)
                         PassTurn()
                         action_internal_state = 2
                         end,
                     [2] = function()    --WAIT FOR THE ACTION TO COMPLETE
-                        CheckActionPos(false)
+                        CheckActionPos(true) --DONE THIS WAS AS BOTH PLAYERS RUN THIS FUNCTION AT THE SAME TIME AS IT'S -1
                         end,
                     default = function () print( "ERROR - run_main_state not within switch") end,
                 }
@@ -189,11 +190,11 @@ function CheckActionState()
 
     if (table.getn(GameInfo.actions) > 0 ) then
         --print("applied to" .. GameInfo.actions[action_state].applied_to)
-    	if (GameInfo.actions[action_state].applied_to == 1 and
+    	if (GameInfo.actions[action_state].applied_to == 0 and
             GameInfo.username == GameInfo.player_list[GameInfo.current_player].username) then
     	   CheckState:case(GameInfo.actions[action_state].type)
         end
-        if (GameInfo.actions[action_state].applied_to == 0 and
+        if (GameInfo.actions[action_state].applied_to == 1 and
             GameInfo.username ~= GameInfo.player_list[GameInfo.current_player].username) then
            CheckState:case(GameInfo.actions[action_state].type)
         end
@@ -222,7 +223,7 @@ function CheckActionPos(network_used)
         if ( network_used == false) then
             appWarpClient.sendUpdatePeers(
             tostring("advance_actions") .. " " .. 
-            tostring(username)) 
+            tostring(GameInfo.username)) 
         end
 
         ResetActionInternalState()

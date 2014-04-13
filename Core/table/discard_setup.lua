@@ -1,4 +1,5 @@
 local discard_max = 0
+local sub_action = ""
 
 function Hide_DiscardTable()
     GameInfo.screen_elements.image.isVisible  = false
@@ -8,17 +9,41 @@ function Hide_DiscardTable()
     CheckActionPos(false)
 end
 
-function Show_DiscardTable()
+function Show_DiscardTable(temp_sub_action)
     GameInfo.screen_elements.image.isVisible  = true
     GameInfo.discard_screen.card1.icon.isVisible  = true
     TitleText.text = "Discard Card"
     GameInfo.pause_add = true
-    
+    sub_action = temp_sub_action
+    --print(sub_action)
 end
 
-function CheckDiscard()
+function CheckDiscard(current_card)
+
+    local card_info = retrieve_card(current_card.filename)
+
+    local CheckState = switch { 
+        ["damage"] = function()    --DAMAGE ENEMY USING CARDS MAIN VALUE
+            appWarpClient.sendUpdatePeers(
+                tostring("health_mod") .. " " .. 
+                tostring(-card_info.damage)) 
+            end,
+        ["armour"] = function()    --ADD ARMOUR USING CARDS MAIN VALUE
+            appWarpClient.sendUpdatePeers(
+                tostring("armour_mod") .. " " .. 
+                tostring(card_info.damage)) 
+            end,
+
+        default = function () print( "ERROR - sub_type not within discard subtypes") end,
+    }
+
+    CheckState:case(sub_action)
+
     if (discard_max <= 1) then
-        Hide_DiscardTable(false)
+    --    Hide_DiscardTable(false)
+        appWarpClient.sendUpdatePeers(
+            tostring("hide_discard") .. " " .. 
+            tostring(GameInfo.username)) 
     end
 
     discard_max = discard_max - 1

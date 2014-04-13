@@ -131,7 +131,7 @@ function onUpdatePeersReceived(update)
 
   if (update_type == "advance_actions") then
     local username = tostring(func())
-
+    --print("advancing networked player actions")
     if (username ~= GameInfo.username) then
       CheckActionPos(true)
     end
@@ -140,6 +140,18 @@ function onUpdatePeersReceived(update)
   if (update_type == "cripple_limb") then
     local damage_type = tostring(func())
     UpdateLimbs(damage_type)
+  end
+
+  if (update_type == "health_mod") then
+    local health_modifier = tonumber(func())
+    --print("health mod " .. health_modifier)
+    mod_health(1,health_modifier)
+  end
+
+  if (update_type == "armour_mod") then
+    local armour_modifier = tonumber(func())
+    --print("health mod " .. health_modifier)
+    mod_armour(0,armour_modifier)
   end
 
   if (update_type == "steal") then
@@ -160,6 +172,13 @@ function onUpdatePeersReceived(update)
     if (username ~= GameInfo.username) then
       --print("inflicting damage: " .. damage)
       mod_health(1,damage)
+    end
+  end
+
+    if (update_type == "hide_discard") then
+    local username = tostring(func())
+    if (username == GameInfo.username) then
+      Hide_DiscardTable(false)
     end
   end
 

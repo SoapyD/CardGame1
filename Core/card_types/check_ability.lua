@@ -1,17 +1,17 @@
 
 
 
-function CheckAbility(ability, applied_to, value)
-
+--function CheckAbility(ability, applied_to, value)
+function CheckAbility(action)
     local add_info = false
     local temp_mods = {}
     temp_mods.type = ""
     --print("ability passed" .. ability)
     Check_Ab = switch { 
-    	["health"] = function (x) mod_health(applied_to, value) end,
-        ["armour"] = function (x) mod_armour(applied_to, value) end,
-        ["arm"] = function (x) mod_arm(applied_to, value) end,
-    	["leg"] = function (x) mod_leg(applied_to, value) end, 
+    	["health"] = function (x) mod_health(action.applied_to, action.value) end,
+        ["armour"] = function (x) mod_armour(action.applied_to, action.value) end,
+        ["arm"] = function (x) mod_arm(action.applied_to, action.value) end,
+    	["leg"] = function (x) mod_leg(action.applied_to, action.value) end, 
         ["block"] = function (x) 
                 --add_info = true
                 --value translates to {1="w",2="p",3="f",4="s",5="a",6="c"}
@@ -22,13 +22,16 @@ function CheckAbility(ability, applied_to, value)
                 end,
 	}
 
-	Check_Ab:case(ability)
+	Check_Ab:case(action.name)
 
     if (add_info == true) then
-        temp_mods.type = ability
-        temp_mods.applied_to = applied_to
-        temp_mods.value = value
+        temp_mods.type = action.name
+        temp_mods.sub_action = action.sub_action
+        temp_mods.applied_to = action.applied_to
+        temp_mods.value = action.value
+        --temp_mods = action
     end
+    --print("used friggin action: " .. action.name)
 
     return temp_mods
 end
@@ -43,7 +46,6 @@ function find_applied_to(applied_to)
     else
         apply_to = GameInfo.current_player
     end  
-
     return apply_to
 end
 
@@ -53,7 +55,7 @@ function mod_health(applied_to, value)
 
     local applied_player = GameInfo.player_list[apply_to]
     applied_player.health = applied_player.health + value
-    if (applied_player.health < 0 ) then
+    if (applied_player.health < 1 ) then
         applied_player.health = 0
     end
     if (applied_player.health > applied_player.max_health ) then

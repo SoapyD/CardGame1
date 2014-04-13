@@ -16,12 +16,12 @@ function set_stats(card_info, top, bottom, left, right, arms, legs, either_limb,
 	card_info.actions = {}
 end 
 
-function set_action(action_name, value, applied_to)
+function set_action(action_name, sub_action, value, applied_to)
 	local action_info = {}
 	action_info.name = action_name
+    action_info.sub_action = sub_action
 	action_info.value = value
     action_info.applied_to = applied_to --1 FOR DEFENDER, 0 FOR ATTACKER
-
 	return action_info
 end
 

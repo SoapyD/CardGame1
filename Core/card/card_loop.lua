@@ -139,5 +139,5 @@ function run_card_loop()
 		    GameInfo.print_string = GameInfo.print_string .. "\nHP:" .. health .. " AR:" ..armour
 		    GameInfo.print_string = GameInfo.print_string .. "\nAR:" ..armour .. " A:" .. arms .. " L:" .. legs  
 		end
-	end 
+	end
 end

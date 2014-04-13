@@ -9,17 +9,15 @@ function EndTurn(current_card)
   if ( table.getn(card_info.actions) > 0) then
     for i=1, table.getn(card_info.actions) do
       local action = card_info.actions[i]
+
       local temp_mods = {}
-      --print("adding action" .. action.name)
-      temp_mods = CheckAbility(action.name, action.applied_to, action.value)
-      --print("mods" .. temp_mods[1].type)
+      --temp_mods = CheckAbility(action.name, action.applied_to, action.value)
+      temp_mods = CheckAbility(action)
       if (temp_mods.type ~= "") then
           if (temp_mods.type ~= "play") then
             local arr_pos = table.getn(GameInfo.actions) + 1
             GameInfo.actions[arr_pos] = {}
             GameInfo.actions[arr_pos] = temp_mods
-            --print("action added" .. temp_mods.type)
-            --GameInfo.actions[table.getn(GameInfo.actions)].type = temp_mods.type
           end
 
           if (temp_mods.type == "play") then
@@ -34,6 +32,7 @@ function EndTurn(current_card)
 
     local temp_mods = {}
     temp_mods.type = "pass_turn"
+    temp_mods.sub_action = ""
     temp_mods.applied_to = -1
     temp_mods.value = 0
 
@@ -62,7 +61,7 @@ function PassTurn()
   if ( GameInfo.current_player > table.getn(GameInfo.player_list)) then
     GameInfo.current_player = 1
   end               
-
+  print("current player is:" .. GameInfo.current_player)
   if ( GameInfo.username ~= GameInfo.player_list[GameInfo.current_player].username) then
     finalise_button.isVisible = false
   else
