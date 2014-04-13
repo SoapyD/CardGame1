@@ -70,6 +70,8 @@ end
 
 function CheckActionState()
 
+    --print("a_state: " .. action_state .. " a_i_state: " .. action_internal_state)
+
     local Action = GameInfo.actions[action_state]
 
     local CheckState = switch { 
@@ -156,6 +158,7 @@ function CheckActionState()
                         action_internal_state = 2
                         end,
                     [2] = function()    --WAIT FOR THE ACTION TO COMPLETE
+                        CheckActionPos(false)
                         end,
                     default = function () print( "ERROR - run_main_state not within switch") end,
                 }
@@ -205,12 +208,16 @@ function CheckActionPos(network_used)
     local list_size = table.getn(GameInfo.actions)
 
     if (list_size > 0) then
-        --print("list size:" .. list_size .. " action_state:" .. action_state)
+        print("list size:" .. list_size .. " action_state:" .. action_state)
         if (action_state < list_size) then
             action_state = action_state + 1
         else
             GameInfo.actions = {}
+            ResetActionState()
+            ResetActionInternalState()
         end
+
+        print("a_state: " .. action_state .. " a_i_state: " .. action_internal_state)
 
         if ( network_used == false) then
             appWarpClient.sendUpdatePeers(

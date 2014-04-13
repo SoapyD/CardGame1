@@ -56,6 +56,7 @@ function onTouch( event )
 							--print("pos not checked")
 						else
 							local pos_info = CheckBoard_Pos(t)
+							print("checking pos: " .. table.getn(GameInfo.quads))
 							Check_Quad_Region(t, pos_info[3])
 							GameInfo.hand.hide = false
 						end
