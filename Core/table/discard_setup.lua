@@ -5,7 +5,7 @@ function Hide_DiscardTable()
     GameInfo.screen_elements.image.isVisible  = false
     GameInfo.discard_screen.card1.icon.isVisible  = false
     TitleText.text = ""
-    GameInfo.pause_add = false
+    GameInfo.pause_add = 0
     CheckActionPos(false)
 end
 
@@ -13,7 +13,7 @@ function Show_DiscardTable(temp_sub_action)
     GameInfo.screen_elements.image.isVisible  = true
     GameInfo.discard_screen.card1.icon.isVisible  = true
     TitleText.text = "Discard Card"
-    GameInfo.pause_add = true
+    GameInfo.pause_add = 1
     sub_action = temp_sub_action
     --print(sub_action)
 end

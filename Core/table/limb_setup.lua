@@ -7,7 +7,6 @@ function Hide_LimbTable()
     GameInfo.limb_screen.card3.icon.isVisible  = false
     GameInfo.limb_screen.card4.icon.isVisible  = false
     TitleText.text = ""
-    GameInfo.pause_add = false
     CheckActionPos(false)
 end
 
@@ -18,8 +17,6 @@ function Show_LimbTable()
     GameInfo.limb_screen.card3.icon.isVisible  = true
     GameInfo.limb_screen.card4.icon.isVisible  = true
     TitleText.text = "Damage Limb"
-    GameInfo.pause_add = true
-    
 end
 
 function SetCrippleMax(draw_value)

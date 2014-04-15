@@ -26,10 +26,10 @@ function loadGame()
 	EndBounds();
 	createDeck();
 	Setup_ScreenElements()
-	--LoadFaceOff();
 	LoadDrawCard();
 	LoadDiscardCard();
 	LoadLimbTable();
+	LoadFaceOff();
 	SetupButtons();
 	run_main_loop() --NEEDS TO RUN ONCE IN THE LOAD GAME LOOP
 

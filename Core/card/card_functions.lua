@@ -7,7 +7,7 @@ function onTouch( event )
 		if (t.finalised == false and 
 			(GameInfo.username == GameInfo.player_list[GameInfo.current_player].username and
 			GameInfo.pause_main == false) or
-			GameInfo.pause_add == true) then
+			GameInfo.pause_add > 0) then
 			if "began" == phase then
 				-- Make target the top-most object
 				local parent = t.parent
@@ -49,7 +49,7 @@ function onTouch( event )
 					t.isFocus = false
 		      		--If the card is being placed from the hand, add it to the table
 		      		--then make the "hand card" non-visible
-		      		if (GameInfo.pause_add == false) then
+		      		if (GameInfo.pause_add == 0) then
 			      		if (t.drawn == false) then
 							Update_Pos2(t.unique_id, t.filename, t.x, t.y)
 							t.isVisible = false
@@ -60,13 +60,39 @@ function onTouch( event )
 							Check_Quad_Region(t, pos_info[3])
 							GameInfo.hand.hide = false
 						end
-					else
+					end
+					if (GameInfo.pause_add == 1) then
 						if (t.x > GameInfo.discard_screen.card1.icon.bbox_min_x and
 							t.x < GameInfo.discard_screen.card1.icon.bbox_max_x and
 							t.y > GameInfo.discard_screen.card1.icon.bbox_min_y and
 							t.y < GameInfo.discard_screen.card1.icon.bbox_max_y) then
 								t.isVisible = false
 								CheckDiscard(t)
+						end
+					end
+					--t.touched = false
+					--print("touched: " , t.touched , " moved: " , t.moved)
+					if (GameInfo.pause_add == 2) then
+						for i=1, table.getn(GameInfo.cards) do
+							local card = GameInfo.cards[i]
+							if(card.isVisible == true 
+								and card.touched == true and card.moved == false) then
+								card.touched = false
+							end
+						end
+
+						for i=1, table.getn(GameInfo.player_list) do
+							if (GameInfo.username == GameInfo.player_list[i].username
+								and t.y < GameInfo.height - 350) then
+								if ( i == 1 ) then
+									t.x = GameInfo.faceoff_screen.player1.x
+									t.y = GameInfo.faceoff_screen.player1.y
+								end
+								if ( i == 2 ) then
+									t.x = GameInfo.faceoff_screen.player2.x
+									t.y = GameInfo.faceoff_screen.player2.y
+								end
+							end
 						end
 					end
 					t.moved = false

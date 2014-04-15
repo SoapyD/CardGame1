@@ -44,7 +44,7 @@ function cGameInfo.methods:init(gamestate)
 	self.actions = {}
 	self.switch1 = false
 	self.pause_main = false
-	self.pause_add = false
+	self.pause_add = 0
 
 	self.card_group = display.newGroup()
 end

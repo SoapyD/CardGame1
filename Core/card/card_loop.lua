@@ -2,7 +2,7 @@ local x_space = 350
 local y_space = 350
 
 function run_card_loop()
-
+--print("considering height")
     --KEEP THE CARD ALONG THE HAND BAR IF THEY'RE NOT BEING CARRIED
     hide = false
     local pos_count = 0
@@ -22,7 +22,7 @@ function run_card_loop()
     	local screen_y = (hand_card.y) * camera.yScale  
 
 
-    	if(hand_card.moved == true) then   		   		
+    	if(hand_card.moved == true) then  		   		
     		if ( screen_y > 600) then
     			GameInfo.hand.hide = false
     			GameInfo.hand.show = true
@@ -31,13 +31,14 @@ function run_card_loop()
     		end   		
     	end
 
+    	--print("touched: " , hand_card.touched , " moved: " , hand_card.moved)
+
     	--THIS ALLOW FOR THE NON PLACED CARD TO GO BACK IN THE PLAYERS HAND
     	--IF THE CARD IS BELOW A CERTAIN HEIGHT ON THE SCREEN
     	if(hand_card.touched == true and hand_card.moved == false
     		and screen_y > 600) then  	
     		hand_card.touched = false
     		hand_card.isVisible = true
-    		print(hand_card.y)
     	end
 
 	end
