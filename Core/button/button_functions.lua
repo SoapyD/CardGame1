@@ -67,27 +67,41 @@ function finishCard( event )
 		if "ended" == phase then
 			display.getCurrentStage():setFocus( nil )
 			t.isFocus = false
-			id = GameInfo.current_card_int
-			if(id ~= -1) then
-				camera.damping = 10
 
-				local current_card = GameInfo.table_cards[GameInfo.current_card_int]
+			--EndTurn(current_card)
+			local CheckState = switch { 
+				[1] = function()    --NORMAL CARD FINALISATION: SEND CARD DETAILS, PASS TURN
+						id = GameInfo.current_card_int
+						if(id ~= -1) then
+							camera.damping = 10
 
-				--EndTurn(current_card)
+							local current_card = GameInfo.table_cards[id]
 
-				appWarpClient.sendUpdatePeers(
-					tostring("position") .. " " ..
-					tostring(current_card.unique_id) .. " " ..
-					tostring(current_card.filename) .. " " .. 
-					tostring(current_card.x).." ".. 
-					tostring(current_card.y))
+							appWarpClient.sendUpdatePeers(
+								tostring("position") .. " " ..
+								tostring(current_card.unique_id) .. " " ..
+								tostring(current_card.filename) .. " " .. 
+								tostring(current_card.x).." ".. 
+								tostring(current_card.y))
 
-				appWarpClient.sendUpdatePeers(
-					tostring("rotation") .. " " ..
-					tostring(current_card.unique_id) .. " " .. 
-					tostring(GameInfo.username) .. " " ..		
-					tostring(current_card.rotation))
-			end
+							appWarpClient.sendUpdatePeers(
+								tostring("rotation") .. " " ..
+								tostring(current_card.unique_id) .. " " .. 
+								tostring(GameInfo.username) .. " " ..		
+								tostring(current_card.rotation))
+						end
+			        end,
+			    [2] = function()    --FACEOFF FINALISATION
+			        	print("this is the end of the finalisation")
+							appWarpClient.sendUpdatePeers(
+								tostring("pass_faceoff") .. " " ..
+								tostring(GameInfo.username) .. " " ..		
+								tostring("pass_card_name_here"))			        	
+			        end,
+			    default = function () print( "ERROR - state not within finalisation states") end,
+			    }
+
+			CheckState:case(GameInfo.finalise_state)
 		end
 	end
 

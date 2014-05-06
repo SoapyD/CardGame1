@@ -61,7 +61,8 @@ function onTouch( event )
 							GameInfo.hand.hide = false
 						end
 					end
-					if (GameInfo.pause_add == 1) then
+					--DISCARD CARD STATE
+					if (GameInfo.pause_add == 1) then 
 						if (t.x > GameInfo.discard_screen.card1.icon.bbox_min_x and
 							t.x < GameInfo.discard_screen.card1.icon.bbox_max_x and
 							t.y > GameInfo.discard_screen.card1.icon.bbox_min_y and
@@ -70,8 +71,8 @@ function onTouch( event )
 								CheckDiscard(t)
 						end
 					end
-					--t.touched = false
-					--print("touched: " , t.touched , " moved: " , t.moved)
+
+					--FACEOFF STATE
 					if (GameInfo.pause_add == 2) then
 						for i=1, table.getn(GameInfo.cards) do
 							local card = GameInfo.cards[i]

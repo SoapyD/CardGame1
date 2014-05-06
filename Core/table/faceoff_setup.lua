@@ -6,6 +6,7 @@ function Hide_FOTable()
     GameInfo.faceoff_screen.player2.isVisible  = false
     TitleText.text = ""
     GameInfo.pause_add = 0
+    GameInfo.finalise_state = 1
     CheckActionPos(false)
 end
 
@@ -16,6 +17,7 @@ function Show_FOTable(temp_sub_action)
     TitleText.text = "Face-Off!"
     sub_action = temp_sub_action
     GameInfo.pause_add = 2
+    GameInfo.finalise_state = 2
 
     --print(sub_action)
 end
