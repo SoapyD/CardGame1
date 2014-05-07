@@ -92,11 +92,18 @@ function finishCard( event )
 						end
 			        end,
 			    [2] = function()    --FACEOFF FINALISATION
-			        	print("this is the end of the finalisation")
-							appWarpClient.sendUpdatePeers(
-								tostring("pass_faceoff") .. " " ..
-								tostring(GameInfo.username) .. " " ..		
-								tostring("pass_card_name_here"))			        	
+
+			    		for i=1, table.getn(GameInfo.player_list) do
+							if (GameInfo.username == GameInfo.player_list[i].username) then
+								if ( GameInfo.player_list[i].faceoff_card ~= "") then
+				        			print("this is the end of the finalisation")
+										appWarpClient.sendUpdatePeers(
+											tostring("pass_faceoff") .. " " ..
+											tostring(GameInfo.username) .. " " ..		
+											tostring(GameInfo.player_list[i].faceoff_card))
+								end
+							end
+						end		        	
 			        end,
 			    default = function () print( "ERROR - state not within finalisation states") end,
 			    }

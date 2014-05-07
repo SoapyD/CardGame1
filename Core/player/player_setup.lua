@@ -12,6 +12,7 @@ function AddPlayer(username)
 	player_info.legs = player_info.max_legs	
 	player_info.character_info = CheckCharacter("test")
 
+	player_info.faceoff_card = ""
 
 	local add = true
 	for i=1, table.getn(GameInfo.player_list) do

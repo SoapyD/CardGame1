@@ -93,6 +93,8 @@ function onTouch( event )
 									t.x = GameInfo.faceoff_screen.player2.x
 									t.y = GameInfo.faceoff_screen.player2.y
 								end
+
+								GameInfo.player_list[i].faceoff_card = t.filename 
 							end
 						end
 					end

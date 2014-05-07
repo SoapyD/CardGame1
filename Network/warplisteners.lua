@@ -133,7 +133,8 @@ function onUpdatePeersReceived(update)
 
     if (username ~= GameInfo.username) then
       --CheckActionPos(true)
-      print("faceoff passed!")
+      local faceoff_card = tostring(func())
+      print("faceoff passed! " .. faceoff_card .. " added.")
     end
   end
 
