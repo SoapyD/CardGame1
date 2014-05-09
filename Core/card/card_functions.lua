@@ -7,7 +7,7 @@ function onTouch( event )
 		if (t.finalised == false and 
 			(GameInfo.username == GameInfo.player_list[GameInfo.current_player].username and
 			GameInfo.pause_main == false) or
-			GameInfo.pause_add > 0) then
+			(GameInfo.pause_add > 0 and GameInfo.pause_main == false)) then
 			if "began" == phase then
 				-- Make target the top-most object
 				local parent = t.parent
@@ -94,6 +94,7 @@ function onTouch( event )
 									t.y = GameInfo.faceoff_screen.player2.y
 								end
 
+								GameInfo.faceoff_int = t.id
 								GameInfo.player_list[i].faceoff_card = t.filename 
 							end
 						end

@@ -135,6 +135,7 @@ function onUpdatePeersReceived(update)
       --CheckActionPos(true)
       local faceoff_card = tostring(func())
       print("faceoff passed! " .. faceoff_card .. " added.")
+      AddFaceOffCard(username, faceoff_card)
     end
   end
 

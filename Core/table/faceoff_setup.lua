@@ -58,3 +58,83 @@ function AddPlayerZone(faceoff_item)
             faceoff_item.player2.strokeWidth = 6
             faceoff_item.player2:setStrokeColor( 200,200,200,255 )
 end
+
+
+
+function AddFaceOffCard(username, faceoff_card)
+
+    if ( GameInfo.player_list ~= nil) then
+        for i=1, table.getn(GameInfo.player_list) do
+            if (username == GameInfo.player_list[i].username) then
+                GameInfo.player_list[i].faceoff_card = faceoff_card
+            end
+        end
+        Check_FaceOff_End()
+    end
+end
+
+function Check_FaceOff_End()
+
+    local card_count = 0 
+    local p1_score = 0
+    local p2_score = 0
+
+    if ( GameInfo.player_list ~= nil) then
+        for i=1, table.getn(GameInfo.player_list) do
+            if (GameInfo.player_list[i].faceoff_card ~= "") then
+                card_count = card_count + 1
+                local card_info = retrieve_card(GameInfo.player_list[i].faceoff_card)
+
+                local saved_score = 0
+                for n=1, table.getn(card_info.strat_scores) do
+                    if ( saved_score < card_info.strat_scores[n]) then
+                        saved_score = card_info.strat_scores[n]
+                    end 
+                end
+
+                if (i == 1) then
+                    p1_score = saved_score
+                else
+                    p2_score = saved_score
+                end
+            end
+        end
+
+        print("player1_score: " .. p1_score .. " player2_score: " .. p2_score)
+
+        if (card_count == 2) then
+            local end_faceoff = false
+            if (p1_score > p2_score) then
+                end_faceoff = true
+                print("P1 wins faceoff")
+            end
+            if (p2_score > p1_score) then
+                end_faceoff = true
+                print("P2 wins faceoff")
+            end
+
+            local reset_faceoff = false
+
+            if (end_faceoff == true) then
+                Hide_FOTable()
+                GameInfo.cards[GameInfo.faceoff_int].isVisible = false
+                reset_faceoff = true
+            end
+
+            if (p1_score == p2_score) then
+                print("faceoff drawn, place down another card")
+                GameInfo.cards[GameInfo.faceoff_int].isVisible = false
+                GameInfo.pause_main = false
+                reset_faceoff = true
+            end        
+
+            if (reset_faceoff == true) then
+                for i=1, table.getn(GameInfo.player_list) do
+                    GameInfo.player_list[i].faceoff_card = ""
+                end
+                GameInfo.faceoff_int = -1
+            end
+        end
+
+    end
+end

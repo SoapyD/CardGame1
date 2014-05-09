@@ -101,6 +101,10 @@ function finishCard( event )
 											tostring("pass_faceoff") .. " " ..
 											tostring(GameInfo.username) .. " " ..		
 											tostring(GameInfo.player_list[i].faceoff_card))
+
+									--STOP PLAYERS FROM ADDING ANOTHER CARD AFTER ITS BEEN PLACED
+									GameInfo.pause_main = true
+									Check_FaceOff_End()
 								end
 							end
 						end		        	

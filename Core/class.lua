@@ -15,6 +15,7 @@ function cGameInfo.methods:init(gamestate)
 	self.world_height = 10
 	self.current_card_int = -1
 	self.previous_card_int = -1
+	self.faceoff_int = -1
 
 	self.zoom = 0.75
 	self.portrait_start = 400; --NEEDED FOR THE POSITIONING OF PLAYER HAND BUTTONS
