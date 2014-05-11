@@ -96,11 +96,6 @@ function Portrait()
 	portrait.strokeWidth = 6
 	portrait:setStrokeColor( 200,200,200,255 )
 
-
-	GameInfo.print_string = ""
-	statusText = display.newText( GameInfo.print_string, 100, display.contentHeight / 2, native.systemFontBold, 48 )
-	statusText:setFillColor( 0, 0, 0 )
-
 end
 
 

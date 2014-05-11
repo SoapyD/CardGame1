@@ -10,6 +10,10 @@ end
 
 function loadGame()
 	--HERE'S WHERE WE CAN LOAD ANYTHING THAT ONLY NEEDS INITIALISING
+	GameInfo.print_string = ""
+	statusText = display.newText( GameInfo.print_string, 100, display.contentHeight / 2, native.systemFontBold, 48 )
+	statusText:setFillColor( 0, 0, 0 )
+
 	print( "LOAD INFO")
 	--MAXIMUM 2000x2000 SCALE TEXTURES. THE BOARD IS LOADED IN 4 PARTS
 	LoadTable( "table2" .. ".jpg",875,875);
@@ -34,6 +38,8 @@ function loadGame()
 	run_main_loop() --NEEDS TO RUN ONCE IN THE LOAD GAME LOOP
 
 	Reset_SetCards_state()
+
+	createMsgBox()
 
 	--ADVANCE THE GAMESTATE
 	GameInfo.gamestate = GameInfo.gamestate + 1

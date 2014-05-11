@@ -5,6 +5,7 @@ cGameInfo=setclass("GameInfo")
 
 function cGameInfo.methods:init(gamestate) 
 	self.gamestate = gamestate
+	self.fps = 60
 	self.frame_num = 0
 	self.myButtons = {}
 	self.cards = {}

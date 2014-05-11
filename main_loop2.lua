@@ -74,7 +74,23 @@ function CheckActionState()
 
     local Action = GameInfo.actions[action_state]
 
+
     local CheckState = switch { 
+        ["faceoff"] = function()    --RUN THE DRAW LOOP
+                --print("internal state" .. action_internal_state)
+                local CheckState = switch { 
+                    [0] = function()    --TURN ON THE FACEOFF SCREEN
+                        Show_FOTable("", false)
+                        action_internal_state = 1
+                        end,
+                    [1] = function()    --WAIT FOR THE ACTION TO COMPLETE
+                        --print( "ERROR - run_main_state not within switch")
+                        end,
+                    default = function ()  end,
+                }
+
+                CheckState:case(action_internal_state)
+            end,    
         ["draw"] = function()    --RUN THE DRAW LOOP
 
                 local CheckState = switch { 
@@ -176,7 +192,7 @@ function CheckActionState()
                         end,
                     [1] = function()    --TURN ON THE DISCARD CARDS SCREEN
                         EndRound()
-                        action_internal_state = 2
+                        --action_internal_state = 2
                         end,
                     [2] = function()    --WAIT FOR THE ACTION TO COMPLETE
                         end,
@@ -209,7 +225,7 @@ function CheckActionPos(network_used)
     local list_size = table.getn(GameInfo.actions)
 
     if (list_size > 0) then
-        print("list size:" .. list_size .. " action_state:" .. action_state)
+        --print("action list size:" .. list_size .. " action_state:" .. action_state)
         if (action_state < list_size) then
             action_state = action_state + 1
         else
@@ -218,7 +234,7 @@ function CheckActionPos(network_used)
             ResetActionInternalState()
         end
 
-        print("a_state: " .. action_state .. " a_i_state: " .. action_internal_state)
+        --print("action list size:" .. list_size .. " action_state:" .. action_state .. " action_internal_state: " .. action_internal_state)
 
         if ( network_used == false) then
             appWarpClient.sendUpdatePeers(

@@ -91,7 +91,7 @@ function Check_Quad_Region(current_card, search_section)
             end
         end
     end
-
+    print("placement: " , allow_placement)
     if ( allow_placement == true) then
         finalise_button.isVisible = true
     else
@@ -171,7 +171,7 @@ function compare_card_info(clash_dir, current_card, current_info, quad, surround
 
     local return_info = false
 
-    if (current_val >= opposite_val) then
+    if (current_val >= opposite_val or current_val == -1 or opposite_val == -1) then
         --print("placement available, curr:" .. current_val .. ", opp:" .. opposite_val)
         return_info = true
     --else

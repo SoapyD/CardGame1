@@ -1,4 +1,5 @@
 local sub_action = ""
+local sets_player = false
 
 function Hide_FOTable()
     GameInfo.screen_elements.image.isVisible  = false
@@ -7,16 +8,15 @@ function Hide_FOTable()
     TitleText.text = ""
     GameInfo.pause_add = 0
     GameInfo.finalise_state = 1
-    CheckActionPos(false)
+    sets_player = false
+    CheckActionPos(true) --NEEDS TO BE SET TO TRUE AS BOTH PLAYERS HAVE THIS TABLE LOADED
 
     if (finalise_button ~= nil) then
-        if ( GameInfo.username ~= GameInfo.player_list[GameInfo.current_player].username) then
-            finalise_button.isVisible = false
-        end
+        check_FinalisationButton()
     end
 end
 
-function Show_FOTable(temp_sub_action)
+function Show_FOTable(temp_sub_action, checks_player)
     GameInfo.screen_elements.image.isVisible  = true
     GameInfo.faceoff_screen.player1.isVisible  = true
     GameInfo.faceoff_screen.player2.isVisible  = true
@@ -24,6 +24,7 @@ function Show_FOTable(temp_sub_action)
     sub_action = temp_sub_action
     GameInfo.pause_add = 2
     GameInfo.finalise_state = 2
+    sets_player = checks_player
 
     --print(sub_action)
     if (finalise_button ~= nil) then
@@ -38,6 +39,8 @@ function LoadFaceOff()
 
     AddPlayerZone(faceoff_item);
     GameInfo.faceoff_screen = faceoff_item
+
+    Runtime:addEventListener( "enterFrame", End_FaceOff )
 
     --Show_FOTable()
     Hide_FOTable()
@@ -73,6 +76,9 @@ function AddFaceOffCard(username, faceoff_card)
     end
 end
 
+local end_faceoff = false
+local end_state = 0
+
 function Check_FaceOff_End()
 
     local card_count = 0 
@@ -102,39 +108,78 @@ function Check_FaceOff_End()
 
         print("player1_score: " .. p1_score .. " player2_score: " .. p2_score)
 
-        if (card_count == 2) then
-            local end_faceoff = false
+        if (card_count == 2 and GameInfo.pause_main == true) then
+            local end_process = false
+            local winner = -1
             if (p1_score > p2_score) then
-                end_faceoff = true
-                print("P1 wins faceoff")
+                end_process = true
+                MsgText.text = "P1 wins faceoff"
+                MsgBox.fade = 2
+                winner = 1
             end
             if (p2_score > p1_score) then
-                end_faceoff = true
-                print("P2 wins faceoff")
+                end_process = true
+                MsgText.text = "P2 wins faceoff"
+                MsgBox.fade = 2
+                winner = 2
             end
 
             local reset_faceoff = false
 
-            if (end_faceoff == true) then
-                Hide_FOTable()
-                GameInfo.cards[GameInfo.faceoff_int].isVisible = false
-                reset_faceoff = true
+            if (end_process == true) then
+                end_faceoff = true
+                if (sets_player == true) then
+                    GameInfo.current_player = winner
+                    check_FinalisationButton()
+                    sets_player = false
+                end
             end
 
             if (p1_score == p2_score) then
-                print("faceoff drawn, place down another card")
-                GameInfo.cards[GameInfo.faceoff_int].isVisible = false
-                GameInfo.pause_main = false
-                reset_faceoff = true
-            end        
+                MsgText.text = "faceoff drawn, place down another card"
+                MsgBox.fade = 2
 
-            if (reset_faceoff == true) then
-                for i=1, table.getn(GameInfo.player_list) do
-                    GameInfo.player_list[i].faceoff_card = ""
-                end
-                GameInfo.faceoff_int = -1
-            end
+                GameInfo.cards[GameInfo.faceoff_int].isVisible = false
+                resetFaceoff()
+                GameInfo.pause_main = false
+            end        
         end
 
     end
+end
+
+function End_FaceOff()
+    if (end_faceoff == true) then
+        local CheckState = switch { 
+            [0] = function()
+                    end_state = 1
+                end,
+            [1] = function()
+                    if (MsgBox.msg_fade == 0 and MsgBox.fade == 0) then
+                        end_state = 2
+                    end
+                end,
+            [2] = function() 
+                    Hide_FOTable()
+                    GameInfo.cards[GameInfo.faceoff_int].isVisible = false
+                    end_faceoff = false
+                    end_state = 0
+                    GameInfo.pause_main = false
+                    resetFaceoff()
+
+                end,
+            default = function () print( "ERROR - run_main_state not within face_off end") end,
+        }
+
+        CheckState:case(end_state)
+
+    end
+
+end
+
+function  resetFaceoff()
+    for i=1, table.getn(GameInfo.player_list) do
+        GameInfo.player_list[i].faceoff_card = ""
+    end
+    GameInfo.faceoff_int = -1   
 end

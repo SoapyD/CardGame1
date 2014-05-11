@@ -62,11 +62,22 @@ function PassTurn()
     GameInfo.current_player = 1
   end               
   print("current player is:" .. GameInfo.current_player)
+  --if ( GameInfo.username ~= GameInfo.player_list[GameInfo.current_player].username) then
+  --  finalise_button.isVisible = false
+  --else
+  --  finalise_button.isVisible = true
+  --end
+  check_FinalisationButton()
+end
+
+function check_FinalisationButton()
+
   if ( GameInfo.username ~= GameInfo.player_list[GameInfo.current_player].username) then
     finalise_button.isVisible = false
   else
     finalise_button.isVisible = true
   end
+
 end
 
 
@@ -94,7 +105,7 @@ function EndRound()
               end
 
               GameInfo.table_cards = {}
-              ResetActionState()
+              --ResetActionState()
 
               GameInfo.current_card_int = -1
               GameInfo.previous_card_int = -1
@@ -129,9 +140,12 @@ function EndRound()
 
               end,
         [3] = function()    --END
-
+            GameInfo.actions = {}
+            ResetActionState()
+            ResetActionInternalState()
+            Show_FOTable("", true)
             end,
-        default = function () print( "ERROR - run_main_state not within switch") end,
+        default = function () print( "ERROR - EndRound_state not within switch") end,
     }
 
     CheckState:case(EndRound_state)
