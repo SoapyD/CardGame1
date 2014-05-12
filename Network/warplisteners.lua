@@ -152,8 +152,9 @@ function onUpdatePeersReceived(update)
   end
 
   if (update_type == "cripple_limb") then
+    local username = tostring(func())
     local damage_type = tostring(func())
-    UpdateLimbs(damage_type)
+    UpdateLimbs(damage_type, username)
   end
 
   if (update_type == "health_mod") then

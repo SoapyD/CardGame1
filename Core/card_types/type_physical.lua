@@ -11,7 +11,7 @@ function Check_PhysicalCards(filename)
     	["p/1.png"] = function()
     			card_info.name = "bash"
     			set_stats(card_info, 8,4,5,5,1,0,0,10,"physical",2)
-    			card_info.actions[table.getn(card_info.actions) + 1] = set_action("limb", "", -1, 0)
+    			card_info.actions[table.getn(card_info.actions) + 1] = set_action("limb", "", 2, 0)
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("block", "", 3, 1) -- focus
     		end,
     	["p/2.png"] = function()
@@ -27,7 +27,7 @@ function Check_PhysicalCards(filename)
     	["p/4.png"] = function()
     			card_info.name = "deadly-punch"
     			set_stats(card_info, 10,1,7,7,1,0,0,15,"physical",2)
-    			card_info.actions[table.getn(card_info.actions) + 1] = set_action("limb", "", -1, 0)
+    			card_info.actions[table.getn(card_info.actions) + 1] = set_action("limb", "", -2, 0)
     		end,
     	["p/5.png"] = function()
     			card_info.name = "dive"

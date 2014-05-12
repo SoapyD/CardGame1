@@ -20,15 +20,15 @@ function Show_LimbTable()
 end
 
 function SetCrippleMax(draw_value)
-    draw_max = draw_value
-    --print("draw value" .. draw_max)
+    discard_max = draw_value
+    print("draw value" .. discard_max)
 end
 
 function CheckLimbs()
     if (discard_max <= 1) then
         Hide_LimbTable()
     end
-
+    --print("chagnged value" .. discard_max)
     discard_max = discard_max - 1
 end
 
@@ -94,6 +94,7 @@ function CrippleLimb_button( event )
             
             appWarpClient.sendUpdatePeers(
             tostring("cripple_limb") .. " " .. 
+            tostring(GameInfo.username) .. " " ..
             tostring(t.card_type)) 
         end
     end
