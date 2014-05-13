@@ -101,20 +101,29 @@ end
 --  end
 --end
 
-function UpdateLimbs(cripple_type, username)
+function UpdateLimbs(username, action_var, cripple_type)
 
   local apply_to = find_applied_to(1) --apply this to the defender
   local applied_player = GameInfo.player_list[apply_to]
 
   if (cripple_type == "cripple_arm") then
-    if (applied_player.arms > 0) then
-      applied_player.arms = applied_player.arms - 1
-    end
+    applied_player.arms = applied_player.arms - action_var
   end
   if (cripple_type == "cripple_leg") then
-    if (applied_player.legs > 0) then
-      applied_player.legs = applied_player.legs - 1
-    end
+    applied_player.legs = applied_player.legs - action_var
+  end
+
+  if (applied_player.arms < 0 ) then
+    applied_player.arms = 0
+  end
+  if (applied_player.arms > 2) then
+    applied_player.arms = 2
+  end
+  if (applied_player.legs < 0 ) then
+    applied_player.legs = 0
+  end
+  if (applied_player.legs > 2) then
+    applied_player.legs = 2
   end
 
   if (username == GameInfo.username) then

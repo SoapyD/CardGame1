@@ -169,6 +169,11 @@ function compare_card_info(clash_dir, current_card, current_info, quad, surround
     local current_val = current_info.strat_scores[current_strat]
     local opposite_val = surrounding_info.strat_scores[opp_strat]
 
+    if (quad.passed_ability == "strat_alter") then
+        --print("this value has been passed: " .. quad.passed_value)
+        opposite_val = quad.passed_value
+    end 
+
     local return_info = false
 
     if (current_val >= opposite_val or current_val == -1 or opposite_val == -1) then

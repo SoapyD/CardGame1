@@ -1,4 +1,5 @@
 local discard_max = 0
+local limb_modifier = 0
 
 function Hide_LimbTable()
     GameInfo.screen_elements.image.isVisible  = false
@@ -8,20 +9,31 @@ function Hide_LimbTable()
     GameInfo.limb_screen.card4.icon.isVisible  = false
     TitleText.text = ""
     CheckActionPos(false)
+    limb_modifier = 0
 end
 
-function Show_LimbTable()
+function Show_LimbTable(action_var)
     GameInfo.screen_elements.image.isVisible  = true
     GameInfo.limb_screen.card1.icon.isVisible  = true
     GameInfo.limb_screen.card2.icon.isVisible  = true
     GameInfo.limb_screen.card3.icon.isVisible  = true
     GameInfo.limb_screen.card4.icon.isVisible  = true
-    TitleText.text = "Damage Limb"
+    if (action_var < 0) then
+        limb_modifier = -1
+        TitleText.text = "Damage Limb"
+    else
+        limb_modifier = 1
+        TitleText.text = "Heal Limb"
+    end
 end
 
 function SetCrippleMax(draw_value)
+
+    if (draw_value < 0) then
+        draw_value = draw_value * -1
+    end
     discard_max = draw_value
-    print("draw value" .. discard_max)
+    --print("draw value" .. discard_max)
 end
 
 function CheckLimbs()
@@ -95,6 +107,7 @@ function CrippleLimb_button( event )
             appWarpClient.sendUpdatePeers(
             tostring("cripple_limb") .. " " .. 
             tostring(GameInfo.username) .. " " ..
+            tostring(limb_modifier) .. " " ..
             tostring(t.card_type)) 
         end
     end

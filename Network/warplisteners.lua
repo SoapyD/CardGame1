@@ -153,8 +153,10 @@ function onUpdatePeersReceived(update)
 
   if (update_type == "cripple_limb") then
     local username = tostring(func())
+    local action_var = tonumber(func())
     local damage_type = tostring(func())
-    UpdateLimbs(damage_type, username)
+    print("action var netted: " .. action_var)
+    UpdateLimbs(username, action_var, damage_type)
   end
 
   if (update_type == "health_mod") then

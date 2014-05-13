@@ -12,7 +12,7 @@ function DrawTempCard( event )
         t.isFocus = true
 
         if (t.item_loaded == false) then
-            print("loading")
+            --print("loading")
 
             local icon = display.newRoundedRect( 
                 t.x, t.y, 350, 350, 1 )
@@ -30,7 +30,7 @@ function DrawTempCard( event )
             GameInfo.temp_card.icon.text = text
             t.item_loaded = true           
         end
-        print("draw start")
+        --print("draw start")
     elseif t.isFocus then
         if "moved" == phase then
             GameInfo.temp_card.icon.x = event.x
@@ -39,11 +39,11 @@ function DrawTempCard( event )
             GameInfo.temp_card.icon.text.y = event.y
         elseif "ended" == phase then
             display.getCurrentStage():setFocus( nil )
-            print("off button")
+            --print("off button")
             if (t.item_loaded == true) then
                 local max_hight = display.contentHeight - (300 * GameInfo.zoom)
                 if (GameInfo.temp_card.icon.y > max_hight) then
-                    print("card drawn" .. t.type_int)
+                    --print("card drawn" .. t.type_int)
                     DrawCard(t.type_int, true)
                     portrait:toFront()
                     statusText:toFront()

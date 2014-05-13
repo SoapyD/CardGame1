@@ -138,7 +138,7 @@ function CheckActionState()
                         SetCrippleMax(Action.value)
                         end,
                     [1] = function()    --TURN ON THE LIMB SCREEN
-                        Show_LimbTable()
+                        Show_LimbTable(Action.value)
                         action_internal_state = 2
                         end,
                     [2] = function()    --WAIT FOR THE ACTION TO COMPLETE
@@ -198,9 +198,13 @@ function CheckActionState()
                         end,
                     default = function () print( "ERROR - run_main_state not within switch") end,
                 }
-
                 CheckState:case(action_internal_state)                
             end,
+
+        ["strat_alter"] = function()    --STRAT_ALTER
+                print("strat altered action is running")
+                CheckActionPos(false)
+            end,            
         default = function () print( "ERROR - GameInfo Action not within switch") end,
     }
 
@@ -210,10 +214,14 @@ function CheckActionState()
             GameInfo.username == GameInfo.player_list[GameInfo.current_player].username) then
     	   CheckState:case(GameInfo.actions[action_state].type)
         end
+    end
+    if (table.getn(GameInfo.actions) > 0 ) then
         if (GameInfo.actions[action_state].applied_to == 1 and
             GameInfo.username ~= GameInfo.player_list[GameInfo.current_player].username) then
-           CheckState:case(GameInfo.actions[action_state].type)
+            CheckState:case(GameInfo.actions[action_state].type)
         end
+    end
+    if (table.getn(GameInfo.actions) > 0 ) then
         if (GameInfo.actions[action_state].applied_to == -1) then
             --print("-1 used")
            CheckState:case(GameInfo.actions[action_state].type)
