@@ -12,6 +12,10 @@ local options =
 --end
 }
 
+function run_popup(message)
+    MsgText.text = message
+    MsgBox.fade = 2	
+end
 
 function createMsgBox()
 

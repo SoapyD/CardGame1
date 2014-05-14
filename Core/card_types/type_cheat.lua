@@ -11,8 +11,8 @@ function Check_CheatCards(filename)
     	["c/1.png"] = function()
     			card_info.name = "backstab"
     			set_stats(card_info, -1,-1,-1,-1,1,0,0,15,"cheat",6)
-				card_info.actions[table.getn(card_info.actions) + 1] = set_action("play", "", 0, 1)
-				card_info.actions[table.getn(card_info.actions) + 1] = set_action("next_card_damage", "", 0, 1)
+				--card_info.actions[table.getn(card_info.actions) + 1] = set_action("play", "", 0, 0)
+				card_info.actions[table.getn(card_info.actions) + 1] = set_action("next_card", "damage", 0, 1)
     		end,
     	["c/2.png"] = function()
     			card_info.name = "berserk"

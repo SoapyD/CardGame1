@@ -113,14 +113,16 @@ function Check_FaceOff_End()
             local winner = -1
             if (p1_score > p2_score) then
                 end_process = true
-                MsgText.text = "P1 wins faceoff"
-                MsgBox.fade = 2
+                --MsgText.text = "P1 wins faceoff"
+                --MsgBox.fade = 2
+                run_popup("P1 wins faceoff")
                 winner = 1
             end
             if (p2_score > p1_score) then
                 end_process = true
-                MsgText.text = "P2 wins faceoff"
-                MsgBox.fade = 2
+                --MsgText.text = "P2 wins faceoff"
+                --MsgBox.fade = 2
+                run_popup("P2 wins faceoff")
                 winner = 2
             end
 
@@ -136,8 +138,9 @@ function Check_FaceOff_End()
             end
 
             if (p1_score == p2_score) then
-                MsgText.text = "faceoff drawn, place down another card"
-                MsgBox.fade = 2
+                --MsgText.text = "faceoff drawn, place down another card"
+                --MsgBox.fade = 2
+                run_popup("faceoff drawn, place down another card")
 
                 GameInfo.cards[GameInfo.faceoff_int].isVisible = false
                 resetFaceoff()

@@ -13,6 +13,7 @@ function Update_Pos(unique_id, filename, x, y)
     end
 
     if ( found == false) then
+      --THIS IS THE OPPONENTS VIEW OF THE TABLE
       AddCard(unique_id,filename, x, y, false)
 
       current_card = GameInfo.table_cards[table.getn(GameInfo.table_cards)]
@@ -21,8 +22,10 @@ function Update_Pos(unique_id, filename, x, y)
       camera:track()
       camera.damping = 10
 
-      EndTurn(current_card)
+      --EndTurn(current_card)
+      advance_cardPausestate()
     else
+      --THIS IS THE CARD OF THE CURRENT PLAYER
       GameInfo.table_cards[saved_id].x = x
       GameInfo.table_cards[saved_id].y = y
 
@@ -32,11 +35,12 @@ function Update_Pos(unique_id, filename, x, y)
       camera:track()
       camera.damping = 10
       --print("ending turn")
-      EndTurn(current_card)
+      --EndTurn(current_card)
     end	
 
 end
 
+--THIS IS USED TO ADD A CARD WITHOUT ADDING TO THE TABLE
 function Update_Pos2(unique_id, filename, x, y)
     found = false
     saved_id = -1
@@ -105,12 +109,12 @@ function UpdateLimbs(username, action_var, cripple_type)
 
   local apply_to = find_applied_to(1) --apply this to the defender
   local applied_player = GameInfo.player_list[apply_to]
-
+  --print("limb passed: " .. cripple_type .. " " .. action_var)
   if (cripple_type == "cripple_arm") then
-    applied_player.arms = applied_player.arms - action_var
+    applied_player.arms = applied_player.arms + action_var
   end
   if (cripple_type == "cripple_leg") then
-    applied_player.legs = applied_player.legs - action_var
+    applied_player.legs = applied_player.legs + action_var
   end
 
   if (applied_player.arms < 0 ) then

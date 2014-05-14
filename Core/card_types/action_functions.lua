@@ -50,3 +50,71 @@ function InjureEnemy()
 		tostring(shrap_val))
 
 end
+
+
+
+local pause_state = 1
+local pause_timer = 0
+
+function advance_cardPausestate()
+	pause_state = pause_state + 1
+end
+
+function action_PauseLoop()
+
+	if (GameInfo.player_list ~= nil) then
+		if (table.getn(GameInfo.player_list) >= GameInfo.current_player) then
+			if (GameInfo.username ~= GameInfo.player_list[GameInfo.current_player].username) then
+
+			    CheckState = switch { 
+			        [1] = function()    --WAIT FOR THE COMPLETE ACTION VALUE 
+			        	--print("current: " .. GameInfo.current_player)
+			            end,
+			        [2] = function()    --SET A TIMER
+			        		pause_timer = 3 * GameInfo.fps
+			        		advance_cardPausestate()
+			            end,
+			        [3] = function()    --COUNT THROUGH THE TIMER
+			        		pause_timer = pause_timer - 1
+			        		if ( pause_timer <= 0) then
+			        			pause_timer = 0
+			        			advance_cardPausestate()
+			        		end
+			        		run_popup("COUNTER TIMER: " .. pause_timer)
+			            end,
+			        [4] = function()    --PASS THE COUNT BACK
+			            appWarpClient.sendUpdatePeers(
+	                    	tostring("finish_placement_pause") .. " " ..
+	                    	tostring(GameInfo.username))
+			            	advance_cardPausestate()
+			            end,
+			        [5] = function()    --END
+			        	current_card = GameInfo.table_cards[table.getn(GameInfo.table_cards)]
+			        	EndTurn(current_card)
+			        	pause_state = 1
+			            end,
+			        default = function () print( "ERROR - SetCards_state not within switch") end,
+			    }
+
+			    CheckState:case(pause_state)
+			else
+			    CheckState2 = switch { 
+			        [1] = function()    --WAIT FOR THE COMPLETE ACTION VALUE 
+			            end,
+			        [2] = function()    --COUNT THROUGH THE TIMER
+			        		run_popup("PLACEMENT RETURNED")
+			        		advance_cardPausestate()
+			            end,
+			        [3] = function()    --END
+			        	current_card = GameInfo.table_cards[table.getn(GameInfo.table_cards)]
+			        	EndTurn(current_card)
+			        	pause_state = 1
+			            end,
+			        default = function () print( "ERROR - SetCards_state not within switch") end,
+			    }
+
+			    CheckState2:case(pause_state)
+			end
+		end
+	end
+end

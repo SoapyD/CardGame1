@@ -14,8 +14,8 @@ function CheckAbility(action)
     	["leg"] = function (x) mod_leg(action.applied_to, action.value) end, 
         ["prev_card"] = function (x) mod_from_prev(action.applied_to, action.sub_action) end, 
         ["block"] = function (x) 
-                --add_info = true
-                --value translates to {1="w",2="p",3="f",4="s",5="a",6="c"}
+                end,
+        ["next_card"] = function (x) --don't add onto the action list 
                 end,
 	   	default = function () 
                 --print( "ERROR - ability not within switch") 
@@ -33,6 +33,9 @@ function CheckAbility(action)
         --temp_mods = action
     end
     --print("used friggin action: " .. action.name)
+
+    --CHECK THE LAST CARD IN CASE THERE WAS ANY NEXT_CARD ACTIONS ON IT
+    mod_next()
 
     return temp_mods
 end
@@ -114,25 +117,70 @@ function mod_from_prev(applied_to, sub_action)
         local last_card_info = GameInfo.table_cards[GameInfo.previous_card_int]
         local last_card = retrieve_card(last_card_info.filename)
 
-        check_sub = switch { 
+
+        Check_SubAction(applied_to, sub_action, last_card.power)
+
+        --check_sub = switch { 
+
+        --    ["damage"] = function (x)
+        --            local value = -last_card.power
+        --            mod_health(applied_to, value)
+        --            end,
+        --    ["armour"] = function (x)
+        --            local value = last_card.power
+        --            mod_armour(applied_to, value)
+        --            end,
+        --    default = function () 
+                    --print( "ERROR - ability not within switch") 
+        --            end,
+        --}
+        --check_sub:case(sub_action)
+    end
+end
+
+
+function mod_next()
+
+    if (GameInfo.previous_card_int ~= -1) then    
+
+        local current_card_info = GameInfo.table_cards[GameInfo.current_card_int]
+        local current_card = retrieve_card(current_card_info.filename)
+
+
+        local last_card_info = GameInfo.table_cards[GameInfo.previous_card_int]
+        local last_card = retrieve_card(last_card_info.filename)
+
+        if ( table.getn(last_card.actions) > 0) then
+            for i=1, table.getn(last_card.actions) do
+                local action = last_card.actions[i]
+                if( action.name == "next_card") then
+                    Check_SubAction(action.applied_to, action.sub_action, current_card.power)
+                end
+            end
+        end
+
+        
+    end
+end
+
+function Check_SubAction(applied_to, sub_action, power)
+
+    --print("sub: " .. sub_action .. ", power: " .. power)
+
+        check_next = switch { 
 
             ["damage"] = function (x)
-                    local value = -last_card.power
+                    local value = -power
                     mod_health(applied_to, value)
                     end,
             ["armour"] = function (x)
-                    local value = last_card.power
+                    local value = power
                     mod_armour(applied_to, value)
                     end,
             default = function () 
-                    --print( "ERROR - ability not within switch") 
+                    print( "ERROR - sub_action not within switch") 
                     end,
         }
 
-
-        check_sub:case(sub_action)
-
-
-    end
-    
+        check_next:case(sub_action)
 end

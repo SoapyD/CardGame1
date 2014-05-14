@@ -86,11 +86,7 @@ function PassTurn()
     GameInfo.current_player = 1
   end               
   print("current player is:" .. GameInfo.current_player)
-  --if ( GameInfo.username ~= GameInfo.player_list[GameInfo.current_player].username) then
-  --  finalise_button.isVisible = false
-  --else
-  --  finalise_button.isVisible = true
-  --end
+
   check_FinalisationButton()
 end
 
@@ -110,6 +106,7 @@ local EndRound_state = 1
 function EndRound()
 
   --print("round ended")
+    local reset_state = false
 
 
     local CheckState = switch { 
@@ -164,14 +161,19 @@ function EndRound()
 
               end,
         [3] = function()    --END
-            GameInfo.actions = {}
-            ResetActionState()
-            ResetActionInternalState()
-            Show_FOTable("", true)
+              GameInfo.actions = {}
+              ResetActionState()
+              ResetActionInternalState()
+              Show_FOTable("", true)
+              reset_state = true
             end,
         default = function () print( "ERROR - EndRound_state not within switch") end,
     }
 
     CheckState:case(EndRound_state)
+
+    if (reset_state == true) then
+      EndRound_state = 1
+    end
 
 end
