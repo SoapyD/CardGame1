@@ -1,4 +1,4 @@
-function set_stats(card_info, top, bottom, left, right, arms, legs, either_limb, damage, card_type, card_value)
+function set_stats(card_info, top, bottom, left, right, arms, legs, either_limb, power, card_type, card_value)
     card_info.strat_scores = {}
     card_info.strat_scores[1] = top
     card_info.strat_scores[2] = right
@@ -8,7 +8,7 @@ function set_stats(card_info, top, bottom, left, right, arms, legs, either_limb,
 	card_info.arms = arms
 	card_info.legs = legs
 	card_info.either_limb = either_limb
-	card_info.damage = damage					
+	card_info.power = power					
 
     card_info.card_type = card_type
     card_info.card_value = card_value

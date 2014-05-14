@@ -128,7 +128,7 @@ function run_card_loop()
 			local arms = "" .. GameInfo.player_list[1].arms
 			local legs = "" .. GameInfo.player_list[1].legs
 		    GameInfo.print_string = GameInfo.print_string .. "\nHP:" .. health .. " AR:" ..armour
-		    GameInfo.print_string = GameInfo.print_string .. "\nAR:" ..armour .. " A:" .. arms .. " L:" .. legs  
+		    GameInfo.print_string = GameInfo.print_string .. "\nA:" .. arms .. " L:" .. legs  
 
 		else
 
@@ -138,7 +138,7 @@ function run_card_loop()
 			arms = "" .. GameInfo.player_list[2].arms
 			legs = "" .. GameInfo.player_list[2].legs
 		    GameInfo.print_string = GameInfo.print_string .. "\nHP:" .. health .. " AR:" ..armour
-		    GameInfo.print_string = GameInfo.print_string .. "\nAR:" ..armour .. " A:" .. arms .. " L:" .. legs  
+		    GameInfo.print_string = GameInfo.print_string .. "\nA:" .. arms .. " L:" .. legs  
 		end
 	end
 end

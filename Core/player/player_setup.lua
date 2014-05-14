@@ -5,7 +5,7 @@ function AddPlayer(username)
 	player_info.username = username
 	player_info.max_health = 40
 	player_info.health = player_info.max_health
-	player_info.armour = 10
+	player_info.armour = 0
 	player_info.max_arms = 2
 	player_info.arms = player_info.max_arms	
 	player_info.max_legs = 2

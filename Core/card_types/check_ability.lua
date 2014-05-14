@@ -12,6 +12,7 @@ function CheckAbility(action)
         ["armour"] = function (x) mod_armour(action.applied_to, action.value) end,
         ["arm"] = function (x) mod_arm(action.applied_to, action.value) end,
     	["leg"] = function (x) mod_leg(action.applied_to, action.value) end, 
+        ["prev_card"] = function (x) mod_from_prev(action.applied_to, action.sub_action) end, 
         ["block"] = function (x) 
                 --add_info = true
                 --value translates to {1="w",2="p",3="f",4="s",5="a",6="c"}
@@ -104,4 +105,34 @@ function mod_leg(applied_to, value)
         applied_player.legs = applied_player.max_legs
     end
     print("legs add:" .. value)
+end
+
+function mod_from_prev(applied_to, sub_action)
+
+    if (GameInfo.previous_card_int ~= -1) then    
+
+        local last_card_info = GameInfo.table_cards[GameInfo.previous_card_int]
+        local last_card = retrieve_card(last_card_info.filename)
+
+        check_sub = switch { 
+
+            ["damage"] = function (x)
+                    local value = -last_card.power
+                    mod_health(applied_to, value)
+                    end,
+            ["armour"] = function (x)
+                    local value = last_card.power
+                    mod_armour(applied_to, value)
+                    end,
+            default = function () 
+                    --print( "ERROR - ability not within switch") 
+                    end,
+        }
+
+
+        check_sub:case(sub_action)
+
+
+    end
+    
 end

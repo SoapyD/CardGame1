@@ -79,9 +79,9 @@ function Check_ArmourCards(filename)
 				end,    		
     	["a/12.png"] = function()
     			card_info.name = "shield_bash"
-    			set_stats(card_info, 2,2,2,2,1,0,0,5,"armour",5)
-                card_info.actions[table.getn(card_info.actions) + 1] = set_action("armour_prev_card", "", -1, 0)
-    			card_info.actions[table.getn(card_info.actions) + 1] = set_action("end_round", "", 0, 0)
+    			set_stats(card_info, 20,2,2,2,1,0,0,5,"armour",5)
+                card_info.actions[table.getn(card_info.actions) + 1] = set_action("prev_card", "armour", -1, 0)
+    			card_info.actions[table.getn(card_info.actions) + 1] = set_action("end_round", "", 0, -1)
     		end,
     	["a/13.png"] = function()
     			card_info.name = "shrapnel"
