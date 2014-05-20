@@ -16,6 +16,7 @@ function Show_DiscardTable(temp_sub_action)
     GameInfo.pause_add = 1
     sub_action = temp_sub_action
     --print(sub_action)
+    run_popup("Discard: " .. discard_max)
 end
 
 function CheckDiscard(current_card)
@@ -47,6 +48,8 @@ function CheckDiscard(current_card)
     end
 
     discard_max = discard_max - 1
+
+    run_popup("Discard: " .. discard_max)
 end
 
 function SetDiscardMax(discard_value)

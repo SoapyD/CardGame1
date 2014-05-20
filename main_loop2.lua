@@ -25,7 +25,7 @@ function run_main_loop()
 
     --RUN THE ACTION LIST LOOP, A SET OF ADVANCING NAMES AND INTERNAL STATES
  	CheckActionState()
- 	action_PauseLoop()
+ 	action_CounterLoop()
 
  	--SOME TEMPORARY DRAWN BUTTONS I'M USING TO TEST THE CAMERA AND IT'S SPACING
 	button1.x = -camera.scrollX

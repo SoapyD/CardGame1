@@ -25,6 +25,7 @@ function Show_LimbTable(action_var)
         limb_modifier = 1
         TitleText.text = "Heal Limb"
     end
+    run_popup("Cripple: " .. discard_max)
 end
 
 function SetCrippleMax(draw_value)
@@ -42,6 +43,7 @@ function CheckLimbs()
     end
     --print("chagnged value" .. discard_max)
     discard_max = discard_max - 1
+    run_popup("Cripple: " .. discard_max)
 end
 
 function SetLimbMax(discard_value)

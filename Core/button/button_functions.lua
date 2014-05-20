@@ -109,6 +109,11 @@ function finishCard( event )
 							end
 						end		        	
 			        end,
+
+			    [3] = function()    --COUNTER
+			    	--run_popup("COUNTER!")
+	        		set_cardPausestate(6)
+			        end,			        
 			    default = function () print( "ERROR - state not within finalisation states") end,
 			    }
 
@@ -117,4 +122,39 @@ function finishCard( event )
 	end
 
 	return true
+end
+
+
+function check_FinalisationButton()
+
+  if ( GameInfo.username ~= GameInfo.player_list[GameInfo.current_player].username) then
+    finalise_button.isVisible = false
+  else
+    finalise_button.isVisible = true
+  end
+
+	for i = 1, table.getn(GameInfo.cards) do
+		local hand_card = GameInfo.cards[i]
+
+		local card_info = retrieve_card(hand_card.filename)
+ 
+		if ( table.getn(card_info.actions) > 0) then
+			for i=1, table.getn(card_info.actions) do
+		    	local action = card_info.actions[i]
+		    	--print("checked action: " .. action.name)
+		    	if (action.name == "counter") then
+		    		--print("has counter card")
+		    		finalise_button.isVisible = true
+
+		    		
+					if ( GameInfo.username ~= GameInfo.player_list[GameInfo.current_player].username) then
+						GameInfo.finalise_state = 3
+					else
+						GameInfo.finalise_state = 1
+					end
+		    	end
+		    end
+		end	
+	end  
+
 end

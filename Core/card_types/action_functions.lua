@@ -34,6 +34,8 @@ function StealCards(card_number)
 			offset_count = offset_count + 1
 		end
 	end
+
+	run_popup( count .. " Cards Stolen")
 end
 
 function InjureEnemy()
@@ -49,6 +51,8 @@ function InjureEnemy()
 		tostring(GameInfo.username) .. " " ..		
 		tostring(shrap_val))
 
+	run_popup( shrap_val .. " Shrapnel Damage")
+
 end
 
 
@@ -60,7 +64,11 @@ function advance_cardPausestate()
 	pause_state = pause_state + 1
 end
 
-function action_PauseLoop()
+function set_cardPausestate(value)
+	pause_state = value
+end
+
+function action_CounterLoop()
 
 	if (GameInfo.player_list ~= nil) then
 		if (table.getn(GameInfo.player_list) >= GameInfo.current_player) then
@@ -92,6 +100,13 @@ function action_PauseLoop()
 			        	current_card = GameInfo.table_cards[table.getn(GameInfo.table_cards)]
 			        	EndTurn(current_card)
 			        	pause_state = 1
+			            end,
+			        [6] = function()    --COUNTER
+			        	run_popup("COUNTER!")
+						advance_cardPausestate()
+			            end,
+			        [7] = function()    --COUNTER LOOP
+
 			            end,
 			        default = function () print( "ERROR - SetCards_state not within switch") end,
 			    }

@@ -90,16 +90,6 @@ function PassTurn()
   check_FinalisationButton()
 end
 
-function check_FinalisationButton()
-
-  if ( GameInfo.username ~= GameInfo.player_list[GameInfo.current_player].username) then
-    finalise_button.isVisible = false
-  else
-    finalise_button.isVisible = true
-  end
-
-end
-
 
 local EndRound_state = 1
 

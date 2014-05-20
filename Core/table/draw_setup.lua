@@ -53,7 +53,7 @@ function DrawTempCard( event )
                     else
                         draw_max = draw_max - 1
                     end
-
+                    run_popup("Draw: " .. discard_max)
                 end
                 GameInfo.temp_card.icon:removeSelf()
                 GameInfo.temp_card.icon.text:removeSelf()
@@ -88,7 +88,7 @@ function Show_DrawTable()
     GameInfo.draw_screen.card6.icon.isVisible  = true
     TitleText.text = "Draw Card"
     GameInfo.pause_main = true
-    
+    run_popup("Draw: " .. discard_max)
 end
 
 function SetDrawMax(draw_value)
