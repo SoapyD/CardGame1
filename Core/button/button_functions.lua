@@ -61,6 +61,7 @@ function finishCard( event )
 		local parent = t.parent
 		parent:insert( t )
 		display.getCurrentStage():setFocus( t )	
+		finalise_button.text:toFront()
 		t.isFocus = true
 
 	elseif t.isFocus then
@@ -110,9 +111,45 @@ function finishCard( event )
 						end		        	
 			        end,
 
-			    [3] = function()    --COUNTER
+			    [3] = function()    --COUNTER SETUP
 			    	--run_popup("COUNTER!")
 	        		set_cardPausestate(6)
+			        end,
+			    [4] = function()    --COUNTER
+			    		--print("COUNTER FINISHED!")
+			    		for i=1, table.getn(GameInfo.player_list) do
+							if (GameInfo.username == GameInfo.player_list[i].username) then
+								if ( GameInfo.player_list[i].faceoff_card ~= "") then
+
+									local card_info = retrieve_card(GameInfo.player_list[i].faceoff_card)
+									local counter_card = false
+
+  									if ( table.getn(card_info.actions) > 0) then
+   	 									for i=1, table.getn(card_info.actions) do
+      										local action = card_info.actions[i]
+
+      										if (action.name == "counter") then
+      											counter_card = true
+      										end
+      									end
+      								end
+
+      								if (counter_card == true) then
+
+										appWarpClient.sendUpdatePeers(
+											tostring("counter") .. " " .. 
+											tostring(GameInfo.username) .. " " .. 
+											tostring(GameInfo.cards[GameInfo.faceoff_int].filename) .. " " .. 
+											tostring(GameInfo.cards[GameInfo.faceoff_int].unique_id))
+
+										GameInfo.pause_main = true
+			    						AddCounterCard(GameInfo.username, GameInfo.player_list[i].faceoff_card)
+			    					else
+			    						run_popup("Card Not a Counter Card")
+			    					end
+			    				end
+			    			end
+			    		end
 			        end,			        
 			    default = function () print( "ERROR - state not within finalisation states") end,
 			    }
@@ -129,32 +166,38 @@ function check_FinalisationButton()
 
   if ( GameInfo.username ~= GameInfo.player_list[GameInfo.current_player].username) then
     finalise_button.isVisible = false
+    finalise_button.text.isVisible = false
   else
     finalise_button.isVisible = true
+    finalise_button.text.isVisible = true
+    finalise_button.text.text = finalise_button.default_text
   end
 
 	for i = 1, table.getn(GameInfo.cards) do
 		local hand_card = GameInfo.cards[i]
 
-		local card_info = retrieve_card(hand_card.filename)
- 
-		if ( table.getn(card_info.actions) > 0) then
-			for i=1, table.getn(card_info.actions) do
-		    	local action = card_info.actions[i]
-		    	--print("checked action: " .. action.name)
-		    	if (action.name == "counter") then
-		    		--print("has counter card")
-		    		finalise_button.isVisible = true
-
-		    		
-					if ( GameInfo.username ~= GameInfo.player_list[GameInfo.current_player].username) then
-						GameInfo.finalise_state = 3
-					else
-						GameInfo.finalise_state = 1
-					end
-		    	end
-		    end
-		end	
+		if (hand_card.isVisible == true) then
+			local card_info = retrieve_card(hand_card.filename)
+	 
+			if ( table.getn(card_info.actions) > 0) then
+				for i=1, table.getn(card_info.actions) do
+			    	local action = card_info.actions[i]
+			    	--print("checked action: " .. action.name)
+			    	if (action.name == "counter") then
+			    		--print("has counter card")
+			    		finalise_button.isVisible = true
+			    		finalise_button.text.isVisible = true
+						finalise_button.text.text = "counter"
+			    		
+						if ( GameInfo.username ~= GameInfo.player_list[GameInfo.current_player].username) then
+							GameInfo.finalise_state = 3
+						else
+							GameInfo.finalise_state = 1
+						end
+			    	end
+			    end
+			end
+		end
 	end  
 
 end

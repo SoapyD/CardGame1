@@ -7,7 +7,7 @@ function Setup_ScreenElements()
         1200 / 2, 1600 / 2)  
 
     TitleText = display.newText( "", 
-        display.contentWidth / 2, 100, native.systemFontBold, 68 )
+        display.contentWidth / 2, 200, native.systemFontBold, 68 )
 
     GameInfo.screen_elements = draw_item
 end

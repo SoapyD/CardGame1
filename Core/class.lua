@@ -26,6 +26,7 @@ function cGameInfo.methods:init(gamestate)
 	self.zoom_saved  = 0
 	self.table_items = {}
 	self.faceoff_screen = {}
+	self.counter_screen = {}
 	self.screen_elements = {}
 	self.draw_screen = {}
 	self.discard_screen = {}
@@ -42,6 +43,7 @@ function cGameInfo.methods:init(gamestate)
 	self.current_player = 1
 
 	self.print_string = ""
+	self.print_string2 = ""
 
 	self.actions = {}
 	self.switch1 = false

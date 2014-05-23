@@ -45,15 +45,16 @@ function DrawTempCard( event )
                 if (GameInfo.temp_card.icon.y > max_hight) then
                     --print("card drawn" .. t.type_int)
                     DrawCard(t.type_int, true)
-                    portrait:toFront()
-                    statusText:toFront()
+                    --portrait:toFront()
+                    --statusText:toFront()
+                    SetGame()
 
                     if (draw_max <= 1) then
                         Hide_DrawTable()
                     else
                         draw_max = draw_max - 1
                     end
-                    run_popup("Draw: " .. discard_max)
+                    run_popup("Draw: " .. draw_max)
                 end
                 GameInfo.temp_card.icon:removeSelf()
                 GameInfo.temp_card.icon.text:removeSelf()
@@ -88,7 +89,7 @@ function Show_DrawTable()
     GameInfo.draw_screen.card6.icon.isVisible  = true
     TitleText.text = "Draw Card"
     GameInfo.pause_main = true
-    run_popup("Draw: " .. discard_max)
+    run_popup("Draw: " .. draw_max)
 end
 
 function SetDrawMax(draw_value)

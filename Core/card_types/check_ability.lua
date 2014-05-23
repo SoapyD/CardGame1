@@ -17,6 +17,8 @@ function CheckAbility(action)
                 end,
         ["next_card"] = function (x) --don't add onto the action list 
                 end,
+        ["counter"] = function (x) --don't add onto the action list 
+                end,
 	   	default = function () 
                 --print( "ERROR - ability not within switch") 
                 add_info = true

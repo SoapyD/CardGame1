@@ -14,6 +14,11 @@ function loadGame()
 	statusText = display.newText( GameInfo.print_string, 100, display.contentHeight / 2, native.systemFontBold, 48 )
 	statusText:setFillColor( 0, 0, 0 )
 
+	GameInfo.print_string2 = ""
+	statusText2 = display.newText( GameInfo.print_string2, 100, 0, native.systemFontBold, 48 )
+	statusText2:setFillColor( 0, 0, 0 )
+
+
 	print( "LOAD INFO")
 	--MAXIMUM 2000x2000 SCALE TEXTURES. THE BOARD IS LOADED IN 4 PARTS
 	LoadTable( "table2" .. ".jpg",875,875);
@@ -34,6 +39,7 @@ function loadGame()
 	LoadDiscardCard();
 	LoadLimbTable();
 	LoadFaceOff();
+	LoadCounter();
 	SetupButtons();
 	run_main_loop() --NEEDS TO RUN ONCE IN THE LOAD GAME LOOP
 

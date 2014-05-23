@@ -151,6 +151,30 @@ function onUpdatePeersReceived(update)
   end
 
   --//////////////////////////////////////////////////////////////////////////
+  --////////////////////COUNTER ACTIONS
+  --//////////////////////////////////////////////////////////////////////////
+  if (update_type == "counter") then
+    local username = tostring(func())
+    local filename = tostring(func())
+    local unique_id = tostring(func())
+
+    id = GameInfo.current_card_int
+    if(id ~= -1) then
+      local current_card = GameInfo.table_cards[id]
+      current_card.isVisible = false
+      GameInfo.actions = {}
+      ResetActionState()
+      ResetActionInternalState()
+
+      Update_Pos(unique_id, filename, current_card.x, current_card.y)
+      if (username == GameInfo.username) then
+        set_cardPausestate(5)
+      end
+    end 
+
+  end
+
+  --//////////////////////////////////////////////////////////////////////////
   --////////////////////CARD ACTIONS
   --//////////////////////////////////////////////////////////////////////////
 

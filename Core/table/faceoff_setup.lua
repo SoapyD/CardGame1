@@ -8,10 +8,12 @@ function Hide_FOTable()
     TitleText.text = ""
     GameInfo.pause_add = 0
     GameInfo.finalise_state = 1
+    
     sets_player = false
     CheckActionPos(true) --NEEDS TO BE SET TO TRUE AS BOTH PLAYERS HAVE THIS TABLE LOADED
 
     if (finalise_button ~= nil) then
+        finalise_button.text.text = finalise_button.default_text
         check_FinalisationButton()
     end
 end
@@ -24,10 +26,12 @@ function Show_FOTable(temp_sub_action, checks_player)
     sub_action = temp_sub_action
     GameInfo.pause_add = 2
     GameInfo.finalise_state = 2
+    
     sets_player = checks_player
 
     --print(sub_action)
     if (finalise_button ~= nil) then
+        finalise_button.text.text = "set faceoff"
         finalise_button.isVisible = true
     end
 end

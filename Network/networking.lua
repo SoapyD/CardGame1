@@ -123,7 +123,7 @@ function player_check()
                         SetGame()
                     end
                 end
-                --Show_FOTable("", true)
+                Show_FOTable("", true)
                 --GameInfo.gamestate = GameInfo.gamestate + 1
             end,
         default = function () print( "ERROR - connection_state not within switch") end,

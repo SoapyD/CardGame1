@@ -99,6 +99,31 @@ function onTouch( event )
 							end
 						end
 					end
+
+					--COUNTER STATE
+					if (GameInfo.pause_add == 3) then
+						for i=1, table.getn(GameInfo.cards) do
+							local card = GameInfo.cards[i]
+							if(card.isVisible == true 
+							and card.touched == true 
+							and card.moved == false) then
+								card.touched = false
+							end
+						end
+
+						for i=1, table.getn(GameInfo.player_list) do
+							if (GameInfo.username == GameInfo.player_list[i].username
+								and t.y < GameInfo.height - 350) then
+								
+								t.x = GameInfo.counter_screen.player1.x
+								t.y = GameInfo.counter_screen.player1.y
+
+								GameInfo.faceoff_int = t.id
+								GameInfo.player_list[i].faceoff_card = t.filename 
+							end
+						end
+					end
+
 					t.moved = false
 				end
 			end

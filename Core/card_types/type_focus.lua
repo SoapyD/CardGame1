@@ -37,6 +37,7 @@ function Check_FocusCards(filename)
     			set_stats(card_info, -1,-1,-1,-1,0,0,1,0,"focus",3)
 				--EXTRA LIMB NO LONGER USED
 				card_info.actions[table.getn(card_info.actions) + 1] = set_action("counter", "", 1, 0)
+                --card_info.actions[table.getn(card_info.actions) + 1] = set_action("play", "", 1, 0)
     		end,
     	["f/5.png"] = function()
     			card_info.name = "deflect"

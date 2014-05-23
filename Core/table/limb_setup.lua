@@ -60,10 +60,10 @@ function LoadLimbTable()
     draw_item.card3 = {}
     draw_item.card4 = {}
 
-    AddLimbZone(draw_item.card1,180,300,"red","cripple_arm",1);
-    AddLimbZone(draw_item.card2,620,300,"red","cripple_arm",2);
-    AddLimbZone(draw_item.card3,180,500,"red","cripple_leg",1);
-    AddLimbZone(draw_item.card4,620,500,"red","cripple_leg",2);
+    AddLimbZone(draw_item.card1,180,500,"red","cripple_arm",1);
+    AddLimbZone(draw_item.card2,620,500,"red","cripple_arm",2);
+    AddLimbZone(draw_item.card3,180,700,"red","cripple_leg",1);
+    AddLimbZone(draw_item.card4,620,700,"red","cripple_leg",2);
 
     GameInfo.limb_screen = draw_item
     Hide_LimbTable()

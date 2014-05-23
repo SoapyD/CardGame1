@@ -4,7 +4,8 @@ function SetupButtons()
 	ScrollBar()
 	Tab()
 	Finalise_button()
-	Portrait()				
+	Enemy_Stats()
+	--Portrait()				
 end
 
 
@@ -34,7 +35,8 @@ function ScrollBar()
 	boxheight = 100
 
 	bar = display.newRoundedRect(
-		GameInfo.portrait_start + boxwidth / 2,
+		--GameInfo.portrait_start + boxwidth / 2,
+		boxwidth / 2,
 		GameInfo.height - GameInfo.hand.height - boxheight / 2,
 		boxwidth,boxheight, 0 )
 	bar:setFillColor( 255, 128, 0 )
@@ -44,6 +46,25 @@ function ScrollBar()
 	bar:addEventListener( "touch", onStrafe )
 	bar.width = boxwidth
 	bar.height = boxheight	
+	
+end
+
+function Enemy_Stats()
+	--print("height: ", display.contentHeight)
+
+	boxwidth = GameInfo.width
+	boxheight = 100
+
+	bar2 = display.newRoundedRect(
+		boxwidth / 2,
+		boxheight / 2,
+		boxwidth,boxheight, 0 )
+	bar2:setFillColor( 255, 128, 0 )
+	bar2.strokeWidth = 6
+	bar2:setStrokeColor( 200,200,200,255 )
+
+	bar2.width = boxwidth
+	bar2.height = boxheight	
 	
 end
 
@@ -81,9 +102,10 @@ function Finalise_button()
 	finalise_button.height = boxheight	
 	finalise_button:addEventListener( "touch", finishCard )
 
-	--if ( GameInfo.username ~= GameInfo.player_list[GameInfo.current_player].username) then
-	--	finalise_button.isVisible = false
-	--end
+	finalise_button.default_text = "end turn"
+	finalise_button.print_text = finalise_button.default_text
+	finalise_button.text = display.newText( finalise_button.print_text, finalise_button.x, finalise_button.y, native.systemFontBold, 32 )
+	finalise_button.text:setFillColor( 0, 0, 0 )
 end
 
 

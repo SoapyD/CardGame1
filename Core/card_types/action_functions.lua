@@ -1,6 +1,7 @@
 function SetGame()
-    portrait:toFront()
+    --portrait:toFront()
     statusText:toFront()
+    statusText2:toFront()
 
     if ( GameInfo.username ~= GameInfo.player_list[1].username) then
       finalise_button.isVisible = false
@@ -102,13 +103,14 @@ function action_CounterLoop()
 			        	pause_state = 1
 			            end,
 			        [6] = function()    --COUNTER
-			        	run_popup("COUNTER!")
+			        	--run_popup("COUNTER!")
+			        	Show_COTable()
 						advance_cardPausestate()
 			            end,
 			        [7] = function()    --COUNTER LOOP
 
 			            end,
-			        default = function () print( "ERROR - SetCards_state not within switch") end,
+			        default = function () print( "ERROR - SetCards_state not within counterer switch" .. pause_state) end,
 			    }
 
 			    CheckState:case(pause_state)
@@ -125,7 +127,7 @@ function action_CounterLoop()
 			        	EndTurn(current_card)
 			        	pause_state = 1
 			            end,
-			        default = function () print( "ERROR - SetCards_state not within switch") end,
+			        default = function () print( "ERROR - SetCards_state not within opponent switch" .. pause_state) end,
 			    }
 
 			    CheckState2:case(pause_state)

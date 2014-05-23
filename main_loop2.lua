@@ -54,7 +54,14 @@ function run_main_loop()
 	--print("text: " .. GameInfo.print_string)
 	statusText.text = GameInfo.print_string
 	statusText.x = statusText.width / 2
-	statusText.y = display.contentHeight - statusText.height / 2
+	--statusText.y = display.contentHeight - statusText.height / 2
+	statusText.y = bar.y + (bar.height / 2) - statusText.height / 2
+
+
+	statusText2.text = GameInfo.print_string2
+	statusText2.x = statusText2.width / 2
+	statusText2.y = bar2.y + (bar2.height / 2) - statusText2.height / 2
+
 
     --CHECK THE NETWORK CONNECTION
     appWarpClient.Loop()

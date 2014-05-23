@@ -62,13 +62,18 @@ function run_button_loop()
 	if(bar.x <= max_x) then
 		bar.x = max_x 
 	end
-	if(bar.x > GameInfo.portrait_start + (bar.width / 2) ) then
-		bar.x = GameInfo.portrait_start + (bar.width / 2) 
+	--if(bar.x > GameInfo.portrait_start + (bar.width / 2) ) then
+	--	bar.x = GameInfo.portrait_start + (bar.width / 2) 
+	--end
+
+	if(bar.x > (bar.width / 2) ) then
+		bar.x = (bar.width / 2) 
 	end
 
 	--LOCK THE BAR.Y TO THE TAB.Y ALLOWING IT BE LOWERED BELOW SCREEN
     bar.y = tab.y  + (tab.height / 2) + (bar.height / 2)
     finalise_button.y = tab.y
+    finalise_button.text.y = tab.y
     --LOCK THE HAND.X TO THE SCROLL BAR.X POSITION
 	GameInfo.hand.x = bar.x
 	GameInfo.hand.y = bar.y + (bar.height / 2) + (GameInfo.hand.height / 2)
