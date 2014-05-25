@@ -125,11 +125,12 @@ function EndRound()
               Reset_SetCards_state()
               GameInfo.current_player = 1
 
-              if ( GameInfo.username ~= GameInfo.player_list[GameInfo.current_player].username) then
-                finalise_button.isVisible = false
-              else
-                finalise_button.isVisible = true
-              end
+              --if ( GameInfo.username ~= GameInfo.player_list[GameInfo.current_player].username) then
+              --  finalise_button.isVisible = false
+              --else
+              --  finalise_button.isVisible = true
+              --end
+              check_FinalisationButton()
 
               EndRound_state = EndRound_state + 1
 

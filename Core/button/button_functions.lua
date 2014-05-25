@@ -167,18 +167,14 @@ function check_FinalisationButton()
   if ( GameInfo.username ~= GameInfo.player_list[GameInfo.current_player].username) then
     finalise_button.isVisible = false
     finalise_button.text.isVisible = false
-  else
-    finalise_button.isVisible = true
-    finalise_button.text.isVisible = true
-    finalise_button.text.text = finalise_button.default_text
-  end
+
 
 	for i = 1, table.getn(GameInfo.cards) do
 		local hand_card = GameInfo.cards[i]
 
 		if (hand_card.isVisible == true) then
 			local card_info = retrieve_card(hand_card.filename)
-	 
+
 			if ( table.getn(card_info.actions) > 0) then
 				for i=1, table.getn(card_info.actions) do
 			    	local action = card_info.actions[i]
@@ -188,6 +184,7 @@ function check_FinalisationButton()
 			    		finalise_button.isVisible = true
 			    		finalise_button.text.isVisible = true
 						finalise_button.text.text = "counter"
+						print("counter string set")
 			    		
 						if ( GameInfo.username ~= GameInfo.player_list[GameInfo.current_player].username) then
 							GameInfo.finalise_state = 3
@@ -198,6 +195,13 @@ function check_FinalisationButton()
 			    end
 			end
 		end
-	end  
+	end 
+
+  else
+    finalise_button.isVisible = true
+    --finalise_button.text.alpha=1
+    finalise_button.text.isVisible = true
+    finalise_button.text.text = finalise_button.default_text
+  end 
 
 end

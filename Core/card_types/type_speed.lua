@@ -35,7 +35,7 @@ function Check_SpeedCards(filename)
     	["s/5.png"] = function()
     			card_info.name = "disarm"
     			set_stats(card_info, 2,2,2,2,2,0,0,0,"speed",4)
-    			card_info.actions[table.getn(card_info.actions) + 1] = set_action("steal", "", 2, 0)
+    			card_info.actions[table.getn(card_info.actions) + 1] = set_action("steal", "", 2, 1)
     		end,    		    		   		
     	["s/6.png"] = function()
     			card_info.name = "dodge"

@@ -11,6 +11,10 @@ function Hide_COTable()
     --if (finalise_button ~= nil) then
     --    finalise_button.print_text = finalise_button.default_text
     --end
+    if (finalise_button ~= nil) then
+        finalise_button.text.text = finalise_button.default_text
+        check_FinalisationButton()
+    end
 end
 
 function Show_COTable()

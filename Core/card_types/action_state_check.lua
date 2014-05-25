@@ -92,11 +92,25 @@ function CheckActionState()
 
             end,
         ["steal"] = function()    --RUN THE STEAL FUNCTION
-                if (action_internal_state == 0) then
-                    run_main_state = 0
-                    action_internal_state = 1
-                    StealCards(Action.value)
-                end
+                --if (action_internal_state == 0) then
+                --    run_main_state = 0
+                --    action_internal_state = 1
+                --    StealCards(Action.value)
+                --end
+
+                local CheckState = switch { 
+                    [0] = function()    --SETUP ACTION
+                        run_main_state = 0
+                        action_internal_state = 1
+                        StealCards(Action.value)
+                        end,
+                    [1] = function()    --TURN ON THE LIMB SCREEN
+                        CheckActionPos(false)
+                        end,
+                    default = function () print( "ERROR - run_main_state not within switch") end,
+                }
+
+                CheckState:case(action_internal_state)
             end,
         ["shrapnel"] = function()    --RUN THE SHRAPNEL FUNCTION
                 if (action_internal_state == 0) then
@@ -193,6 +207,7 @@ function CheckActionPos(network_used)
         end
 
         ResetActionInternalState()
+        --check_FinalisationButton()
     end
     --print("NEW ACTION POS: " .. action_state)
 end

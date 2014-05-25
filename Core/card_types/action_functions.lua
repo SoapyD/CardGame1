@@ -3,8 +3,14 @@ function SetGame()
     statusText:toFront()
     statusText2:toFront()
 
+	--for i = 1, table.getn(GameInfo.cards) do
+	--	local hand_card = GameInfo.cards[i]
+	--	hand_card:toFront()
+	--end
+
     if ( GameInfo.username ~= GameInfo.player_list[1].username) then
-      finalise_button.isVisible = false
+    	finalise_button.isVisible = false
+    	finalise_button.text.isVisible = false
     end
 end
 
@@ -36,7 +42,7 @@ function StealCards(card_number)
 		end
 	end
 
-	run_popup( count .. " Cards Stolen")
+	run_popup( card_number .. " Cards Stolen")
 end
 
 function InjureEnemy()
