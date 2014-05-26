@@ -155,6 +155,7 @@ function finishCard( event )
 			    }
 
 			CheckState:case(GameInfo.finalise_state)
+			--run_popup("final state: " .. GameInfo.finalise_state)
 		end
 	end
 
@@ -162,9 +163,9 @@ function finishCard( event )
 end
 
 
-function check_FinalisationButton()
+function check_FinalisationButton(player)
 
-  if ( GameInfo.username ~= GameInfo.player_list[GameInfo.current_player].username) then
+  if ( GameInfo.username ~= GameInfo.player_list[player].username) then
     finalise_button.isVisible = false
     finalise_button.text.isVisible = false
 
@@ -186,7 +187,7 @@ function check_FinalisationButton()
 						finalise_button.text.text = "counter"
 						print("counter string set")
 			    		
-						if ( GameInfo.username ~= GameInfo.player_list[GameInfo.current_player].username) then
+						if ( GameInfo.username ~= GameInfo.player_list[player].username) then
 							GameInfo.finalise_state = 3
 						else
 							GameInfo.finalise_state = 1
@@ -198,9 +199,13 @@ function check_FinalisationButton()
 	end 
 
   else
-    finalise_button.isVisible = true
-    --finalise_button.text.alpha=1
-    finalise_button.text.isVisible = true
+    --finalise_button.isVisible = true
+    --finalise_button.text.isVisible = true
+
+    --SET TO FALSE SO PLAYER CAN'T ACCIDENTLY END A TURN WITHOUT PLACING A CARD
+    GameInfo.finalise_state = 1
+    finalise_button.isVisible = false
+    finalise_button.text.isVisible = false    
     finalise_button.text.text = finalise_button.default_text
   end 
 

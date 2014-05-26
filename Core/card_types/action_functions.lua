@@ -1,18 +1,3 @@
-function SetGame()
-    --portrait:toFront()
-    statusText:toFront()
-    statusText2:toFront()
-
-	--for i = 1, table.getn(GameInfo.cards) do
-	--	local hand_card = GameInfo.cards[i]
-	--	hand_card:toFront()
-	--end
-
-    if ( GameInfo.username ~= GameInfo.player_list[1].username) then
-    	finalise_button.isVisible = false
-    	finalise_button.text.isVisible = false
-    end
-end
 
 function StealCards(card_number)
 
@@ -134,6 +119,7 @@ function action_CounterLoop()
 			        	pause_state = 1
 			            end,
 			        default = function () print( "ERROR - SetCards_state not within opponent switch" .. pause_state) end,
+			        --default = function ()  end,
 			    }
 
 			    CheckState2:case(pause_state)

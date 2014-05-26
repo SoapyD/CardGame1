@@ -29,7 +29,7 @@ function Check_ArmourCards(filename)
     		end,
     	["a/4.png"] = function()
     			card_info.name = "devolve"
-    			set_stats(card_info, -1,-1,-1,-1,0,0,0,0,"armour",5)
+    			set_stats(card_info, -1,-1,-1,-1,0,0,0,10,"armour",5)
 				--EXTRA LIMB NO LONGER USED
 				card_info.actions[table.getn(card_info.actions) + 1] = set_action("armour", "", 5, 0)
     			card_info.actions[table.getn(card_info.actions) + 1] = set_action("draw", "", 1, 0)

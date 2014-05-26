@@ -13,7 +13,7 @@ function Hide_COTable()
     --end
     if (finalise_button ~= nil) then
         finalise_button.text.text = finalise_button.default_text
-        check_FinalisationButton()
+        check_FinalisationButton(GameInfo.current_player)
     end
 end
 

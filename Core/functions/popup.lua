@@ -17,6 +17,14 @@ function run_popup(message)
     MsgBox.fade = 2	
 end
 
+function clear_popup()
+	MsgBox.msg_fade = 0
+	MsgBox.fade = 0
+	MsgBox:setFillColor( colorsRGB.RGB("white"),MsgBox.msg_fade )
+	MsgBox:setStrokeColor( 200,200,200,MsgBox.msg_fade )
+	MsgText:setFillColor( colorsRGB.RGB("black"), MsgBox.msg_fade)
+end
+
 function createMsgBox()
 
 	local width = display.contentWidth 

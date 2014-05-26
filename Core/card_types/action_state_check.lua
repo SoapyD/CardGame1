@@ -207,7 +207,7 @@ function CheckActionPos(network_used)
         end
 
         ResetActionInternalState()
-        --check_FinalisationButton()
+        --check_FinalisationButton(GameInfo.current_player)
     end
     --print("NEW ACTION POS: " .. action_state)
 end

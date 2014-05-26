@@ -51,9 +51,10 @@ function DrawTempCard( event )
 
                     if (draw_max <= 1) then
                         Hide_DrawTable()
-                    else
-                        draw_max = draw_max - 1
                     end
+                    --else
+                        draw_max = draw_max - 1
+                    --end
                     run_popup("Draw: " .. draw_max)
                 end
                 GameInfo.temp_card.icon:removeSelf()

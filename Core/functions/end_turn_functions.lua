@@ -87,7 +87,7 @@ function PassTurn()
   end               
   print("current player is:" .. GameInfo.current_player)
 
-  check_FinalisationButton()
+  check_FinalisationButton(GameInfo.current_player)
 end
 
 
@@ -130,7 +130,7 @@ function EndRound()
               --else
               --  finalise_button.isVisible = true
               --end
-              check_FinalisationButton()
+              check_FinalisationButton(GameInfo.current_player)
 
               EndRound_state = EndRound_state + 1
 

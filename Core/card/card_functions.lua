@@ -95,7 +95,28 @@ function onTouch( event )
 								end
 
 								GameInfo.faceoff_int = t.id
-								GameInfo.player_list[i].faceoff_card = t.filename 
+								GameInfo.player_list[i].faceoff_card = t.filename
+
+								local current_player = GetPlayer()
+								local card_info = retrieve_card(t.filename)
+								local allow_placement = true
+
+							    if (card_info.arms > current_player.arms) then
+							        run_popup("Can't use card, need " .. card_info.arms .. " arm/s.")
+							        allow_placement = false
+							    end
+							    if (card_info.legs > current_player.legs) then
+							        run_popup("Can't use card, need " .. card_info.legs .. " leg/s.")
+							        allow_placement = false
+							    end
+
+							    if ( allow_placement == true) then
+							    	finalise_button.isVisible = true
+							    	finalise_button.text.isVisible = true
+							    else
+							    	finalise_button.isVisible = false
+							    	finalise_button.text.isVisible = false
+							    end
 							end
 						end
 					end

@@ -47,6 +47,7 @@ function Check_Quad_Region(current_card, search_section)
                             quad, surrounding_info)
 
                         if ( temp_allow == false) then
+                            run_popup("Can't use card, strat points not high enough")
                             allow_placement = false
                         end
 
@@ -73,6 +74,18 @@ function Check_Quad_Region(current_card, search_section)
         allow_placement = false
     end
 
+    --CHECK LIMBS TO MAKE SURE THE CARD CAN BE PLACED
+    local current_player = GetPlayer()
+    if (current_info.arms > current_player.arms) then
+        run_popup("Can't use card, need " .. current_info.arms .. " arm/s.")
+        allow_placement = false
+    end
+    if (current_info.legs > current_player.legs) then
+        run_popup("Can't use card, need " .. current_info.legs .. " leg/s.")
+        allow_placement = false
+    end
+    
+
     if (GameInfo.previous_card_int ~= -1) then
         --Check to see if the attacking card type is blocked
         local last_card_info = GameInfo.table_cards[GameInfo.previous_card_int]
@@ -85,17 +98,21 @@ function Check_Quad_Region(current_card, search_section)
                     --print("card with block")
                     if (current_info.card_value == last_card.actions[n].value) then
                         allow_placement = false
-                        print(current_info.card_type .. " card type block")
+                        --print(current_info.card_type .. " card type block")
+                        run_popup("Can't use card, card type blocked.")
                     end
                 end
             end
         end
     end
-    print("placement: " , allow_placement)
+    --print("placement: " , allow_placement)
     if ( allow_placement == true) then
         finalise_button.isVisible = true
+        finalise_button.text.isVisible = true    
+        clear_popup()
     else
         finalise_button.isVisible = false
+        finalise_button.text.isVisible = false
     end
 
 end

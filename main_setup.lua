@@ -1,3 +1,20 @@
+function SetGame()
+    --portrait:toFront()
+    statusText:toFront()
+    statusText2:toFront()
+
+	--for i = 1, table.getn(GameInfo.cards) do
+	--	local hand_card = GameInfo.cards[i]
+	--	hand_card:toFront()
+	--end
+
+	--MAKE FINALISATION BUTTON NON VISIBLE FOR BOTH PLAYERS NOW
+    --if ( GameInfo.username ~= GameInfo.player_list[1].username) then
+    --	finalise_button.isVisible = false
+    --	finalise_button.text.isVisible = false
+    --end
+    check_FinalisationButton(1)
+end
 
 
 function LoadConnection()

@@ -14,7 +14,7 @@ function Hide_FOTable()
 
     if (finalise_button ~= nil) then
         finalise_button.text.text = finalise_button.default_text
-        check_FinalisationButton()
+        check_FinalisationButton(GameInfo.current_player)
     end
 end
 
@@ -33,6 +33,7 @@ function Show_FOTable(temp_sub_action, checks_player)
     if (finalise_button ~= nil) then
         finalise_button.text.text = "set faceoff"
         finalise_button.isVisible = true
+        finalise_button.text.isVisible = true
     end
 end
 
@@ -76,6 +77,8 @@ function AddFaceOffCard(username, faceoff_card)
                 GameInfo.player_list[i].faceoff_card = faceoff_card
             end
         end
+        --local current_player = GetPlayer()
+        --current_player.faceoff_card = faceoff_card
         Check_FaceOff_End()
     end
 end
@@ -96,11 +99,16 @@ function Check_FaceOff_End()
                 local card_info = retrieve_card(GameInfo.player_list[i].faceoff_card)
 
                 local saved_score = 0
-                for n=1, table.getn(card_info.strat_scores) do
-                    if ( saved_score < card_info.strat_scores[n]) then
-                        saved_score = card_info.strat_scores[n]
-                    end 
-                end
+                --HIGHEST STRAT WINS FACEOFF
+                --for n=1, table.getn(card_info.strat_scores) do
+                --    if ( saved_score < card_info.strat_scores[n]) then
+                --        saved_score = card_info.strat_scores[n]
+                --    end 
+                --end
+
+                --HIGHEST POWER WINS FACEOFF
+                saved_score = card_info.power
+                print("card power: " .. card_info.power)
 
                 if (i == 1) then
                     p1_score = saved_score
@@ -136,7 +144,7 @@ function Check_FaceOff_End()
                 end_faceoff = true
                 if (sets_player == true) then
                     GameInfo.current_player = winner
-                    check_FinalisationButton()
+                    check_FinalisationButton(GameInfo.current_player)
                     sets_player = false
                 end
             end
