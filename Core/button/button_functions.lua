@@ -68,7 +68,6 @@ function finishCard( event )
 		if "ended" == phase then
 			display.getCurrentStage():setFocus( nil )
 			t.isFocus = false
-
 			--EndTurn(current_card)
 			local CheckState = switch { 
 				[1] = function()    --NORMAL CARD FINALISATION: SEND CARD DETAILS, PASS TURN

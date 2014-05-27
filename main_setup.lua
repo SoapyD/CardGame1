@@ -39,9 +39,9 @@ function loadGame()
 	print( "LOAD INFO")
 	--MAXIMUM 2000x2000 SCALE TEXTURES. THE BOARD IS LOADED IN 4 PARTS
 	LoadTable( "table2" .. ".jpg",875,875);
-	LoadTable( "table2" .. ".jpg",2656,875);
-	LoadTable( "table2" .. ".jpg",875,2656);
-	LoadTable( "table2" .. ".jpg",2656,2656);
+	LoadTable( "table2" .. ".jpg",2625,875);
+	LoadTable( "table2" .. ".jpg",875,2625);
+	LoadTable( "table2" .. ".jpg",2625,2625);
 	--THEN THE CAMERA IS SET TO THE MIDDLE OF THOSE SECTIONS
 	camera:toPoint(1750, 1750)
 	camera.damping = 0

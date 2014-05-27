@@ -67,16 +67,16 @@ function run_card_loop()
 		--NOT ENTIRELY ELEGENT FOR BOTH DIRECTIONS BUT IT DOES THE JOB.
 		if(current_card.finalised == false) then
 			if (current_card.x - (current_card.width / 2) <= boundX1) then
-				current_card.x =  boundX1 + (current_card.width / 2)
+				--current_card.x =  boundX1 + (current_card.width / 2)
 			end
 			if (current_card.x + (current_card.width / 2) >= boundX2) then
-				current_card.x =  boundX2 - (current_card.width / 2)
+				--current_card.x =  boundX2 - (current_card.width / 2)
 			end
 			if (current_card.y - (current_card.height / 2) <= boundY1) then
-				current_card.y =  boundY1 + (current_card.height / 2)
+				--current_card.y =  boundY1 + (current_card.height / 2)
 			end
 			if (current_card.y + (current_card.height / 2) >= boundY2) then
-				current_card.y =  boundY2 - (current_card.height / 2)
+				--current_card.y =  boundY2 - (current_card.height / 2)
 			end
 		end
 

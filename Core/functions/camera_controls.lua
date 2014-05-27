@@ -43,6 +43,12 @@ function CheckZoom()
 	else
 		GameInfo.zoom_saved = 0
 		GameInfo.zoom_dis = 0
+
+    	if (GameInfo.new_camera_pos.y ~= nil) then
+    		camera:setFocus(GameInfo.new_camera_pos)
+	    	camera.damping = 0
+	    	camera:track() 
+    	end
 	end
 
 end

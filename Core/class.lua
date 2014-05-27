@@ -24,6 +24,8 @@ function cGameInfo.methods:init(gamestate)
 	self.touches  = {}
 	self.zoom_dis  = 0
 	self.zoom_saved  = 0
+	self.new_camera_pos = {}
+
 	self.table_items = {}
 	self.faceoff_screen = {}
 	self.counter_screen = {}
