@@ -149,16 +149,40 @@ function onTouch( event )
 				end
 			end
 		end
+
+		if (t.finalised == true) then
+			if "began" == phase then
+				-- Make target the top-most object
+				local parent = t.parent
+				parent:insert( t )
+				display.getCurrentStage():setFocus( t )
+				t.isFocus = true
+				-- Store initial position
+
+				--print("touched")
+			elseif t.isFocus then
+				if "moved" == phase then
+
+
+				elseif "ended" == phase or "cancelled" == phase then
+					display.getCurrentStage():setFocus( nil )
+					t.isFocus = false
+					--print("card selected")
+					run_popup("card selected: " .. t.filename)
+				end
+			end
+		end
+
 		--GameInfo.touches[ table.getn(GameInfo.touches)+1 ] = event
 		return true
 end
 
 --ALLOW THE CARDS PLACED ON THE TABLE TO BE ROTATED IF CLICKED ON
 function tapRotateLeftButton( e )
-	print("rotate")
     local t = e.target
 
     if (t.finalised == false) then
+    	print("rotate")
 	    if ( t.rotation == 0 or t.rotation == -90 or 
 	    	t.rotation == -180 or t.rotation == -270) then
 	    	transition.to(t, {time=250,

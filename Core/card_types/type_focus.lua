@@ -25,7 +25,7 @@ function Check_FocusCards(filename)
     		end,
      	["f/3.png"] = function()
     			card_info.name = "battle-of-wills"
-    			set_stats(card_info, 6,0,0,0,0,0,0,10,"focus",3)
+    			set_stats(card_info, -1,-1,-1,-1,0,0,0,10,"focus",3)
 				--IMMUNE TO CHEAT NO LONGER USED
 				card_info.actions[table.getn(card_info.actions) + 1] = set_action("faceoff", "", 1, -1)
 				--VICTORY ACTIONS

@@ -47,12 +47,18 @@ function run_main_loop()
 		button2.y = (GameInfo.touches[2].y  / camera.yScale) - camera.scrollY
 	end 
 
-	--GameInfo.print_string = GameInfo.print_string .. "\nCameraX:" .. math.round(camera.scrollX)
-	--GameInfo.print_string = GameInfo.print_string .. "\nCameraY:" .. math.round(camera.scrollY)
+	local pos_String = ""
+	for i = 1, table.getn(GameInfo.touches) do
+		pos_String = pos_String .. "x: " .. GameInfo.touches[i].x .. "y: " .. GameInfo.touches[i].y .. "\n"
+	end
 
 	GameInfo.touches = {}	
+
+
+
 	--print("text: " .. GameInfo.print_string)
 	statusText.text = GameInfo.print_string
+	--statusText.text = pos_String
 	statusText.x = statusText.width / 2
 	--statusText.y = display.contentHeight - statusText.height / 2
 	statusText.y = bar.y + (bar.height / 2) - statusText.height / 2

@@ -19,9 +19,11 @@ function Update_Pos(unique_id, filename, x, y)
       current_card = GameInfo.table_cards[table.getn(GameInfo.table_cards)]
       current_card.finalised = true
       camera:add(current_card, 7, true)
+      camera:setFocus(current_card)
       camera:track()
       camera.damping = 10
-
+      GameInfo.new_camera_pos.x = current_card.x
+      GameInfo.new_camera_pos.y = current_card.y
       --EndTurn(current_card)
       advance_cardPausestate()
     else
@@ -32,8 +34,11 @@ function Update_Pos(unique_id, filename, x, y)
       current_card = GameInfo.table_cards[saved_id]
       current_card.finalised = true
       camera:add(current_card, 7, true)
+      camera:setFocus(current_card)
       camera:track()
       camera.damping = 10
+      GameInfo.new_camera_pos.x = current_card.x
+      GameInfo.new_camera_pos.y = current_card.y
       --print("ending turn")
       --EndTurn(current_card)
     end	
@@ -59,6 +64,7 @@ function Update_Pos2(unique_id, filename, x, y)
       AddCard(unique_id,filename, x, y, true)
       current_card = GameInfo.table_cards[table.getn(GameInfo.table_cards)]
       camera:add(current_card, 7, false)
+      --camera:setFocus(current_card)
     else
       current_card = GameInfo.table_cards[saved_id]
       current_card.x = x

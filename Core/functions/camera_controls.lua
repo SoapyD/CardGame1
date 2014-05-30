@@ -13,10 +13,12 @@ camera.yScale = GameInfo.zoom
 --camera:setFocus(icon) --Seperately set focus on an item
 --camera:track() --Track the focal point
 
+local zoom_used = false
 
 function CheckZoom()
 
-	if (table.getn(GameInfo.touches) >= 2) then
+	local zoom_off = true
+	if (table.getn(GameInfo.touches) >= 2 and zoom_off == false) then
 		local x = GameInfo.touches[1].x - GameInfo.touches[2].x
 		local y = GameInfo.touches[1].y - GameInfo.touches[2].y		
 		local zoom =  math.sqrt((x * x) + (y * y))
@@ -40,7 +42,15 @@ function CheckZoom()
 		end
 
 		GameInfo.zoom_saved = GameInfo.zoom_dis
-	else
+		zoom_used = true
+	end
+
+	if (table.getn(GameInfo.touches) == 0) then
+		zoom_used = false
+	end
+
+
+	if  (zoom_used == false and table.getn(GameInfo.touches) == 1) then
 		GameInfo.zoom_saved = 0
 		GameInfo.zoom_dis = 0
 
@@ -48,6 +58,7 @@ function CheckZoom()
     		camera:setFocus(GameInfo.new_camera_pos)
 	    	camera.damping = 0
 	    	camera:track() 
+	    	Update_Per_Scaling()
     	end
 	end
 

@@ -39,7 +39,32 @@ function MultiTouch( event )
 		local t = event.target
 		local phase = event.phase
 
-		GameInfo.touches[ table.getn(GameInfo.touches)+1 ] = event
+        local add = true
+        for i = 1, table.getn(GameInfo.touches) do
+
+            local x_diff = GameInfo.touches[i].x - event.x
+            local y_diff = GameInfo.touches[i].y - event.y
+
+            --if (x_diff ~= nil and y_diff ~= nil) then
+            if ((x_diff < 50 and x_diff > -50) or
+                (y_diff < 50 and y_diff > -50)) then
+                add = false
+            end
+            --print("x diff: " .. x_diff .. " y_diff: " .. y_diff .. " add: " , add)
+
+        end
+        --print(table.getn(GameInfo.touches) )
+        if (table.getn(GameInfo.touches) > 0) then
+            local x_diff = GameInfo.touches[1].x - event.x
+            local y_diff = GameInfo.touches[1].y - event.y
+            --print("diff  x: " .. x_diff .. " y: " .. y_diff)
+            --print("info  x: " .. GameInfo.touches[1].x .. " y: " .. GameInfo.touches[1].y)
+            --print("event x: " .. event.x .. " y: " .. event.y)
+        end
+        if (add == true) then
+		  GameInfo.touches[ table.getn(GameInfo.touches)+1 ] = event
+        end
+        --print("end size: " .. table.getn(GameInfo.touches) )
 		return true
 end
 
