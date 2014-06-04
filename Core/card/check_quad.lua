@@ -1,5 +1,5 @@
 --local quads = {};
-function Check_Quad_Region(current_card, search_section)
+function Check_Quad_Region(current_card, search_section, check_positioning)
 
 	local pos_num = 1
 	local current_info = retrieve_card(current_card.filename)
@@ -8,70 +8,96 @@ function Check_Quad_Region(current_card, search_section)
     local touch_count = 0
     local current_check = false
 
-    if (table.getn(GameInfo.quads) > 0) then
+    if (check_positioning == true) then
+        if (table.getn(GameInfo.quads) > 0) then
 
-    	for y = -1, 1 do
-    		for x = -1, 1 do
-    			if ( x == 0 and (y == -1 or y == 1)) or
-    			( y == 0 and (x == -1 or x == 1)) then
-    				local check_pos = search_section
-    				check_pos = check_pos + x
-    				check_pos = check_pos + (y * GameInfo.world_width)
+        	for y = -1, 1 do
+        		for x = -1, 1 do
+        			if ( x == 0 and (y == -1 or y == 1)) or
+        			( y == 0 and (x == -1 or x == 1)) then
+        				local check_pos = search_section
+        				check_pos = check_pos + x
+        				check_pos = check_pos + (y * GameInfo.world_width)
 
-                    local return_info = {}
-                    local search_quad = {}
-                    search_quad.section_num = check_pos
-                    return_info = Quad_Check(GameInfo.quads, search_quad)
+                        local return_info = {}
+                        local search_quad = {}
+                        search_quad.section_num = check_pos
+                        return_info = Quad_Check(GameInfo.quads, search_quad)
 
-                    local direction = -1
-                    if (x == 0 and y == -1) then
-                        direction = 1
-                    end
-                    if (x == 0 and y == 1) then
-                        direction = 3
-                    end
-                    if (y == 0 and x == -1) then
-                        direction = 4
-                    end
-                    if (y == 0 and x == 1) then
-                        direction = 2
-                    end
-
-                    if (return_info[2] == -1) then
-                         --print("no card, " .. direction)
-                    else
-                    	local quad = GameInfo.quads[return_info[2]]
-                        local surrounding_info = retrieve_card(quad.filename)
-
-                        local temp_allow = compare_card_info(direction, current_card, current_info,
-                            quad, surrounding_info)
-
-                        if ( temp_allow == false) then
-                            run_popup("Can't use card, strat points not high enough")
-                            allow_placement = false
+                        local direction = -1
+                        if (x == 0 and y == -1) then
+                            direction = 1
+                        end
+                        if (x == 0 and y == 1) then
+                            direction = 3
+                        end
+                        if (y == 0 and x == -1) then
+                            direction = 4
+                        end
+                        if (y == 0 and x == 1) then
+                            direction = 2
                         end
 
-                        --print("card at x: " .. x .. " y:" .. y)
-                        --print("previous:" .. GameInfo.previous_card_int)
-                        if (quad.unique_id ==
-                            GameInfo.table_cards[GameInfo.previous_card_int].unique_id) then
-                            current_check = true
-                        end
-                        touch_count = touch_count + 1
-                    end
-    				pos_num = pos_num + 1
-    			end
-    		end
-    	end
-    end
+                        if (return_info[2] == -1) then
+                             --print("no card, " .. direction)
+                        else
+                        	local quad = GameInfo.quads[return_info[2]]
+                            local surrounding_info = retrieve_card(quad.filename)
 
-    --CHECK TO SEE THAT THE CARD IS CONNECTED TO OTHER CARDS
-    if ( touch_count == 0 and table.getn(GameInfo.quads) > 0) then
+                            local temp_allow = compare_card_info(direction, current_card, current_info,
+                                quad, surrounding_info)
+
+                            if ( temp_allow == false) then
+                                run_popup("Can't use card, strat points not high enough")
+                                allow_placement = false
+                            end
+
+                            --print("card at x: " .. x .. " y:" .. y)
+                            --print("previous:" .. GameInfo.previous_card_int)
+                            if (quad.unique_id ==
+                                GameInfo.table_cards[GameInfo.previous_card_int].unique_id) then
+                                current_check = true
+                            end
+                            touch_count = touch_count + 1
+                        end
+        				pos_num = pos_num + 1
+        			end
+        		end
+        	end
+        end
+
+        --CHECK TO SEE THAT THE CARD IS CONNECTED TO OTHER CARDS
+        if ( touch_count == 0 and table.getn(GameInfo.quads) > 0) then
             allow_placement = false
-    end
+        end
 
-    if (current_check == false and table.getn(GameInfo.quads) > 0) then
-        allow_placement = false
+        if (current_check == false and table.getn(GameInfo.quads) > 0) then
+            allow_placement = false
+        end
+    else
+        --if (table.getn(GameInfo.quads) > 0) then
+        --    local prev_card = GameInfo.table_cards[GameInfo.previous_card_int]
+        --    local prev_info = retrieve_card(prev_card.filename)
+
+        --    local highest_current = 0
+        --    for n=1, table.getn(current_info.strat_scores) do
+        --        if ( highest_current < current_info.strat_scores[n]) then
+        --            highest_current = current_info.strat_scores[n]
+        --        end 
+        --    end
+        --    local highest_prev = 0
+        --    for n=1, table.getn(prev_info.strat_scores) do
+        --        if ( highest_prev < prev_info.strat_scores[n]) then
+        --            highest_prev = prev_info.strat_scores[n]
+        --        end 
+        --    end
+        --    if (highest_current >= highest_prev) then
+        --        allow_placement = true
+        --        run_popup("Card card be placed next to previous card")
+        --    else
+        --        allow_placement = false
+        --    end
+        --end        
     end
 
     --CHECK LIMBS TO MAKE SURE THE CARD CAN BE PLACED

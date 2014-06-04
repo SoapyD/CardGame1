@@ -100,14 +100,14 @@ function Check_FaceOff_End()
 
                 local saved_score = 0
                 --HIGHEST STRAT WINS FACEOFF
-                --for n=1, table.getn(card_info.strat_scores) do
-                --    if ( saved_score < card_info.strat_scores[n]) then
-                --        saved_score = card_info.strat_scores[n]
-                --    end 
-                --end
+                for n=1, table.getn(card_info.strat_scores) do
+                    if ( saved_score < card_info.strat_scores[n]) then
+                        saved_score = card_info.strat_scores[n]
+                    end 
+                end
 
                 --HIGHEST POWER WINS FACEOFF
-                saved_score = card_info.power
+                --saved_score = card_info.power
                 print("card power: " .. card_info.power)
 
                 if (i == 1) then

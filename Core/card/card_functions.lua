@@ -57,7 +57,7 @@ function onTouch( event )
 						else
 							local pos_info = CheckBoard_Pos(t)
 							--print("checking pos: " .. table.getn(GameInfo.quads))
-							Check_Quad_Region(t, pos_info[3])
+							Check_Quad_Region(t, pos_info[3], true)
 							GameInfo.hand.hide = false
 						end
 					end
@@ -150,6 +150,7 @@ function onTouch( event )
 			end
 		end
 
+		--THIS ALLOWS ME TO KEEP TRACK OF CARD SELECTIONS
 		if (t.finalised == true) then
 			if "began" == phase then
 				-- Make target the top-most object
@@ -167,8 +168,9 @@ function onTouch( event )
 				elseif "ended" == phase or "cancelled" == phase then
 					display.getCurrentStage():setFocus( nil )
 					t.isFocus = false
-					--print("card selected")
-					run_popup("card selected: " .. t.filename)
+
+					GameInfo.selected_card = t
+					run_popup(t.filename .. " card selected")
 				end
 			end
 		end
@@ -203,7 +205,7 @@ function UpdateRotation(t)
 	end
 
 	local pos_info = CheckBoard_Pos(t)
-	Check_Quad_Region(t, pos_info[3])
+	Check_Quad_Region(t, pos_info[3], true)
 	--SEND AN UPDATE TO THE OTHER PLAYERS THAT THE CARD'S ROTATING AND BY WHAT ANGLE
 	appWarpClient.sendUpdatePeers(
 		tostring("rotation") .. " " ..

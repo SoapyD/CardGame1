@@ -149,7 +149,39 @@ function finishCard( event )
 			    				end
 			    			end
 			    		end
-			        end,			        
+			        end,
+			    [5] = function()    --SELECT CARD
+			    		run_popup("copying card.")
+						local card_sent = false
+						if (GameInfo.selected_card ~= nil) then
+							if (GameInfo.selected_card.filename ~= "") then
+
+								appWarpClient.sendUpdatePeers(
+									tostring("hide_current"))
+
+
+							    id = table.getn(GameInfo.cards)+1
+							    unique_id = GameInfo.username .. "_" .. GameInfo.selected_card.filename .. "_" .. id
+
+								appWarpClient.sendUpdatePeers(
+									tostring("position") .. " " ..
+									tostring(unique_id) .. " " ..
+									tostring(GameInfo.selected_card.filename) .. " " .. 
+									tostring(current_card.x).." ".. 
+									tostring(current_card.y))
+
+								GameInfo.selected_card = {}
+								card_sent = true
+								set_cardPausestate(1)
+								--CheckActionPos(false)
+                        		--GameInfo.finalise_state = 1
+							end
+						end
+
+						if (card_sent == false) then
+							run_popup("please select card to copy first")
+						end
+			        end,	        
 			    default = function () print( "ERROR - state not within finalisation states") end,
 			    }
 

@@ -72,7 +72,7 @@ function Update_Pos2(unique_id, filename, x, y)
     end 
 
     local pos_info = CheckBoard_Pos(current_card)
-    Check_Quad_Region(current_card, pos_info[3])    
+    Check_Quad_Region(current_card, pos_info[3], true)    
 
 end
 

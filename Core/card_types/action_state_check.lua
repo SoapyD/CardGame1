@@ -1,4 +1,4 @@
-local run_main_state = 0
+--local run_main_state = 0
 local action_state = 1
 local action_internal_state = 0
 
@@ -26,7 +26,7 @@ function CheckActionState()
                         action_internal_state = 1
                         end,
                     [1] = function()    --WAIT FOR THE ACTION TO COMPLETE
-                        --print( "ERROR - run_main_state not within switch")
+                        --print( "ERROR - action_internal_state not within switch")
                         end,
                     default = function ()  end,
                 }
@@ -47,7 +47,7 @@ function CheckActionState()
                         end,
                     [2] = function()    --WAIT FOR THE ACTION TO COMPLETE
                         end,
-                    default = function () print( "ERROR - run_main_state not within switch") end,
+                    default = function () print( "ERROR - action_internal_state not within switch") end,
                 }
 
                 CheckState:case(action_internal_state)
@@ -65,7 +65,7 @@ function CheckActionState()
                         end,
                     [2] = function()    --WAIT FOR THE ACTION TO COMPLETE
                         end,
-                    default = function () print( "ERROR - run_main_state not within switch") end,
+                    default = function () print( "ERROR - action_internal_state not within switch") end,
                 }
 
                 --print("discard")
@@ -85,7 +85,7 @@ function CheckActionState()
                         end,
                     [2] = function()    --WAIT FOR THE ACTION TO COMPLETE
                         end,
-                    default = function () print( "ERROR - run_main_state not within switch") end,
+                    default = function () print( "ERROR - action_internal_state not within switch") end,
                 }
 
                 CheckState:case(action_internal_state)
@@ -100,18 +100,38 @@ function CheckActionState()
 
                 local CheckState = switch { 
                     [0] = function()    --SETUP ACTION
-                        run_main_state = 0
+                        --run_main_state = 0
                         action_internal_state = 1
                         StealCards(Action.value)
                         end,
                     [1] = function()    --TURN ON THE LIMB SCREEN
                         CheckActionPos(false)
                         end,
-                    default = function () print( "ERROR - run_main_state not within switch") end,
+                    default = function () print( "ERROR - action_internal_state not within switch") end,
                 }
 
                 CheckState:case(action_internal_state)
             end,
+        ["copycat"] = function()    --RUN COPYCAT
+                local CheckState = switch { 
+                    [0] = function()    --SETUP ACTION
+                        --run_main_state = 0
+                        action_internal_state = 1
+                        run_popup("Select a card on the table to copy.")
+                        GameInfo.finalise_state = 5
+                        GameInfo.selected_card = {}
+                        end,
+                    [1] = function()    --WAIT FOR THE CARD TO BE SELECTED
+                        end,
+                    --[2] = function()    --RESET THE FINALISATION BUTTON, FINISH ACTION
+                    --    CheckActionPos(false)
+                    --    GameInfo.finalise_state = 1
+                    --    end,
+                    default = function () print( "ERROR - action_internal_state not within switch") end,
+                }
+
+                CheckState:case(action_internal_state)
+            end,            
         ["shrapnel"] = function()    --RUN THE SHRAPNEL FUNCTION
                 if (action_internal_state == 0) then
                     run_main_state = 0
@@ -133,7 +153,7 @@ function CheckActionState()
                     [2] = function()    --WAIT FOR THE ACTION TO COMPLETE
                         CheckActionPos(true) --DONE THIS WAS AS BOTH PLAYERS RUN THIS FUNCTION AT THE SAME TIME AS IT'S -1
                         end,
-                    default = function () print( "ERROR - run_main_state not within switch") end,
+                    default = function () print( "ERROR - action_internal_state not within switch") end,
                 }
 
                 CheckState:case(action_internal_state)
@@ -152,13 +172,13 @@ function CheckActionState()
                         end,
                     [2] = function()    --WAIT FOR THE ACTION TO COMPLETE
                         end,
-                    default = function () print( "ERROR - run_main_state not within switch") end,
+                    default = function () print( "ERROR - action_internal_state not within switch") end,
                 }
                 CheckState:case(action_internal_state)                
             end,
 
         ["strat_alter"] = function()    --STRAT_ALTER
-                print("strat altered action is running")
+                --print("strat altered action is running")
                 CheckActionPos(false)
             end,            
         default = function () print( "ERROR - GameInfo Action not within switch") end,

@@ -60,6 +60,9 @@ function DrawTempCard( event )
                 GameInfo.temp_card.icon:removeSelf()
                 GameInfo.temp_card.icon.text:removeSelf()
                 t.item_loaded = false
+
+                local stage = display.getCurrentStage()
+                stage:setFocus( nil )
             end
         end
     end
