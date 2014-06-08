@@ -88,6 +88,10 @@ function PassTurn()
   print("current player is:" .. GameInfo.current_player)
 
   check_FinalisationButton(GameInfo.current_player)
+
+  --GameInfo.actions = {}
+  --ResetActionState()
+  --ResetActionInternalState()
 end
 
 

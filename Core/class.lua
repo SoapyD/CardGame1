@@ -47,6 +47,7 @@ function cGameInfo.methods:init(gamestate)
 
 	self.print_string = ""
 	self.print_string2 = ""
+	self.print_string3= ""
 
 	self.actions = {}
 	self.switch1 = false

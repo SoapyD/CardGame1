@@ -69,6 +69,11 @@ function run_main_loop()
 	statusText2.y = bar2.y + (bar2.height / 2) - statusText2.height / 2
 
 
+	--statusText3.x = statusText3.width / 2
+	--statusText3.text = GameInfo.print_string3
+	--print("box: " .. print_box.width .. " status: " .. statusText3.width)
+	--print_box.x = statusText3.x 
+
     --CHECK THE NETWORK CONNECTION
     appWarpClient.Loop()
 

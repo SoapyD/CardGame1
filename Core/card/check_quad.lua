@@ -39,7 +39,7 @@ function Check_Quad_Region(current_card, search_section, check_positioning)
                         end
 
                         if (return_info[2] == -1) then
-                             --print("no card, " .. direction)
+                             print("no card, " .. direction)
                         else
                         	local quad = GameInfo.quads[return_info[2]]
                             local surrounding_info = retrieve_card(quad.filename)
@@ -54,6 +54,8 @@ function Check_Quad_Region(current_card, search_section, check_positioning)
 
                             --print("card at x: " .. x .. " y:" .. y)
                             --print("previous:" .. GameInfo.previous_card_int)
+                            print("quad id: " .. quad.unique_id)
+
                             if (quad.unique_id ==
                                 GameInfo.table_cards[GameInfo.previous_card_int].unique_id) then
                                 current_check = true
@@ -69,10 +71,12 @@ function Check_Quad_Region(current_card, search_section, check_positioning)
         --CHECK TO SEE THAT THE CARD IS CONNECTED TO OTHER CARDS
         if ( touch_count == 0 and table.getn(GameInfo.quads) > 0) then
             allow_placement = false
+            run_popup("Not touching other cards.")
         end
 
         if (current_check == false and table.getn(GameInfo.quads) > 0) then
             allow_placement = false
+            run_popup("Not touching the last card placed. Prev: " .. GameInfo.previous_card_int)
         end
     else
         --if (table.getn(GameInfo.quads) > 0) then
@@ -131,7 +135,7 @@ function Check_Quad_Region(current_card, search_section, check_positioning)
             end
         end
     end
-    --print("placement: " , allow_placement)
+    print("placement: " , allow_placement)
     if ( allow_placement == true) then
         finalise_button.isVisible = true
         finalise_button.text.isVisible = true    

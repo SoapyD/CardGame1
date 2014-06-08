@@ -178,16 +178,18 @@ function onUpdatePeersReceived(update)
   --////////////////////COOPYCAT ACTIONS
   --//////////////////////////////////////////////////////////////////////////
   if (update_type == "hide_current") then
-
     id = GameInfo.current_card_int
-      if(id ~= -1) then
-        local current_card = GameInfo.table_cards[id]
-        current_card.isVisible = false
-        GameInfo.actions = {}
-        ResetActionState()
-        ResetActionInternalState()
-      end
 
+    --HIDE THE CURRENT CARD AND RESET THE ACTIONS
+    if(id ~= -1) then
+      local current_card = GameInfo.table_cards[id]
+      current_card.isVisible = false
+      GameInfo.actions = {}
+      ResetActionState()
+      ResetActionInternalState()
+
+      --REMOVING THE CARD FROM THE QUAD ALSO NEEDS TO GO HERE
+    end
   end
 
   --//////////////////////////////////////////////////////////////////////////

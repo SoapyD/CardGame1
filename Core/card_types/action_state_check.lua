@@ -100,7 +100,6 @@ function CheckActionState()
 
                 local CheckState = switch { 
                     [0] = function()    --SETUP ACTION
-                        --run_main_state = 0
                         action_internal_state = 1
                         StealCards(Action.value)
                         end,
@@ -115,13 +114,14 @@ function CheckActionState()
         ["copycat"] = function()    --RUN COPYCAT
                 local CheckState = switch { 
                     [0] = function()    --SETUP ACTION
-                        --run_main_state = 0
                         action_internal_state = 1
                         run_popup("Select a card on the table to copy.")
-                        GameInfo.finalise_state = 5
+                        GameInfo.finalise_state = 5 --COPYCAT FUNCTION
                         GameInfo.selected_card = {}
+                        finalise_button.text.text = "Copy Card"
                         end,
                     [1] = function()    --WAIT FOR THE CARD TO BE SELECTED
+
                         end,
                     --[2] = function()    --RESET THE FINALISATION BUTTON, FINISH ACTION
                     --    CheckActionPos(false)

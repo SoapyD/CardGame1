@@ -68,6 +68,11 @@ function mod_health(applied_to, value)
         applied_player.health = applied_player.max_health
     end
     print("health add:" .. value)
+    if (value > 0) then
+        run_popup( "+" .. value .. " Health")
+    else
+        run_popup( value .. " Health")
+    end
 end
 
 function mod_armour(applied_to, value)
@@ -80,6 +85,11 @@ function mod_armour(applied_to, value)
         applied_player.armour = 0
     end
     print("armour add:" .. value)
+    if (value > 0) then
+        run_popup( "+" .. value .. " Armour")
+    else
+        run_popup( value .. " Armour")
+    end
 end
 
 function mod_arm(applied_to, value)
@@ -95,6 +105,11 @@ function mod_arm(applied_to, value)
         applied_player.arms = applied_player.max_arms
     end
     print("arms add:" .. value)
+    if (value > 0) then
+        run_popup( "+" .. value .. " Arms Crippled")
+    else
+        run_popup( value .. " Arms Crippled")
+    end
 end
 
 function mod_leg(applied_to, value)
@@ -110,6 +125,11 @@ function mod_leg(applied_to, value)
         applied_player.legs = applied_player.max_legs
     end
     print("legs add:" .. value)
+    if (value > 0) then
+        run_popup( "+" .. value .. " Legs Crippled")
+    else
+        run_popup( value .. " Legs Crippled")
+    end
 end
 
 function mod_from_prev(applied_to, sub_action)

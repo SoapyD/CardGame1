@@ -71,8 +71,9 @@ function action_CounterLoop()
 			        	--print("current: " .. GameInfo.current_player)
 			            end,
 			        [2] = function()    --SET A TIMER
-			        		pause_timer = 3 * GameInfo.fps
+			        		pause_timer = 2 * GameInfo.fps
 			        		advance_cardPausestate()
+			        		print("setting counter timer")
 			            end,
 			        [3] = function()    --COUNT THROUGH THE TIMER
 			        		pause_timer = pause_timer - 1
@@ -87,6 +88,8 @@ function action_CounterLoop()
 	                    	tostring("finish_placement_pause") .. " " ..
 	                    	tostring(GameInfo.username))
 			            	advance_cardPausestate()
+
+			            print("pass back that counter timer now complete")
 			            end,
 			        [5] = function()    --END
 			        	current_card = GameInfo.table_cards[table.getn(GameInfo.table_cards)]
@@ -108,9 +111,11 @@ function action_CounterLoop()
 			else
 			    CheckState2 = switch { 
 			        [1] = function()    --WAIT FOR THE COMPLETE ACTION VALUE 
+			        	--print("pausing for counter cards")
 			            end,
 			        [2] = function()    --COUNT THROUGH THE TIMER
 			        		run_popup("PLACEMENT RETURNED")
+			        		print("opponent didn't counter card")
 			        		advance_cardPausestate()
 			            end,
 			        [3] = function()    --END

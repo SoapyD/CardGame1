@@ -2,6 +2,7 @@ function SetGame()
     --portrait:toFront()
     statusText:toFront()
     statusText2:toFront()
+    --statusText3:toFront()
 
 	--for i = 1, table.getn(GameInfo.cards) do
 	--	local hand_card = GameInfo.cards[i]
@@ -34,6 +35,15 @@ function loadGame()
 	GameInfo.print_string2 = ""
 	statusText2 = display.newText( GameInfo.print_string2, 100, 0, native.systemFontBold, 48 )
 	statusText2:setFillColor( 0, 0, 0 )
+
+
+	--GameInfo.print_string3 = ""
+	--statusText3 = display.newText( GameInfo.print_string3, 100, 200, native.systemFontBold, 48 )
+	--statusText3:setFillColor( 0, 0, 0 )
+	--print_box = display.newRoundedRect(
+	--	100,200,
+	--	350,100, 0 )
+
 
 
 	print( "LOAD INFO")

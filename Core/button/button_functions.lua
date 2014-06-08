@@ -150,19 +150,25 @@ function finishCard( event )
 			    			end
 			    		end
 			        end,
-			    [5] = function()    --SELECT CARD
+			    [5] = function()    --COPY CARD
 			    		run_popup("copying card.")
 						local card_sent = false
 						if (GameInfo.selected_card ~= nil) then
-							if (GameInfo.selected_card.filename ~= "") then
+							if (GameInfo.selected_card.filename ~= nil) then
 
 								appWarpClient.sendUpdatePeers(
 									tostring("hide_current"))
 
-
 							    id = table.getn(GameInfo.cards)+1
 							    unique_id = GameInfo.username .. "_" .. GameInfo.selected_card.filename .. "_" .. id
 
+							    --ADD THE CARD AS YOU USUALLY WOULD IN A NORMAL MOVE
+								Update_Pos2(unique_id, 
+									GameInfo.selected_card.filename, 
+									GameInfo.selected_card.x, GameInfo.selected_card.y)
+
+								--THE SEND THAT DATA TO THE OTHER PLAYER.
+								--NEEDS TO BE DONE AS DIFFERENT COUNTER RULES APPLY TO THE ATTACKER / DEFENDER
 								appWarpClient.sendUpdatePeers(
 									tostring("position") .. " " ..
 									tostring(unique_id) .. " " ..
@@ -172,9 +178,10 @@ function finishCard( event )
 
 								GameInfo.selected_card = {}
 								card_sent = true
-								set_cardPausestate(1)
-								--CheckActionPos(false)
-                        		--GameInfo.finalise_state = 1
+
+								--RESET THE FINALISATION BUTTON BACK TO NORMAL
+								GameInfo.finalise_state = 1
+								finalise_button.text.text = finalise_button.default_text
 							end
 						end
 
@@ -222,6 +229,7 @@ function check_FinalisationButton(player)
 							GameInfo.finalise_state = 3
 						else
 							GameInfo.finalise_state = 1
+							finalise_button.text.text = finalise_button.default_text
 						end
 			    	end
 			    end
@@ -238,6 +246,8 @@ function check_FinalisationButton(player)
     finalise_button.isVisible = false
     finalise_button.text.isVisible = false    
     finalise_button.text.text = finalise_button.default_text
+
+    --run_popup("finalisation button checked: " .. player)
   end 
 
 end

@@ -32,7 +32,9 @@ function Quad_Add(quads, search_quad)
 				table.insert(quads, quad_pos, search_quad)
 				--print("val " .. search_quad.section_num .. " sorted")
 				--print("current " .. quads[return_info[5]] .. "|| next " .. quads[return_info[5]+1])
-			end
+			else
+                print("QUAD ALREADY EXISTS!!!!!!!!")
+            end
 		end
 	end
 
