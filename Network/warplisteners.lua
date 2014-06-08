@@ -187,6 +187,22 @@ function onUpdatePeersReceived(update)
       GameInfo.actions = {}
       ResetActionState()
       ResetActionInternalState()
+      local Pos_Info = CheckBoard_Pos(current_card)
+      local quad_info = {}
+      quad_info.section_num = Pos_Info[3]
+
+      local username = tostring(func())
+      local unique_id = tostring(func())
+      local filename = tostring(func())
+      local x = tonumber(func())
+      local y = tonumber(func())
+
+      if (GameInfo.username == username) then
+                Update_Pos2(unique_id, 
+                  filename, x, y)
+      end
+
+      Quad_Remove(GameInfo.quads, quad_info)
 
       --REMOVING THE CARD FROM THE QUAD ALSO NEEDS TO GO HERE
     end

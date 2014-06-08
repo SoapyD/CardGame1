@@ -42,6 +42,32 @@ function Quad_Add(quads, search_quad)
 end
 
 
+--function Quad_Remove(quads, search_quad)
+function Quad_Remove(quads, search_quad)
+
+    for i = 1, table.getn(GameInfo.quads) do
+        local quad = GameInfo.quads[i]
+        print("quad: " .. i .. " section: " .. quad.section_num .. " filename: " .. quad.filename)
+    end
+
+    local return_info = {}
+    return_info = Quad_Check(GameInfo.quads, search_quad)
+    if (return_info[1] == true and return_info[2] == -1) then
+
+    else
+        quad_pos = return_info[2]
+        table.remove(quads, quad_pos)
+        print("quad pos!!!!!!!!:   " .. quad_pos .. " search_quad: " .. search_quad.section_num)
+    end
+
+    for i = 1, table.getn(GameInfo.quads) do
+        local quad = GameInfo.quads[i]
+        print("quad: " .. i .. " section: " .. quad.section_num .. " filename: " .. quad.filename)
+    end
+
+end
+
+
 function Quad_Check(quads, search_val)
 
 local return_info = {}
@@ -100,7 +126,8 @@ local return_info = {}
      	if (search_val.section_num == quads[band_4].section_num) then
     		found_quad = band_4
     	end    	    	
-
+        --print("section_num: " .. search_val.section_num .. " || quad: " .. quads[band_4].section_num)
+        --print("found: " .. found_quad)
     	--BETWEEN-THE-BANDS CHECK
     	if (search_val.section_num > quads[band_1].section_num and 
     		search_val.section_num < quads[band_2].section_num) then
@@ -160,8 +187,8 @@ local return_info = {}
     		return_info[2] = found_quad --whether the search quad itself was already in the quad
     		return_info[3] = min_height --the upper bound
     		return_info[4] = max_height --the lower bound
-    		return_info[5] = pos_before --the last quad, between the bounds, that was lower than the search. needed for inserts
-    	end
+    		return_info[5] = pos_before --the last quad, between the bounds, that was lower than the search. needed for inserts 
+        end
 
     	count = count + 1
     end

@@ -156,16 +156,22 @@ function finishCard( event )
 						if (GameInfo.selected_card ~= nil) then
 							if (GameInfo.selected_card.filename ~= nil) then
 
-								appWarpClient.sendUpdatePeers(
-									tostring("hide_current"))
-
 							    id = table.getn(GameInfo.cards)+1
 							    unique_id = GameInfo.username .. "_" .. GameInfo.selected_card.filename .. "_" .. id
 
+								appWarpClient.sendUpdatePeers(
+									tostring("hide_current") .. " " ..
+									tostring(GameInfo.username) .. " " ..
+									tostring(unique_id) .. " " ..
+									tostring(GameInfo.selected_card.filename) .. " " ..
+									tostring(GameInfo.selected_card.x) .. " " ..
+									tostring(GameInfo.selected_card.y))
+
+							    --THIS ISN'T WORKING!!!! NEEDS TO HAPPEN AFTER CURRENT HIDDEN
 							    --ADD THE CARD AS YOU USUALLY WOULD IN A NORMAL MOVE
-								Update_Pos2(unique_id, 
-									GameInfo.selected_card.filename, 
-									GameInfo.selected_card.x, GameInfo.selected_card.y)
+								--Update_Pos2(unique_id, 
+								--	GameInfo.selected_card.filename, 
+								--	GameInfo.selected_card.x, GameInfo.selected_card.y)
 
 								--THE SEND THAT DATA TO THE OTHER PLAYER.
 								--NEEDS TO BE DONE AS DIFFERENT COUNTER RULES APPLY TO THE ATTACKER / DEFENDER
