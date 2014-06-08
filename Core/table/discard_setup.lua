@@ -27,12 +27,12 @@ function CheckDiscard(current_card)
         ["damage"] = function()    --DAMAGE ENEMY USING CARDS MAIN VALUE
             appWarpClient.sendUpdatePeers(
                 tostring("health_mod") .. " " .. 
-                tostring(-card_info.damage)) 
+                tostring(-card_info.power)) 
             end,
         ["armour"] = function()    --ADD ARMOUR USING CARDS MAIN VALUE
             appWarpClient.sendUpdatePeers(
                 tostring("armour_mod") .. " " .. 
-                tostring(card_info.damage)) 
+                tostring(card_info.power)) 
             end,
 
         default = function () print( "ERROR - sub_type not within discard subtypes") end,

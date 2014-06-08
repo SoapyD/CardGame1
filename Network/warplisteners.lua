@@ -150,6 +150,13 @@ function onUpdatePeersReceived(update)
     end
   end
 
+  if (update_type == "health_faceoff") then
+    local health_modifier = tonumber(func())
+    --print("health mod " .. health_modifier)
+    mod_health(1,health_modifier)
+    CheckActionPos(true)
+  end
+
   --//////////////////////////////////////////////////////////////////////////
   --////////////////////COUNTER ACTIONS
   --//////////////////////////////////////////////////////////////////////////

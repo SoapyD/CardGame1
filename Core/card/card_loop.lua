@@ -104,6 +104,8 @@ function run_card_loop()
 					GameInfo.hand.show = true
 					GameInfo.hand.hide = false
 					remove_id = true
+			        finalise_button.isVisible = false
+			        finalise_button.text.isVisible = false
 				else
 					hand_card.isVisible = false
 					if (tab.hide_once == true) then

@@ -1,5 +1,42 @@
 local draw_max = 0
 
+function Hide_DrawTable()
+    GameInfo.screen_elements.image.isVisible  = false
+    GameInfo.draw_screen.card1.icon.isVisible  = false
+    GameInfo.draw_screen.card2.icon.isVisible  = false
+    GameInfo.draw_screen.card3.icon.isVisible  = false
+    GameInfo.draw_screen.card4.icon.isVisible  = false
+    GameInfo.draw_screen.card5.icon.isVisible  = false
+    GameInfo.draw_screen.card6.icon.isVisible  = false
+    TitleText.text = ""
+    GameInfo.pause_main = false
+    CheckActionPos(false)
+
+    if (finalise_button ~= nil) then
+        finalise_button.text.text = finalise_button.default_text
+        check_FinalisationButton(GameInfo.current_player)
+    end
+end
+
+function Show_DrawTable()
+    GameInfo.screen_elements.image.isVisible  = true
+    GameInfo.draw_screen.card1.icon.isVisible  = true
+    GameInfo.draw_screen.card2.icon.isVisible  = true
+    GameInfo.draw_screen.card3.icon.isVisible  = true
+    GameInfo.draw_screen.card4.icon.isVisible  = true
+    GameInfo.draw_screen.card5.icon.isVisible  = true
+    GameInfo.draw_screen.card6.icon.isVisible  = true
+    TitleText.text = "Draw Card"
+    GameInfo.pause_main = true
+    run_popup("Draw: " .. draw_max)
+
+    if (finalise_button ~= nil) then
+        finalise_button.isVisible = false
+        finalise_button.text.isVisible = false   
+    end
+end
+
+
 function DrawTempCard( event )
     local t = event.target
     local phase = event.phase
@@ -70,31 +107,6 @@ function DrawTempCard( event )
     return true
 end
 
-function Hide_DrawTable()
-    GameInfo.screen_elements.image.isVisible  = false
-    GameInfo.draw_screen.card1.icon.isVisible  = false
-    GameInfo.draw_screen.card2.icon.isVisible  = false
-    GameInfo.draw_screen.card3.icon.isVisible  = false
-    GameInfo.draw_screen.card4.icon.isVisible  = false
-    GameInfo.draw_screen.card5.icon.isVisible  = false
-    GameInfo.draw_screen.card6.icon.isVisible  = false
-    TitleText.text = ""
-    GameInfo.pause_main = false
-    CheckActionPos(false)
-end
-
-function Show_DrawTable()
-    GameInfo.screen_elements.image.isVisible  = true
-    GameInfo.draw_screen.card1.icon.isVisible  = true
-    GameInfo.draw_screen.card2.icon.isVisible  = true
-    GameInfo.draw_screen.card3.icon.isVisible  = true
-    GameInfo.draw_screen.card4.icon.isVisible  = true
-    GameInfo.draw_screen.card5.icon.isVisible  = true
-    GameInfo.draw_screen.card6.icon.isVisible  = true
-    TitleText.text = "Draw Card"
-    GameInfo.pause_main = true
-    run_popup("Draw: " .. draw_max)
-end
 
 function SetDrawMax(draw_value)
     draw_max = draw_value

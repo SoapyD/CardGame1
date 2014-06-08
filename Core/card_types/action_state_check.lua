@@ -18,6 +18,58 @@ function CheckActionState()
 
 
     local CheckState = switch { 
+        ["health_delay"] = function()    --SEND HEALTH DAMAGE THAT NEEDS STACKING
+
+                local CheckState = switch { 
+                    [0] = function()    --TURN ON THE FACEOFF SCREEN
+                        appWarpClient.sendUpdatePeers(
+                            tostring("health_faceoff") .. " " .. 
+                            tostring(Action.value))
+                        action_internal_state = 1
+
+                        --CheckActionPos(false)
+                        end,
+                    [1] = function()    --
+                        end,
+                    default = function () print("ERROR - action_internal_state not within switch") end,
+                }
+
+                CheckState:case(action_internal_state)
+            end, 
+
+        ["power_damage"] = function()    --RUN THE DRAW LOOP
+                --print("internal state" .. action_internal_state)
+                local CheckState = switch { 
+                    [0] = function()    --TURN ON THE FACEOFF SCREEN
+
+                        local faceoff_card = {}
+
+                        if ( GameInfo.player_list ~= nil) then
+                            for i=1, table.getn(GameInfo.player_list) do
+                                if (GameInfo.username == GameInfo.player_list[i].username) then
+                                   faceoff_card =retrieve_card(GameInfo.player_list[i].faceoff_card)
+                                   --print("card!!!!!!: " .. GameInfo.player_list[i].faceoff_card)
+                                end
+                            end
+                        end   
+
+                        --print("card: " .. faceoff_card.name .. " power: " .. faceoff_card.power)
+                        if (faceoff_card ~= nil) then
+                            appWarpClient.sendUpdatePeers(
+                                tostring("health_faceoff") .. " " .. 
+                                tostring(-faceoff_card.power))
+                        end
+                        action_internal_state = 1
+                        end,
+                    [1] = function()    --
+                        end,
+
+                    default = function () print("ERROR - action_internal_state not within switch") end,
+                }
+
+                CheckState:case(action_internal_state)
+            end, 
+
         ["faceoff"] = function()    --RUN THE DRAW LOOP
                 --print("internal state" .. action_internal_state)
                 local CheckState = switch { 
@@ -28,7 +80,7 @@ function CheckActionState()
                     [1] = function()    --WAIT FOR THE ACTION TO COMPLETE
                         --print( "ERROR - action_internal_state not within switch")
                         end,
-                    default = function ()  end,
+                    default = function ()print("ERROR - action_internal_state not within switch")  end,
                 }
 
                 CheckState:case(action_internal_state)
@@ -92,12 +144,6 @@ function CheckActionState()
 
             end,
         ["steal"] = function()    --RUN THE STEAL FUNCTION
-                --if (action_internal_state == 0) then
-                --    run_main_state = 0
-                --    action_internal_state = 1
-                --    StealCards(Action.value)
-                --end
-
                 local CheckState = switch { 
                     [0] = function()    --SETUP ACTION
                         action_internal_state = 1
@@ -123,10 +169,6 @@ function CheckActionState()
                     [1] = function()    --WAIT FOR THE CARD TO BE SELECTED
 
                         end,
-                    --[2] = function()    --RESET THE FINALISATION BUTTON, FINISH ACTION
-                    --    CheckActionPos(false)
-                    --    GameInfo.finalise_state = 1
-                    --    end,
                     default = function () print( "ERROR - action_internal_state not within switch") end,
                 }
 
@@ -142,11 +184,9 @@ function CheckActionState()
         ["pass_turn"] = function()    --RUN THE PASS_TURN
                 local CheckState = switch { 
                     [0] = function()    --SETUP ACTION
-                        --run_main_state = 1
                         action_internal_state = 1
                         end,
                     [1] = function()    --PASS THE TURN
-                        --CheckActionPos(false)
                         PassTurn()
                         action_internal_state = 2
                         end,
@@ -163,12 +203,10 @@ function CheckActionState()
 
                 local CheckState = switch { 
                     [0] = function()    --SETUP ACTION
-                        --run_main_state = 1
                         action_internal_state = 1
                         end,
                     [1] = function()    --TURN ON THE DISCARD CARDS SCREEN
                         EndRound()
-                        --action_internal_state = 2
                         end,
                     [2] = function()    --WAIT FOR THE ACTION TO COMPLETE
                         end,

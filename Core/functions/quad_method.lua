@@ -47,7 +47,7 @@ function Quad_Remove(quads, search_quad)
 
     for i = 1, table.getn(GameInfo.quads) do
         local quad = GameInfo.quads[i]
-        print("quad: " .. i .. " section: " .. quad.section_num .. " filename: " .. quad.filename)
+        --print("quad: " .. i .. " section: " .. quad.section_num .. " filename: " .. quad.filename)
     end
 
     local return_info = {}
@@ -57,12 +57,12 @@ function Quad_Remove(quads, search_quad)
     else
         quad_pos = return_info[2]
         table.remove(quads, quad_pos)
-        print("quad pos!!!!!!!!:   " .. quad_pos .. " search_quad: " .. search_quad.section_num)
+        --print("quad pos!!!!!!!!:   " .. quad_pos .. " search_quad: " .. search_quad.section_num)
     end
 
     for i = 1, table.getn(GameInfo.quads) do
         local quad = GameInfo.quads[i]
-        print("quad: " .. i .. " section: " .. quad.section_num .. " filename: " .. quad.filename)
+        --print("quad: " .. i .. " section: " .. quad.section_num .. " filename: " .. quad.filename)
     end
 
 end

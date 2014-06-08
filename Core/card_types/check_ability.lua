@@ -13,7 +13,7 @@ function CheckAbility(action)
         ["arm"] = function (x) mod_arm(action.applied_to, action.value) end,
     	["leg"] = function (x) mod_leg(action.applied_to, action.value) end, 
         ["prev_card"] = function (x) mod_from_prev(action.applied_to, action.sub_action) end, 
-        ["block"] = function (x) 
+        ["block"] = function (x) --don't add onto the action list 
                 end,
         ["next_card"] = function (x) --don't add onto the action list 
                 end,
@@ -141,22 +141,6 @@ function mod_from_prev(applied_to, sub_action)
 
 
         Check_SubAction(applied_to, sub_action, last_card.power)
-
-        --check_sub = switch { 
-
-        --    ["damage"] = function (x)
-        --            local value = -last_card.power
-        --            mod_health(applied_to, value)
-        --            end,
-        --    ["armour"] = function (x)
-        --            local value = last_card.power
-        --            mod_armour(applied_to, value)
-        --            end,
-        --    default = function () 
-                    --print( "ERROR - ability not within switch") 
-        --            end,
-        --}
-        --check_sub:case(sub_action)
     end
 end
 
