@@ -51,14 +51,17 @@ function onTouch( event )
 		      		--then make the "hand card" non-visible
 		      		if (GameInfo.pause_add == 0) then
 			      		if (t.drawn == false) then
-							Update_Pos2(t.unique_id, t.filename, t.x, t.y)
+							--Update_Pos2(t.unique_id, t.filename, t.x, t.y)
+							Update_Pos3(t.unique_id, t.filename, t.sheet, t.sprite, t.x, t.y)
 							t.isVisible = false
 							--print("pos not checked")
 						else
+							if (t ~= nil) then
 							local pos_info = CheckBoard_Pos(t)
 							--print("checking pos: " .. table.getn(GameInfo.quads))
 							Check_Quad_Region(t, pos_info[3], true)
 							GameInfo.hand.hide = false
+						end
 						end
 					end
 					--DISCARD CARD STATE

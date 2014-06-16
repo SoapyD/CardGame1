@@ -1,5 +1,5 @@
 
-function Update_Pos(unique_id, filename, x, y)
+function Update_Pos(unique_id, filename, sheet, sprite, x, y)
     found = false
     saved_id = -1
 
@@ -14,7 +14,7 @@ function Update_Pos(unique_id, filename, x, y)
 
     if ( found == false) then
       --THIS IS THE OPPONENTS VIEW OF THE TABLE
-      AddCard(unique_id,filename, x, y, false)
+      AddCard2(unique_id,filename, sheet, sprite, x, y, false)
 
       current_card = GameInfo.table_cards[table.getn(GameInfo.table_cards)]
       current_card.finalised = true
@@ -75,6 +75,37 @@ function Update_Pos2(unique_id, filename, x, y)
     Check_Quad_Region(current_card, pos_info[3], true)    
 
 end
+
+function Update_Pos3(unique_id, filename, sheet, sprite, x, y)
+    found = false
+    saved_id = -1
+    for i = 1, table.getn(GameInfo.table_cards) do    
+        temp_unique_id = GameInfo.table_cards[i].unique_id
+
+        if ( temp_unique_id == unique_id) then
+          found = true
+          saved_id = i
+        end
+    end
+
+    local current_card = {}
+
+    if ( found == false) then
+      AddCard2(unique_id,filename, sheet, sprite, x, y, true)
+      current_card = GameInfo.table_cards[table.getn(GameInfo.table_cards)]
+      camera:add(current_card, 7, false)
+      --camera:setFocus(current_card)
+    else
+      current_card = GameInfo.table_cards[saved_id]
+      current_card.x = x
+      current_card.y = y
+    end 
+
+    local pos_info = CheckBoard_Pos(current_card)
+    Check_Quad_Region(current_card, pos_info[3], true)    
+
+end
+
 
 
 function Update_Rotation(unique_id, username, angle)

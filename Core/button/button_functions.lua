@@ -80,7 +80,9 @@ function finishCard( event )
 							appWarpClient.sendUpdatePeers(
 								tostring("position") .. " " ..
 								tostring(current_card.unique_id) .. " " ..
-								tostring(current_card.filename) .. " " .. 
+								tostring(current_card.filename) .. " " ..
+								tostring(current_card.sheet) .. " " .. 
+								tostring(current_card.sprite) .. " " .. 								 
 								tostring(current_card.x).." ".. 
 								tostring(current_card.y))
 
@@ -139,6 +141,8 @@ function finishCard( event )
 											tostring("counter") .. " " .. 
 											tostring(GameInfo.username) .. " " .. 
 											tostring(GameInfo.cards[GameInfo.faceoff_int].filename) .. " " .. 
+											tostring(GameInfo.cards[GameInfo.faceoff_int].sheet) .. " " .. 
+											tostring(GameInfo.cards[GameInfo.faceoff_int].sprite) .. " " .. 
 											tostring(GameInfo.cards[GameInfo.faceoff_int].unique_id))
 
 										GameInfo.pause_main = true
@@ -164,14 +168,10 @@ function finishCard( event )
 									tostring(GameInfo.username) .. " " ..
 									tostring(unique_id) .. " " ..
 									tostring(GameInfo.selected_card.filename) .. " " ..
+									tostring(GameInfo.selected_card.sheet) .. " " ..
+									tostring(GameInfo.selected_card.sprite) .. " " ..									
 									tostring(GameInfo.selected_card.x) .. " " ..
 									tostring(GameInfo.selected_card.y))
-
-							    --THIS ISN'T WORKING!!!! NEEDS TO HAPPEN AFTER CURRENT HIDDEN
-							    --ADD THE CARD AS YOU USUALLY WOULD IN A NORMAL MOVE
-								--Update_Pos2(unique_id, 
-								--	GameInfo.selected_card.filename, 
-								--	GameInfo.selected_card.x, GameInfo.selected_card.y)
 
 								--THE SEND THAT DATA TO THE OTHER PLAYER.
 								--NEEDS TO BE DONE AS DIFFERENT COUNTER RULES APPLY TO THE ATTACKER / DEFENDER

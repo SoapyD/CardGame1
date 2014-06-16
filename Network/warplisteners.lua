@@ -110,11 +110,13 @@ function onUpdatePeersReceived(update)
   if (update_type == "position") then
     local unique_id = tostring(func())
     local filename = tostring(func())
+    local sheet = tostring(func())
+    local sprite = tostring(func())
     local x = tonumber(func())
     local y = tonumber(func())
 
     --print("id_to_use" .. filename)
-    Update_Pos(unique_id, filename, x, y)
+    Update_Pos(unique_id, filename, sheet, sprite, x, y)
   end
 
   if (update_type == "rotation") then
@@ -163,6 +165,8 @@ function onUpdatePeersReceived(update)
   if (update_type == "counter") then
     local username = tostring(func())
     local filename = tostring(func())
+    local sheet = tostring(func())
+    local sprite = tostring(func())
     local unique_id = tostring(func())
 
     id = GameInfo.current_card_int
@@ -173,7 +177,7 @@ function onUpdatePeersReceived(update)
       ResetActionState()
       ResetActionInternalState()
 
-      Update_Pos(unique_id, filename, current_card.x, current_card.y)
+      Update_Pos(unique_id, filename, sheet, sprite, current_card.x, current_card.y)
       if (username == GameInfo.username) then
         set_cardPausestate(5)
       end
@@ -198,20 +202,22 @@ function onUpdatePeersReceived(update)
       local quad_info = {}
       quad_info.section_num = Pos_Info[3]
 
+      Quad_Remove(GameInfo.quads, quad_info)
+
+
       local username = tostring(func())
       local unique_id = tostring(func())
       local filename = tostring(func())
+      local sheet = tostring(func())
+      local sprite = tostring(func())
       local x = tonumber(func())
       local y = tonumber(func())
 
       if (GameInfo.username == username) then
-                Update_Pos2(unique_id, 
-                  filename, x, y)
+                Update_Pos3(unique_id, 
+                  filename, sheet, sprite, x, y)
       end
 
-      Quad_Remove(GameInfo.quads, quad_info)
-
-      --REMOVING THE CARD FROM THE QUAD ALSO NEEDS TO GO HERE
     end
   end
 
@@ -250,10 +256,12 @@ function onUpdatePeersReceived(update)
   if (update_type == "steal") then
     local username = tostring(func())
     local filename = tostring(func())
+    local sheet = tostring(func())
+    local sprite = tostring(func())
 
     if (username ~= GameInfo.username) then
       --print("network stealing card")
-      LoadCard(filename,0,150);
+      LoadCard2(filename,sheet,sprite,0,150);
       SetGame()
     end
   end

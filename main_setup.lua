@@ -76,31 +76,6 @@ function loadGame()
 
 	--ADVANCE THE GAMESTATE
 	GameInfo.gamestate = GameInfo.gamestate + 1
-
-
-
-	-- first, create the image sheet object
-	local options =
-	{
-	    -- The params below are required
-
-	    width = 350,
-	    height = 350,
-	    numFrames = 15,
-
-	    -- The params below are optional; used for dynamic resolution support
-
-	    sheetContentWidth = 1050,  -- width of original 1x size of entire sheet
-	    sheetContentHeight = 1750  -- height of original 1x size of entire sheet
-	}
-
-
-
-
-	local imageSheet = graphics.newImageSheet( "Images/" .. "2.png", options )
-
-	local myImage = display.newImage( imageSheet, 15, 300,300 )
-	--print("x!!!!!!!!!!!!!!!: " .. myImage.x)
 end
 
 

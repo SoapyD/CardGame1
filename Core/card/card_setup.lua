@@ -8,7 +8,7 @@ local dealBtn; -- the deal buttons
 function createDeck()
 	decks = {};
 	for i=1, 6 do
-		cardtext = ""
+		--cardtext = ""
 		decks[i] = {}
      	for j=1, 30 do
     	    local tempCard = j;
@@ -44,7 +44,8 @@ end
 --DRAW A CARD BY AMENDING THE DECK CHOSEN AND LOADING THE CARD AS AN OBJECT
 function DrawCard(deck_index, remove_item)
 	tempCard = CheckDeck(deck_index, remove_item)
-	LoadCard( suits[deck_index] .. "/" .. tempCard .. ".png",0,150);
+	--LoadCard( suits[deck_index] .. "/" .. tempCard .. ".png",0,150);
+    LoadCard2( suits[deck_index] .. "/" .. tempCard .. ".png", suits[deck_index], tempCard,0,150);
 end
 
 function CheckDeck(deck_index, remove_item)
@@ -101,6 +102,41 @@ function LoadCard(filename,x,y)
     GameInfo.cards[id].finalised = false
 end
 
+function LoadCard2(filename,sheet,sprite,x,y)
+    local group = display.newGroup()
+
+    -- first, create the image sheet object
+    local options =
+    {
+        -- The params below are required
+        width = 350,
+        height = 350,
+        numFrames = 15,
+
+        -- The params below are optional; used for dynamic resolution support
+        sheetContentWidth = 1050,  -- width of original 1x size of entire sheet
+        sheetContentHeight = 1750  -- height of original 1x size of entire sheet
+    }
+
+    local imageSheet = graphics.newImageSheet( "Images/" .. sheet .. ".png", options )
+    local icon = display.newImage( imageSheet, sprite, x, y )
+
+
+    icon:addEventListener( "touch", onTouch )
+    id = table.getn(GameInfo.cards)+1
+
+    GameInfo.cards[id] = icon
+    GameInfo.cards[id].touched = false
+    GameInfo.cards[id].id = id
+    GameInfo.cards[id].unique_id = GameInfo.username .. "_" .. filename .. "_" .. id
+    GameInfo.cards[id].filename = filename
+    GameInfo.cards[id].sheet = sheet
+    GameInfo.cards[id].sprite = sprite
+    GameInfo.cards[id].drawn = false
+    GameInfo.cards[id].finalised = false
+end
+
+
 
 function AddCard(unique_id,filename,x,y,scale)
 	local group = display.newGroup()
@@ -138,6 +174,76 @@ function AddCard(unique_id,filename,x,y,scale)
     GameInfo.table_cards[id].id = id 
     GameInfo.table_cards[id].unique_id = unique_id
     GameInfo.table_cards[id].filename = filename
+    GameInfo.table_cards[id].drawn = true
+    GameInfo.table_cards[id].rotation = 0
+    GameInfo.table_cards[id].finalised = false
+
+    
+    GameInfo.current_card_int = id
+    print("current card: " .. GameInfo.current_card_int)
+    print("previous card: " .. GameInfo.previous_card_int)
+end
+
+
+function AddCard2(unique_id,filename,sheet,sprite,x,y,scale)
+    local group = display.newGroup()
+
+
+    -- first, create the image sheet object
+    local options =
+    {
+        -- The params below are required
+        width = 350,
+        height = 350,
+        numFrames = 15,
+
+        -- The params below are optional; used for dynamic resolution support
+        sheetContentWidth = 1050,  -- width of original 1x size of entire sheet
+        sheetContentHeight = 1750  -- height of original 1x size of entire sheet
+    }
+
+    local imageSheet = graphics.newImageSheet( "Images/" .. sheet .. ".png", options )
+    --local icon = display.newImage( imageSheet, sprite, x, y )    
+    -- width, height, x, y
+    --it's this that's causing the misalignment of cards being laid down over the network
+    local icon;
+
+    if (scale == true) then
+        icon = display.newImage( imageSheet, sprite, 
+            (x / camera.xScale) - camera.scrollX, (y / camera.yScale) - camera.scrollY)
+    else
+        icon = display.newImage( imageSheet, sprite, 
+            x, y)
+    end
+
+
+
+    icon:addEventListener( "tap" , tapRotateLeftButton )
+    icon:addEventListener( "touch", onTouch )
+
+    if ( GameInfo.current_card_int ~= -1) then
+
+        if (GameInfo.table_cards[GameInfo.current_card_int].finalised == false) then
+            Restore_HandCard()
+            Remove_CurrentCard()
+            tab.hide_once = true
+        end 
+    end
+
+    if ( GameInfo.current_card_int ~= -1) then
+        GameInfo.previous_card_int = GameInfo.current_card_int
+    end
+    --print("card added")
+
+    id = table.getn(GameInfo.table_cards)+1
+    GameInfo.table_cards[id] = icon
+    GameInfo.table_cards[id].touched = false
+    GameInfo.table_cards[id].id = id 
+    GameInfo.table_cards[id].unique_id = unique_id
+    GameInfo.table_cards[id].filename = filename
+    GameInfo.table_cards[id].sheet = sheet
+    GameInfo.table_cards[id].sprite = sprite
+
     GameInfo.table_cards[id].drawn = true
     GameInfo.table_cards[id].rotation = 0
     GameInfo.table_cards[id].finalised = false
