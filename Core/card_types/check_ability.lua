@@ -19,6 +19,10 @@ function CheckAbility(action)
                 end,
         ["counter"] = function (x) --don't add onto the action list 
                 end,
+        ["win_faceoff"] = function (x) --don't add onto the action list 
+                end,
+        ["no_counter"] = function (x) --don't add onto the action list 
+                end,   
 	   	default = function () 
                 --print( "ERROR - ability not within switch") 
                 add_info = true

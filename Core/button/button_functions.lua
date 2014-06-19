@@ -113,8 +113,74 @@ function finishCard( event )
 			        end,
 
 			    [3] = function()    --COUNTER SETUP
-			    	--run_popup("COUNTER!")
-	        		set_cardPausestate(6)
+
+	      				local cant_counter = true
+	      				local no_counter_message = ""
+	      				local current_card = GameInfo.table_cards[table.getn(GameInfo.table_cards)]
+	      				local current_card_info = retrieve_card(current_card.filename)
+
+
+			    		for i=1, table.getn(GameInfo.player_list) do
+							if (GameInfo.username == GameInfo.player_list[i].username) then
+
+							for i = 1, table.getn(GameInfo.cards) do
+									local hand_card = GameInfo.cards[i]
+									local card_info = retrieve_card(hand_card.filename)
+									local counter_card = false
+
+									--check to see if the player has a counter card
+  									if ( table.getn(card_info.actions) > 0) then
+   	 									for i=1, table.getn(card_info.actions) do
+      										local action = card_info.actions[i]
+      										print("action: " .. action.name .. " , " .. action.sub_action)
+      										if (action.name == "counter") then
+
+											    Check_Ab = switch { 
+											        ["w_or_a"] = function (x)
+											        			if (current_card_info.card_value == 1 or
+											        				current_card_info.card_value == 5) then
+											        				print("CAN CANCEL CARD!!!!!!   " .. current_card_info.card_value)
+											        				cant_counter = false
+											        			end 
+											                end,
+												   	default = function () 
+											                print( "ERROR - not a counter sub action") 
+											                cant_counter = false
+											                end,
+												}
+
+												Check_Ab:case(action.sub_action)
+      										end
+      									end
+      								end
+			    				end
+			    			end
+			    		end
+
+			    		if (cant_counter == true) then
+			    			no_counter_message = "Can't Counter Card Type"
+			    		end
+
+				    	--CHECK TO SEE IF THE CURRENT HAS SPECIAL "CAN'T COUNTER" RULE
+	      				--print("card name: " .. current_card.filename)
+						if ( table.getn(current_card_info.actions) > 0) then
+						    for i=1, table.getn(current_card_info.actions) do
+						        local action = current_card_info.actions[i]
+						        --print("action name is: " .. action.name)
+						        if (action.name == "no_counter") then
+						            cant_counter = true
+						            print("CAN'T COUNTER!!!")
+						            no_counter_message = "Card Can't be Countered"
+						        end
+						   	end
+						end
+
+						if (cant_counter == false) then
+	        				set_cardPausestate(6)
+	        			else
+	        				--run_popup("Card Can't be Countered")
+	        				print(no_counter_message)
+	        			end
 			        end,
 			    [4] = function()    --COUNTER
 			    		--print("COUNTER FINISHED!")
@@ -125,6 +191,7 @@ function finishCard( event )
 									local card_info = retrieve_card(GameInfo.player_list[i].faceoff_card)
 									local counter_card = false
 
+									--check to see if the player has a counter card
   									if ( table.getn(card_info.actions) > 0) then
    	 									for i=1, table.getn(card_info.actions) do
       										local action = card_info.actions[i]

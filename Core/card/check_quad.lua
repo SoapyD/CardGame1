@@ -39,7 +39,7 @@ function Check_Quad_Region(current_card, search_section, check_positioning)
                         end
 
                         if (return_info[2] == -1) then
-                             print("no card, " .. direction)
+                             --print("no card, " .. direction)
                         else
                         	local quad = GameInfo.quads[return_info[2]]
                             local surrounding_info = retrieve_card(quad.filename)
@@ -54,7 +54,7 @@ function Check_Quad_Region(current_card, search_section, check_positioning)
 
                             --print("card at x: " .. x .. " y:" .. y)
                             --print("previous:" .. GameInfo.previous_card_int)
-                            print("quad id: " .. quad.unique_id)
+                            --print("quad id: " .. quad.unique_id)
 
                             if (quad.unique_id ==
                                 GameInfo.table_cards[GameInfo.previous_card_int].unique_id) then

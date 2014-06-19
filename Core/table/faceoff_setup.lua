@@ -106,9 +106,21 @@ function Check_FaceOff_End()
                     end 
                 end
 
+                --CHECK TO SEE IF IT JUST WINS FACEOFF REGARDLESS
+                if ( table.getn(card_info.actions) > 0) then
+                    for i=1, table.getn(card_info.actions) do
+                        local action = card_info.actions[i]
+
+                        if (action.name == "win_faceoff") then
+                            saved_score = 99
+                            print("ALWAYS WIN FACEOFF")
+                        end
+                    end
+                end
+
                 --HIGHEST POWER WINS FACEOFF
                 --saved_score = card_info.power
-                print("card power: " .. card_info.power)
+                --print("card power: " .. card_info.power)
 
                 if (i == 1) then
                     p1_score = saved_score
