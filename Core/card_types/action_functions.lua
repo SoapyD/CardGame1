@@ -116,7 +116,7 @@ function action_CounterLoop()
 			        	--print("pausing for counter cards")
 			            end,
 			        [2] = function()    --COUNT THROUGH THE TIMER
-			        		run_popup("PLACEMENT RETURNED")
+			        		--run_popup("PLACEMENT RETURNED")
 			        		print("opponent didn't counter card")
 			        		advance_cardPausestate()
 			            end,

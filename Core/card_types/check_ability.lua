@@ -9,6 +9,7 @@ function CheckAbility(action)
     --print("ability passed" .. ability)
     Check_Ab = switch { 
     	["health"] = function (x) mod_health(action.applied_to, action.value) end,
+        ["life"] = function (x) mod_health(action.applied_to, action.value) end,
         ["armour"] = function (x) mod_armour(action.applied_to, action.value) end,
         ["arm"] = function (x) mod_arm(action.applied_to, action.value) end,
     	["leg"] = function (x) mod_leg(action.applied_to, action.value) end, 
@@ -60,6 +61,58 @@ function find_applied_to(applied_to)
 end
 
 function mod_health(applied_to, value)
+
+    apply_to = find_applied_to(applied_to)
+
+    local applied_player = GameInfo.player_list[apply_to]
+
+    --check to see if there's any armour, if the mod is negative
+    
+    local remaining_mod = value
+    local apply_value = true
+    local popup_String = ""
+
+    if (value < 0 and applied_player.armour > 0) then
+        remaining_mod = remaining_mod + applied_player.armour
+
+        local armour_mod = value * -1
+        if (applied_player.armour + value < 0) then
+            armour_mod = applied_player.armour
+        end
+        popup_String = popup_String .. "-" .. armour_mod .. " Armour\n"
+
+        applied_player.armour = applied_player.armour + value
+        if (applied_player.armour < 0 ) then
+            applied_player.armour = 0
+        end
+
+        if (remaining_mod > 0) then
+            apply_value = false
+        end        
+    end
+
+    if (apply_value == true) then
+        applied_player.health = applied_player.health + remaining_mod
+        if (applied_player.health < 1 ) then
+            applied_player.health = 0
+        end
+        if (applied_player.health > applied_player.max_health ) then
+            applied_player.health = applied_player.max_health
+        end
+
+        popup_String = popup_String .. remaining_mod .. " Health\n"
+    end
+
+    --print("health add:" .. remaining_mod)
+    run_popup(popup_String)
+    --if (remaining_mod > 0) then
+    --    run_popup( "+" .. remaining_mod .. " Health")
+    --else
+    --    run_popup( remaining_mod .. " Health")
+    --end
+end
+
+function mod_life(applied_to, value)
 
     apply_to = find_applied_to(applied_to)
 

@@ -181,6 +181,20 @@ function CheckActionState()
                     InjureEnemy()
                 end
             end,
+        ["play"] = function()    --RUN THE PASS_TURN
+                local CheckState = switch { 
+                    [0] = function()    --SETUP ACTION
+                        run_popup("Play Another Card.")
+                        action_internal_state = 1
+                        end,
+                    [1] = function()    --WAIT FOR THE ACTION TO COMPLETE
+                        CheckActionPos(true) --DONE THIS WAS AS BOTH PLAYERS RUN THIS FUNCTION AT THE SAME TIME AS IT'S -1
+                        end,
+                    default = function () print( "ERROR - action_internal_state not within switch") end,
+                }
+
+                CheckState:case(action_internal_state)
+            end,
         ["pass_turn"] = function()    --RUN THE PASS_TURN
                 local CheckState = switch { 
                     [0] = function()    --SETUP ACTION
@@ -197,7 +211,6 @@ function CheckActionState()
                 }
 
                 CheckState:case(action_internal_state)
-
             end,
         ["end_round"] = function()    --RUN THE END_ROUND
 

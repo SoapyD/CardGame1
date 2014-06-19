@@ -14,11 +14,11 @@ function EndTurn(current_card)
       --temp_mods = CheckAbility(action.name, action.applied_to, action.value)
       temp_mods = CheckAbility(action)
       if (temp_mods.type ~= "") then
-          if (temp_mods.type ~= "play") then
+          --if (temp_mods.type ~= "play") then
             local arr_pos = table.getn(GameInfo.actions) + 1
             GameInfo.actions[arr_pos] = {}
             GameInfo.actions[arr_pos] = temp_mods
-          end
+          --end
 
           if (temp_mods.type == "play") then
             pospone_play = true

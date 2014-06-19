@@ -139,7 +139,7 @@ function finishCard( event )
 											        ["w_or_a"] = function (x)
 											        			if (current_card_info.card_value == 1 or
 											        				current_card_info.card_value == 5) then
-											        				print("CAN CANCEL CARD!!!!!!   " .. current_card_info.card_value)
+											        				--print("CAN CANCEL CARD!!!!!!   " .. current_card_info.card_value)
 											        				cant_counter = false
 											        			end 
 											                end,
@@ -169,7 +169,7 @@ function finishCard( event )
 						        --print("action name is: " .. action.name)
 						        if (action.name == "no_counter") then
 						            cant_counter = true
-						            print("CAN'T COUNTER!!!")
+						            --print("CAN'T COUNTER!!!")
 						            no_counter_message = "Card Can't be Countered"
 						        end
 						   	end
