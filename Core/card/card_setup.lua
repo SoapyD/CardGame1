@@ -52,7 +52,7 @@ function CheckDeck(deck_index, remove_item)
 
 	--RANDOMLY GENERATE A NUMBER FROM THE SIZE OF THE DECK
 	--local randIndex = math.random(#decks[deck_index])
-	local randIndex = 1
+	local randIndex = 2
     --print("indexnum: ", randIndex)
 
 	--GET THE CARD NAME SAVED AT THAT LIST INDEX POSITION

@@ -185,6 +185,7 @@ function CheckActionState()
                 local CheckState = switch { 
                     [0] = function()    --SETUP ACTION
                         run_popup("Play Another Card.")
+                        --reset_DoubleDamage()
                         action_internal_state = 1
                         end,
                     [1] = function()    --WAIT FOR THE ACTION TO COMPLETE
@@ -202,6 +203,7 @@ function CheckActionState()
                         end,
                     [1] = function()    --PASS THE TURN
                         PassTurn()
+                        reset_DoubleDamage()
                         action_internal_state = 2
                         end,
                     [2] = function()    --WAIT FOR THE ACTION TO COMPLETE
@@ -220,6 +222,7 @@ function CheckActionState()
                         end,
                     [1] = function()    --TURN ON THE DISCARD CARDS SCREEN
                         EndRound()
+                        reset_DoubleDamage()
                         end,
                     [2] = function()    --WAIT FOR THE ACTION TO COMPLETE
                         end,

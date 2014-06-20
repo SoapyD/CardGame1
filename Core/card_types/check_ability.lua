@@ -1,8 +1,13 @@
 
+local double_damage = false
 
 
 --function CheckAbility(ability, applied_to, value)
 function CheckAbility(action)
+
+    --CHECK THE LAST CARD IN CASE THERE WAS ANY NEXT_CARD ACTIONS ON IT
+    mod_next()
+
     local add_info = false
     local temp_mods = {}
     temp_mods.type = ""
@@ -41,9 +46,6 @@ function CheckAbility(action)
     end
     --print("used friggin action: " .. action.name)
 
-    --CHECK THE LAST CARD IN CASE THERE WAS ANY NEXT_CARD ACTIONS ON IT
-    mod_next()
-
     return temp_mods
 end
 
@@ -63,8 +65,11 @@ end
 function mod_health(applied_to, value)
 
     apply_to = find_applied_to(applied_to)
-
     local applied_player = GameInfo.player_list[apply_to]
+
+    if (double_damage == true and value < 0) then
+        value = value * 2
+    end 
 
     --check to see if there's any armour, if the mod is negative
     
@@ -115,8 +120,12 @@ end
 function mod_life(applied_to, value)
 
     apply_to = find_applied_to(applied_to)
-
     local applied_player = GameInfo.player_list[apply_to]
+
+    if (double_damage == true and value < 0) then
+        value = value * 2
+    end 
+
     applied_player.health = applied_player.health + value
     if (applied_player.health < 1 ) then
         applied_player.health = 0
@@ -226,12 +235,21 @@ function mod_next()
     end
 end
 
+
+function reset_DoubleDamage()
+    double_damage = false
+end
+
 function Check_SubAction(applied_to, sub_action, power)
 
     --print("sub: " .. sub_action .. ", power: " .. power)
 
         check_next = switch { 
 
+            ["double_damage"] = function (x)
+                    double_damage = true
+                    --print("double damage triggered#1")
+                    end,
             ["damage"] = function (x)
                     local value = -power
                     mod_health(applied_to, value)
