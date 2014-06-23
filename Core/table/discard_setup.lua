@@ -7,6 +7,12 @@ function Hide_DiscardTable()
     TitleText.text = ""
     GameInfo.pause_add = 0
     CheckActionPos(false)
+    GameInfo.finalise_state = 1
+
+    if (finalise_button ~= nil) then
+        finalise_button.text.text = finalise_button.default_text
+        check_FinalisationButton(GameInfo.current_player)
+    end
 end
 
 function Show_DiscardTable(temp_sub_action)
@@ -16,12 +22,23 @@ function Show_DiscardTable(temp_sub_action)
     GameInfo.pause_add = 1
     sub_action = temp_sub_action
     --print(sub_action)
-    run_popup("Discard: " .. discard_max)
+
+    if (temp_sub_action ~= "flurry") then
+        run_popup("Discard: " .. discard_max)
+    else
+        if (finalise_button ~= nil) then
+            finalise_button.text.text = "end discard"
+            finalise_button.isVisible = true
+            finalise_button.text.isVisible = true
+            GameInfo.finalise_state = 6
+        end        
+    end
 end
 
 function CheckDiscard(current_card)
 
     local card_info = retrieve_card(current_card.filename)
+    local discard_state = 1
 
     local CheckState = switch { 
         ["damage"] = function()    --DAMAGE ENEMY USING CARDS MAIN VALUE
@@ -34,22 +51,31 @@ function CheckDiscard(current_card)
                 tostring("armour_mod") .. " " .. 
                 tostring(card_info.power)) 
             end,
+        ["flurry"] = function()    --FLURRY DISCARD DAMAGE
+            appWarpClient.sendUpdatePeers(
+                tostring("health_mod") .. " " .. 
+                tostring(discard_max)) 
+
+            run_popup(discard_max .. " Flurry Damage")
+            discard_state = 2
+            end,
 
         default = function () print( "ERROR - sub_type not within discard subtypes") end,
     }
 
     CheckState:case(sub_action)
 
-    if (discard_max <= 1) then
-    --    Hide_DiscardTable(false)
-        appWarpClient.sendUpdatePeers(
-            tostring("hide_discard") .. " " .. 
-            tostring(GameInfo.username)) 
+    if (discard_state == 1) then
+        if (discard_max <= 1) then
+        --    Hide_DiscardTable(false)
+            appWarpClient.sendUpdatePeers(
+                tostring("hide_discard") .. " " .. 
+                tostring(GameInfo.username)) 
+        end
+        discard_max = discard_max - 1
+        run_popup("Discard: " .. discard_max)
     end
 
-    discard_max = discard_max - 1
-
-    run_popup("Discard: " .. discard_max)
 end
 
 function SetDiscardMax(discard_value)

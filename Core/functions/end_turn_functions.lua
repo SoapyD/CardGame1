@@ -120,6 +120,7 @@ function EndRound()
               end
 
               GameInfo.table_cards = {}
+              GameInfo.quads = {}
               --ResetActionState()
 
               GameInfo.current_card_int = -1
@@ -128,6 +129,10 @@ function EndRound()
 
               Reset_SetCards_state()
               GameInfo.current_player = 1
+
+              for i=1, table.getn(GameInfo.player_list) do
+                GameInfo.player_list[i].faceoff_card = ""
+              end
 
               --if ( GameInfo.username ~= GameInfo.player_list[GameInfo.current_player].username) then
               --  finalise_button.isVisible = false
@@ -159,8 +164,9 @@ function EndRound()
               GameInfo.actions = {}
               ResetActionState()
               ResetActionInternalState()
-              Show_FOTable("", true)
+              --Show_FOTable("", true)
               reset_state = true
+              set_MainState(1)
             end,
         default = function () print( "ERROR - EndRound_state not within switch") end,
     }

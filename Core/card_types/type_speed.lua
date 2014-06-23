@@ -11,7 +11,7 @@ function Check_SpeedCards(filename)
         ["s/1.png"] = function()
                 card_info.name = "flurry"
                 set_stats(card_info, -1,3,3,3,0,0,0,0,"speed",4,1)
-                card_info.actions[table.getn(card_info.actions) + 1] = set_action("discard_flurry", "", -1, 0) 
+                card_info.actions[table.getn(card_info.actions) + 1] = set_action("discard", "flurry", -3, 0) 
             end,
         ["s/2.png"] = function()
                 card_info.name = "dash"

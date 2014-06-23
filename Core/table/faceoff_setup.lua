@@ -10,6 +10,7 @@ function Hide_FOTable()
     GameInfo.finalise_state = 1
     
     sets_player = false
+
     CheckActionPos(true) --NEEDS TO BE SET TO TRUE AS BOTH PLAYERS HAVE THIS TABLE LOADED
 
     if (finalise_button ~= nil) then
@@ -177,6 +178,7 @@ function Check_FaceOff_End()
                 if (sets_player == true) then
                     GameInfo.current_player = winner
                     check_FinalisationButton(GameInfo.current_player)
+                    print("current player is!!!: " .. GameInfo.current_player)
                     sets_player = false
                 end
             end

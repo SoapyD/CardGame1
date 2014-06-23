@@ -1,4 +1,9 @@
 
+local main_loop_state = 1
+
+function set_MainState(state_value)
+	main_loop_state = state_value
+end
 
 
 function run_main_loop()
@@ -10,6 +15,59 @@ function run_main_loop()
     	GameInfo.frame_num = 0
     end
 
+    local CheckState = switch { 
+        [1] = function()
+				--print("Round Initiation!!!!")
+				--Show_FOTable("", true)
+				--main_loop_state = main_loop_state + 1
+				main_loop_state = 2
+            end,
+        [2] = function() --START-GAME FACEOFF, DETERMINES ROUND'S STARTING PLAYER
+				Show_FOTable("", true)
+				main_loop_state = main_loop_state + 1
+            end,
+
+        [3] = function() --NORMAL GAME LOOP
+				GameLoop()
+            end,
+
+
+        [4] = function() --SECOND GAME LOOP FOR PRE-GAME ACTIONS, RESETS TO NORMAL WHEN COMPLETE
+				GameLoop()
+
+				local action_state = Get_ActionState()
+				if (table.getn(GameInfo.actions) < action_state) then
+	            	GameInfo.actions = {}
+	            	ResetActionState()
+	              	ResetActionInternalState()
+	              	main_loop_state = 2
+	              	print("THE STATE HAS NOW RESET   " .. action_state)			
+				end
+            end,
+        [5] = function() --PRE-GAME ACTIONS
+        --CONTAINS ANYTHING THAT NEEDS TO BE RUN BEFORE A GAME BEGINS,
+        --DRAW/DISCARD CARDS ETC. ALL I NEED TO DO IS CUE THE ACTIONS
+				local arr_pos = table.getn(GameInfo.actions) + 1
+	            GameInfo.actions[arr_pos] = set_action("draw", "", 1, 0)
+	            GameInfo.actions[arr_pos].type = "draw"
+
+				--arr_pos = table.getn(GameInfo.actions) + 1
+	            --GameInfo.actions[arr_pos] = set_action("discard", "", 1, 0)
+	            --GameInfo.actions[arr_pos].type = "discard"
+
+	            main_loop_state = 4 --SECONDARY LOOP
+            end,
+
+        default = function () print( "ERROR - sub_type not within main_loop_state") end,
+    }
+
+    CheckState:case(main_loop_state)
+
+end
+
+
+
+function GameLoop()
     --BOUNDS NEEDED TO KEEP THE SYNCING OF SCREEN AND GAME SPACES TOGETHER
     --USED TO KEEP CARDS WITHIN THE TABLE BOUNDS
 	boundX1 = -camera.scrollX
@@ -55,27 +113,15 @@ function run_main_loop()
 	GameInfo.touches = {}	
 
 
-
-	--print("text: " .. GameInfo.print_string)
 	statusText.text = GameInfo.print_string
-	--statusText.text = pos_String
 	statusText.x = statusText.width / 2
-	--statusText.y = display.contentHeight - statusText.height / 2
 	statusText.y = bar.y + (bar.height / 2) - statusText.height / 2
-
 
 	statusText2.text = GameInfo.print_string2
 	statusText2.x = statusText2.width / 2
 	statusText2.y = bar2.y + (bar2.height / 2) - statusText2.height / 2
 
-
-	--statusText3.x = statusText3.width / 2
-	--statusText3.text = GameInfo.print_string3
-	--print("box: " .. print_box.width .. " status: " .. statusText3.width)
-	--print_box.x = statusText3.x 
-
     --CHECK THE NETWORK CONNECTION
     appWarpClient.Loop()
-
 end
 

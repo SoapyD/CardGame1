@@ -261,7 +261,12 @@ function finishCard( event )
 						if (card_sent == false) then
 							run_popup("please select card to copy first")
 						end
-			        end,	        
+			        end,	  
+			    [6] = function()    --END DISCARD
+		            appWarpClient.sendUpdatePeers(
+		                tostring("hide_discard") .. " " .. 
+		                tostring(GameInfo.username)) 
+			        end,	      
 			    default = function () print( "ERROR - state not within finalisation states") end,
 			    }
 

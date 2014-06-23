@@ -14,7 +14,8 @@ function SetGame()
     --	finalise_button.isVisible = false
     --	finalise_button.text.isVisible = false
     --end
-    check_FinalisationButton(1)
+
+    --check_FinalisationButton(1)
 end
 
 

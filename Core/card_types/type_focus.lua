@@ -105,7 +105,7 @@ function Check_FocusCards(filename)
                 card_info.name = "surpress"
                 set_stats(card_info, 13,0,0,0,2,0,0,0,"focus",3,3)
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("health", "", -10, 1)
-                card_info.actions[table.getn(card_info.actions) + 1] = set_action("end_round", "", 0, 0)
+                card_info.actions[table.getn(card_info.actions) + 1] = set_action("end_round", "", 0, -1)
             end,
 
         default = function () 

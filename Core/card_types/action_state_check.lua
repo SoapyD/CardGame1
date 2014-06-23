@@ -10,6 +10,10 @@ function ResetActionInternalState()
     action_internal_state = 0
 end
 
+function Get_ActionState()
+    return action_state
+end
+
 function CheckActionState()
 
     --print("a_state: " .. action_state .. " a_i_state: " .. action_internal_state)
