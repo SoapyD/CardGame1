@@ -151,25 +151,27 @@ function Check_FaceOff_End()
                 winner = 2
             end
 
-            if (winner == GameInfo.current_player) then
-                --print("CARDS GOING THROUGH")
-            else
-                --print("CARDS BEING CLEARED OF ACTIONS")
-                            --print("ACTIONS BEING CLEARED")
-                GameInfo.actions = {}
-                ResetActionState()
-                ResetActionInternalState()
-                --THIS IS TAKEN FROM THE END TURN FUNCTION
-                local temp_mods = {}
-                temp_mods.type = "pass_turn"
-                temp_mods.sub_action = ""
-                temp_mods.applied_to = -1
-                temp_mods.value = 0
+            if (sets_player == false) then
+                --THIS IS USED FOR FACEOFF ACTIONS THAT HAVE "WIN ACTIONS" ASSOCIATED WITH THEM
+                if (winner == GameInfo.current_player) then
 
-                local arr_pos = table.getn(GameInfo.actions) + 1
-                GameInfo.actions[arr_pos] = {}
-                GameInfo.actions[arr_pos] = temp_mods
-            end        
+                else
+                    --IF THE FACEOFF FAILS, REMOVE ALL "WIN ACTIONS" AND PASS THE TURN
+                    GameInfo.actions = {}
+                    ResetActionState()
+                    ResetActionInternalState()
+                    --THIS IS TAKEN FROM THE END TURN FUNCTION
+                    local temp_mods = {}
+                    temp_mods.type = "pass_turn"
+                    temp_mods.sub_action = ""
+                    temp_mods.applied_to = -1
+                    temp_mods.value = 0
+
+                    local arr_pos = table.getn(GameInfo.actions) + 1
+                    GameInfo.actions[arr_pos] = {}
+                    GameInfo.actions[arr_pos] = temp_mods
+                end
+            end
 
             local reset_faceoff = false
 

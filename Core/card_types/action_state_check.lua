@@ -22,6 +22,24 @@ function CheckActionState()
 
 
     local CheckState = switch { 
+        ["next_round"] = function()    --SEND HEALTH DAMAGE THAT NEEDS STACKING
+
+                local CheckState = switch { 
+                    [0] = function()    --
+                        GameInfo.saved_actions[table.getn(GameInfo.saved_actions) + 1] = Action.sub_action
+                        --print("action added!!!!!!!!:  " .. Action.sub_action)
+                        action_internal_state = action_internal_state + 1
+                        end,
+                    [1] = function()    --
+                        CheckActionPos(true) --BOTH PLAYERS USE THIS ACTION SO DOESNT NEED PASSING
+                        end,
+                    default = function () print("ERROR - action_internal_state not within switch") end,
+                }
+
+                CheckState:case(action_internal_state)
+            end, 
+
+
         ["health_delay"] = function()    --SEND HEALTH DAMAGE THAT NEEDS STACKING
 
                 local CheckState = switch { 
@@ -257,10 +275,11 @@ function CheckActionState()
     end
     if (table.getn(GameInfo.actions) > 0 ) then
         if (GameInfo.actions[action_state].applied_to == -1) then
-            --print("-1 used")
-           CheckState:case(GameInfo.actions[action_state].type)
+            --print(GameInfo.actions[action_state].type)
+            CheckState:case(GameInfo.actions[action_state].type)
         end
 	end
+
 end
 
 function CheckActionPos(network_used)
@@ -285,6 +304,7 @@ function CheckActionPos(network_used)
         end
 
         ResetActionInternalState()
+        print("ACTIONS ADVANCED:   " .. action_state)
         --check_FinalisationButton(GameInfo.current_player)
     end
     --print("NEW ACTION POS: " .. action_state)

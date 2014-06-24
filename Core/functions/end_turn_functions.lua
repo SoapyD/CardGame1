@@ -128,7 +128,7 @@ function EndRound()
               camera:toPoint(1750, 1750)
 
               Reset_SetCards_state()
-              GameInfo.current_player = 1
+              --GameInfo.current_player = 1
 
               for i=1, table.getn(GameInfo.player_list) do
                 GameInfo.player_list[i].faceoff_card = ""

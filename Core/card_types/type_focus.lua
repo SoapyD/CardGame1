@@ -67,6 +67,19 @@ function Check_FocusCards(filename)
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("power_damage", "", 0, 0)
             end,
         ["f/10.png"] = function()
+                card_info.name = "grapple"
+                set_stats(card_info, 7,7,5,5,2,0,0,0,"focus",3,2)
+                card_info.actions[table.getn(card_info.actions) + 1] = set_action("faceoff", "", 0, -1) 
+                --VICTORY ACTIONS
+                card_info.actions[table.getn(card_info.actions) + 1] = set_action("limb", "", -2, 0)
+            end,                
+        ["f/11.png"] = function()
+                card_info.name = "luck"
+                set_stats(card_info, 13,13,13,13,0,0,0,13,"focus",3,2.5)
+                --IMMUNE TO PHYSICAL REMOVED
+                card_info.actions[table.getn(card_info.actions) + 1] = set_action("draw", "", 2, 0)
+            end,
+        ["f/12.png"] = function()
                 card_info.name = "battle-of-wills"
                 set_stats(card_info, -1,-1,-1,-1,0,0,0,10,"focus",3,2)
                 --IMMUNE TO CHEAT NO LONGER USED
@@ -74,19 +87,6 @@ function Check_FocusCards(filename)
                 --VICTORY ACTIONS
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("discard", "", 2, 1)
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("draw", "", 1, 0)
-            end,
-        ["f/11.png"] = function()
-                card_info.name = "grapple"
-                set_stats(card_info, 7,7,5,5,2,0,0,0,"focus",3,2)
-                card_info.actions[table.getn(card_info.actions) + 1] = set_action("faceoff", "", 0, -1) 
-                --VICTORY ACTIONS
-                card_info.actions[table.getn(card_info.actions) + 1] = set_action("limb", "", -2, 0)
-            end,                
-        ["f/12.png"] = function()
-                card_info.name = "luck"
-                set_stats(card_info, 13,13,13,13,0,0,0,13,"focus",3,2.5)
-                --IMMUNE TO PHYSICAL REMOVED
-                card_info.actions[table.getn(card_info.actions) + 1] = set_action("draw", "", 2, 0)
             end,
         ["f/13.png"] = function()
                 card_info.name = "energise"

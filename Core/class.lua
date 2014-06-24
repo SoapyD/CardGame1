@@ -50,6 +50,7 @@ function cGameInfo.methods:init(gamestate)
 	self.print_string3= ""
 
 	self.actions = {}
+	self.saved_actions = {}
 	self.switch1 = false
 	self.pause_main = false
 	self.pause_add = 0

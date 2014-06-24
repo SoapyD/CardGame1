@@ -20,7 +20,7 @@ function run_main_loop()
 				--print("Round Initiation!!!!")
 				--Show_FOTable("", true)
 				--main_loop_state = main_loop_state + 1
-				main_loop_state = 2
+				main_loop_state = 5
             end,
         [2] = function() --START-GAME FACEOFF, DETERMINES ROUND'S STARTING PLAYER
 				Show_FOTable("", true)
@@ -47,15 +47,34 @@ function run_main_loop()
         [5] = function() --PRE-GAME ACTIONS
         --CONTAINS ANYTHING THAT NEEDS TO BE RUN BEFORE A GAME BEGINS,
         --DRAW/DISCARD CARDS ETC. ALL I NEED TO DO IS CUE THE ACTIONS
-				local arr_pos = table.getn(GameInfo.actions) + 1
-	            GameInfo.actions[arr_pos] = set_action("draw", "", 1, 0)
-	            GameInfo.actions[arr_pos].type = "draw"
 
-				--arr_pos = table.getn(GameInfo.actions) + 1
-	            --GameInfo.actions[arr_pos] = set_action("discard", "", 1, 0)
-	            --GameInfo.actions[arr_pos].type = "discard"
+        		--GameInfo.saved_actions[1] = "discard"
+        		print("THIS SHITE IS BEING SET")
+
+        		if (GameInfo.saved_actions ~= nil) then
+	        		for i=1, table.getn(GameInfo.saved_actions) do
+
+						local arr_pos = table.getn(GameInfo.actions) + 1
+
+		                local CheckState = switch { 
+		                    ["draw"] = function()    --
+					            GameInfo.actions[arr_pos] = set_action("draw", "", 1, 0)
+					            GameInfo.actions[arr_pos].type = "draw"
+		                        end,
+		                    ["discard"] = function()    --
+			            		GameInfo.actions[arr_pos] = set_action("discard", "", 1, 1)
+			            		GameInfo.actions[arr_pos].type = "discard"
+		                        end,
+		                    default = function () print("ERROR - state not within pre game actions") end,
+		                }
+
+		                CheckState:case(GameInfo.saved_actions[i])        		
+			        end
+	            end
 
 	            main_loop_state = 4 --SECONDARY LOOP
+
+				GameInfo.saved_actions = {}
             end,
 
         default = function () print( "ERROR - sub_type not within main_loop_state") end,
