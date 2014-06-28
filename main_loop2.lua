@@ -20,7 +20,7 @@ function run_main_loop()
 				--print("Round Initiation!!!!")
 				--Show_FOTable("", true)
 				--main_loop_state = main_loop_state + 1
-				main_loop_state = 5
+				main_loop_state = 2
             end,
         [2] = function() --START-GAME FACEOFF, DETERMINES ROUND'S STARTING PLAYER
 				Show_FOTable("", true)

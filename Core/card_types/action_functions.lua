@@ -21,8 +21,8 @@ function StealCards(card_number)
 			appWarpClient.sendUpdatePeers(
 				tostring("steal") .. " " ..
 				tostring(GameInfo.username) .. " " ..
-				tostring(GameInfo.filename) .. " " ..
-				tostring(GameInfo.sheet) .. " " ..		
+				tostring(card.filename) .. " " ..
+				tostring(card.sheet) .. " " ..		
 				tostring(card.sprite))
 
 			offset_count = offset_count + 1

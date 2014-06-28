@@ -52,7 +52,7 @@ function CheckDeck(deck_index, remove_item)
 
 	--RANDOMLY GENERATE A NUMBER FROM THE SIZE OF THE DECK
 	--local randIndex = math.random(#decks[deck_index])
-	local randIndex = 11
+	local randIndex = 12
     --print("indexnum: ", randIndex)
 
 	--GET THE CARD NAME SAVED AT THAT LIST INDEX POSITION
@@ -117,7 +117,7 @@ function LoadCard2(filename,sheet,sprite,x,y)
         sheetContentWidth = 1050,  -- width of original 1x size of entire sheet
         sheetContentHeight = 1750  -- height of original 1x size of entire sheet
     }
-
+    print("sheet: " .. sheet .. ", sprite: " .. sprite)
     local imageSheet = graphics.newImageSheet( "Images/" .. sheet .. ".png", options )
     local icon = display.newImage( imageSheet, sprite, x, y )
 

@@ -211,7 +211,9 @@ function CheckActionState()
                         action_internal_state = 1
                         end,
                     [1] = function()    --WAIT FOR THE ACTION TO COMPLETE
-                        CheckActionPos(true) --DONE THIS WAS AS BOTH PLAYERS RUN THIS FUNCTION AT THE SAME TIME AS IT'S -1
+                        CheckActionPos(false) --DONE THIS WAS AS BOTH PLAYERS RUN THIS FUNCTION AT THE SAME TIME AS IT'S -1
+                        print("action state: " .. action_state)
+                        print("action internal state: " .. action_internal_state)
                         end,
                     default = function () print( "ERROR - action_internal_state not within switch") end,
                 }
@@ -275,10 +277,13 @@ function CheckActionState()
     end
     if (table.getn(GameInfo.actions) > 0 ) then
         if (GameInfo.actions[action_state].applied_to == -1) then
-            --print(GameInfo.actions[action_state].type)
             CheckState:case(GameInfo.actions[action_state].type)
         end
 	end
+
+    --if (table.getn(GameInfo.actions) > 0 ) then
+    --    print(GameInfo.actions[action_state].type .. ", INTERNAL: " .. action_internal_state)
+    --end
 
 end
 
