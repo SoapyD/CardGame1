@@ -212,8 +212,6 @@ function CheckActionState()
                         end,
                     [1] = function()    --WAIT FOR THE ACTION TO COMPLETE
                         CheckActionPos(false) --DONE THIS WAS AS BOTH PLAYERS RUN THIS FUNCTION AT THE SAME TIME AS IT'S -1
-                        print("action state: " .. action_state)
-                        print("action internal state: " .. action_internal_state)
                         end,
                     default = function () print( "ERROR - action_internal_state not within switch") end,
                 }

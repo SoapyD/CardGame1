@@ -20,7 +20,7 @@ function run_main_loop()
 				--print("Round Initiation!!!!")
 				--Show_FOTable("", true)
 				--main_loop_state = main_loop_state + 1
-				main_loop_state = 2
+				main_loop_state = 5
             end,
         [2] = function() --START-GAME FACEOFF, DETERMINES ROUND'S STARTING PLAYER
 				Show_FOTable("", true)
@@ -49,7 +49,7 @@ function run_main_loop()
         --DRAW/DISCARD CARDS ETC. ALL I NEED TO DO IS CUE THE ACTIONS
 
         		--GameInfo.saved_actions[1] = "discard"
-        		print("THIS SHITE IS BEING SET")
+        		--print("THIS SHITE IS BEING SET")
 
         		if (GameInfo.saved_actions ~= nil) then
 	        		for i=1, table.getn(GameInfo.saved_actions) do

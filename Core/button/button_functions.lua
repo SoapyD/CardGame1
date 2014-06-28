@@ -106,6 +106,7 @@ function finishCard( event )
 
 									--STOP PLAYERS FROM ADDING ANOTHER CARD AFTER ITS BEEN PLACED
 									GameInfo.pause_main = true
+									run_popup("FaceOff Card Set")
 									Check_FaceOff_End()
 								end
 							end
