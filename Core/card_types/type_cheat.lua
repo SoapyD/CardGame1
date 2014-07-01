@@ -22,9 +22,7 @@ function Check_CheatCards(filename)
         ["c/3.png"] = function()
                 card_info.name = "taunt"
                 set_stats(card_info, -1,1,1,1,0,0,0,0,"cheat",6,1)
-                card_info.actions[table.getn(card_info.actions) + 1] = set_action("OR_discard", "", 2, 1)
-                --OR DO THE FOLLOWING ACTION
-                card_info.actions[table.getn(card_info.actions) + 1] = set_action("OR_health", "", -6, 1)
+                card_info.actions[table.getn(card_info.actions) + 1] = set_action("or_action", "damage_discard", 0, 1)
             end,
         ["c/4.png"] = function()
                 card_info.name = "poke-in-the-eye"

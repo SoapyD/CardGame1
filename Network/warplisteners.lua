@@ -276,11 +276,19 @@ function onUpdatePeersReceived(update)
     end
   end
 
-    if (update_type == "hide_discard") then
+  if (update_type == "hide_discard") then
     local username = tostring(func())
     if (username == GameInfo.username) then
       Hide_DiscardTable(false)
     end
+  end
+
+  if (update_type == "add_variable_action") then
+    local username = tostring(func())
+    local action_type = tostring(func())
+
+    Add_VariableAction(username, action_type)
+
   end
 
 end

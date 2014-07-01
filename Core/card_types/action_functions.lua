@@ -1,4 +1,5 @@
 
+
 function StealCards(card_number)
 
 	local count = 0

@@ -22,6 +22,28 @@ function CheckActionState()
 
 
     local CheckState = switch { 
+        ["or_action"] = function()    --SEND HEALTH DAMAGE THAT NEEDS STACKING
+
+                local CheckState = switch { 
+                    [0] = function()    --
+                        --
+                        --local actionlist ={}
+                        --actionlist[1] = "recover"
+                        --actionlist[2] = "damage"
+                        --actionlist[3] = "cunt em up"
+                        CheckVariableActions(Action.sub_action)
+
+                        action_internal_state = action_internal_state + 1
+                        end,
+                    [1] = function()    --WAIT FOR A BUTTON TO BE PRESSED
+                        --CheckActionPos(false) 
+                        end,
+                    default = function () print("ERROR - action_internal_state not within switch") end,
+                }
+
+                CheckState:case(action_internal_state)
+            end, 
+
         ["next_round"] = function()    --SEND HEALTH DAMAGE THAT NEEDS STACKING
 
                 local CheckState = switch { 

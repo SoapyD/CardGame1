@@ -18,6 +18,7 @@ function Show_LimbTable(action_var)
     GameInfo.limb_screen.card2.icon.isVisible  = true
     GameInfo.limb_screen.card3.icon.isVisible  = true
     GameInfo.limb_screen.card4.icon.isVisible  = true
+
     if (action_var < 0) then
         limb_modifier = -1
         TitleText.text = "Damage Limb"
@@ -25,7 +26,7 @@ function Show_LimbTable(action_var)
         limb_modifier = 1
         TitleText.text = "Heal Limb"
     end
-    run_popup("Cripple: " .. discard_max)
+    run_popup(TitleText.text .. ": " .. discard_max)
 end
 
 function SetCrippleMax(draw_value)
@@ -43,7 +44,7 @@ function CheckLimbs()
     end
     --print("chagnged value" .. discard_max)
     discard_max = discard_max - 1
-    run_popup("Cripple: " .. discard_max)
+    run_popup(TitleText.text .. ": " .. discard_max)
 end
 
 function SetLimbMax(discard_value)

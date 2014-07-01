@@ -18,8 +18,9 @@ function Check_FocusCards(filename)
         ["f/2.png"] = function()
                 card_info.name = "recover"
                 set_stats(card_info, 3,3,0,0,0,0,0,0,"focus",3,1)
-                card_info.actions[table.getn(card_info.actions) + 1] = set_action("OR_health", "", 10, 0)
-                card_info.actions[table.getn(card_info.actions) + 1] = set_action("OR_limb", "", 2, 0)
+                --card_info.actions[table.getn(card_info.actions) + 1] = set_action("OR_health", "", 10, 0)
+                --card_info.actions[table.getn(card_info.actions) + 1] = set_action("OR_limb", "", 2, 0)
+                card_info.actions[table.getn(card_info.actions) + 1] = set_action("or_action", "health_limb", 0, 0) 
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("draw", "", 1, 0)
                 end,
         ["f/3.png"] = function()

@@ -68,6 +68,7 @@ function loadGame()
 	LoadLimbTable();
 	LoadFaceOff();
 	LoadCounter();
+	LoadOptions();
 	SetupButtons();
 	run_main_loop() --NEEDS TO RUN ONCE IN THE LOAD GAME LOOP
 
