@@ -152,10 +152,12 @@ function onUpdatePeersReceived(update)
     end
   end
 
-  if (update_type == "health_faceoff") then
+  if (update_type == "health_delay") then
     local health_modifier = tonumber(func())
-    --print("health mod " .. health_modifier)
-    mod_health(1,health_modifier)
+    local applied_to = tonumber(func())
+    print("health mod " .. applied_to)
+    --mod_health(1,health_modifier)
+    mod_health(applied_to,health_modifier)
     CheckActionPos(true)
   end
 

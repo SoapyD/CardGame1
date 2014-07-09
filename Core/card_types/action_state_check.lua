@@ -26,17 +26,11 @@ function CheckActionState()
 
                 local CheckState = switch { 
                     [0] = function()    --
-                        --
-                        --local actionlist ={}
-                        --actionlist[1] = "recover"
-                        --actionlist[2] = "damage"
-                        --actionlist[3] = "cunt em up"
                         CheckVariableActions(Action.sub_action)
 
                         action_internal_state = action_internal_state + 1
                         end,
                     [1] = function()    --WAIT FOR A BUTTON TO BE PRESSED
-                        --CheckActionPos(false) 
                         end,
                     default = function () print("ERROR - action_internal_state not within switch") end,
                 }
@@ -67,13 +61,14 @@ function CheckActionState()
                 local CheckState = switch { 
                     [0] = function()    --TURN ON THE FACEOFF SCREEN
                         appWarpClient.sendUpdatePeers(
-                            tostring("health_faceoff") .. " " .. 
-                            tostring(Action.value))
+                            tostring("health_delay") .. " " .. 
+                            tostring(Action.value) .. " " ..
+                            tostring(Action.applied_to))
                         action_internal_state = 1
 
                         --CheckActionPos(false)
                         end,
-                    [1] = function()    --
+                    [1] = function()    --ENDS IN WARPLISTENER, OVER THE NETWORK
                         end,
                     default = function () print("ERROR - action_internal_state not within switch") end,
                 }
@@ -100,8 +95,9 @@ function CheckActionState()
                         --print("card: " .. faceoff_card.name .. " power: " .. faceoff_card.power)
                         if (faceoff_card ~= nil) then
                             appWarpClient.sendUpdatePeers(
-                                tostring("health_faceoff") .. " " .. 
-                                tostring(-faceoff_card.power))
+                                tostring("health_delay") .. " " .. 
+                                tostring(-faceoff_card.power) .. " " ..
+                                tostring(1))
                         end
                         action_internal_state = 1
                         end,

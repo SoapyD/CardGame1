@@ -5,6 +5,7 @@ function Hide_VariableTable()
     --GET RID OF THE BUTTON ICONS
     for i=1, table.getn(GameInfo.or_screen.buttons) do
         local button = GameInfo.or_screen.buttons[i]
+        button.icon.button_text:removeSelf()
         button.icon:removeSelf()
         --button.icon.isVisible = false
     end
@@ -109,6 +110,11 @@ function AddOptionButton(draw_card,x,y,colour,type,type_int)
     icon.item_loaded = false
     icon.type = type
     icon.type_int = type_int
+
+
+    icon.button_text = display.newText( type, x, y, native.systemFontBold, 48 )
+    statusText2:setFillColor( 0, 0, 0 )
+
     draw_card.icon = icon
 end
 
@@ -149,10 +155,14 @@ function Add_VariableAction(username, action_type)
             local CheckState = switch { 
                 ["damage"] = function()    --
                     --NEEDS TO SEND "MOD_HEALTH" TO WARPLISTENER
+                    new_actions[new_pos] = set_action("health_delay", "", -9, 1)
+                    new_actions[new_pos].type = "health_delay"
                     val_set = true
                     end,
                 ["health"] = function()    --
                     --NEEDS TO SEND "MOD_HEALTH" TO WARPLISTENER
+                    new_actions[new_pos] = set_action("health_delay", "", 10, 0)
+                    new_actions[new_pos].type = "health_delay"
                     val_set = true
                     end,
                 ["limb2"] = function()    --
