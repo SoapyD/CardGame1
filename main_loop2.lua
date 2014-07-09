@@ -56,7 +56,12 @@ function run_main_loop()
 
 						local arr_pos = table.getn(GameInfo.actions) + 1
 
-		                local CheckState = switch { 
+		                local CheckState = switch {
+		                    ["add_card"] = function()    --
+		                    	local card = GameInfo.selected_card
+		                    	LoadCard2(card.filename,card.sheet,card.sprite,0,0)
+		                    	GameInfo.selected_card = {}
+		                        end,		                	
 		                    ["draw"] = function()    --
 					            GameInfo.actions[arr_pos] = set_action("draw", "", 1, 0)
 					            GameInfo.actions[arr_pos].type = "draw"
@@ -68,7 +73,7 @@ function run_main_loop()
 		                    default = function () print("ERROR - state not within pre game actions") end,
 		                }
 
-		                CheckState:case(GameInfo.saved_actions[i])        		
+		                CheckState:case(GameInfo.saved_actions[i])   		
 			        end
 	            end
 

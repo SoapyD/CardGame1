@@ -267,6 +267,19 @@ function finishCard( event )
 		            appWarpClient.sendUpdatePeers(
 		                tostring("hide_discard") .. " " .. 
 		                tostring(GameInfo.username)) 
+			        end,
+			    [7] = function()    --SAVE CARD
+		            --appWarpClient.sendUpdatePeers(
+		            --    tostring("hide_discard") .. " " .. 
+		            --    tostring(GameInfo.username))
+						if (GameInfo.selected_card ~= "") then
+							GameInfo.finalise_state = 1
+							finalise_button.text.text = finalise_button.default_text	
+							GameInfo.saved_actions[table.getn(GameInfo.saved_actions) + 1] = "add_card"
+							CheckActionPos(false)
+						else
+							run_popup("please select card to save first")
+						end
 			        end,	      
 			    default = function () print( "ERROR - state not within finalisation states") end,
 			    }

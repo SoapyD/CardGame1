@@ -81,7 +81,7 @@ function Check_CheatCards(filename)
                 card_info.name = "sabotage"
                 set_stats(card_info, 10,10,2,2,0,0,0,10,"cheat",6,3)
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("save_card", "", 1, 0)
-                card_info.actions[table.getn(card_info.actions) + 1] = set_action("end_round", "", 0, 0) 
+                card_info.actions[table.getn(card_info.actions) + 1] = set_action("end_round", "", 0, -1) 
                 --ALTERNATE RULES, SELECT CARD, KEEP A COPY OF THAT CARD
             end,
         ["c/15.png"] = function()
@@ -89,7 +89,7 @@ function Check_CheatCards(filename)
                 set_stats(card_info, 5,0,0,0,0,2,0,0,"cheat",6,3)
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("prev_card", "damage", 0, 1)
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("heath", "", -7, 0)
-                card_info.actions[table.getn(card_info.actions) + 1] = set_action("end_round", "", 0, 0)
+                card_info.actions[table.getn(card_info.actions) + 1] = set_action("end_round", "", 0, -1)
             end,
         default = function () 
             --print( "ERROR - filename not within physical") 

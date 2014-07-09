@@ -22,6 +22,23 @@ function CheckActionState()
 
 
     local CheckState = switch { 
+        ["save_card"] = function()    --RUN COPYCAT
+                local CheckState = switch { 
+                    [0] = function()    --SETUP ACTION
+                        action_internal_state = 1
+                        run_popup("Select a card on the table to copy.")
+                        GameInfo.finalise_state = 7 --SAVE CARD FUNCTION
+                        GameInfo.selected_card = {}
+                        finalise_button.text.text = "Save Card"
+                        end,
+                    [1] = function()    --WAIT FOR THE CARD TO BE SELECTED
+
+                        end,
+                    default = function () print( "ERROR - action_internal_state not within switch") end,
+                }
+
+                CheckState:case(action_internal_state)
+            end, 
         ["or_action"] = function()    --SEND HEALTH DAMAGE THAT NEEDS STACKING
 
                 local CheckState = switch { 
