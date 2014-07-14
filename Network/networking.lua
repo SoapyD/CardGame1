@@ -44,7 +44,7 @@ function player_check()
                     tostring("check_player") .. " " ..
                     tostring(GameInfo.username))
 
-                    print("sending: " .. GameInfo.username)
+                    --print("sending: " .. GameInfo.username)
                     --connection_state = connection_state + 1
                     internal_count = 0
                 end

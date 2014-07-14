@@ -1,15 +1,100 @@
 require("Network.update_cards")
 
-function onJoinRoomDone(resultCode)
+function onConnectDone(resultCode)
   if(resultCode == WarpResponseResultCode.SUCCESS) then
-    appWarpClient.subscribeRoom(STATIC_ROOM_ID)
-    --statusText.text = "Subscribing to room.."
-    print("Subscribing to room..")
+    --statusText.text = "Joining Room.."
+    print("Joining Room..")
+    --appWarpClient.joinRoom(STATIC_ROOM_ID)
+    appWarpClient.joinRoomInRange (1, 1, false)
+    --appWarpClient.deleteRoom ( 1402891999 )
+  elseif(resultCode == WarpResponseResultCode.AUTH_ERROR) then
+    --statusText.text = "Incorrect app keys"
+    print("Incorrect app keys")
+  else
+    --statusText.text = "Connect Failed. Restart"
+    print("Connect Failed. Restart")
+  end  
+end
+
+function onCreateRoomDone(resultCode, roomId, roomName)
+  print("room id is: " .. roomId)
+  if(resultCode == WarpResponseResultCode.SUCCESS) then
+    isNewRoomCreated = true;
+    appWarpClient.joinRoom(roomId)
+     print("joining to: "  .. roomId .. " " .. roomName)
+
+    print("room created!!!")
+    --var = appWarpClient.getLiveRoomInfo(roomId);
+     
   else
     --statusText.text = "Room Join Failed"
+    print("Room Create Failed")
+  end  
+end
+
+function onDeleteRoomDone (resultCode , roomId , name )  
+
+  if(resultCode == WarpResponseResultCode.SUCCESS) then
+    print("room deleted: " .. roomId)
+  else
+    --statusText.text = "Room Join Failed"
+    print("Room Could be Deleted")
+  end  
+end
+
+--function onJoinRoomDone(resultCode)
+function onJoinRoomDone(resultCode, roomId)  
+  if(resultCode == WarpResponseResultCode.SUCCESS) then
+    --appWarpClient.subscribeRoom(STATIC_ROOM_ID)
+    appWarpClient.subscribeRoom(roomId)
+    print("Subscribing to room.." .. roomId)
+    appWarpClient.getAllRooms();
+
+  elseif(resultCode == WarpResponseResultCode.RESOURCE_NOT_FOUND) then
+    -- no room found with one user creating new room
+    print("creating room")
+    local roomPropertiesTable = {}
+    roomPropertiesTable["result"] = ""
+    appWarpClient.createRoom ( "testroom1" ,GameInfo.username ,2 ,nil ) 
+    
+    --appWarpClient.getAllRooms();
+  else
     print("Room Join Failed")
   end  
 end
+
+function onGetAllRoomsDone(resultCode , roomsTable )  
+
+  if(resultCode == WarpResponseResultCode.SUCCESS) then
+    print("room table: " .. table.getn(roomsTable))
+
+    for i=1, table.getn(roomsTable) do
+      print("pos" .. i .. ": " .. roomsTable[i])
+      --appWarpClient.deleteRoom ( roomsTable[i] )  
+    end
+    --appWarpClient.getLiveRoomInfo(roomsTable[1]) 
+  else
+    --statusText.text = "Room Join Failed"
+    print("Get All Rooms Failed")
+  end  
+end
+
+function onGetLiveRoomInfoDone (resultCode , roomTable )  
+
+  if(resultCode == WarpResponseResultCode.SUCCESS) then
+    --print("room ID: " .. roomId) -- .. " room_name: " roomTable.name)
+
+    print(roomTable.name)
+    --for i=1, table.getn(roomsTable) do
+    --  print("pos" .. i .. ": " .. roomsTable[i])
+    --end
+  else
+    --statusText.text = "Room Join Failed"
+    print("No Room Info Available")
+  end  
+
+end
+
 
 function onSubscribeRoomDone(resultCode)
   if(resultCode == WarpResponseResultCode.SUCCESS) then    
@@ -21,19 +106,6 @@ function onSubscribeRoomDone(resultCode)
   end  
 end
 
-function onConnectDone(resultCode)
-  if(resultCode == WarpResponseResultCode.SUCCESS) then
-    --statusText.text = "Joining Room.."
-    print("Joining Room..")
-    appWarpClient.joinRoom(STATIC_ROOM_ID)
-  elseif(resultCode == WarpResponseResultCode.AUTH_ERROR) then
-    --statusText.text = "Incorrect app keys"
-    print("Incorrect app keys")
-  else
-    --statusText.text = "Connect Failed. Restart"
-    print("Connect Failed. Restart")
-  end  
-end
 
 function onUpdatePeersReceived(update)
   local func = string.gmatch(update, "%S+")
@@ -297,6 +369,10 @@ end
 
 
 appWarpClient.addRequestListener("onConnectDone", onConnectDone)
+appWarpClient.addRequestListener("onCreateRoomDone", onCreateRoomDone)
+appWarpClient.addRequestListener("onGetAllRoomsDone", onGetAllRoomsDone)
+appWarpClient.addRequestListener("onGetLiveRoomInfoDone", onGetLiveRoomInfoDone)
+appWarpClient.addRequestListener("onDeleteRoomDone", onDeleteRoomDone)
 appWarpClient.addRequestListener("onJoinRoomDone", onJoinRoomDone)
 appWarpClient.addRequestListener("onSubscribeRoomDone", onSubscribeRoomDone)
 appWarpClient.addNotificationListener("onUpdatePeersReceived", onUpdatePeersReceived)

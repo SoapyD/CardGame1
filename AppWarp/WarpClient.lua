@@ -669,7 +669,8 @@
   
   function WarpClient.joinRoomInRange(minUsers, maxUsers, maxPreferred)
     warplog('WarpClient.joinRoomInRange')
-    if(_connectionState ~= WarpConnectionState.CONNECTED) then             
+    if(_connectionState ~= WarpConnectionState.CONNECTED) then   
+        print("nothing there")          
         return;
     end    
     local reqBodyTable = {}
