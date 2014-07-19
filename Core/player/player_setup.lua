@@ -19,7 +19,7 @@ function AddPlayer(username)
 		if ( GameInfo.player_list[i].username == username) then
 			add = false
 		end
-		--print("checked username:" .. GameInfo.player_list[i].username)
+		print("checked username:" .. GameInfo.player_list[i].username)
 	end
 
 	if ( add == true) then
