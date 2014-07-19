@@ -333,6 +333,8 @@ function CheckActionPos(network_used)
             ResetActionInternalState()
         end
 
+        DeathCheck(false)
+
         --print("action list size:" .. list_size .. " action_state:" .. action_state .. " action_internal_state: " .. action_internal_state)
 
         if ( network_used == false) then

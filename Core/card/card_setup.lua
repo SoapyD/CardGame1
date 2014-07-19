@@ -2,7 +2,24 @@
 
 local decks; -- The deck of Cards
 local suits = {"w","p","f","s","a","c"}; -- weapon, physical, focus, speed, armour, cheat
+local suit_names = {"WEAPON","PHYSICAL","FOCUS","SPEED","ARMOUR","CHEAT"};
 local dealBtn; -- the deal buttons
+
+function GetDeck()
+    return decks;
+end
+
+function Get_SuitNames()
+    return suit_names;
+end
+
+function TempReset()
+    --for i=1, 6 do
+    --    decks[i] = {}
+    --end
+
+    decks[3] = {}
+end
 
 --CREATE 4 DECKS CONTAINING 30 CARDS EACH. EACH DECK CONTAINS 2 OF THE EACH CARD (15 SETS)
 function createDeck()
@@ -52,7 +69,7 @@ function CheckDeck(deck_index, remove_item)
 
 	--RANDOMLY GENERATE A NUMBER FROM THE SIZE OF THE DECK
 	--local randIndex = math.random(#decks[deck_index])
-	local randIndex = 13
+	local randIndex = 1
     --print("indexnum: ", randIndex)
 
 	--GET THE CARD NAME SAVED AT THAT LIST INDEX POSITION

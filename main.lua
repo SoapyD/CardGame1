@@ -14,6 +14,7 @@ GameInfo = cGameInfo:new(0)
 
 require("Core.player.character_classes")
 require("Core.player.player_setup")
+require("Core.player.deathcheck")
 require("Core.functions.popup")
 require("main_setup")
 --require("main_loop")

@@ -27,6 +27,8 @@ function EndTurn(current_card)
     end
   end
 
+  DeathCheck(false)
+
   --ADD "PASS TURN" ACTION IF THE PLAY ACTION WASN'T DETECTED
   if (pospone_play == false) then
 

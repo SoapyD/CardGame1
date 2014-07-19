@@ -42,6 +42,8 @@ function onDeleteRoomDone (resultCode , roomId , name )
   end  
 end
 
+local join_state = 0
+
 --function onJoinRoomDone(resultCode)
 function onJoinRoomDone(resultCode, roomId)  
   if(resultCode == WarpResponseResultCode.SUCCESS) then
@@ -52,11 +54,15 @@ function onJoinRoomDone(resultCode, roomId)
 
   elseif(resultCode == WarpResponseResultCode.RESOURCE_NOT_FOUND) then
     -- no room found with one user creating new room
-    print("creating room")
-    local roomPropertiesTable = {}
-    roomPropertiesTable["result"] = ""
-    appWarpClient.createRoom ( "testroom1" ,GameInfo.username ,2 ,nil ) 
-    
+    if (join_state == 0) then
+      appWarpClient.joinRoomInRange (0, 0, false)
+      join_state = 1
+    else
+      print("creating room")
+      local roomPropertiesTable = {}
+      roomPropertiesTable["result"] = ""
+      appWarpClient.createRoom ( "testroom1" ,GameInfo.username ,2 ,nil ) 
+    end
     --appWarpClient.getAllRooms();
   else
     print("Room Join Failed")
