@@ -111,20 +111,22 @@ function player_check()
                 connection_state = connection_state + 1
             end,
         [4] = function() --ADVANCE THE GAMESTATE
-                if(GameInfo.player_list[1].username == GameInfo.username) then
-                    local SetupComplete = SetPlayerCards_Networked()
-                    if (SetupComplete == true) then
-                        GameInfo.gamestate = GameInfo.gamestate + 1
-                    end
-                else
-                    if (GameInfo.switch1 == true) then
-                        GameInfo.switch1 = false
-                        GameInfo.gamestate = GameInfo.gamestate + 1
-                        SetGame()
-                    end
+                --if(GameInfo.player_list[1].username == GameInfo.username) then
+                --    local SetupComplete = SetPlayerCards_Networked()
+                --    if (SetupComplete == true) then
+                --        GameInfo.gamestate = GameInfo.gamestate + 1
+                --    end
+                --else
+                --    if (GameInfo.switch1 == true) then
+                --        GameInfo.switch1 = false
+                --        GameInfo.gamestate = GameInfo.gamestate + 1
+                --        SetGame()
+                --    end
+                --end
+                local HandsSet = SetHands()
+                if (HandsSet == true) then
+                  GameInfo.gamestate = GameInfo.gamestate + 1
                 end
-                --Show_FOTable("", true)
-                --GameInfo.gamestate = GameInfo.gamestate + 1
             end,
         default = function () print( "ERROR - connection_state not within switch") end,
     }

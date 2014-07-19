@@ -328,9 +328,10 @@ function CheckActionPos(network_used)
         if (action_state < list_size) then
             action_state = action_state + 1
         else
-            GameInfo.actions = {}
-            ResetActionState()
-            ResetActionInternalState()
+            --GameInfo.actions = {}
+            --ResetActionState()
+            --ResetActionInternalState()
+            ResetActions()
         end
 
         DeathCheck(false)

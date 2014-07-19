@@ -108,65 +108,64 @@ function EndRound()
     local CheckState = switch { 
         [1] = function()    --RESET THE CARDS ON THE BOARD
 
-              for i=1, table.getn(GameInfo.cards) do
-                local card = GameInfo.cards[i]
-                card:removeSelf()
-              end
-
-              GameInfo.cards = {}
-
-              for i=1, table.getn(GameInfo.table_cards) do
-                local card = GameInfo.table_cards[i]
-                card:removeSelf()
-                camera:remove(card)
-              end
-
-              GameInfo.table_cards = {}
-              GameInfo.quads = {}
-              --ResetActionState()
-
-              GameInfo.current_card_int = -1
-              GameInfo.previous_card_int = -1
-              camera:toPoint(1750, 1750)
-
-              Reset_SetCards_state()
-              --GameInfo.current_player = 1
-
-              for i=1, table.getn(GameInfo.player_list) do
-                GameInfo.player_list[i].faceoff_card = ""
-              end
-
-              --if ( GameInfo.username ~= GameInfo.player_list[GameInfo.current_player].username) then
-              --  finalise_button.isVisible = false
-              --else
-              --  finalise_button.isVisible = true
+              --for i=1, table.getn(GameInfo.cards) do
+              --  local card = GameInfo.cards[i]
+              --  card:removeSelf()
               --end
-              check_FinalisationButton(GameInfo.current_player)
+
+              --GameInfo.cards = {}
+
+              --for i=1, table.getn(GameInfo.table_cards) do
+              --  local card = GameInfo.table_cards[i]
+              --  card:removeSelf()
+              --  camera:remove(card)
+              --end
+
+              --GameInfo.table_cards = {}
+              --GameInfo.quads = {}
+
+              --GameInfo.current_card_int = -1
+              --GameInfo.previous_card_int = -1
+              --camera:toPoint(1750, 1750)
+
+              --Reset_SetCards_state()
+
+              --for i=1, table.getn(GameInfo.player_list) do
+              --  GameInfo.player_list[i].faceoff_card = ""
+              --end
+
+              --check_FinalisationButton(GameInfo.current_player)
+
+              ResetCards()
 
               EndRound_state = EndRound_state + 1
 
             end,
         [2] = function()    --DRAW CARDS ON BOTH SIDES
 
-                if(GameInfo.player_list[1].username == GameInfo.username) then
-                    local SetupComplete = SetPlayerCards_Networked()
-                    if (SetupComplete == true) then
-                        EndRound_state = EndRound_state + 1
-                    end
-                else
-                    if (GameInfo.switch1 == true) then
-                        GameInfo.switch1 = false
-                        EndRound_state = EndRound_state + 1
-                        SetGame()
-                    end
+                --if(GameInfo.player_list[1].username == GameInfo.username) then
+                --    local SetupComplete = SetPlayerCards_Networked()
+                --    if (SetupComplete == true) then
+                --        EndRound_state = EndRound_state + 1
+                --    end
+                --else
+                --    if (GameInfo.switch1 == true) then
+                --        GameInfo.switch1 = false
+                --        EndRound_state = EndRound_state + 1
+                --        SetGame()
+                --    end
+                --end
+                local HandsSet = SetHands()
+                if (HandsSet == true) then
+                  EndRound_state = EndRound_state + 1
                 end
 
               end,
         [3] = function()    --END
-              GameInfo.actions = {}
-              ResetActionState()
-              ResetActionInternalState()
-              --Show_FOTable("", true)
+              --GameInfo.actions = {}
+              --ResetActionState()
+              --ResetActionInternalState()
+              ResetActions()
               reset_state = true
               set_MainState(1)
             end,

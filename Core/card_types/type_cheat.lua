@@ -88,7 +88,7 @@ function Check_CheatCards(filename)
                 card_info.name = "square-in-the-rocks"
                 set_stats(card_info, 5,0,0,0,0,2,0,0,"cheat",6,3)
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("prev_card", "damage", 0, 1)
-                card_info.actions[table.getn(card_info.actions) + 1] = set_action("heath", "", -7, 0)
+                card_info.actions[table.getn(card_info.actions) + 1] = set_action("health", "", -7, 0)
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("end_round", "", 0, -1)
             end,
         default = function () 

@@ -66,6 +66,4 @@ function DeathCheck(check_decks)
 				run_popup(empty_deck .. " DECK OUT OF CARDS.\n" .. "PLAYER " .. winner .. " WIN!")
 		end
 	end
-
-
 end

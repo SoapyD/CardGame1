@@ -3,13 +3,16 @@ function AddPlayer(username)
 
 	local player_info = {}
 	player_info.username = username
-	player_info.max_health = 40 - 39
-	player_info.health = player_info.max_health
-	player_info.armour = 0
-	player_info.max_arms = 2
-	player_info.arms = player_info.max_arms	
-	player_info.max_legs = 2
-	player_info.legs = player_info.max_legs	
+	--player_info.max_health = 40
+	--player_info.health = player_info.max_health
+	--player_info.armour = 0
+	--player_info.max_arms = 2
+	--player_info.arms = player_info.max_arms	
+	--player_info.max_legs = 2
+	--player_info.legs = player_info.max_legs
+
+	player_info = ResetPlayer(player_info)
+
 	player_info.character_info = CheckCharacter("test")
 
 	player_info.faceoff_card = ""

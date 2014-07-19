@@ -205,7 +205,6 @@ function mod_from_prev(applied_to, sub_action)
         local last_card_info = GameInfo.table_cards[GameInfo.previous_card_int]
         local last_card = retrieve_card(last_card_info.filename)
 
-
         Check_SubAction(applied_to, sub_action, last_card.power)
     end
 end
@@ -217,7 +216,6 @@ function mod_next()
 
         local current_card_info = GameInfo.table_cards[GameInfo.current_card_int]
         local current_card = retrieve_card(current_card_info.filename)
-
 
         local last_card_info = GameInfo.table_cards[GameInfo.previous_card_int]
         local last_card = retrieve_card(last_card_info.filename)
