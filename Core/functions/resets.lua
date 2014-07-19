@@ -6,12 +6,14 @@ function ResetGame()
 
     local CheckState = switch { 
         [1] = function()
+                ResetAllTables()
                 set_MainState(1) --RESET THE STATE IN MAIN_LOOP2
                 createDeck() --RESET THE DECKS
 
                 ResetActions()
                 ResetPlayers()
                 ResetCards()
+
             end,
         [2] = function() --DEAL OUT THE HANDS, WAIT, FOR IT TO COMPLETE
                 local HandsSet = SetHands()
@@ -27,6 +29,15 @@ function ResetGame()
     }
 
     CheckState:case(reset_state)
+end
+
+function ResetAllTables()
+    Hide_COTable()
+    Hide_DiscardTable()
+    Hide_DrawTable()
+    Hide_FOTable()
+    Hide_LimbTable()
+    Hide_VariableTable()
 end
 
 
