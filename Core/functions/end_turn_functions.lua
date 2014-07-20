@@ -27,8 +27,6 @@ function EndTurn(current_card)
     end
   end
 
-  DeathCheck(false)
-
   --ADD "PASS TURN" ACTION IF THE PLAY ACTION WASN'T DETECTED
   if (pospone_play == false) then
 
@@ -43,9 +41,15 @@ function EndTurn(current_card)
     GameInfo.actions[arr_pos] = temp_mods
   end
 
-  for i=1, table.getn(GameInfo.actions) do
-    print(GameInfo.actions[i].type)
-  end
+  --for i=1, table.getn(GameInfo.actions) do
+  --  print(GameInfo.actions[i].type)
+  --end
+
+  DeathCheck(false)
+end
+
+
+function CreateQuad(current_card)
 
   local Pos_Info = CheckBoard_Pos(current_card)
   section_num = Pos_Info[3]
@@ -79,8 +83,8 @@ function EndTurn(current_card)
   end
 
   local list_pos = Quad_Add(GameInfo.quads, quad_info)
-
 end
+
 
 function PassTurn()
   GameInfo.current_player = GameInfo.current_player + 1
@@ -107,54 +111,11 @@ function EndRound()
 
     local CheckState = switch { 
         [1] = function()    --RESET THE CARDS ON THE BOARD
-
-              --for i=1, table.getn(GameInfo.cards) do
-              --  local card = GameInfo.cards[i]
-              --  card:removeSelf()
-              --end
-
-              --GameInfo.cards = {}
-
-              --for i=1, table.getn(GameInfo.table_cards) do
-              --  local card = GameInfo.table_cards[i]
-              --  card:removeSelf()
-              --  camera:remove(card)
-              --end
-
-              --GameInfo.table_cards = {}
-              --GameInfo.quads = {}
-
-              --GameInfo.current_card_int = -1
-              --GameInfo.previous_card_int = -1
-              --camera:toPoint(1750, 1750)
-
-              --Reset_SetCards_state()
-
-              --for i=1, table.getn(GameInfo.player_list) do
-              --  GameInfo.player_list[i].faceoff_card = ""
-              --end
-
-              --check_FinalisationButton(GameInfo.current_player)
-
               ResetCards()
 
               EndRound_state = EndRound_state + 1
-
             end,
         [2] = function()    --DRAW CARDS ON BOTH SIDES
-
-                --if(GameInfo.player_list[1].username == GameInfo.username) then
-                --    local SetupComplete = SetPlayerCards_Networked()
-                --    if (SetupComplete == true) then
-                --        EndRound_state = EndRound_state + 1
-                --    end
-                --else
-                --    if (GameInfo.switch1 == true) then
-                --        GameInfo.switch1 = false
-                --        EndRound_state = EndRound_state + 1
-                --        SetGame()
-                --    end
-                --end
                 local HandsSet = SetHands()
                 if (HandsSet == true) then
                   EndRound_state = EndRound_state + 1
@@ -162,9 +123,6 @@ function EndRound()
 
               end,
         [3] = function()    --END
-              --GameInfo.actions = {}
-              --ResetActionState()
-              --ResetActionInternalState()
               ResetActions()
               reset_state = true
               set_MainState(1)
@@ -177,5 +135,10 @@ function EndRound()
     if (reset_state == true) then
       EndRound_state = 1
     end
+
+end
+
+
+function Hand_EndCheck()
 
 end

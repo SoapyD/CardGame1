@@ -295,20 +295,20 @@ function CheckActionState()
         default = function () print( "ERROR - GameInfo Action not within switch") end,
     }
 
-    if (table.getn(GameInfo.actions) > 0 ) then
+    if (table.getn(GameInfo.actions) > 0 and GameInfo.end_game == false) then
         --print("applied to" .. GameInfo.actions[action_state].applied_to)
     	if (GameInfo.actions[action_state].applied_to == 0 and
             GameInfo.username == GameInfo.player_list[GameInfo.current_player].username) then
     	   CheckState:case(GameInfo.actions[action_state].type)
         end
     end
-    if (table.getn(GameInfo.actions) > 0 ) then
+    if (table.getn(GameInfo.actions) > 0 and GameInfo.end_game == false) then
         if (GameInfo.actions[action_state].applied_to == 1 and
             GameInfo.username ~= GameInfo.player_list[GameInfo.current_player].username) then
             CheckState:case(GameInfo.actions[action_state].type)
         end
     end
-    if (table.getn(GameInfo.actions) > 0 ) then
+    if (table.getn(GameInfo.actions) > 0 and GameInfo.end_game == false) then
         if (GameInfo.actions[action_state].applied_to == -1) then
             CheckState:case(GameInfo.actions[action_state].type)
         end

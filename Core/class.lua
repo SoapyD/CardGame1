@@ -57,7 +57,11 @@ function cGameInfo.methods:init(gamestate)
 	self.pause_main = false
 	self.pause_add = 0
 
-	finalise_state = 1	
+	self.finalise_state = 1	--recently changed, didn't have a self. intil 20/07/14
+
+	self.end_game = false
+	self.winner = -1
+	self.loser = -1
 
 	self.card_group = display.newGroup()
 end

@@ -15,6 +15,10 @@ function run_main_loop()
     	GameInfo.frame_num = 0
     end
 
+    Run_PlayerText()
+
+    --if (GameInfo.end_game == false) then
+
     local CheckState = switch { 
         [1] = function()
 				--print("Round Initiation!!!!")
@@ -86,6 +90,12 @@ function run_main_loop()
     }
 
     CheckState:case(main_loop_state)
+
+	--else
+		--end_game == true SECTION
+		--run_popup("END GAME")
+
+	--end --end_game == false function end 
 
 end
 

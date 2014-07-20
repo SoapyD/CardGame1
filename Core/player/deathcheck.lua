@@ -1,36 +1,40 @@
 
-local end_game = false
-local winner = -1
-local loser = -1
+--local end_game = false
+--local winner = -1
+--local loser = -1
 
 function Reset_DeathCheck()
-	end_game = false
-	winner = -1
-	loser = -1
+	GameInfo.end_game = false
+	GameInfo.winner = -1
+	GameInfo.loser = -1
 end
 
 function DeathCheck(check_decks)
 
-	if (end_game == false) then
+	if (GameInfo.end_game == false) then
 
 		--CHECK TO SEE IF EITHER PLAYER HAS DIED
 		for i=1, table.getn(GameInfo.player_list) do
 			local player = GameInfo.player_list[i]
 			if (player.health <= 0) then
-				end_game = true
-				loser = i
-				winner = i + 1
-				if (winner > 2) then
-					winner = 1
+				GameInfo.end_game = true
+				GameInfo.loser = i
+				GameInfo.winner = i + 1
+				if (GameInfo.winner > 2) then
+					GameInfo.winner = 1
 				end
 			end
 		end
 
 		if (end_game == true) then
-			run_popup("PLAYER " .. loser .. " HAS DIED.\n" .. "PLAYER " .. winner .. " WIN!")
+			run_popup("PLAYER " .. GameInfo.loser .. " HAS DIED.\n" .. "PLAYER " .. GameInfo.winner .. " WIN!")
 		end
+	end
+end
 
-		--TempReset()
+
+function DeckDeath()
+	if (GameInfo.end_game == false) then
 
 		--CHECK THE DECKS TO SEE IF THEY'VE RUN OUT OF CARDS
 		local decks = GetDeck()
@@ -57,13 +61,13 @@ function DeathCheck(check_decks)
 				end
 			end				
 
-			end_game = true
-			winner = saved_player
-			loser = saved_player + 1
-			if (loser > 2) then
-				loser = 1
+			GameInfo.end_game = true
+			GameInfo.winner = saved_player
+			GameInfo.loser = saved_player + 1
+			if (GameInfo.loser > 2) then
+				GameInfo.loser = 1
 			end
-				run_popup(empty_deck .. " DECK OUT OF CARDS.\n" .. "PLAYER " .. winner .. " WIN!")
+				run_popup(empty_deck .. " DECK OUT OF CARDS.\n" .. "PLAYER " .. GameInfo.winner .. " WIN!")
 		end
 	end
 end

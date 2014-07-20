@@ -8,6 +8,7 @@ require("Core.functions.quad_method")
 require("Core.functions.colors-rgb")
 require("Core.functions.resets")
 require("Core.functions.end_turn_functions")
+require("Core.functions.popup")
 
 require("Core.class")
 
@@ -16,7 +17,8 @@ GameInfo = cGameInfo:new(0)
 require("Core.player.character_classes")
 require("Core.player.player_setup")
 require("Core.player.deathcheck")
-require("Core.functions.popup")
+require("Core.player.update_player_text")
+
 require("main_setup")
 --require("main_loop")
 require("main_loop2")

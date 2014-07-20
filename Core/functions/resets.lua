@@ -13,7 +13,6 @@ function ResetGame()
                 ResetActions()
                 ResetPlayers()
                 ResetCards()
-
             end,
         [2] = function() --DEAL OUT THE HANDS, WAIT, FOR IT TO COMPLETE
                 local HandsSet = SetHands()
@@ -56,7 +55,7 @@ function ResetPlayers()
 end
 
 function ResetPlayer(player)
-    player.max_health = 40
+    player.max_health = 40 - 39
     player.health = player.max_health
     player.armour = 0
     player.max_arms = 2
