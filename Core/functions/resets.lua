@@ -6,6 +6,7 @@ function ResetGame()
 
     local CheckState = switch { 
         [1] = function()
+                print("resetting game")
                 ResetAllTables()
                 set_MainState(1) --RESET THE STATE IN MAIN_LOOP2
                 createDeck() --RESET THE DECKS
@@ -13,21 +14,32 @@ function ResetGame()
                 ResetActions()
                 ResetPlayers()
                 ResetCards()
+                reset_state = reset_state + 1
             end,
         [2] = function() --DEAL OUT THE HANDS, WAIT, FOR IT TO COMPLETE
+                
                 local HandsSet = SetHands()
                 if (HandsSet == true) then
+                    print("resetting hand finished")
                   reset_state = reset_state + 1
                 end
             end,
         [3] = function() --FINISH RESET/
-
+            print("resetting finish")
+            Reset_DeathCheck()
+            reset_state = 1
             end,
 
         default = function () print( "ERROR - sub_type not within reset_state") end,
     }
 
     CheckState:case(reset_state)
+end
+
+function Reset_DeathCheck()
+    GameInfo.end_game = false
+    GameInfo.winner = -1
+    GameInfo.loser = -1
 end
 
 function ResetAllTables()
@@ -50,11 +62,16 @@ function ResetPlayers()
     for i=1, table.getn(GameInfo.player_list) do
         local player = GameInfo.player_list[i]
 
-        player = ResetPlayer(player)         
+        player = ResetPlayer(player, player.username)
+        print("player: " .. player.username)       
     end
 end
 
-function ResetPlayer(player)
+function ResetPlayer(player, username)
+    player.username = username
+    player.character_info = CheckCharacter("test")
+    player.faceoff_card = ""
+
     player.max_health = 40 - 39
     player.health = player.max_health
     player.armour = 0

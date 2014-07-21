@@ -77,6 +77,7 @@ function CheckActionState()
 
                 local CheckState = switch { 
                     [0] = function()    --TURN ON THE FACEOFF SCREEN
+                        --print("health value: " .. Action.value)
                         appWarpClient.sendUpdatePeers(
                             tostring("health_delay") .. " " .. 
                             tostring(Action.value) .. " " ..
@@ -86,6 +87,7 @@ function CheckActionState()
                         --CheckActionPos(false)
                         end,
                     [1] = function()    --ENDS IN WARPLISTENER, OVER THE NETWORK
+                    print("HEALTH DELAY ENDSs")
                         end,
                     default = function () print("ERROR - action_internal_state not within switch") end,
                 }
@@ -317,7 +319,7 @@ function CheckActionState()
     --if (table.getn(GameInfo.actions) > 0 ) then
     --    print(GameInfo.actions[action_state].type .. ", INTERNAL: " .. action_internal_state)
     --end
-
+    DeathCheck(false)
 end
 
 function CheckActionPos(network_used)

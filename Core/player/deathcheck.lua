@@ -3,12 +3,6 @@
 --local winner = -1
 --local loser = -1
 
-function Reset_DeathCheck()
-	GameInfo.end_game = false
-	GameInfo.winner = -1
-	GameInfo.loser = -1
-end
-
 function DeathCheck(check_decks)
 
 	if (GameInfo.end_game == false) then
@@ -25,6 +19,8 @@ function DeathCheck(check_decks)
 				end
 			end
 		end
+		--print("winner: " .. GameInfo.winner)
+		--print("loser: " .. GameInfo.loser)
 
 		if (end_game == true) then
 			run_popup("PLAYER " .. GameInfo.loser .. " HAS DIED.\n" .. "PLAYER " .. GameInfo.winner .. " WIN!")

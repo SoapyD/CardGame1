@@ -45,7 +45,7 @@ function EndTurn(current_card)
   --  print(GameInfo.actions[i].type)
   --end
 
-  DeathCheck(false)
+  --DeathCheck(false)
 end
 
 

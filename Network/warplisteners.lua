@@ -161,7 +161,7 @@ function onUpdatePeersReceived(update)
 
   if (update_type == "finish_draw") then --REGISTER THAT THE RECEIVER HAS RECEIVED A MESSAGE
     local username = tostring(func())
-
+    print("FINISHING DRAW")
     if (username ~= GameInfo.username) then
          appWarpClient.sendUpdatePeers(
             tostring("complete_action") .. " " .. 
@@ -233,7 +233,7 @@ function onUpdatePeersReceived(update)
   if (update_type == "health_delay") then
     local health_modifier = tonumber(func())
     local applied_to = tonumber(func())
-    print("health mod " .. applied_to)
+    --print("health mod " .. health_modifier)
     --mod_health(1,health_modifier)
     mod_health(applied_to,health_modifier)
     CheckActionPos(true)

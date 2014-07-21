@@ -154,6 +154,7 @@ function SetPlayerCards_Networked()
                 DrawCharacterCards()
 
                 SetGame()
+                print("SENDING FINISH")
 
                 appWarpClient.sendUpdatePeers(
                     tostring("finish_draw") .. " " ..

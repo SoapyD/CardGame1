@@ -17,7 +17,9 @@ function run_main_loop()
 
     Run_PlayerText()
 
-    --if (GameInfo.end_game == false) then
+    --GameInfo.end_game = false
+
+    if (GameInfo.end_game == false) then
 
     local CheckState = switch { 
         [1] = function()
@@ -91,11 +93,12 @@ function run_main_loop()
 
     CheckState:case(main_loop_state)
 
-	--else
+	else
 		--end_game == true SECTION
 		--run_popup("END GAME")
+		ResetGame()
 
-	--end --end_game == false function end 
+	end --end_game == false function end 
 
 end
 

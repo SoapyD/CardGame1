@@ -2,12 +2,8 @@
 function AddPlayer(username)
 
 	local player_info = {}
-	player_info.username = username
-	player_info = ResetPlayer(player_info)
 
-	player_info.character_info = CheckCharacter("test")
-
-	player_info.faceoff_card = ""
+	player_info = ResetPlayer(player_info, username)
 
 	local add = true
 	for i=1, table.getn(GameInfo.player_list) do
