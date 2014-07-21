@@ -1,13 +1,20 @@
 
 
 local reset_state = 1
+local reset_counter = 0
 
 function ResetGame()
 
+
     local CheckState = switch { 
         [1] = function()
-                print("resetting game")
                 ResetAllTables()
+                Show_EndTable()
+                reset_state = reset_state + 1
+            end,
+        [2] = function()
+                print("RESETTING GAME")
+                clear_popup()
                 set_MainState(1) --RESET THE STATE IN MAIN_LOOP2
                 createDeck() --RESET THE DECKS
 
@@ -16,17 +23,30 @@ function ResetGame()
                 ResetCards()
                 reset_state = reset_state + 1
             end,
-        [2] = function() --DEAL OUT THE HANDS, WAIT, FOR IT TO COMPLETE
+        [3] = function() --DEAL OUT THE HANDS, WAIT, FOR IT TO COMPLETE
                 
                 local HandsSet = SetHands()
                 if (HandsSet == true) then
-                    print("resetting hand finished")
-                  reset_state = reset_state + 1
+                    print("HAND RESET FINISHED")
+                    run_card_loop()
+                    reset_state = reset_state + 1
                 end
             end,
-        [3] = function() --FINISH RESET/
+        [4] = function() --SET TIMER
+                reset_counter = 3 * 60
+                reset_state = reset_state + 1
+            end,
+        [5] = function() --SET TIMER
+                reset_counter = reset_counter - 1
+
+                if (reset_counter <= 0) then
+                    reset_state = reset_state + 1
+                end
+            end,
+        [6] = function() --FINISH RESET/
             print("resetting finish")
             Reset_DeathCheck()
+            Hide_EndTable()
             reset_state = 1
             end,
 
@@ -63,7 +83,7 @@ function ResetPlayers()
         local player = GameInfo.player_list[i]
 
         player = ResetPlayer(player, player.username)
-        print("player: " .. player.username)       
+        print("player: " .. player.username .. " life: " .. player.health)       
     end
 end
 
@@ -72,8 +92,8 @@ function ResetPlayer(player, username)
     player.character_info = CheckCharacter("test")
     player.faceoff_card = ""
 
-    player.max_health = 40 - 39
-    player.health = player.max_health
+    player.max_health = 40
+    player.health = player.max_health - 39
     player.armour = 0
     player.max_arms = 2
     player.arms = player.max_arms 

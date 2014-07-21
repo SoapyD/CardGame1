@@ -23,7 +23,7 @@ function run_main_loop()
 
     local CheckState = switch { 
         [1] = function()
-				--print("Round Initiation!!!!")
+				print("Round Initiation!!!!")
 				--Show_FOTable("", true)
 				--main_loop_state = main_loop_state + 1
 				main_loop_state = 5
@@ -95,10 +95,13 @@ function run_main_loop()
 
 	else
 		--end_game == true SECTION
-		--run_popup("END GAME")
+		--print("END GAME")
 		ResetGame()
 
 	end --end_game == false function end 
+
+    --CHECK THE NETWORK CONNECTION
+    appWarpClient.Loop()
 
 end
 
@@ -157,8 +160,5 @@ function GameLoop()
 	statusText2.text = GameInfo.print_string2
 	statusText2.x = statusText2.width / 2
 	statusText2.y = bar2.y + (bar2.height / 2) - statusText2.height / 2
-
-    --CHECK THE NETWORK CONNECTION
-    appWarpClient.Loop()
 end
 

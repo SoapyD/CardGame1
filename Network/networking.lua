@@ -154,7 +154,7 @@ function SetPlayerCards_Networked()
                 DrawCharacterCards()
 
                 SetGame()
-                print("SENDING FINISH")
+                print("SENDING FINISH" .. GameInfo.username)
 
                 appWarpClient.sendUpdatePeers(
                     tostring("finish_draw") .. " " ..
@@ -163,6 +163,7 @@ function SetPlayerCards_Networked()
                 SetCards_state = SetCards_state + 1
             end,
         [1] = function()    --WAIT TO RECEIVE THE COMPLETE STATUS
+
                 if (GameInfo.switch1 == true) then
 
                     GameInfo.switch1 = false
