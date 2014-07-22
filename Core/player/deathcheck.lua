@@ -5,27 +5,84 @@
 
 function RoundCheck()
 
-	if (GameInfo.end_game == false) then
+	local any_allowed = false
 
-		if (GameInfo.username == GameInfo.player_list[GameInfo.current_player].username) then
+	--if (GameInfo.end_game == false) then
+
+		if (GameInfo.username == GameInfo.player_list[GameInfo.current_player].username and
+			GameInfo.current_card_int ~= -1) then
+			--GameInfo.previous_card_int ~= -1) then
 			--local card_count = 0
+			print("CURRENT: " .. GameInfo.current_card_int)
+			--print("PREVIOUS: " .. GameInfo.previous_card_int)
+
+			--needs to be the last card on the table
+			local last_card = GameInfo.table_cards[GameInfo.current_card_int]
+			--local last_card = GameInfo.table_cards[GameInfo.previous_card_int]
+			--print("card:  " .. last_card.filename)
+			local pos_info = CheckBoard_Pos(last_card)
+			local surrounding_info = GetSurrounding_Sections(pos_info[3])
+
+			--print(table.getn(surrounding_info))
 
 			for i = 1, table.getn(GameInfo.cards) do
 				local hand_card = GameInfo.cards[i]
 				if (hand_card.isVisible == true) then
-					--card_count = card_count + 1
+					--print("checking: " .. )
+					for n = 1, table.getn(surrounding_info) do
+						--NEED TO LOOP THROUGH AVAILABLE POSITIONS ON THE BOARD AROUND
+						--THE CURRENT CARD
+						--ALSO NEEDS TO BE DONE IN ALL ROTATIONS
 
-					--NEED TO LOOP THROUGH AVAILABLE POSITIONS ON THE BOARD AROUND
-					--THE CURRENT CARD
-
-					--local pos_info = CheckBoard_Pos(t)
-					--Check_Quad_Region(t, pos_info[3], false)
+						--local pos_info = CheckBoard_Pos(surrounding_info[n].section)
+						
+						for rotation=0,-360,-90 do
+							--print(rotation)
+							hand_card.rotation = rotation
+							local allow_placement = false
+							if (surrounding_info[n].card_found == false) then
+								--print("card found: " , surrounding_info[n].card_found)
+								allow_placement = Check_Quad_Region(hand_card, surrounding_info[n].section, false)
+								--print("SINGLE CHECK: " , allow_placement)
+							end
+							
+							if (allow_placement == true) then
+								any_allowed = true
+							end
+						end
+						--card_count = card_count + 1
+					end
 				end
 			end
 
-		end 
-	end
+			print("CAN YOU PLAY A CARD?: " , any_allowed)
 
+			if (any_allowed == false) then
+				
+				winner = GameInfo.current_player + 1
+				if (winner > 2) then
+					winner = 1
+				end
+
+				local card_info = retrieve_card(last_card.filename)
+
+				run_popup("PLAYER " .. winner .. " WINS ROUND\nINFLICTS " .. card_info.power .. " DAMAGE")
+				--GameInfo.player_list[GameInfo.current_player]
+
+				appWarpClient.sendUpdatePeers(
+                    tostring("health_delay") .. " " .. 
+                    tostring(-card_info.power) .. " " ..
+                    tostring(0))
+				--GameInfo.round_damage = -card_info.power
+
+				appWarpClient.sendUpdatePeers(
+                    tostring("end_round"))
+				--EndRound()
+			end
+
+		end 
+	--end
+	return any_allowed
 end
 
 function DeathCheck(check_decks)

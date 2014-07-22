@@ -44,6 +44,7 @@ function EndTurn(current_card)
   --for i=1, table.getn(GameInfo.actions) do
   --  print(GameInfo.actions[i].type)
   --end
+  CreateQuad(current_card)
 
   --DeathCheck(false)
 end
@@ -108,7 +109,6 @@ function EndRound()
   --print("round ended")
     local reset_state = false
 
-
     local CheckState = switch { 
         [1] = function()    --RESET THE CARDS ON THE BOARD
               ResetCards()
@@ -136,6 +136,7 @@ function EndRound()
       EndRound_state = 1
     end
 
+    return reset_state
 end
 
 

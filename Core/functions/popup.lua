@@ -12,6 +12,11 @@ local options =
 --end
 }
 
+--function run_popup(message)
+--    MsgText.text = MsgText.text .. "\n" .. message
+--    MsgBox.fade = 2	
+--end
+
 function run_popup(message)
     MsgText.text = message
     MsgBox.fade = 2	
@@ -23,6 +28,7 @@ function clear_popup()
 	MsgBox:setFillColor( colorsRGB.RGB("white"),MsgBox.msg_fade )
 	MsgBox:setStrokeColor( 200,200,200,MsgBox.msg_fade )
 	MsgText:setFillColor( colorsRGB.RGB("black"), MsgBox.msg_fade)
+	MsgText.text = ""
 end
 
 function createMsgBox()
@@ -66,6 +72,7 @@ function setMsgFade()
 				MsgBox.msg_fade = MsgBox.msg_fade - itts
 			else
 				MsgBox.msg_fade = 0
+				MsgText.text = ""
 			end
 			fade_adjusted = true
 		end

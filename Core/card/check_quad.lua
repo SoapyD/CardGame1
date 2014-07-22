@@ -1,5 +1,7 @@
 --local quads = {};
 function Check_Quad_Region(current_card, search_section, full_check)
+    --FULL CHECK IS USED ONLY TO SEE IF A POSITION IS AVAILABLE FOR PLACEMENT
+    --IT ALSO TURNS OFF THE CHECK FOR TOUCHING THE CURRENT CARD
 
 	local pos_num = 1
 	local current_info = retrieve_card(current_card.filename)
@@ -54,9 +56,11 @@ function Check_Quad_Region(current_card, search_section, full_check)
                             allow_placement = false
                         end
 
-                        if (quad.unique_id ==
-                            GameInfo.table_cards[GameInfo.previous_card_int].unique_id) then
-                            current_check = true
+                        if (GameInfo.previous_card_int ~= -1) then
+                            if (quad.unique_id ==
+                                GameInfo.table_cards[GameInfo.previous_card_int].unique_id) then
+                                current_check = true
+                            end
                         end
                         touch_count = touch_count + 1
                     end
@@ -70,10 +74,12 @@ function Check_Quad_Region(current_card, search_section, full_check)
     if ( touch_count == 0 and table.getn(GameInfo.quads) > 0) then
         allow_placement = false
         --run_popup("Not touching other cards.")
-        popup_message =
+        popup_message = "Not touching other cards."
     end
 
-    if (current_check == false and table.getn(GameInfo.quads) > 0) then
+    if (current_check == false and table.getn(GameInfo.quads) > 0
+        and GameInfo.previous_card_int ~= -1
+        and full_check == true) then
         allow_placement = false
         --run_popup("Not touching the last card placed. Prev: " .. GameInfo.previous_card_int)
         popup_message = "Not touching the last card placed. Prev: " .. GameInfo.previous_card_int
@@ -93,10 +99,16 @@ function Check_Quad_Region(current_card, search_section, full_check)
         allow_placement = false
     end
     
+    local used_pos = -1
+    if (full_check == true) then
+        used_pos = GameInfo.previous_card_int
+    else
+        used_pos = GameInfo.current_card_int
+    end
 
-    if (GameInfo.previous_card_int ~= -1) then
+    if (used_pos ~= -1) then
         --Check to see if the attacking card type is blocked
-        local last_card_info = GameInfo.table_cards[GameInfo.previous_card_int]
+        local last_card_info = GameInfo.table_cards[used_pos]
         local last_card = retrieve_card(last_card_info.filename)
         --print("file name: " .. last_card_info.filename .. " size: " .. table.getn(last_card.actions))
 
@@ -126,9 +138,12 @@ function Check_Quad_Region(current_card, search_section, full_check)
             finalise_button.isVisible = false
             finalise_button.text.isVisible = false
         end
-        run_popup(popup_message)
+        if (popup_message ~= "") then
+            run_popup(popup_message)
+        end
 
     else
+        --print("popup: " ..  popup_message .. " allow: " , allow_placement)
         --NO NOTHING, THIS CHECK IS USED DURING THE DEATHCHECK
     end
 
@@ -212,9 +227,9 @@ function compare_card_info(clash_dir, current_card, current_info, quad, surround
     local return_info = false
 
     if (current_val >= opposite_val or current_val == -1 or opposite_val == -1) then
-        --print("placement available, curr:" .. current_val .. ", opp:" .. opposite_val)
+    --    print("placement available, curr:" .. current_val .. ", opp:" .. opposite_val)
         return_info = true
-    --else
+    else
     --    print("CAN'T PLACE")
     end
 

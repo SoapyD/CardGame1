@@ -1,5 +1,7 @@
 
 local main_loop_state = 1
+local end_round_state = 1
+local end_timer = 0
 
 function set_MainState(state_value)
 	main_loop_state = state_value
@@ -7,7 +9,7 @@ end
 
 
 function run_main_loop()
-
+	
 	GameInfo.print_string = ""
 
 	GameInfo.frame_num= GameInfo.frame_num + 1;
@@ -99,6 +101,34 @@ function run_main_loop()
 		ResetGame()
 
 	end --end_game == false function end 
+
+	if (GameInfo.end_round == true) then
+
+    local CheckState2 = switch { 
+        [1] = function()
+				--GameInfo.round_damage = 0
+        		end_timer = 60 * 3
+        		end_round_state = end_round_state + 1
+            end,
+        [2] = function()
+        		end_timer = end_timer - 1
+        		if (end_timer <= 0) then
+        			end_round_state = end_round_state + 1
+        		end
+            end,
+        [3] = function() --START-GAME FACEOFF, DETERMINES ROUND'S STARTING PLAYER
+				local Round_Ended = EndRound()
+				if (Round_Ended == true) then
+					GameInfo.end_round = false
+				end
+            end,
+
+        default = function () print( "ERROR - sub_type not within main_loop_state") end,
+    }
+
+    CheckState2:case(end_round_state)
+
+	end
 
     --CHECK THE NETWORK CONNECTION
     appWarpClient.Loop()

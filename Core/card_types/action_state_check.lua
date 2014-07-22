@@ -246,6 +246,7 @@ function CheckActionState()
                         run_popup("Play Another Card.")
                         --reset_DoubleDamage()
                         action_internal_state = 1
+                        RoundCheck()
                         end,
                     [1] = function()    --WAIT FOR THE ACTION TO COMPLETE
                         CheckActionPos(false) --DONE THIS WAS AS BOTH PLAYERS RUN THIS FUNCTION AT THE SAME TIME AS IT'S -1
@@ -263,6 +264,7 @@ function CheckActionState()
                     [1] = function()    --PASS THE TURN
                         PassTurn()
                         reset_DoubleDamage()
+                        RoundCheck()
                         action_internal_state = 2
                         end,
                     [2] = function()    --WAIT FOR THE ACTION TO COMPLETE
@@ -320,6 +322,7 @@ function CheckActionState()
     --    print(GameInfo.actions[action_state].type .. ", INTERNAL: " .. action_internal_state)
     --end
     DeathCheck(false)
+    --RoundCheck()
 end
 
 function CheckActionPos(network_used)

@@ -93,7 +93,7 @@ function ResetPlayer(player, username)
     player.faceoff_card = ""
 
     player.max_health = 40
-    player.health = player.max_health - 39
+    player.health = player.max_health
     player.armour = 0
     player.max_arms = 2
     player.arms = player.max_arms 

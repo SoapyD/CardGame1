@@ -2,6 +2,7 @@ function SetGame()
     --portrait:toFront()
     statusText:toFront()
     statusText2:toFront()
+    --GameInfo.screen_elements2:toFront()
     --statusText3:toFront()
 
 	--for i = 1, table.getn(GameInfo.cards) do

@@ -9,6 +9,7 @@ require("Core.functions.colors-rgb")
 require("Core.functions.resets")
 require("Core.functions.end_turn_functions")
 require("Core.functions.popup")
+require("Core.functions.get_surrounding")
 
 require("Core.class")
 

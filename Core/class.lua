@@ -27,10 +27,12 @@ function cGameInfo.methods:init(gamestate)
 	self.zoom_saved  = 0
 	self.new_camera_pos = {}
 
+	self.screen_elements = {}
+	self.screen_elements2 = {}
+
 	self.table_items = {}
 	self.faceoff_screen = {}
 	self.counter_screen = {}
-	self.screen_elements = {}
 	self.draw_screen = {}
 	self.discard_screen = {}
 	self.limb_screen = {}
@@ -62,6 +64,8 @@ function cGameInfo.methods:init(gamestate)
 	self.end_game = false
 	self.winner = -1
 	self.loser = -1
+	self.end_round = false
+	--self.round_damage = 0
 
 	self.card_group = display.newGroup()
 end

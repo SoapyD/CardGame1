@@ -65,8 +65,16 @@ function CheckDiscard(current_card)
 
     CheckState:case(sub_action)
 
+    local card_available = false
+    for i = 1, table.getn(GameInfo.cards) do
+        local hand_card = GameInfo.cards[i]
+        if (hand_card.isVisible == true) then
+            card_available = true
+        end
+    end
+
     if (discard_state == 1) then
-        if (discard_max <= 1) then
+        if (discard_max <= 1 or card_available == false) then
         --    Hide_DiscardTable(false)
             appWarpClient.sendUpdatePeers(
                 tostring("hide_discard") .. " " .. 

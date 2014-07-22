@@ -31,6 +31,7 @@ function player_check()
 
     local CheckState = switch { 
         [0] = function()    --CHECK PLAYERS ARE CONNECTED
+                Show_EndTable()
 
                 if (GameInfo.attacker_ready == true and
                     GameInfo.opponent_ready == true) then
@@ -126,7 +127,9 @@ function player_check()
                 local HandsSet = SetHands()
                 if (HandsSet == true) then
                   GameInfo.gamestate = GameInfo.gamestate + 1
+                  Hide_EndTable()
                 end
+                
             end,
         default = function () print( "ERROR - connection_state not within switch") end,
     }

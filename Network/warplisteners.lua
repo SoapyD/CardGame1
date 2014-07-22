@@ -371,6 +371,11 @@ function onUpdatePeersReceived(update)
 
   end
 
+  if (update_type == "end_round") then
+    --EndRound()
+    GameInfo.end_round = true
+  end
+
 end
 
 
