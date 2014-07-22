@@ -1,5 +1,5 @@
 --local quads = {};
-function Check_Quad_Region(current_card, search_section, check_positioning)
+function Check_Quad_Region(current_card, search_section, full_check)
 
 	local pos_num = 1
 	local current_info = retrieve_card(current_card.filename)
@@ -8,110 +8,88 @@ function Check_Quad_Region(current_card, search_section, check_positioning)
     local touch_count = 0
     local current_check = false
 
-    if (check_positioning == true) then
-        if (table.getn(GameInfo.quads) > 0) then
+    local popup_message = ""
 
-        	for y = -1, 1 do
-        		for x = -1, 1 do
-        			if ( x == 0 and (y == -1 or y == 1)) or
-        			( y == 0 and (x == -1 or x == 1)) then
-        				local check_pos = search_section
-        				check_pos = check_pos + x
-        				check_pos = check_pos + (y * GameInfo.world_width)
+    if (table.getn(GameInfo.quads) > 0) then
 
-                        local return_info = {}
-                        local search_quad = {}
-                        search_quad.section_num = check_pos
-                        return_info = Quad_Check(GameInfo.quads, search_quad)
+        for y = -1, 1 do
+        	for x = -1, 1 do
+        		if ( x == 0 and (y == -1 or y == 1)) or
+        		( y == 0 and (x == -1 or x == 1)) then
+        			local check_pos = search_section
+        			check_pos = check_pos + x
+        			check_pos = check_pos + (y * GameInfo.world_width)
 
-                        local direction = -1
-                        if (x == 0 and y == -1) then
-                            direction = 1
+                    local return_info = {}
+                    local search_quad = {}
+                    search_quad.section_num = check_pos
+                    return_info = Quad_Check(GameInfo.quads, search_quad)
+
+                    local direction = -1
+                    if (x == 0 and y == -1) then
+                        direction = 1
+                    end
+                    if (x == 0 and y == 1) then
+                        direction = 3
+                    end
+                    if (y == 0 and x == -1) then
+                        direction = 4
+                    end
+                    if (y == 0 and x == 1) then
+                        direction = 2
+                    end
+
+                    if (return_info[2] == -1) then
+                        --print("no card, " .. direction)
+                    else
+                        local quad = GameInfo.quads[return_info[2]]
+                        local surrounding_info = retrieve_card(quad.filename)
+
+                        local temp_allow = compare_card_info(direction, current_card, current_info,
+                            quad, surrounding_info)
+
+                        if ( temp_allow == false) then
+                            --run_popup("Can't use card, strat points not high enough")
+                            popup_message = "Can't use card, strat points not high enough"
+                            allow_placement = false
                         end
-                        if (x == 0 and y == 1) then
-                            direction = 3
+
+                        if (quad.unique_id ==
+                            GameInfo.table_cards[GameInfo.previous_card_int].unique_id) then
+                            current_check = true
                         end
-                        if (y == 0 and x == -1) then
-                            direction = 4
-                        end
-                        if (y == 0 and x == 1) then
-                            direction = 2
-                        end
-
-                        if (return_info[2] == -1) then
-                             --print("no card, " .. direction)
-                        else
-                        	local quad = GameInfo.quads[return_info[2]]
-                            local surrounding_info = retrieve_card(quad.filename)
-
-                            local temp_allow = compare_card_info(direction, current_card, current_info,
-                                quad, surrounding_info)
-
-                            if ( temp_allow == false) then
-                                run_popup("Can't use card, strat points not high enough")
-                                allow_placement = false
-                            end
-
-                            --print("card at x: " .. x .. " y:" .. y)
-                            --print("previous:" .. GameInfo.previous_card_int)
-                            --print("quad id: " .. quad.unique_id)
-
-                            if (quad.unique_id ==
-                                GameInfo.table_cards[GameInfo.previous_card_int].unique_id) then
-                                current_check = true
-                            end
-                            touch_count = touch_count + 1
-                        end
-        				pos_num = pos_num + 1
-        			end
+                        touch_count = touch_count + 1
+                    end
+        			pos_num = pos_num + 1
         		end
         	end
         end
-
-        --CHECK TO SEE THAT THE CARD IS CONNECTED TO OTHER CARDS
-        if ( touch_count == 0 and table.getn(GameInfo.quads) > 0) then
-            allow_placement = false
-            run_popup("Not touching other cards.")
-        end
-
-        if (current_check == false and table.getn(GameInfo.quads) > 0) then
-            allow_placement = false
-            run_popup("Not touching the last card placed. Prev: " .. GameInfo.previous_card_int)
-        end
-    else
-        --if (table.getn(GameInfo.quads) > 0) then
-        --    local prev_card = GameInfo.table_cards[GameInfo.previous_card_int]
-        --    local prev_info = retrieve_card(prev_card.filename)
-
-        --    local highest_current = 0
-        --    for n=1, table.getn(current_info.strat_scores) do
-        --        if ( highest_current < current_info.strat_scores[n]) then
-        --            highest_current = current_info.strat_scores[n]
-        --        end 
-        --    end
-        --    local highest_prev = 0
-        --    for n=1, table.getn(prev_info.strat_scores) do
-        --        if ( highest_prev < prev_info.strat_scores[n]) then
-        --            highest_prev = prev_info.strat_scores[n]
-        --        end 
-        --    end
-        --    if (highest_current >= highest_prev) then
-        --        allow_placement = true
-        --        run_popup("Card card be placed next to previous card")
-        --    else
-        --        allow_placement = false
-        --    end
-        --end        
     end
+
+    --CHECK TO SEE THAT THE CARD IS CONNECTED TO OTHER CARDS
+    if ( touch_count == 0 and table.getn(GameInfo.quads) > 0) then
+        allow_placement = false
+        --run_popup("Not touching other cards.")
+        popup_message =
+    end
+
+    if (current_check == false and table.getn(GameInfo.quads) > 0) then
+        allow_placement = false
+        --run_popup("Not touching the last card placed. Prev: " .. GameInfo.previous_card_int)
+        popup_message = "Not touching the last card placed. Prev: " .. GameInfo.previous_card_int
+    end
+
 
     --CHECK LIMBS TO MAKE SURE THE CARD CAN BE PLACED
     local current_player = GetPlayer()
     if (current_info.arms > current_player.arms) then
-        run_popup("Can't use card, need " .. current_info.arms .. " arm/s.")
+        --run_popup("Can't use card, need " .. current_info.arms .. " arm/s.")
+        popup_message = "Can't use card, need " .. current_info.arms .. " arm/s."
         allow_placement = false
     end
     if (current_info.legs > current_player.legs) then
-        run_popup("Can't use card, need " .. current_info.legs .. " leg/s.")
+        --run_popup("Can't use card, need " .. current_info.legs .. " leg/s.")
+        popup_message = "Can't use card, need " .. current_info.legs .. " leg/s."
         allow_placement = false
     end
     
@@ -129,22 +107,32 @@ function Check_Quad_Region(current_card, search_section, check_positioning)
                     if (current_info.card_value == last_card.actions[n].value) then
                         allow_placement = false
                         --print(current_info.card_type .. " card type block")
-                        run_popup("Can't use card, card type blocked.")
+                        --run_popup("Can't use card, card type blocked.")
+                        popup_message = "Can't use card, card type blocked."
                     end
                 end
             end
         end
     end
-    print("placement: " , allow_placement)
-    if ( allow_placement == true) then
-        finalise_button.isVisible = true
-        finalise_button.text.isVisible = true    
-        clear_popup()
+
+    if (full_check == true) then
+
+        --print("placement: " , allow_placement)
+        if ( allow_placement == true) then
+            finalise_button.isVisible = true
+            finalise_button.text.isVisible = true    
+            clear_popup()
+        else
+            finalise_button.isVisible = false
+            finalise_button.text.isVisible = false
+        end
+        run_popup(popup_message)
+
     else
-        finalise_button.isVisible = false
-        finalise_button.text.isVisible = false
+        --NO NOTHING, THIS CHECK IS USED DURING THE DEATHCHECK
     end
 
+    return allow_placement
 end
 
 

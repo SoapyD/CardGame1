@@ -3,6 +3,31 @@
 --local winner = -1
 --local loser = -1
 
+function RoundCheck()
+
+	if (GameInfo.end_game == false) then
+
+		if (GameInfo.username == GameInfo.player_list[GameInfo.current_player].username) then
+			--local card_count = 0
+
+			for i = 1, table.getn(GameInfo.cards) do
+				local hand_card = GameInfo.cards[i]
+				if (hand_card.isVisible == true) then
+					--card_count = card_count + 1
+
+					--NEED TO LOOP THROUGH AVAILABLE POSITIONS ON THE BOARD AROUND
+					--THE CURRENT CARD
+
+					--local pos_info = CheckBoard_Pos(t)
+					--Check_Quad_Region(t, pos_info[3], false)
+				end
+			end
+
+		end 
+	end
+
+end
+
 function DeathCheck(check_decks)
 
 	if (GameInfo.end_game == false) then
