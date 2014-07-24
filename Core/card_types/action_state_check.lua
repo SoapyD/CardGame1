@@ -181,6 +181,24 @@ function CheckActionState()
 
                 --print("discard")
                 CheckState:case(action_internal_state)
+            end,
+        ["limb_discard"] = function()    --RUN THE DISCARD LOOP
+                local CheckState = switch { 
+                    [0] = function()    --SETUP ACTION
+                        --run_main_state = 1
+                        action_internal_state = 1
+                        end,
+                    [1] = function()    --TURN ON THE DISCARD CARDS SCREEN
+                        Show_LimbDiscardTable()
+                        action_internal_state = 2
+                        end,
+                    [2] = function()    --WAIT FOR THE ACTION TO COMPLETE
+                        end,
+                    default = function () print( "ERROR - action_internal_state not within switch") end,
+                }
+
+                --print("discard")
+                CheckState:case(action_internal_state)
 
             end,
         ["limb"] = function()    --RUN THE LIMB LOOP

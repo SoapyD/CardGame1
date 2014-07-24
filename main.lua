@@ -50,6 +50,7 @@ require("Core.table.counter_setup")
 require("Core.table.limb_setup")
 require("Core.table.draw_setup")
 require("Core.table.discard_setup")
+require("Core.table.limb_discard_setup")
 require("Core.table.or_setup")
 require("Core.table.endgame_table")
 

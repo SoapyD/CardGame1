@@ -96,7 +96,7 @@ function ResetPlayer(player, username)
     player.health = player.max_health
     player.armour = 0
     player.max_arms = 2
-    player.arms = player.max_arms 
+    player.arms = player.max_arms - 1
     player.max_legs = 2
     player.legs = player.max_legs 
 

@@ -148,6 +148,24 @@ function onTouch( event )
 						end
 					end
 
+					--LIMB DISCARD CARD STATE
+					if (GameInfo.pause_add == 4) then 
+						if (t.x > GameInfo.limb_discard_screen.card1.icon.bbox_min_x and
+							t.x < GameInfo.limb_discard_screen.card1.icon.bbox_max_x and
+							t.y > GameInfo.limb_discard_screen.card1.icon.bbox_min_y and
+							t.y < GameInfo.limb_discard_screen.card1.icon.bbox_max_y) then
+								t.isVisible = false
+								CheckLimbDiscard(t, "cripple_arm")
+						end
+						if (t.x > GameInfo.limb_discard_screen.card2.icon.bbox_min_x and
+							t.x < GameInfo.limb_discard_screen.card2.icon.bbox_max_x and
+							t.y > GameInfo.limb_discard_screen.card2.icon.bbox_min_y and
+							t.y < GameInfo.limb_discard_screen.card2.icon.bbox_max_y) then
+								t.isVisible = false
+								CheckLimbDiscard(t, "cripple_leg")
+						end
+					end
+
 					t.moved = false
 				end
 			end

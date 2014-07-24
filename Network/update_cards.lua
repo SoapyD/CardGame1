@@ -142,9 +142,13 @@ end
 --  end
 --end
 
-function UpdateLimbs(username, action_var, cripple_type)
+function UpdateLimbs(username, action_var, cripple_type, applied_to)
 
-  local apply_to = find_applied_to(1) --apply this to the defender
+  --THIS METHOD ONLY APPLIES TO THE ENEMY. CAN'T BE USED TO APPLY ANY ACTIONS TO CURRENT PLAYER
+  --AND CAN ONLY BE USED BY THE LIMB TABLE
+
+  --local apply_to = find_applied_to(1) --apply this to the defender
+  local apply_to = find_applied_to(applied_to) --apply this to the defender
   local applied_player = GameInfo.player_list[apply_to]
   --print("limb passed: " .. cripple_type .. " " .. action_var)
   if (cripple_type == "cripple_arm") then
@@ -167,7 +171,4 @@ function UpdateLimbs(username, action_var, cripple_type)
     applied_player.legs = 2
   end
 
-  if (username == GameInfo.username) then
-    CheckLimbs()
-  end
 end

@@ -1,5 +1,6 @@
 local discard_max = 0
 local limb_modifier = 0
+local applied_to = 0
 
 function Hide_LimbTable()
     GameInfo.screen_elements.image.isVisible  = false
@@ -21,9 +22,11 @@ function Show_LimbTable(action_var)
 
     if (action_var < 0) then
         limb_modifier = -1
+        applied_to = 1
         TitleText.text = "Damage Limb"
     else
         limb_modifier = 1
+        applied_to = 0
         TitleText.text = "Heal Limb"
     end
     run_popup(TitleText.text .. ": " .. discard_max)
@@ -32,7 +35,8 @@ end
 function SetCrippleMax(draw_value)
 
     if (draw_value < 0) then
-        draw_value = draw_value * -1
+        draw_value = draw_value * -1 --RATIONALISE ANY NEGATIVE VALES
+        --A MODIFIER IS CREATED WHEN THE LIMB TABLE IS SHOWN
     end
     discard_max = draw_value
     --print("draw value" .. discard_max)
@@ -111,7 +115,8 @@ function CrippleLimb_button( event )
             tostring("cripple_limb") .. " " .. 
             tostring(GameInfo.username) .. " " ..
             tostring(limb_modifier) .. " " ..
-            tostring(t.card_type)) 
+            tostring(t.card_type) .. " " ..
+            tostring(applied_to)) 
         end
     end
 

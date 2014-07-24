@@ -36,6 +36,12 @@ function Show_FOTable(temp_sub_action, checks_player)
         finalise_button.isVisible = true
         finalise_button.text.isVisible = true
     end
+
+    if ( GameInfo.player_list ~= nil) then
+        for i=1, table.getn(GameInfo.player_list) do
+            GameInfo.player_list[i].faceoff_card = ""
+        end
+    end
 end
 
 function LoadFaceOff()

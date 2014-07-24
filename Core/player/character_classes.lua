@@ -8,9 +8,9 @@ function CheckCharacter(character_name)
                 character_info[1] = 1
                 character_info[2] = 1
                 character_info[3] = 1
-                character_info[4] = 0
-                character_info[5] = 0
-                character_info[6] = 0
+                character_info[4] = 1
+                character_info[5] = 1
+                character_info[6] = 1
             end,
         ["assassin"] = function()    --
         		character_info[1] = 1

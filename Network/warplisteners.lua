@@ -317,8 +317,26 @@ function onUpdatePeersReceived(update)
     local username = tostring(func())
     local action_var = tonumber(func())
     local damage_type = tostring(func())
-    print("action var netted: " .. action_var)
-    UpdateLimbs(username, action_var, damage_type)
+    local applied_to = tonumber(func())
+    --print("action var netted: " .. action_var)
+    UpdateLimbs(username, action_var, damage_type, applied_to)
+
+    if (username == GameInfo.username) then
+      CheckLimbs()
+    end
+  end
+
+  if (update_type == "limb_discard") then
+    local username = tostring(func())
+    local action_var = tonumber(func())
+    local damage_type = tostring(func())
+    local applied_to = tonumber(func())
+    --print("action var netted: " .. action_var)
+    UpdateLimbs(username, action_var, damage_type, applied_to)
+
+    if (username == GameInfo.username) then
+      Hide_LimbDiscardTable()
+    end
   end
 
   if (update_type == "health_mod") then
@@ -369,6 +387,17 @@ function onUpdatePeersReceived(update)
 
     Add_VariableAction(username, action_type)
 
+  end
+
+  if (update_type == "add_action") then
+    local action_name = tostring(func())
+    local subaction_name = tostring(func())
+    local action_val = tonumber(func())
+    local action_against = tonumber(func())
+
+    arr_pos = table.getn(GameInfo.actions) + 1
+    GameInfo.actions[arr_pos] = set_action(action_name, subaction_name, action_val, action_against)
+    GameInfo.actions[arr_pos].type = action_name
   end
 
   if (update_type == "end_round") then

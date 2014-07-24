@@ -44,6 +44,7 @@ function run_main_loop()
 				GameLoop()
 
 				local action_state = Get_ActionState()
+
 				if (table.getn(GameInfo.actions) < action_state) then
 	            	GameInfo.actions = {}
 	            	ResetActionState()
@@ -58,11 +59,12 @@ function run_main_loop()
 
         		--GameInfo.saved_actions[1] = "discard"
         		--print("THIS SHITE IS BEING SET")
+        		local arr_pos = 0
 
         		if (GameInfo.saved_actions ~= nil) then
 	        		for i=1, table.getn(GameInfo.saved_actions) do
 
-						local arr_pos = table.getn(GameInfo.actions) + 1
+						arr_pos = table.getn(GameInfo.actions) + 1
 
 		                local CheckState = switch {
 		                    ["add_card"] = function()    --
@@ -84,6 +86,26 @@ function run_main_loop()
 		                CheckState:case(GameInfo.saved_actions[i])   		
 			        end
 	            end
+
+        		--CHECK TO SEE IF THE PLAYER HAS ANY CRIPPLED LIMBS
+        		--GIVE HIM THE ABILITY TO DISCARD A CARD TO ADD A LIMB ACTION
+
+			    for i=1, table.getn(GameInfo.player_list) do
+
+			    	local against = 1 --DONATES THE OTHER PLAYER
+			    	local action = "heal_limb1"
+
+					if (GameInfo.player_list[GameInfo.current_player].username == 
+						GameInfo.player_list[i].username) then
+						against = 0 --DIRECT AT THE CURRENT PLAYER
+						action = "heal_limb0"
+					end
+					print("AGAINST: " .. against)
+		        	arr_pos = table.getn(GameInfo.actions) + 1
+		            GameInfo.actions[arr_pos] = set_action("limb_discard", action, 1, against)
+		            GameInfo.actions[arr_pos].type = "limb_discard"
+				end
+
 
 	            main_loop_state = 4 --SECONDARY LOOP
 

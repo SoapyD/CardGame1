@@ -23,15 +23,16 @@ function Show_DiscardTable(temp_sub_action)
     sub_action = temp_sub_action
     --print(sub_action)
 
-    if (temp_sub_action ~= "flurry") then
-        run_popup("Discard: " .. discard_max)
-    else
+    if (temp_sub_action == "flurry" or 
+        temp_sub_action == "heal_limb") then
         if (finalise_button ~= nil) then
             finalise_button.text.text = "end discard"
             finalise_button.isVisible = true
             finalise_button.text.isVisible = true
             GameInfo.finalise_state = 6
-        end        
+        end
+    else       
+        run_popup("Discard: " .. discard_max)
     end
 end
 
@@ -59,6 +60,28 @@ function CheckDiscard(current_card)
             run_popup(discard_max .. " Flurry Damage")
             discard_state = 2
             end,
+        --["heal_limb0"] = function()    --DAMAGE ENEMY USING CARDS MAIN VALUE
+            --local arr_pos = table.getn(GameInfo.actions) + 1
+            --GameInfo.actions[arr_pos] = set_action("limb", "", 1, 0)
+            --GameInfo.actions[arr_pos].type = "limb"
+            -- appWarpClient.sendUpdatePeers(
+                --tostring("add_action") .. " " .. 
+                --tostring("limb").. " " ..
+                --tostring("").. " " ..
+                --tostring(1).. " " ..
+                --tostring(0))            
+            --end,
+        --["heal_limb1"] = function()    --DAMAGE ENEMY USING CARDS MAIN VALUE
+            --local arr_pos = table.getn(GameInfo.actions) + 1
+            --GameInfo.actions[arr_pos] = set_action("limb", "", 1, 1)
+            --GameInfo.actions[arr_pos].type = "limb"
+            -- appWarpClient.sendUpdatePeers(
+                --tostring("add_action") .. " " .. 
+                --tostring("limb") .. " " ..
+                --tostring("") .. " " ..
+                --tostring(1) .. " " ..
+                --tostring(1)) 
+            --end,
 
         default = function () print( "ERROR - sub_type not within discard subtypes") end,
     }
@@ -97,7 +120,8 @@ function LoadDiscardCard()
     local draw_item = {}
     draw_item.card1 = {}
 
-    AddDiscardZone(draw_item.card1,GameInfo.width / 2,GameInfo.height / 2 - 150,"red","discard",1);
+    AddDiscardZone(draw_item.card1,GameInfo.width / 2,GameInfo.height / 2 - 150,
+        400,400,"red","discard",1);
 
 
     GameInfo.discard_screen = draw_item
@@ -105,10 +129,10 @@ function LoadDiscardCard()
     --Show_DiscardTable()
 end
 
-function AddDiscardZone(draw_card,x,y,colour,type, type_int)
+function AddDiscardZone(draw_card,x,y,width,height,colour,type, type_int)
 
     local icon = display.newRoundedRect( 
-        x, y, 400, 400, 1 )
+        x, y, width, height, 1 )
             icon:setFillColor( colorsRGB.RGB(colour) )
             icon.strokeWidth = 6
             icon:setStrokeColor( 200,200,200,255 )
@@ -117,9 +141,9 @@ function AddDiscardZone(draw_card,x,y,colour,type, type_int)
     icon.item_loaded = false
     icon.card_type = type
     icon.type_int = type_int
-    icon.bbox_min_x = x - (400 / 2)
-    icon.bbox_max_x = x + (400 / 2)
-    icon.bbox_min_y = y - (400 / 2)
-    icon.bbox_max_y = y + (400 / 2)
+    icon.bbox_min_x = x - (width / 2)
+    icon.bbox_max_x = x + (width / 2)
+    icon.bbox_min_y = y - (height / 2)
+    icon.bbox_max_y = y + (height / 2)
     draw_card.icon = icon
 end

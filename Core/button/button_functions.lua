@@ -246,7 +246,9 @@ function finishCard( event )
 								appWarpClient.sendUpdatePeers(
 									tostring("position") .. " " ..
 									tostring(unique_id) .. " " ..
-									tostring(GameInfo.selected_card.filename) .. " " .. 
+									tostring(GameInfo.selected_card.filename) .. " " ..
+									tostring(GameInfo.selected_card.sheet) .. " " ..
+									tostring(GameInfo.selected_card.sprite) .. " " ..									 
 									tostring(current_card.x).." ".. 
 									tostring(current_card.y))
 
@@ -281,6 +283,11 @@ function finishCard( event )
 							run_popup("please select card to save first")
 						end
 			        end,	      
+			    [8] = function()    --END LIMB DISCARD
+		            Hide_LimbDiscardTable()
+			        end,
+
+			        
 			    default = function () print( "ERROR - state not within finalisation states") end,
 			    }
 

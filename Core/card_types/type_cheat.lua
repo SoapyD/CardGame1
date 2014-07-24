@@ -69,7 +69,7 @@ function Check_CheatCards(filename)
         ["c/12.png"] = function()
                 card_info.name = "smoke-bomb"
                 set_stats(card_info, 3,0,0,0,0,0,0,7,"cheat",6,2.5)
-                card_info.actions[table.getn(card_info.actions) + 1] = set_action("end_round", "", 0, 0)
+                card_info.actions[table.getn(card_info.actions) + 1] = set_action("end_round", "", 0, -1)
             end,
         ["c/13.png"] = function()
                 card_info.name = "net"
