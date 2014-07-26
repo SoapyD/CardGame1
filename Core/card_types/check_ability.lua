@@ -5,9 +5,6 @@ local double_damage = false
 --function CheckAbility(ability, applied_to, value)
 function CheckAbility(action)
 
-    --CHECK THE LAST CARD IN CASE THERE WAS ANY NEXT_CARD ACTIONS ON IT
-    mod_next()
-
     local add_info = false
     local temp_mods = {}
     temp_mods.type = ""

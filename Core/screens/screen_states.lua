@@ -31,6 +31,7 @@ function Screen_Loop()
 			    end
     		end,
     	[3] = function()	--
+                SetupButtons();
 				timer = 60 * 5
 				internal_state = internal_state + 1  
 				--TitleText.text = "GAME STARTING"	
@@ -46,7 +47,6 @@ function Screen_Loop()
     		end,
     	[5] = function()	--
     			Hide_CharacterScreen()
-				SetupButtons();
 				run_main_loop() --NEEDS TO RUN ONCE IN THE LOAD GAME LOOP
 				internal_state = internal_state + 1  			
     		end,

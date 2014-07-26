@@ -53,13 +53,13 @@ function Check_PhysicalCards(filename)
             end,
         ["p/8.png"] = function()
                 card_info.name = "double-punch"
-                set_stats(card_info, 11,6,9,9,2,0,0,15,"physical",2,2)
+                set_stats(card_info, 11,6,9,9,2,0,0,9,"physical",2,2)
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("health", "", -6, 1)
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("discard", "", 1, 1)
             end, 
         ["p/9.png"] = function()
                 card_info.name = "double-kick"
-                set_stats(card_info, 4,12,8,8,0,2,0,15,"physical",2,2)
+                set_stats(card_info, 4,12,8,8,0,2,0,9,"physical",2,2)
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("health", "", -6, 1)
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("armour", "", -10, 1)
             end,

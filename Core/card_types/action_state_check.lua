@@ -101,25 +101,28 @@ function CheckActionState()
                 local CheckState = switch { 
                     [0] = function()    --TURN ON THE FACEOFF SCREEN
 
-                        local faceoff_card = {}
+                        --local faceoff_card = {}
 
-                        if ( GameInfo.player_list ~= nil) then
-                            for i=1, table.getn(GameInfo.player_list) do
-                                if (GameInfo.username == GameInfo.player_list[i].username) then
-                                   faceoff_card =retrieve_card(GameInfo.player_list[i].faceoff_card)
+                        --if ( GameInfo.player_list ~= nil) then
+                        --    for i=1, table.getn(GameInfo.player_list) do
+                        --        if (GameInfo.username == GameInfo.player_list[i].username) then
+                        --           faceoff_card =retrieve_card(GameInfo.player_list[i].faceoff_card)
                                    --print("card!!!!!!: " .. GameInfo.player_list[i].faceoff_card)
-                                end
-                            end
-                        end   
+                        --        end
+                        --    end
+                        --end   
 
                         --print("card: " .. faceoff_card.name .. " power: " .. faceoff_card.power)
-                        if (faceoff_card ~= nil) then
+                        --if (faceoff_card ~= nil) then
                             appWarpClient.sendUpdatePeers(
                                 tostring("health_delay") .. " " .. 
-                                tostring(-faceoff_card.power) .. " " ..
+                                --tostring(-faceoff_card.power) .. " " ..
+                                tostring(-GameInfo.power_damage) .. " " ..
                                 tostring(1) .. " " ..
                                 tostring("yes"))
-                        end
+                        --end
+
+                        GameInfo.power_damage = 0
                         action_internal_state = 1
                         end,
                     [1] = function()    --

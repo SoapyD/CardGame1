@@ -70,6 +70,8 @@ function cGameInfo.methods:init(gamestate)
 	self.end_round = false
 	--self.round_damage = 0
 
+	self.power_damage = 0
+
 	self.card_group = display.newGroup()
 end
 

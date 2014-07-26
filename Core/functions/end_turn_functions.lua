@@ -7,6 +7,10 @@ function EndTurn(current_card)
   local card_info = retrieve_card(current_card.filename)
   print("CARD NAME: " .. card_info.name)
 
+    --CHECK THE LAST CARD IN CASE THERE WAS ANY NEXT_CARD ACTIONS ON IT
+    --keep this here and not in check ability. otherwise it's checked multiple times
+    mod_next()
+
   if ( table.getn(card_info.actions) > 0) then
     for i=1, table.getn(card_info.actions) do
       local action = card_info.actions[i]

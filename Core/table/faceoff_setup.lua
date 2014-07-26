@@ -98,6 +98,8 @@ function Check_FaceOff_End()
     local card_count = 0 
     local p1_score = 0
     local p2_score = 0
+    local p1_power = 0
+    local p2_power = 0
 
     if ( GameInfo.player_list ~= nil) then
         for i=1, table.getn(GameInfo.player_list) do
@@ -106,10 +108,12 @@ function Check_FaceOff_End()
                 local card_info = retrieve_card(GameInfo.player_list[i].faceoff_card)
 
                 local saved_score = 0
+                local saved_power = 0
                 --HIGHEST STRAT WINS FACEOFF
                 for n=1, table.getn(card_info.strat_scores) do
                     if ( saved_score < card_info.strat_scores[n]) then
                         saved_score = card_info.strat_scores[n]
+                        saved_power = card_info.power
                     end 
                 end
 
@@ -131,8 +135,10 @@ function Check_FaceOff_End()
 
                 if (i == 1) then
                     p1_score = saved_score
+                    p1_power = saved_power
                 else
                     p2_score = saved_score
+                    p2_power = saved_power
                 end
             end
         end
@@ -148,6 +154,7 @@ function Check_FaceOff_End()
                 --MsgBox.fade = 2
                 run_popup("P1 wins faceoff")
                 winner = 1
+                GameInfo.power_damage = p1_power
             end
             if (p2_score > p1_score) then
                 end_process = true
@@ -155,6 +162,7 @@ function Check_FaceOff_End()
                 --MsgBox.fade = 2
                 run_popup("P2 wins faceoff")
                 winner = 2
+                GameInfo.power_damage = p2_power
             end
 
             if (sets_player == false) then
