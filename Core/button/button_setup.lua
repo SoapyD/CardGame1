@@ -5,7 +5,11 @@ function SetupButtons()
 	Tab()
 	Finalise_button()
 	Enemy_Stats()
-	--Portrait()				
+	--Portrait()			
+end
+
+function HideButtons()
+
 end
 
 

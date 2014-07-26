@@ -54,6 +54,9 @@ require("Core.table.limb_discard_setup")
 require("Core.table.or_setup")
 require("Core.table.endgame_table")
 
+require("Core.screens.screen_states")
+require("Core.screens.character_select_screen")
+
 --local hand;
 local board = {}
 
@@ -72,13 +75,14 @@ local function GameLoop( event )
    		[1] = LoadConnection,--SET ANYTHING THAT ONLY NEEDS LOADING ONCE 
     	--[2] = player_check, --REGISTER BOTH PLAYERS
     	--[3] = loadGame,--SET ANYTHING THAT ONLY NEEDS LOADING ONCE 
-        [2] = loadGame,--SET ANYTHING THAT ONLY NEEDS LOADING ONCE 
-        [3] = player_check, --REGISTER BOTH PLAYERS
-    	[4] = run_main_loop,
+        [2] = loadGame,--SET ANYTHING THAT ONLY NEEDS LOADING ONCE
+        [3] = player_check, --REGISTER BOTH PLAYERS IN NETWORKING
+        [4] = Screen_Loop, 
+    	[5] = run_main_loop,
 
 	   	default = function () print( "ERROR - gamestate not within switch") end,
 	}
-
+    --print()
 	CheckState:case(GameInfo.gamestate)
 end
 

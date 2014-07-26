@@ -93,18 +93,23 @@ function run_main_loop()
 
 			    for i=1, table.getn(GameInfo.player_list) do
 
-			    	local against = 1 --DONATES THE OTHER PLAYER
-			    	local action = "heal_limb1"
+			    	local player = GameInfo.player_list[i]
 
-					if (GameInfo.player_list[GameInfo.current_player].username == 
-						GameInfo.player_list[i].username) then
-						against = 0 --DIRECT AT THE CURRENT PLAYER
-						action = "heal_limb0"
-					end
-					print("AGAINST: " .. against)
-		        	arr_pos = table.getn(GameInfo.actions) + 1
-		            GameInfo.actions[arr_pos] = set_action("limb_discard", action, 1, against)
-		            GameInfo.actions[arr_pos].type = "limb_discard"
+			    	if (player.arms < 2 or player.legs < 2)  then
+
+				    	local against = 1 --DONATES THE OTHER PLAYER
+				    	local action = "heal_limb1"
+
+						if (player.username == player.username) then
+							against = 0 --DIRECT AT THE CURRENT PLAYER
+							action = "heal_limb0"
+						end
+						print("AGAINST: " .. against)
+			        	arr_pos = table.getn(GameInfo.actions) + 1
+			            GameInfo.actions[arr_pos] = set_action("limb_discard", action, 1, against)
+			            GameInfo.actions[arr_pos].type = "limb_discard"
+
+			    	end
 				end
 
 

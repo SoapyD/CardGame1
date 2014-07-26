@@ -39,6 +39,8 @@ function cGameInfo.methods:init(gamestate)
 	self.limb_discard_screen = {}
 	self.or_screen = {}
 
+	self.character_screen = {}
+
 	self.temp_card = {}
 
 	self.quads = {}

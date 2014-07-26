@@ -119,6 +119,25 @@ function onUpdatePeersReceived(update)
   local update_type = tostring(func())
 
   --//////////////////////////////////////////////////////////////////////////
+  --////////////////////SCREEN STATE STUFF
+  --//////////////////////////////////////////////////////////////////////////
+  if (update_type == "set_character") then
+
+    local username = tostring(func())
+    local character_type = tostring(func())
+
+    for i = 1, table.getn(GameInfo.player_list) do
+      local player = GameInfo.player_list[i]
+        if (player.username == username) then
+          player.character_name = character_type
+          player.character_info = CheckCharacter(character_type)
+          --run_popup(t.type .. " SELECTED")
+          GameInfo.character_screen.player_info[i].icon.button_text.text = character_type
+        end
+    end
+  end
+
+  --//////////////////////////////////////////////////////////////////////////
   --////////////////////NETWORKING SOLUTIONS
   --//////////////////////////////////////////////////////////////////////////
   if (update_type == "check_player") then

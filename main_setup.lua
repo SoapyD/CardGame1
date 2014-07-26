@@ -39,14 +39,11 @@ function loadGame()
 	statusText2:setFillColor( 0, 0, 0 )
 
 
-	--GameInfo.print_string3 = ""
-	--statusText3 = display.newText( GameInfo.print_string3, 100, 200, native.systemFontBold, 48 )
-	--statusText3:setFillColor( 0, 0, 0 )
-	--print_box = display.newRoundedRect(
-	--	100,200,
-	--	350,100, 0 )
+	--SCREEN STUFF
+	Load_CharacterScreen()
 
 
+	--MAIN GAME STUFF
 
 	print( "LOAD INFO")
 	--MAXIMUM 2000x2000 SCALE TEXTURES. THE BOARD IS LOADED IN 4 PARTS
@@ -71,11 +68,10 @@ function loadGame()
 	LoadCounter();
 	LoadLimbDiscardCard();
 	LoadOptions();
-	SetupButtons();
-	run_main_loop() --NEEDS TO RUN ONCE IN THE LOAD GAME LOOP
-
+	
+	--SetupButtons();
+	--run_main_loop() --NEEDS TO RUN ONCE IN THE LOAD GAME LOOP
 	Reset_SetCards_state()
-
 	createMsgBox()
 
 	--ADVANCE THE GAMESTATE

@@ -89,7 +89,8 @@ end
 
 function ResetPlayer(player, username)
     player.username = username
-    player.character_info = CheckCharacter("pirate")
+    player.character_name = ""
+    player.character_info = CheckCharacter("test")
     player.faceoff_card = ""
 
     player.max_health = 40
