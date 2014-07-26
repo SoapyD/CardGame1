@@ -107,7 +107,7 @@ local EndRound_state = 1
 
 function EndRound()
 
-  --print("round ended")
+  --print("round ended: " .. EndRound_state)
     local reset_state = false
 
     local CheckState = switch { 
@@ -118,8 +118,10 @@ function EndRound()
             end,
         [2] = function()    --DRAW CARDS ON BOTH SIDES
                 local HandsSet = SetHands()
+                print(HandsSet)
                 if (HandsSet == true) then
                   EndRound_state = EndRound_state + 1
+                  print("THIS ENDS HERE")
                 end
 
               end,

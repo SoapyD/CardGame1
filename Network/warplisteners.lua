@@ -233,10 +233,14 @@ function onUpdatePeersReceived(update)
   if (update_type == "health_delay") then
     local health_modifier = tonumber(func())
     local applied_to = tonumber(func())
-    --print("health mod " .. health_modifier)
+    local advance_pos = tostring(func())
+    print("HEALTH MOD " .. health_modifier)
     --mod_health(1,health_modifier)
     mod_health(applied_to,health_modifier)
-    CheckActionPos(true)
+
+    if (advance_pos == "yes") then
+      CheckActionPos(true)
+    end
   end
 
   --//////////////////////////////////////////////////////////////////////////
@@ -368,10 +372,10 @@ function onUpdatePeersReceived(update)
     local username = tostring(func())
     local damage = tonumber(func())
 
-    if (username ~= GameInfo.username) then
+    --if (username ~= GameInfo.username) then
       --print("inflicting damage: " .. damage)
       mod_health(1,damage)
-    end
+    --end
   end
 
   if (update_type == "hide_discard") then

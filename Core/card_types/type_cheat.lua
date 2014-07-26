@@ -16,7 +16,7 @@ function Check_CheatCards(filename)
         ["c/2.png"] = function()
                 card_info.name = "weak-spot"
                 set_stats(card_info, 2,2,2,2,0,0,0,0,"cheat",6,1)
-                card_info.actions[table.getn(card_info.actions) + 1] = set_action("next_card", "double_damage", 0, 0)
+                --card_info.actions[table.getn(card_info.actions) + 1] = set_action("next_card", "double_damage", 0, 0)
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("play", "", 0, 0)
             end,
         ["c/3.png"] = function()
@@ -38,7 +38,7 @@ function Check_CheatCards(filename)
                 card_info.name = "stabproof-vest"
                 set_stats(card_info, -1,2,2,2,0,0,0,0,"cheat",6,1)
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("counter", "w_or_a", 0, 0)
-                card_info.actions[table.getn(card_info.actions) + 1] = set_action("half_damage", "", 0, 0)
+                --card_info.actions[table.getn(card_info.actions) + 1] = set_action("half_damage", "", 0, 0)
             end,
         ["c/7.png"] = function()
                 card_info.name = "stubborn-mule"

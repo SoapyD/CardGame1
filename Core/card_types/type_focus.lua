@@ -33,7 +33,7 @@ function Check_FocusCards(filename)
         ["f/4.png"] = function()
                 card_info.name = "dislocate"
                 set_stats(card_info, 6,5,3,3,1,0,0,0,"focus",3,1)
-                card_info.actions[table.getn(card_info.actions) + 1] = set_action("limb", "", -1, 1)
+                card_info.actions[table.getn(card_info.actions) + 1] = set_action("limb", "", -1, 0)
             end,
         ["f/5.png"] = function()
                 card_info.name = "surge"
@@ -58,7 +58,7 @@ function Check_FocusCards(filename)
                 set_stats(card_info, 7,7,6,6,0,0,0,5,"focus",3,2)
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("faceoff", "", 0, -1)
                 --VICTORY ACTIONS
-                card_info.actions[table.getn(card_info.actions) + 1] = set_action("health_delay", "", -6, 0)
+                card_info.actions[table.getn(card_info.actions) + 1] = set_action("health_delay", "", -6, 1)
             end,
         ["f/9.png"] = function()
                 card_info.name = "arm-wrestle"

@@ -5,6 +5,7 @@ local end_timer = 0
 
 function set_MainState(state_value)
 	main_loop_state = state_value
+	print("MAIN STATE: "  .. main_loop_state)
 end
 
 
@@ -20,7 +21,7 @@ function run_main_loop()
     Run_PlayerText()
 
     --GameInfo.end_game = false
-
+    --print(main_loop_state)
     if (GameInfo.end_game == false) then
 
     local CheckState = switch { 
@@ -44,7 +45,7 @@ function run_main_loop()
 				GameLoop()
 
 				local action_state = Get_ActionState()
-
+				--print(action_state)
 				if (table.getn(GameInfo.actions) < action_state) then
 	            	GameInfo.actions = {}
 	            	ResetActionState()

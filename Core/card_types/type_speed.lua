@@ -66,7 +66,7 @@ function Check_SpeedCards(filename)
         ["s/10.png"] = function()
                 card_info.name = "stamp"
                 set_stats(card_info, 2,2,2,2,0,1,0,5,"speed",4,2)
-                card_info.actions[table.getn(card_info.actions) + 1] = set_action("life", "", -2, 0)
+                card_info.actions[table.getn(card_info.actions) + 1] = set_action("life", "", -2, 1)
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("draw", "", 1, 0)
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("limb", "", -1, 0)
                 end,            

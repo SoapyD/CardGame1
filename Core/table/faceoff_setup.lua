@@ -233,10 +233,3 @@ function End_FaceOff()
     end
 
 end
-
-function  resetFaceoff()
-    for i=1, table.getn(GameInfo.player_list) do
-        --GameInfo.player_list[i].faceoff_card = ""
-    end
-    GameInfo.faceoff_int = -1   
-end

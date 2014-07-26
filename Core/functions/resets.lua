@@ -89,14 +89,14 @@ end
 
 function ResetPlayer(player, username)
     player.username = username
-    player.character_info = CheckCharacter("test")
+    player.character_info = CheckCharacter("pirate")
     player.faceoff_card = ""
 
     player.max_health = 40
     player.health = player.max_health
     player.armour = 0
     player.max_arms = 2
-    player.arms = player.max_arms - 1
+    player.arms = player.max_arms
     player.max_legs = 2
     player.legs = player.max_legs 
 
@@ -151,4 +151,11 @@ function SetHands()
     end
 
     return HandsSet
+end
+
+function  resetFaceoff()
+    for i=1, table.getn(GameInfo.player_list) do
+        GameInfo.player_list[i].faceoff_card = ""
+    end
+    GameInfo.faceoff_int = -1   
 end

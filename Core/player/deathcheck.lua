@@ -68,11 +68,14 @@ function RoundCheck()
 
 				run_popup("PLAYER " .. winner .. " WINS ROUND\nINFLICTS " .. card_info.power .. " DAMAGE")
 				--GameInfo.player_list[GameInfo.current_player]
+				print("PLAYER " .. winner .. " WINS ROUND\nINFLICTS " .. card_info.power .. " DAMAGE")
+
 
 				appWarpClient.sendUpdatePeers(
                     tostring("health_delay") .. " " .. 
                     tostring(-card_info.power) .. " " ..
-                    tostring(0))
+                    tostring(0) .. " " ..
+                    tostring("no"))
 				--GameInfo.round_damage = -card_info.power
 
 				appWarpClient.sendUpdatePeers(

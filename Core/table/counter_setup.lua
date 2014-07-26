@@ -72,6 +72,7 @@ local end_state = 0
 
 function Check_Counter_End()
 
+    print("CHECKING COUNTER: " , GameInfo.pause_main )
     local card_count = 0 
     print("counter checked")
     if ( GameInfo.player_list ~= nil) then
@@ -82,7 +83,7 @@ function Check_Counter_End()
             end
         end
 
-        if (card_count == 1 and GameInfo.pause_main == true) then
+        if (card_count >= 1 and GameInfo.pause_main == true) then
             --THIS SHOULD END THINGS
             end_counter = true
             run_popup("Card Countered!")

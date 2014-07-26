@@ -91,7 +91,7 @@ function Check_PhysicalCards(filename)
                 card_info.name = "suplex"
                 set_stats(card_info, 13,9,9,9,2,2,0,13,"physical",2,3)
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("armour", "", -10, 1)
-                card_info.actions[table.getn(card_info.actions) + 1] = set_action("life", "", -4, 0)
+                card_info.actions[table.getn(card_info.actions) + 1] = set_action("life", "", -4, 1)
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("block", "", 2, 1) --physical
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("block", "", 1, 1) --weapon
             end,            

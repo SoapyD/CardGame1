@@ -81,13 +81,14 @@ function CheckActionState()
                         appWarpClient.sendUpdatePeers(
                             tostring("health_delay") .. " " .. 
                             tostring(Action.value) .. " " ..
-                            tostring(Action.applied_to))
+                            tostring(Action.applied_to) .. " " ..
+                            tostring("yes"))
                         action_internal_state = 1
 
                         --CheckActionPos(false)
                         end,
                     [1] = function()    --ENDS IN WARPLISTENER, OVER THE NETWORK
-                    print("HEALTH DELAY ENDSs")
+                        --print("HEALTH DELAY ENDSs")
                         end,
                     default = function () print("ERROR - action_internal_state not within switch") end,
                 }
@@ -116,7 +117,8 @@ function CheckActionState()
                             appWarpClient.sendUpdatePeers(
                                 tostring("health_delay") .. " " .. 
                                 tostring(-faceoff_card.power) .. " " ..
-                                tostring(1))
+                                tostring(1) .. " " ..
+                                tostring("yes"))
                         end
                         action_internal_state = 1
                         end,
@@ -297,9 +299,24 @@ function CheckActionState()
 
                 local CheckState = switch { 
                     [0] = function()    --SETUP ACTION
+
+                        --THIS SHOULD ACTUALLY BE A PASS IN THE END ROUND CHECK
+                        
+                        if (GameInfo.username == GameInfo.player_list[GameInfo.current_player].username) then
+                            local last_card = GameInfo.table_cards[GameInfo.current_card_int]
+                            local card_info = retrieve_card(last_card.filename)
+
+                            appWarpClient.sendUpdatePeers(
+                                tostring("health_delay") .. " " .. 
+                                tostring(-card_info.power) .. " " ..
+                                tostring(1) .. " " ..
+                                tostring("no"))
+                        end
+
                         action_internal_state = 1
                         end,
                     [1] = function()    --TURN ON THE DISCARD CARDS SCREEN
+                        --print("ENDING ROUND")
                         EndRound()
                         reset_DoubleDamage()
                         end,
