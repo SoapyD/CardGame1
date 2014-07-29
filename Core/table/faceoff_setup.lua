@@ -124,7 +124,7 @@ function Check_FaceOff_End()
 
                         if (action.name == "win_faceoff") then
                             saved_score = 99
-                            print("ALWAYS WIN FACEOFF")
+                            --print("ALWAYS WIN FACEOFF")
                         end
                     end
                 end
@@ -143,7 +143,7 @@ function Check_FaceOff_End()
             end
         end
 
-        print("player1_score: " .. p1_score .. " player2_score: " .. p2_score)
+        --print("player1_score: " .. p1_score .. " player2_score: " .. p2_score)
 
         if (card_count == 2 and GameInfo.pause_main == true) then
             local end_process = false
@@ -194,7 +194,7 @@ function Check_FaceOff_End()
                 if (sets_player == true) then
                     GameInfo.current_player = winner
                     check_FinalisationButton(GameInfo.current_player)
-                    print("current player is!!!: " .. GameInfo.current_player)
+                    --print("current player is!!!: " .. GameInfo.current_player)
                     sets_player = false
                 end
             end

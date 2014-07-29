@@ -202,6 +202,7 @@ function CheckActionPos(network_used)
 
         if ( network_used == false) then
             appWarpClient.sendUpdatePeers(
+                tostring("MSG_CODE") .. " " ..
             tostring("advance_actions") .. " " .. 
             tostring(username)) 
         end

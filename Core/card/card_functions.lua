@@ -24,7 +24,7 @@ function onTouch( event )
 					t.y0 = (event.y / camera.xScale) - t.y
 				end
 				t.moved = true
-				print("moved: " , t.moved)
+				--print("moved: " , t.moved)
 				t.touched = true
 				--GameInfo.hand.hide = true
 
@@ -205,7 +205,7 @@ function tapRotateLeftButton( e )
     local t = e.target
 
     if (t.finalised == false) then
-    	print("rotate")
+    	--print("rotate")
 	    if ( t.rotation == 0 or t.rotation == -90 or 
 	    	t.rotation == -180 or t.rotation == -270) then
 	    	transition.to(t, {time=250,
@@ -229,6 +229,7 @@ function UpdateRotation(t)
 	Check_Quad_Region(t, pos_info[3], true)
 	--SEND AN UPDATE TO THE OTHER PLAYERS THAT THE CARD'S ROTATING AND BY WHAT ANGLE
 	appWarpClient.sendUpdatePeers(
+                tostring("MSG_CODE") .. " " ..
 		tostring("rotation") .. " " ..
 		tostring(t.unique_id) .. " " .. 
 		tostring(GameInfo.username) .. " " ..		

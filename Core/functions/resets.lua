@@ -13,7 +13,7 @@ function ResetGame()
                 reset_state = reset_state + 1
             end,
         [2] = function()
-                print("RESETTING GAME")
+                --print("RESETTING GAME")
                 clear_popup()
                 set_MainState(1) --RESET THE STATE IN MAIN_LOOP2
                 createDeck() --RESET THE DECKS
@@ -27,7 +27,7 @@ function ResetGame()
                 
                 local HandsSet = SetHands()
                 if (HandsSet == true) then
-                    print("HAND RESET FINISHED")
+                    --print("HAND RESET FINISHED")
                     run_card_loop()
                     reset_state = reset_state + 1
                 end
@@ -44,7 +44,7 @@ function ResetGame()
                 end
             end,
         [6] = function() --FINISH RESET/
-            print("resetting finish")
+            --print("resetting finish")
             Reset_DeathCheck()
             Hide_EndTable()
             reset_state = 1
@@ -83,7 +83,7 @@ function ResetPlayers()
         local player = GameInfo.player_list[i]
 
         player = ResetPlayer(player, player.username)
-        print("player: " .. player.username .. " life: " .. player.health)       
+        --print("player: " .. player.username .. " life: " .. player.health)       
     end
 end
 

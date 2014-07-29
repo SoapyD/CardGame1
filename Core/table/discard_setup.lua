@@ -34,6 +34,23 @@ function Show_DiscardTable(temp_sub_action)
     else       
         run_popup("Discard: " .. discard_max)
     end
+
+    --if (discard_max == 0) then
+        local hide = true
+        for i = 1, table.getn(GameInfo.cards) do
+            local hand_card = GameInfo.cards[i]
+            if (hand_card.isVisible == true) then
+                hide = false
+            end
+        end
+
+        if (hide == true) then
+            appWarpClient.sendUpdatePeers(
+                tostring("MSG_CODE") .. " " ..
+                tostring("hide_discard") .. " " .. 
+                tostring(GameInfo.username)) 
+        end
+   -- end
 end
 
 function CheckDiscard(current_card)
@@ -44,44 +61,25 @@ function CheckDiscard(current_card)
     local CheckState = switch { 
         ["damage"] = function()    --DAMAGE ENEMY USING CARDS MAIN VALUE
             appWarpClient.sendUpdatePeers(
+                tostring("MSG_CODE") .. " " ..
                 tostring("health_mod") .. " " .. 
                 tostring(-card_info.power)) 
             end,
         ["armour"] = function()    --ADD ARMOUR USING CARDS MAIN VALUE
             appWarpClient.sendUpdatePeers(
+                tostring("MSG_CODE") .. " " ..
                 tostring("armour_mod") .. " " .. 
                 tostring(card_info.power)) 
             end,
         ["flurry"] = function()    --FLURRY DISCARD DAMAGE
             appWarpClient.sendUpdatePeers(
+                tostring("MSG_CODE") .. " " ..
                 tostring("health_mod") .. " " .. 
                 tostring(discard_max)) 
 
             run_popup(discard_max .. " Flurry Damage")
             discard_state = 2
             end,
-        --["heal_limb0"] = function()    --DAMAGE ENEMY USING CARDS MAIN VALUE
-            --local arr_pos = table.getn(GameInfo.actions) + 1
-            --GameInfo.actions[arr_pos] = set_action("limb", "", 1, 0)
-            --GameInfo.actions[arr_pos].type = "limb"
-            -- appWarpClient.sendUpdatePeers(
-                --tostring("add_action") .. " " .. 
-                --tostring("limb").. " " ..
-                --tostring("").. " " ..
-                --tostring(1).. " " ..
-                --tostring(0))            
-            --end,
-        --["heal_limb1"] = function()    --DAMAGE ENEMY USING CARDS MAIN VALUE
-            --local arr_pos = table.getn(GameInfo.actions) + 1
-            --GameInfo.actions[arr_pos] = set_action("limb", "", 1, 1)
-            --GameInfo.actions[arr_pos].type = "limb"
-            -- appWarpClient.sendUpdatePeers(
-                --tostring("add_action") .. " " .. 
-                --tostring("limb") .. " " ..
-                --tostring("") .. " " ..
-                --tostring(1) .. " " ..
-                --tostring(1)) 
-            --end,
 
         default = function () print( "ERROR - sub_type not within discard subtypes") end,
     }
@@ -100,6 +98,7 @@ function CheckDiscard(current_card)
         if (discard_max <= 1 or card_available == false) then
         --    Hide_DiscardTable(false)
             appWarpClient.sendUpdatePeers(
+                tostring("MSG_CODE") .. " " ..
                 tostring("hide_discard") .. " " .. 
                 tostring(GameInfo.username)) 
         end

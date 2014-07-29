@@ -130,7 +130,7 @@ function mod_life(applied_to, value)
     if (applied_player.health > applied_player.max_health ) then
         applied_player.health = applied_player.max_health
     end
-    print("health add:" .. value)
+    --print("health add:" .. value)
     if (value > 0) then
         run_popup( "+" .. value .. " Health")
     else
@@ -147,7 +147,7 @@ function mod_armour(applied_to, value)
     if (applied_player.armour < 0 ) then
         applied_player.armour = 0
     end
-    print("armour add:" .. value)
+    --print("armour add:" .. value)
     if (value > 0) then
         run_popup( "+" .. value .. " Armour")
     else
@@ -167,7 +167,7 @@ function mod_arm(applied_to, value)
     if (applied_player.arms > applied_player.max_arms ) then
         applied_player.arms = applied_player.max_arms
     end
-    print("arms add:" .. value)
+    --print("arms add:" .. value)
     if (value > 0) then
         run_popup( "+" .. value .. " Arms Crippled")
     else
@@ -187,7 +187,7 @@ function mod_leg(applied_to, value)
     if (applied_player.legs > applied_player.max_legs ) then
         applied_player.legs = applied_player.max_legs
     end
-    print("legs add:" .. value)
+    --print("legs add:" .. value)
     if (value > 0) then
         run_popup( "+" .. value .. " Legs Crippled")
     else

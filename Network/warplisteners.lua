@@ -116,7 +116,9 @@ end
 function onUpdatePeersReceived(update)
   local func = string.gmatch(update, "%S+")
 
+  local msg_id = tostring(func())
   local update_type = tostring(func())
+  print(msg_id .. " , " .. update_type)
 
   --//////////////////////////////////////////////////////////////////////////
   --////////////////////SCREEN STATE STUFF
@@ -160,7 +162,7 @@ function onUpdatePeersReceived(update)
     
     if (GameInfo.player_1_id == "") then
       GameInfo.player_1_id = username
-      print("player 1 is: " .. username)
+      --print("player 1 is: " .. username)
     end 
   end
 
@@ -180,9 +182,10 @@ function onUpdatePeersReceived(update)
 
   if (update_type == "finish_draw") then --REGISTER THAT THE RECEIVER HAS RECEIVED A MESSAGE
     local username = tostring(func())
-    print("FINISHING DRAW")
+    --print("FINISHING DRAW")
     if (username ~= GameInfo.username) then
          appWarpClient.sendUpdatePeers(
+                tostring("MSG_CODE") .. " " ..
             tostring("complete_action") .. " " .. 
             tostring(username)) 
 
@@ -190,6 +193,7 @@ function onUpdatePeersReceived(update)
         DrawCharacterCards()
 
         appWarpClient.sendUpdatePeers(
+                tostring("MSG_CODE") .. " " ..
           tostring("finish_draw") .. " " ..
           tostring(GameInfo.username))    
       end
@@ -253,7 +257,7 @@ function onUpdatePeersReceived(update)
     local health_modifier = tonumber(func())
     local applied_to = tonumber(func())
     local advance_pos = tostring(func())
-    print("HEALTH MOD " .. health_modifier)
+    --print("HEALTH MOD " .. health_modifier)
     --mod_health(1,health_modifier)
     mod_health(applied_to,health_modifier)
 

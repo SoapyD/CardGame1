@@ -78,6 +78,7 @@ function finishCard( event )
 							local current_card = GameInfo.table_cards[id]
 
 							appWarpClient.sendUpdatePeers(
+                tostring("MSG_CODE") .. " " ..
 								tostring("position") .. " " ..
 								tostring(current_card.unique_id) .. " " ..
 								tostring(current_card.filename) .. " " ..
@@ -87,6 +88,7 @@ function finishCard( event )
 								tostring(current_card.y))
 
 							appWarpClient.sendUpdatePeers(
+                tostring("MSG_CODE") .. " " ..
 								tostring("rotation") .. " " ..
 								tostring(current_card.unique_id) .. " " .. 
 								tostring(GameInfo.username) .. " " ..		
@@ -98,8 +100,9 @@ function finishCard( event )
 			    		for i=1, table.getn(GameInfo.player_list) do
 							if (GameInfo.username == GameInfo.player_list[i].username) then
 								if ( GameInfo.player_list[i].faceoff_card ~= "") then
-				        			print("this is the end of the finalisation")
+				        			--print("this is the end of the finalisation")
 										appWarpClient.sendUpdatePeers(
+                tostring("MSG_CODE") .. " " ..
 											tostring("pass_faceoff") .. " " ..
 											tostring(GameInfo.username) .. " " ..		
 											tostring(GameInfo.player_list[i].faceoff_card))
@@ -133,7 +136,7 @@ function finishCard( event )
   									if ( table.getn(card_info.actions) > 0) then
    	 									for i=1, table.getn(card_info.actions) do
       										local action = card_info.actions[i]
-      										print("action: " .. action.name .. " , " .. action.sub_action)
+      										--print("action: " .. action.name .. " , " .. action.sub_action)
       										if (action.name == "counter") then
 
 											    Check_Ab = switch { 
@@ -206,6 +209,7 @@ function finishCard( event )
       								if (counter_card == true) then
 
 										appWarpClient.sendUpdatePeers(
+                tostring("MSG_CODE") .. " " ..
 											tostring("counter") .. " " .. 
 											tostring(GameInfo.username) .. " " .. 
 											tostring(GameInfo.cards[GameInfo.faceoff_int].filename) .. " " .. 
@@ -232,6 +236,7 @@ function finishCard( event )
 							    unique_id = GameInfo.username .. "_" .. GameInfo.selected_card.filename .. "_" .. id
 
 								appWarpClient.sendUpdatePeers(
+                tostring("MSG_CODE") .. " " ..
 									tostring("hide_current") .. " " ..
 									tostring(GameInfo.username) .. " " ..
 									tostring(unique_id) .. " " ..
@@ -244,6 +249,7 @@ function finishCard( event )
 								--THE SEND THAT DATA TO THE OTHER PLAYER.
 								--NEEDS TO BE DONE AS DIFFERENT COUNTER RULES APPLY TO THE ATTACKER / DEFENDER
 								appWarpClient.sendUpdatePeers(
+                tostring("MSG_CODE") .. " " ..
 									tostring("position") .. " " ..
 									tostring(unique_id) .. " " ..
 									tostring(GameInfo.selected_card.filename) .. " " ..
@@ -267,11 +273,13 @@ function finishCard( event )
 			        end,	  
 			    [6] = function()    --END DISCARD
 		            appWarpClient.sendUpdatePeers(
+                tostring("MSG_CODE") .. " " ..
 		                tostring("hide_discard") .. " " .. 
 		                tostring(GameInfo.username)) 
 			        end,
 			    [7] = function()    --SAVE CARD
 		            --appWarpClient.sendUpdatePeers(
+                	--tostring("MSG_CODE") .. " " ..
 		            --    tostring("hide_discard") .. " " .. 
 		            --    tostring(GameInfo.username))
 						if (GameInfo.selected_card ~= "") then
@@ -322,7 +330,7 @@ function check_FinalisationButton(player)
 			    		finalise_button.isVisible = true
 			    		finalise_button.text.isVisible = true
 						finalise_button.text.text = "counter"
-						print("counter string set")
+						--print("counter string set")
 			    		
 						if ( GameInfo.username ~= GameInfo.player_list[player].username) then
 							GameInfo.finalise_state = 3

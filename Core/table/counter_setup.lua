@@ -72,14 +72,14 @@ local end_state = 0
 
 function Check_Counter_End()
 
-    print("CHECKING COUNTER: " , GameInfo.pause_main )
+    --print("CHECKING COUNTER: " , GameInfo.pause_main )
     local card_count = 0 
-    print("counter checked")
+    --print("counter checked")
     if ( GameInfo.player_list ~= nil) then
         for i=1, table.getn(GameInfo.player_list) do
             if (GameInfo.player_list[i].faceoff_card ~= "") then
                 card_count = card_count + 1
-                print("count increased")
+                --print("count increased")
             end
         end
 

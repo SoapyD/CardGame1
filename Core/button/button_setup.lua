@@ -14,7 +14,7 @@ end
 
 
 function PlayerHand()
-	print("height: ", display.contentHeight)
+	--print("height: ", display.contentHeight)
 
 	boxwidth = 3000
 	boxheight = 360
@@ -33,7 +33,7 @@ function PlayerHand()
 end
 
 function ScrollBar()
-	print("height: ", display.contentHeight)
+	--print("height: ", display.contentHeight)
 
 	boxwidth = GameInfo.hand.width
 	boxheight = 100
@@ -114,7 +114,7 @@ end
 
 
 function Portrait()
-	print("height: ", display.contentHeight)
+	--print("height: ", display.contentHeight)
 
 	portrait = display.newRoundedRect( GameInfo.portrait_start / 2,GameInfo.height - GameInfo.hand.height / 2 ,
 		GameInfo.portrait_start,GameInfo.hand.height, 0 )

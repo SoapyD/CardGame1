@@ -41,6 +41,7 @@ function CheckLimbDiscard(current_card, heal_type)
     end
 
     appWarpClient.sendUpdatePeers(
+                tostring("MSG_CODE") .. " " ..
     tostring("limb_discard") .. " " .. 
     tostring(GameInfo.username) .. " " ..
     tostring(1) .. " " ..

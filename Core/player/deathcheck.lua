@@ -13,7 +13,7 @@ function RoundCheck()
 			GameInfo.current_card_int ~= -1) then
 			--GameInfo.previous_card_int ~= -1) then
 			--local card_count = 0
-			print("CURRENT: " .. GameInfo.current_card_int)
+			--print("CURRENT: " .. GameInfo.current_card_int)
 			--print("PREVIOUS: " .. GameInfo.previous_card_int)
 
 			--needs to be the last card on the table
@@ -55,7 +55,7 @@ function RoundCheck()
 				end
 			end
 
-			print("CAN YOU PLAY A CARD?: " , any_allowed)
+			--print("CAN YOU PLAY A CARD?: " , any_allowed)
 
 			if (any_allowed == false) then
 				
@@ -68,10 +68,11 @@ function RoundCheck()
 
 				run_popup("PLAYER " .. winner .. " WINS ROUND\nINFLICTS " .. card_info.power .. " DAMAGE")
 				--GameInfo.player_list[GameInfo.current_player]
-				print("PLAYER " .. winner .. " WINS ROUND\nINFLICTS " .. card_info.power .. " DAMAGE")
+				--print("PLAYER " .. winner .. " WINS ROUND\nINFLICTS " .. card_info.power .. " DAMAGE")
 
 
 				appWarpClient.sendUpdatePeers(
+                tostring("MSG_CODE") .. " " ..
                     tostring("health_delay") .. " " .. 
                     tostring(-card_info.power) .. " " ..
                     tostring(0) .. " " ..
@@ -79,6 +80,7 @@ function RoundCheck()
 				--GameInfo.round_damage = -card_info.power
 
 				appWarpClient.sendUpdatePeers(
+                tostring("MSG_CODE") .. " " ..
                     tostring("end_round"))
 				--EndRound()
 			end

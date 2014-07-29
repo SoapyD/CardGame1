@@ -68,8 +68,8 @@ end
 function CheckDeck(deck_index, remove_item)
 
 	--RANDOMLY GENERATE A NUMBER FROM THE SIZE OF THE DECK
-	local randIndex = math.random(#decks[deck_index])
-	--local randIndex = 9 --5
+	--local randIndex = math.random(#decks[deck_index])
+	local randIndex = 9 --5
     --print("indexnum: ", randIndex)
 
 	--GET THE CARD NAME SAVED AT THAT LIST INDEX POSITION
@@ -81,6 +81,7 @@ function CheckDeck(deck_index, remove_item)
         RemoveDeckCard(deck_index, randIndex)
 
         appWarpClient.sendUpdatePeers(
+                tostring("MSG_CODE") .. " " ..
             tostring("remove_card") .. " " ..
             tostring(GameInfo.username) .. " " .. 
             tostring(deck_index).." ".. 
@@ -134,7 +135,7 @@ function LoadCard2(filename,sheet,sprite,x,y)
         sheetContentWidth = 1050,  -- width of original 1x size of entire sheet
         sheetContentHeight = 1750  -- height of original 1x size of entire sheet
     }
-    print("sheet: " .. sheet .. ", sprite: " .. sprite)
+    --print("sheet: " .. sheet .. ", sprite: " .. sprite)
     local imageSheet = graphics.newImageSheet( "Images/" .. sheet .. ".png", options )
     local icon = display.newImage( imageSheet, sprite, x, y )
 
@@ -197,8 +198,8 @@ function AddCard(unique_id,filename,x,y,scale)
 
     
     GameInfo.current_card_int = id
-    print("current card: " .. GameInfo.current_card_int)
-    print("previous card: " .. GameInfo.previous_card_int)
+    --print("current card: " .. GameInfo.current_card_int)
+    --print("previous card: " .. GameInfo.previous_card_int)
 end
 
 
@@ -267,6 +268,6 @@ function AddCard2(unique_id,filename,sheet,sprite,x,y,scale)
 
     
     GameInfo.current_card_int = id
-    print("current card: " .. GameInfo.current_card_int)
-    print("previous card: " .. GameInfo.previous_card_int)
+    --print("current card: " .. GameInfo.current_card_int)
+    --print("previous card: " .. GameInfo.previous_card_int)
 end

@@ -3,7 +3,7 @@
 function StealCards(card_number)
 
 	local count = 0
-	print("card is being stolen")
+	--print("card is being stolen")
 
 	for i = 1, table.getn(GameInfo.cards) do
 		if (GameInfo.cards[i].isVisible == true) then
@@ -20,6 +20,7 @@ function StealCards(card_number)
 			card.isVisible = false
 
 			appWarpClient.sendUpdatePeers(
+                tostring("MSG_CODE") .. " " ..
 				tostring("steal") .. " " ..
 				tostring(GameInfo.username) .. " " ..
 				tostring(card.filename) .. " " ..
@@ -42,6 +43,7 @@ function InjureEnemy()
     applied_player.armour = 0
 
 	appWarpClient.sendUpdatePeers(
+                tostring("MSG_CODE") .. " " ..
 		tostring("shrapnel") .. " " ..
 		tostring(GameInfo.username) .. " " ..		
 		tostring(shrap_val))
@@ -76,7 +78,7 @@ function action_CounterLoop()
 			        [2] = function()    --SET A TIMER
 			        		pause_timer = 2 * GameInfo.fps
 			        		advance_cardPausestate()
-			        		print("setting counter timer")
+			        		--print("setting counter timer")
 			            end,
 			        [3] = function()    --COUNT THROUGH THE TIMER
 			        		pause_timer = pause_timer - 1
@@ -88,11 +90,12 @@ function action_CounterLoop()
 			            end,
 			        [4] = function()    --PASS THE COUNT BACK
 			            appWarpClient.sendUpdatePeers(
+                tostring("MSG_CODE") .. " " ..
 	                    	tostring("finish_placement_pause") .. " " ..
 	                    	tostring(GameInfo.username))
 			            	advance_cardPausestate()
 
-			            print("pass back that counter timer now complete")
+			            --print("pass back that counter timer now complete")
 			            end,
 			        [5] = function()    --END
 			        	current_card = GameInfo.table_cards[table.getn(GameInfo.table_cards)]
@@ -118,7 +121,7 @@ function action_CounterLoop()
 			            end,
 			        [2] = function()    --COUNT THROUGH THE TIMER
 			        		--run_popup("PLACEMENT RETURNED")
-			        		print("opponent didn't counter card")
+			        		--print("opponent didn't counter card")
 			        		advance_cardPausestate()
 			            end,
 			        [3] = function()    --END

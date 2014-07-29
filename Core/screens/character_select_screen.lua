@@ -147,6 +147,7 @@ function CharacterButton_Presses( event )
             --    end
             --end
          appWarpClient.sendUpdatePeers(
+                tostring("MSG_CODE") .. " " ..
             tostring("set_character") .. " " ..
             tostring(GameInfo.username) .. " " .. 
             tostring(t.type)) 

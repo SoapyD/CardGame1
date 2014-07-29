@@ -6,7 +6,7 @@ function Remove_CurrentCard()
 	camera:remove(GameInfo.table_cards[GameInfo.current_card_int])
 	table.remove(GameInfo.table_cards, GameInfo.current_card_int)
 
-	print("card removed")
+	--print("card removed")
 	GameInfo.current_card_int = -1
 
 end
@@ -63,8 +63,8 @@ function GenerateButton(button_array, moveable)
 	  -- assign ids to buttons and insert in table
 	  button.id = tostring(item.id)
 	  GameInfo.myButtons[button.id] = button
-	  print("button id:", button.id)
-	  print("button x:", GameInfo.myButtons[button.id].x) 
+	  --print("button id:", button.id)
+	  --print("button x:", GameInfo.myButtons[button.id].x) 
 	end
 end
 
@@ -83,7 +83,7 @@ function onPress( event )
 		if "ended" == phase then
 			display.getCurrentStage():setFocus( nil )
 			t.isFocus = false
-			print("PRESS WORKED!")
+			--print("PRESS WORKED!")
 		end
 	end
 

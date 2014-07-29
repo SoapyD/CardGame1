@@ -112,6 +112,7 @@ function CrippleLimb_button( event )
             display.getCurrentStage():setFocus( nil )
             
             appWarpClient.sendUpdatePeers(
+                tostring("MSG_CODE") .. " " ..
             tostring("cripple_limb") .. " " .. 
             tostring(GameInfo.username) .. " " ..
             tostring(limb_modifier) .. " " ..

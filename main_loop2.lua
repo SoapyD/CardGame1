@@ -5,7 +5,7 @@ local end_timer = 0
 
 function set_MainState(state_value)
 	main_loop_state = state_value
-	print("MAIN STATE: "  .. main_loop_state)
+	--print("MAIN STATE: "  .. main_loop_state)
 end
 
 
@@ -26,7 +26,7 @@ function run_main_loop()
 
     local CheckState = switch { 
         [1] = function()
-				print("Round Initiation!!!!")
+				--print("Round Initiation!!!!")
 				--Show_FOTable("", true)
 				--main_loop_state = main_loop_state + 1
 				main_loop_state = 5
@@ -51,7 +51,7 @@ function run_main_loop()
 	            	ResetActionState()
 	              	ResetActionInternalState()
 	              	main_loop_state = 2
-	              	print("THE STATE HAS NOW RESET   " .. action_state)			
+	              	--print("THE STATE HAS NOW RESET   " .. action_state)			
 				end
             end,
         [5] = function() --PRE-GAME ACTIONS
@@ -100,11 +100,11 @@ function run_main_loop()
 				    	local against = 1 --DONATES THE OTHER PLAYER
 				    	local action = "heal_limb1"
 
-						if (player.username == player.username) then
+						if (player.username == GameInfo.player_list[GameInfo.current_player].username) then
 							against = 0 --DIRECT AT THE CURRENT PLAYER
 							action = "heal_limb0"
 						end
-						print("AGAINST: " .. against)
+						--print("AGAINST: " .. against)
 			        	arr_pos = table.getn(GameInfo.actions) + 1
 			            GameInfo.actions[arr_pos] = set_action("limb_discard", action, 1, against)
 			            GameInfo.actions[arr_pos].type = "limb_discard"

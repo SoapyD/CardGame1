@@ -79,6 +79,7 @@ function CheckActionState()
                     [0] = function()    --TURN ON THE FACEOFF SCREEN
                         --print("health value: " .. Action.value)
                         appWarpClient.sendUpdatePeers(
+                tostring("MSG_CODE") .. " " ..
                             tostring("health_delay") .. " " .. 
                             tostring(Action.value) .. " " ..
                             tostring(Action.applied_to) .. " " ..
@@ -115,6 +116,7 @@ function CheckActionState()
                         --print("card: " .. faceoff_card.name .. " power: " .. faceoff_card.power)
                         --if (faceoff_card ~= nil) then
                             appWarpClient.sendUpdatePeers(
+                tostring("MSG_CODE") .. " " ..
                                 tostring("health_delay") .. " " .. 
                                 --tostring(-faceoff_card.power) .. " " ..
                                 tostring(-GameInfo.power_damage) .. " " ..
@@ -310,6 +312,7 @@ function CheckActionState()
                             local card_info = retrieve_card(last_card.filename)
 
                             appWarpClient.sendUpdatePeers(
+                tostring("MSG_CODE") .. " " ..
                                 tostring("health_delay") .. " " .. 
                                 tostring(-card_info.power) .. " " ..
                                 tostring(1) .. " " ..
@@ -383,12 +386,13 @@ function CheckActionPos(network_used)
 
         if ( network_used == false) then
             appWarpClient.sendUpdatePeers(
+                tostring("MSG_CODE") .. " " ..
             tostring("advance_actions") .. " " .. 
             tostring(GameInfo.username)) 
         end
 
         ResetActionInternalState()
-        print("ACTIONS ADVANCED:   " .. action_state)
+        --print("ACTIONS ADVANCED:   " .. action_state)
         --check_FinalisationButton(GameInfo.current_player)
     end
     --print("NEW ACTION POS: " .. action_state)

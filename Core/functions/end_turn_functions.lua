@@ -97,7 +97,7 @@ function PassTurn()
   if ( GameInfo.current_player > table.getn(GameInfo.player_list)) then
     GameInfo.current_player = 1
   end               
-  print("current player is:" .. GameInfo.current_player)
+  --print("current player is:" .. GameInfo.current_player)
 
   check_FinalisationButton(GameInfo.current_player)
 
@@ -122,10 +122,10 @@ function EndRound()
             end,
         [2] = function()    --DRAW CARDS ON BOTH SIDES
                 local HandsSet = SetHands()
-                print(HandsSet)
+                --print(HandsSet)
                 if (HandsSet == true) then
                   EndRound_state = EndRound_state + 1
-                  print("THIS ENDS HERE")
+                  --print("THIS ENDS HERE")
                 end
 
               end,

@@ -72,6 +72,7 @@ function OptionButton_Presses( event )
             --print(t.type)
 
             appWarpClient.sendUpdatePeers(
+                tostring("MSG_CODE") .. " " ..
                 tostring("add_variable_action") .. " " ..
                 tostring(GameInfo.username) .. " " .. 
                 tostring(t.type))
