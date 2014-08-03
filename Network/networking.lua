@@ -41,8 +41,9 @@ function player_check()
                 end
 
                 if (internal_count >= connection_count) then
-                    appWarpClient.sendUpdatePeers(
-                tostring("MSG_CODE") .. " " ..
+                    QueueMessage(
+                    --appWarpClient.sendUpdatePeers(
+                    --tostring("MSG_CODE") .. " " ..
                     tostring("check_player") .. " " ..
                     tostring(GameInfo.username))
 
@@ -53,8 +54,9 @@ function player_check()
             end,
         [1] = function()    --ADD EACH PLAYER TO THE LIST
                 if (internal_count >= connection_count) then
-                    appWarpClient.sendUpdatePeers(
-                tostring("MSG_CODE") .. " " ..
+                    QueueMessage(
+                    --appWarpClient.sendUpdatePeers(
+                    --tostring("MSG_CODE") .. " " ..
                     tostring("add_player") .. " " ..
                     tostring(GameInfo.username))
                            
@@ -70,8 +72,9 @@ function player_check()
 
                 if (internal_count >= connection_count) then
                     if (GameInfo.player_1_id == "") then
-                        appWarpClient.sendUpdatePeers(
-                tostring("MSG_CODE") .. " " ..
+                        QueueMessage(
+                        --appWarpClient.sendUpdatePeers(
+                        --tostring("MSG_CODE") .. " " ..
                         tostring("set_player_1") .. " " ..
                         tostring(GameInfo.username))                    
                     end
@@ -150,8 +153,9 @@ function SetPlayerCards_Networked()
                 SetGame()
                 --print("SENDING FINISH" .. GameInfo.username)
 
-                appWarpClient.sendUpdatePeers(
-                tostring("MSG_CODE") .. " " ..
+                QueueMessage(
+                --appWarpClient.sendUpdatePeers(
+                    --tostring("MSG_CODE") .. " " ..
                     tostring("finish_draw") .. " " ..
                     tostring(GameInfo.username))  
 

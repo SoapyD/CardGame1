@@ -21,10 +21,11 @@ function ResetGame()
                 ResetActions()
                 ResetPlayers()
                 ResetCards()
+                Reset_MessageNum() --LOCATED IN NETWORK_QUEUE
                 reset_state = reset_state + 1
             end,
         [3] = function() --DEAL OUT THE HANDS, WAIT, FOR IT TO COMPLETE
-                
+                print("BEING USED")
                 local HandsSet = SetHands()
                 if (HandsSet == true) then
                     --print("HAND RESET FINISHED")
@@ -83,6 +84,7 @@ function ResetPlayers()
         local player = GameInfo.player_list[i]
 
         player = ResetPlayer(player, player.username)
+        player.character_info = CheckCharacter(GameInfo.selected_character)
         --print("player: " .. player.username .. " life: " .. player.health)       
     end
 end

@@ -19,8 +19,9 @@ function StealCards(card_number)
 			local card_type = string.sub(card.filename,1,1)
 			card.isVisible = false
 
-			appWarpClient.sendUpdatePeers(
-                tostring("MSG_CODE") .. " " ..
+			QueueMessage(
+			--appWarpClient.sendUpdatePeers(
+                --tostring("MSG_CODE") .. " " ..
 				tostring("steal") .. " " ..
 				tostring(GameInfo.username) .. " " ..
 				tostring(card.filename) .. " " ..
@@ -42,8 +43,9 @@ function InjureEnemy()
     local shrap_val = -applied_player.armour
     applied_player.armour = 0
 
-	appWarpClient.sendUpdatePeers(
-                tostring("MSG_CODE") .. " " ..
+    QueueMessage(
+	--appWarpClient.sendUpdatePeers(
+        --tostring("MSG_CODE") .. " " ..
 		tostring("shrapnel") .. " " ..
 		tostring(GameInfo.username) .. " " ..		
 		tostring(shrap_val))
@@ -89,8 +91,9 @@ function action_CounterLoop()
 			        		run_popup("COUNTER TIMER: " .. pause_timer)
 			            end,
 			        [4] = function()    --PASS THE COUNT BACK
-			            appWarpClient.sendUpdatePeers(
-                tostring("MSG_CODE") .. " " ..
+			        	QueueMessage(
+			            --appWarpClient.sendUpdatePeers(
+                			--tostring("MSG_CODE") .. " " ..
 	                    	tostring("finish_placement_pause") .. " " ..
 	                    	tostring(GameInfo.username))
 			            	advance_cardPausestate()

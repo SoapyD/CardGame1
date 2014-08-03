@@ -71,16 +71,18 @@ function RoundCheck()
 				--print("PLAYER " .. winner .. " WINS ROUND\nINFLICTS " .. card_info.power .. " DAMAGE")
 
 
-				appWarpClient.sendUpdatePeers(
-                tostring("MSG_CODE") .. " " ..
+				QueueMessage(
+				--appWarpClient.sendUpdatePeers(
+                	--tostring("MSG_CODE") .. " " ..
                     tostring("health_delay") .. " " .. 
                     tostring(-card_info.power) .. " " ..
                     tostring(0) .. " " ..
                     tostring("no"))
 				--GameInfo.round_damage = -card_info.power
 
-				appWarpClient.sendUpdatePeers(
-                tostring("MSG_CODE") .. " " ..
+				QueueMessage(
+				--appWarpClient.sendUpdatePeers(
+                	--tostring("MSG_CODE") .. " " ..
                     tostring("end_round"))
 				--EndRound()
 			end

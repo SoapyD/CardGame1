@@ -146,8 +146,10 @@ function CharacterButton_Presses( event )
             --        GameInfo.character_screen.player_info[i].icon.button_text.text = t.type
             --    end
             --end
-         appWarpClient.sendUpdatePeers(
-                tostring("MSG_CODE") .. " " ..
+
+            QueueMessage(
+         --appWarpClient.sendUpdatePeers(
+            --tostring("MSG_CODE") .. " " ..
             tostring("set_character") .. " " ..
             tostring(GameInfo.username) .. " " .. 
             tostring(t.type)) 

@@ -40,8 +40,9 @@ function CheckLimbDiscard(current_card, heal_type)
         against = 0 --DIRECT AT THE CURRENT PLAYER
     end
 
-    appWarpClient.sendUpdatePeers(
-                tostring("MSG_CODE") .. " " ..
+    QueueMessage(
+    --appWarpClient.sendUpdatePeers(
+    --tostring("MSG_CODE") .. " " ..
     tostring("limb_discard") .. " " .. 
     tostring(GameInfo.username) .. " " ..
     tostring(1) .. " " ..

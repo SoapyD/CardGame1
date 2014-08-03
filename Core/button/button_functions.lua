@@ -77,8 +77,9 @@ function finishCard( event )
 
 							local current_card = GameInfo.table_cards[id]
 
-							appWarpClient.sendUpdatePeers(
-                tostring("MSG_CODE") .. " " ..
+							QueueMessage(
+							--appWarpClient.sendUpdatePeers(
+                				--tostring("MSG_CODE") .. " " ..
 								tostring("position") .. " " ..
 								tostring(current_card.unique_id) .. " " ..
 								tostring(current_card.filename) .. " " ..
@@ -87,8 +88,9 @@ function finishCard( event )
 								tostring(current_card.x).." ".. 
 								tostring(current_card.y))
 
-							appWarpClient.sendUpdatePeers(
-                tostring("MSG_CODE") .. " " ..
+							QueueMessage(
+							--appWarpClient.sendUpdatePeers(
+                				--tostring("MSG_CODE") .. " " ..
 								tostring("rotation") .. " " ..
 								tostring(current_card.unique_id) .. " " .. 
 								tostring(GameInfo.username) .. " " ..		
@@ -101,8 +103,10 @@ function finishCard( event )
 							if (GameInfo.username == GameInfo.player_list[i].username) then
 								if ( GameInfo.player_list[i].faceoff_card ~= "") then
 				        			--print("this is the end of the finalisation")
-										appWarpClient.sendUpdatePeers(
-                tostring("MSG_CODE") .. " " ..
+										
+				        				QueueMessage(
+										--appWarpClient.sendUpdatePeers(
+                							--tostring("MSG_CODE") .. " " ..
 											tostring("pass_faceoff") .. " " ..
 											tostring(GameInfo.username) .. " " ..		
 											tostring(GameInfo.player_list[i].faceoff_card))
@@ -208,8 +212,9 @@ function finishCard( event )
 
       								if (counter_card == true) then
 
-										appWarpClient.sendUpdatePeers(
-                tostring("MSG_CODE") .. " " ..
+      									QueueMessage(
+										--appWarpClient.sendUpdatePeers(
+                							--tostring("MSG_CODE") .. " " ..
 											tostring("counter") .. " " .. 
 											tostring(GameInfo.username) .. " " .. 
 											tostring(GameInfo.cards[GameInfo.faceoff_int].filename) .. " " .. 
@@ -235,8 +240,9 @@ function finishCard( event )
 							    id = table.getn(GameInfo.cards)+1
 							    unique_id = GameInfo.username .. "_" .. GameInfo.selected_card.filename .. "_" .. id
 
-								appWarpClient.sendUpdatePeers(
-                tostring("MSG_CODE") .. " " ..
+							    QueueMessage(
+								--appWarpClient.sendUpdatePeers(
+                					--tostring("MSG_CODE") .. " " ..
 									tostring("hide_current") .. " " ..
 									tostring(GameInfo.username) .. " " ..
 									tostring(unique_id) .. " " ..
@@ -248,8 +254,9 @@ function finishCard( event )
 
 								--THE SEND THAT DATA TO THE OTHER PLAYER.
 								--NEEDS TO BE DONE AS DIFFERENT COUNTER RULES APPLY TO THE ATTACKER / DEFENDER
-								appWarpClient.sendUpdatePeers(
-                tostring("MSG_CODE") .. " " ..
+								QueueMessage(
+								--appWarpClient.sendUpdatePeers(
+                					--tostring("MSG_CODE") .. " " ..
 									tostring("position") .. " " ..
 									tostring(unique_id) .. " " ..
 									tostring(GameInfo.selected_card.filename) .. " " ..
@@ -272,16 +279,14 @@ function finishCard( event )
 						end
 			        end,	  
 			    [6] = function()    --END DISCARD
-		            appWarpClient.sendUpdatePeers(
-                tostring("MSG_CODE") .. " " ..
+		            QueueMessage(
+		            --appWarpClient.sendUpdatePeers(
+                		--tostring("MSG_CODE") .. " " ..
 		                tostring("hide_discard") .. " " .. 
 		                tostring(GameInfo.username)) 
 			        end,
 			    [7] = function()    --SAVE CARD
-		            --appWarpClient.sendUpdatePeers(
-                	--tostring("MSG_CODE") .. " " ..
-		            --    tostring("hide_discard") .. " " .. 
-		            --    tostring(GameInfo.username))
+
 						if (GameInfo.selected_card ~= "") then
 							GameInfo.finalise_state = 1
 							finalise_button.text.text = finalise_button.default_text	

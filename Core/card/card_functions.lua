@@ -228,8 +228,9 @@ function UpdateRotation(t)
 	local pos_info = CheckBoard_Pos(t)
 	Check_Quad_Region(t, pos_info[3], true)
 	--SEND AN UPDATE TO THE OTHER PLAYERS THAT THE CARD'S ROTATING AND BY WHAT ANGLE
-	appWarpClient.sendUpdatePeers(
-                tostring("MSG_CODE") .. " " ..
+	QueueMessage(
+	--appWarpClient.sendUpdatePeers(
+        --tostring("MSG_CODE") .. " " ..
 		tostring("rotation") .. " " ..
 		tostring(t.unique_id) .. " " .. 
 		tostring(GameInfo.username) .. " " ..		

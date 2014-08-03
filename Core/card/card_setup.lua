@@ -68,8 +68,8 @@ end
 function CheckDeck(deck_index, remove_item)
 
 	--RANDOMLY GENERATE A NUMBER FROM THE SIZE OF THE DECK
-	--local randIndex = math.random(#decks[deck_index])
-	local randIndex = 9 --5
+	local randIndex = math.random(#decks[deck_index])
+	--local randIndex = 9 --5
     --print("indexnum: ", randIndex)
 
 	--GET THE CARD NAME SAVED AT THAT LIST INDEX POSITION
@@ -80,8 +80,9 @@ function CheckDeck(deck_index, remove_item)
     if (remove_item == true) then
         RemoveDeckCard(deck_index, randIndex)
 
-        appWarpClient.sendUpdatePeers(
-                tostring("MSG_CODE") .. " " ..
+        QueueMessage(
+        --appWarpClient.sendUpdatePeers(
+            --tostring("MSG_CODE") .. " " ..
             tostring("remove_card") .. " " ..
             tostring(GameInfo.username) .. " " .. 
             tostring(deck_index).." ".. 

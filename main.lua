@@ -40,7 +40,9 @@ require("Core.card_types.type_focus")
 require("Core.card_types.type_speed")
 require("Core.card_types.type_armour")
 require("Core.card_types.type_cheat")
+
 require("Network.networking")
+require("Network.network_queue")
 
 require("Core.functions.camera_controls") --REQUIRES THE ZOOM VALUE FROM GAMEINFO
 require("Core.table.screen_elements")

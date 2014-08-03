@@ -133,6 +133,7 @@ function onUpdatePeersReceived(update)
         if (player.username == username) then
           player.character_name = character_type
           player.character_info = CheckCharacter(character_type)
+          GameInfo.selected_character = character_type
           --run_popup(t.type .. " SELECTED")
           GameInfo.character_screen.player_info[i].icon.button_text.text = character_type
         end
@@ -184,16 +185,18 @@ function onUpdatePeersReceived(update)
     local username = tostring(func())
     --print("FINISHING DRAW")
     if (username ~= GameInfo.username) then
-         appWarpClient.sendUpdatePeers(
-                tostring("MSG_CODE") .. " " ..
+         QueueMessage(
+         --appWarpClient.sendUpdatePeers(
+            --tostring("MSG_CODE") .. " " ..
             tostring("complete_action") .. " " .. 
             tostring(username)) 
 
       if (table.getn(GameInfo.cards) == 0) then
         DrawCharacterCards()
 
-        appWarpClient.sendUpdatePeers(
-                tostring("MSG_CODE") .. " " ..
+        QueueMessage(
+        --appWarpClient.sendUpdatePeers(
+          --tostring("MSG_CODE") .. " " ..
           tostring("finish_draw") .. " " ..
           tostring(GameInfo.username))    
       end

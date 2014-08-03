@@ -111,8 +111,9 @@ function CrippleLimb_button( event )
         elseif "ended" == phase then
             display.getCurrentStage():setFocus( nil )
             
-            appWarpClient.sendUpdatePeers(
-                tostring("MSG_CODE") .. " " ..
+            QueueMessage(
+            --appWarpClient.sendUpdatePeers(
+            --tostring("MSG_CODE") .. " " ..
             tostring("cripple_limb") .. " " .. 
             tostring(GameInfo.username) .. " " ..
             tostring(limb_modifier) .. " " ..

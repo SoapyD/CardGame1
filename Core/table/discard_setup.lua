@@ -45,8 +45,9 @@ function Show_DiscardTable(temp_sub_action)
         end
 
         if (hide == true) then
-            appWarpClient.sendUpdatePeers(
-                tostring("MSG_CODE") .. " " ..
+            QueueMessage(
+            --appWarpClient.sendUpdatePeers(
+                --tostring("MSG_CODE") .. " " ..
                 tostring("hide_discard") .. " " .. 
                 tostring(GameInfo.username)) 
         end
@@ -60,20 +61,23 @@ function CheckDiscard(current_card)
 
     local CheckState = switch { 
         ["damage"] = function()    --DAMAGE ENEMY USING CARDS MAIN VALUE
-            appWarpClient.sendUpdatePeers(
-                tostring("MSG_CODE") .. " " ..
+            QueueMessage(
+            --appWarpClient.sendUpdatePeers(
+                --tostring("MSG_CODE") .. " " ..
                 tostring("health_mod") .. " " .. 
                 tostring(-card_info.power)) 
             end,
         ["armour"] = function()    --ADD ARMOUR USING CARDS MAIN VALUE
-            appWarpClient.sendUpdatePeers(
-                tostring("MSG_CODE") .. " " ..
+            QueueMessage(
+            --appWarpClient.sendUpdatePeers(
+                --tostring("MSG_CODE") .. " " ..
                 tostring("armour_mod") .. " " .. 
                 tostring(card_info.power)) 
             end,
         ["flurry"] = function()    --FLURRY DISCARD DAMAGE
-            appWarpClient.sendUpdatePeers(
-                tostring("MSG_CODE") .. " " ..
+            QueueMessage(
+            --appWarpClient.sendUpdatePeers(
+                --tostring("MSG_CODE") .. " " ..
                 tostring("health_mod") .. " " .. 
                 tostring(discard_max)) 
 
@@ -97,8 +101,9 @@ function CheckDiscard(current_card)
     if (discard_state == 1) then
         if (discard_max <= 1 or card_available == false) then
         --    Hide_DiscardTable(false)
-            appWarpClient.sendUpdatePeers(
-                tostring("MSG_CODE") .. " " ..
+            QueueMessage(
+            --appWarpClient.sendUpdatePeers(
+                --tostring("MSG_CODE") .. " " ..
                 tostring("hide_discard") .. " " .. 
                 tostring(GameInfo.username)) 
         end

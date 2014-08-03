@@ -78,8 +78,10 @@ function CheckActionState()
                 local CheckState = switch { 
                     [0] = function()    --TURN ON THE FACEOFF SCREEN
                         --print("health value: " .. Action.value)
-                        appWarpClient.sendUpdatePeers(
-                tostring("MSG_CODE") .. " " ..
+                        
+                        QueueMessage(
+                        --appWarpClient.sendUpdatePeers(
+                            --tostring("MSG_CODE") .. " " ..
                             tostring("health_delay") .. " " .. 
                             tostring(Action.value) .. " " ..
                             tostring(Action.applied_to) .. " " ..
@@ -115,8 +117,10 @@ function CheckActionState()
 
                         --print("card: " .. faceoff_card.name .. " power: " .. faceoff_card.power)
                         --if (faceoff_card ~= nil) then
-                            appWarpClient.sendUpdatePeers(
-                tostring("MSG_CODE") .. " " ..
+                            
+                            QueueMessage(
+                            --appWarpClient.sendUpdatePeers(
+                                --tostring("MSG_CODE") .. " " ..
                                 tostring("health_delay") .. " " .. 
                                 --tostring(-faceoff_card.power) .. " " ..
                                 tostring(-GameInfo.power_damage) .. " " ..
@@ -311,8 +315,9 @@ function CheckActionState()
                             local last_card = GameInfo.table_cards[GameInfo.current_card_int]
                             local card_info = retrieve_card(last_card.filename)
 
-                            appWarpClient.sendUpdatePeers(
-                tostring("MSG_CODE") .. " " ..
+                            QueueMessage(
+                            --appWarpClient.sendUpdatePeers(
+                                --tostring("MSG_CODE") .. " " ..
                                 tostring("health_delay") .. " " .. 
                                 tostring(-card_info.power) .. " " ..
                                 tostring(1) .. " " ..
@@ -385,8 +390,10 @@ function CheckActionPos(network_used)
         --print("action list size:" .. list_size .. " action_state:" .. action_state .. " action_internal_state: " .. action_internal_state)
 
         if ( network_used == false) then
-            appWarpClient.sendUpdatePeers(
-                tostring("MSG_CODE") .. " " ..
+            
+            QueueMessage(
+            --appWarpClient.sendUpdatePeers(
+            --tostring("MSG_CODE") .. " " ..
             tostring("advance_actions") .. " " .. 
             tostring(GameInfo.username)) 
         end
