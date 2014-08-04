@@ -117,8 +117,10 @@ function onUpdatePeersReceived(update)
   local func = string.gmatch(update, "%S+")
 
   local msg_id = tostring(func())
+  local msg_num = tonumber(func())
   local update_type = tostring(func())
-  print(msg_id .. " , " .. update_type)
+  print("ID: " .. msg_id .. " , NUM: " .. msg_num .. " , TYPE: " .. update_type)
+  ConfirmMessage(msg_id, msg_num, update_type)
 
   --//////////////////////////////////////////////////////////////////////////
   --////////////////////SCREEN STATE STUFF
