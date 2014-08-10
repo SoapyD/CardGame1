@@ -117,7 +117,7 @@ function EndRound()
     local CheckState = switch { 
         [1] = function()    --RESET THE CARDS ON THE BOARD
               ResetCards()
-
+              --print("HAND AFTER RESET: " .. table.getn(GameInfo.cards))
               EndRound_state = EndRound_state + 1
             end,
         [2] = function()    --DRAW CARDS ON BOTH SIDES
@@ -125,7 +125,7 @@ function EndRound()
                 --print(HandsSet)
                 if (HandsSet == true) then
                   EndRound_state = EndRound_state + 1
-                  --print("THIS ENDS HERE")
+                  --print("HANDS NOW SET")
                 end
 
               end,

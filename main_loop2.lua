@@ -147,6 +147,7 @@ function run_main_loop()
         [3] = function() --START-GAME FACEOFF, DETERMINES ROUND'S STARTING PLAYER
 				local Round_Ended = EndRound()
 				if (Round_Ended == true) then
+					print("CARD AFTER END ROUND: " .. table.getn(GameInfo.cards))
 					GameInfo.end_round = false
 				end
             end,

@@ -5,6 +5,7 @@ local reset_counter = 0
 
 function ResetGame()
 
+    print("RESET STATE: " .. reset_state)
 
     local CheckState = switch { 
         [1] = function()
@@ -138,7 +139,11 @@ function SetHands()
 
     local HandsSet = false
 
-    if(GameInfo.player_list[1].username == GameInfo.username) then
+    --print("current player: " .. GameInfo.player_list[GameInfo.current_player].username
+    --    .. " first pos: " .. GameInfo.player_list[1].username)
+
+    --if(GameInfo.player_list[1].username == GameInfo.username) then
+    if(GameInfo.player_list[GameInfo.current_player].username == GameInfo.username) then
         local SetupComplete = SetPlayerCards_Networked()
         if (SetupComplete == true) then
             --EndRound_state = EndRound_state + 1

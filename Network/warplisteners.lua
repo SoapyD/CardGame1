@@ -193,6 +193,7 @@ function onUpdatePeersReceived(update)
             tostring("complete_action") .. " " .. 
             tostring(username)) 
 
+      --print("CARDS IN HAND: " .. table.getn(GameInfo.cards))
       if (table.getn(GameInfo.cards) == 0) then
         DrawCharacterCards()
 
@@ -434,6 +435,7 @@ function onUpdatePeersReceived(update)
 
   if (update_type == "end_round") then
     --EndRound()
+    --print("ENDING ROUND " .. GameInfo.username)
     GameInfo.end_round = true
   end
 
