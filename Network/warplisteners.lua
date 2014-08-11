@@ -390,9 +390,9 @@ function onUpdatePeersReceived(update)
     local username = tostring(func())
     print("advancing networked player actions")
     if (username ~= GameInfo.username) then
-      --CheckActionPos(true)
-      ActivateNetwork()
-      CompleteAction()
+      CheckActionPos(true)
+      --ActivateNetwork()
+      --CompleteAction()
     end
   end
 

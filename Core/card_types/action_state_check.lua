@@ -525,20 +525,25 @@ function CheckActionState()
 end
 
 function CheckActionPos(network_used2)
+    
+    if (animation_timer > 0) then
+        print("STILL TIME ON THE TIMER")
+    end
+
     animation_state = 2
     network_used = network_used2
     --CompleteAction()
 
-    --local list_size = table.getn(GameInfo.actions)
+    local list_size = table.getn(GameInfo.actions)
 
-    --if (list_size > 0) then
+    if (list_size > 0) then
 
-    --    if ( network_used == false) then
-    --        QueueMessage(
-    --        tostring("advance_actions") .. " " .. 
-    --        tostring(GameInfo.username)) 
-    --   end
-    --end
+        if ( network_used == false) then
+            QueueMessage(
+            tostring("advance_actions") .. " " .. 
+            tostring(GameInfo.username)) 
+       end
+    end
 end
 
 function ActivateNetwork()
@@ -556,12 +561,12 @@ function CompleteAction()
         end
 
         DeathCheck(false)
-        print("NETWORK USED: " , network_used)
-        if ( network_used == false) then
-            QueueMessage(
-            tostring("advance_actions") .. " " .. 
-            tostring(GameInfo.username)) 
-        end
+        --print("NETWORK USED: " , network_used)
+        --if ( network_used == false) then
+        --    QueueMessage(
+        --    tostring("advance_actions") .. " " .. 
+        --    tostring(GameInfo.username)) 
+        --end
 
         ResetActionInternalState()
     end
