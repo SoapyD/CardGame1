@@ -272,6 +272,54 @@ function onUpdatePeersReceived(update)
     end
   end
 
+  if (update_type == "life_delay") then
+    local health_modifier = tonumber(func())
+    local applied_to = tonumber(func())
+    local advance_pos = tostring(func())
+    --print("HEALTH MOD " .. health_modifier)
+    --mod_health(1,health_modifier)
+    mod_life(applied_to,health_modifier)
+
+    if (advance_pos == "yes") then
+      CheckActionPos(true)
+    end
+  end
+
+  if (update_type == "armour_delay") then
+    local health_modifier = tonumber(func())
+    local applied_to = tonumber(func())
+    local advance_pos = tostring(func())
+    --print("HEALTH MOD " .. health_modifier)
+    --mod_health(1,health_modifier)
+    mod_armour(applied_to,health_modifier)
+
+    if (advance_pos == "yes") then
+      CheckActionPos(true)
+    end
+  end
+
+  if (update_type == "arm_delay") then
+    local health_modifier = tonumber(func())
+    local applied_to = tonumber(func())
+    local advance_pos = tostring(func())
+    mod_arm(applied_to,health_modifier)
+
+    if (advance_pos == "yes") then
+      CheckActionPos(true)
+    end
+  end
+
+  if (update_type == "leg_delay") then
+    local health_modifier = tonumber(func())
+    local applied_to = tonumber(func())
+    local advance_pos = tostring(func())
+    mod_leg(applied_to,health_modifier)
+
+    if (advance_pos == "yes") then
+      CheckActionPos(true)
+    end
+  end
+
   --//////////////////////////////////////////////////////////////////////////
   --////////////////////COUNTER ACTIONS
   --//////////////////////////////////////////////////////////////////////////
@@ -343,6 +391,8 @@ function onUpdatePeersReceived(update)
     --print("advancing networked player actions")
     if (username ~= GameInfo.username) then
       CheckActionPos(true)
+      --ActivateNetwork()
+      --CompleteAction()
     end
   end
 

@@ -10,11 +10,11 @@ function CheckAbility(action)
     temp_mods.type = ""
     --print("ability passed" .. ability)
     Check_Ab = switch { 
-    	["health"] = function (x) mod_health(action.applied_to, action.value) end,
-        ["life"] = function (x) mod_health(action.applied_to, action.value) end,
-        ["armour"] = function (x) mod_armour(action.applied_to, action.value) end,
-        ["arm"] = function (x) mod_arm(action.applied_to, action.value) end,
-    	["leg"] = function (x) mod_leg(action.applied_to, action.value) end, 
+    	--["health"] = function (x) mod_health(action.applied_to, action.value) end,
+        --["life"] = function (x) mod_life(action.applied_to, action.value) end,
+        --["armour"] = function (x) mod_armour(action.applied_to, action.value) end,
+        --["arm"] = function (x) mod_arm(action.applied_to, action.value) end,
+    	--["leg"] = function (x) mod_leg(action.applied_to, action.value) end, 
         ["prev_card"] = function (x) mod_from_prev(action.applied_to, action.sub_action) end, 
         ["block"] = function (x) --don't add onto the action list 
                 end,

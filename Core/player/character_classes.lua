@@ -19,22 +19,22 @@ function CheckCharacter(character_name)
                 character_info[5] = 0
                 character_info[6] = 0
             end,
-        --["assassin"] = function()    --
-        --		character_info[1] = 1
-        --		character_info[2] = 0
-        --		character_info[3] = 0
-        --		character_info[4] = 5
-        --		character_info[5] = 0
-        --		character_info[6] = 2
-        --    end,
         ["assassin"] = function()    --
-                character_info[1] = 0
-                character_info[2] = 0
-                character_info[3] = 0
-                character_info[4] = 0
-                character_info[5] = 0
-                character_info[6] = 3
+        		character_info[1] = 1
+        		character_info[2] = 0
+        		character_info[3] = 0
+        		character_info[4] = 5
+        		character_info[5] = 0
+        		character_info[6] = 2
             end,
+        --["assassin"] = function()    --
+        --        character_info[1] = 0
+        --        character_info[2] = 0
+        --        character_info[3] = 0
+        --        character_info[4] = 0
+        --        character_info[5] = 0
+        --        character_info[6] = 3
+        --    end,
         ["barbarian"] = function()    --
         		character_info[1] = 0
         		character_info[2] = 5

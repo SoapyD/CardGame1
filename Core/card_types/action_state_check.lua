@@ -2,6 +2,9 @@
 local action_state = 1
 local action_internal_state = 0
 
+local animation_state = 1
+local network_used = false
+local animation_timer = 0
 
 function ResetActionState()
     action_state = 1
@@ -72,6 +75,131 @@ function CheckActionState()
                 CheckState:case(action_internal_state)
             end, 
 
+        ["armour"] = function()    --SEND HEALTH DAMAGE THAT NEEDS STACKING
+
+                local CheckState = switch { 
+                    [0] = function()    --TURN ON THE FACEOFF SCREEN
+                        --print("ARMOUR BEING MODDED " .. Action.value)
+                        
+                        QueueMessage(
+                        --appWarpClient.sendUpdatePeers(
+                            --tostring("MSG_CODE") .. " " ..
+                            tostring("armour_delay") .. " " .. 
+                            tostring(Action.value) .. " " ..
+                            tostring(Action.applied_to) .. " " ..
+                            tostring("yes"))
+                        action_internal_state = 1
+
+                        --CheckActionPos(false)
+                        end,
+                    [1] = function()    --ENDS IN WARPLISTENER, OVER THE NETWORK
+                        --print("HEALTH DELAY ENDSs")
+                        end,
+                    default = function () print("ERROR - action_internal_state not within switch") end,
+                }
+
+                CheckState:case(action_internal_state)
+            end,
+
+        ["life"] = function()    --SEND HEALTH DAMAGE THAT NEEDS STACKING
+
+                local CheckState = switch { 
+                    [0] = function()    --TURN ON THE FACEOFF SCREEN
+                        --print("LIFE DAMAGE BEING INFLICTED " .. Action.value)
+                        
+                        QueueMessage(
+                        --appWarpClient.sendUpdatePeers(
+                            --tostring("MSG_CODE") .. " " ..
+                            tostring("life_delay") .. " " .. 
+                            tostring(Action.value) .. " " ..
+                            tostring(Action.applied_to) .. " " ..
+                            tostring("yes"))
+                        action_internal_state = 1
+
+                        --CheckActionPos(false)
+                        end,
+                    [1] = function()    --ENDS IN WARPLISTENER, OVER THE NETWORK
+                        --print("HEALTH DELAY ENDSs")
+                        end,
+                    default = function () print("ERROR - action_internal_state not within switch") end,
+                }
+
+                CheckState:case(action_internal_state)
+            end,
+
+        ["health"] = function()    --SEND HEALTH DAMAGE THAT NEEDS STACKING
+
+                local CheckState = switch { 
+                    [0] = function()    --TURN ON THE FACEOFF SCREEN
+                        --print("DAMAGE BEING INFLICTED " .. Action.value)
+                        
+                        QueueMessage(
+                        --appWarpClient.sendUpdatePeers(
+                            --tostring("MSG_CODE") .. " " ..
+                            tostring("health_delay") .. " " .. 
+                            tostring(Action.value) .. " " ..
+                            tostring(Action.applied_to) .. " " ..
+                            tostring("yes"))
+                        action_internal_state = 1
+
+                        --CheckActionPos(false)
+                        end,
+                    [1] = function()    --ENDS IN WARPLISTENER, OVER THE NETWORK
+                        --print("HEALTH DELAY ENDSs")
+                        end,
+                    default = function () print("ERROR - action_internal_state not within switch") end,
+                }
+
+                CheckState:case(action_internal_state)
+            end, 
+
+        ["arm"] = function()    --SEND HEALTH DAMAGE THAT NEEDS STACKING
+
+                local CheckState = switch { 
+                    [0] = function()    --TURN ON THE FACEOFF SCREEN
+                        print("ARM BEING INFLICTED " .. Action.value)
+                        
+                        QueueMessage(
+                            tostring("arm_delay") .. " " .. 
+                            tostring(Action.value) .. " " ..
+                            tostring(Action.applied_to) .. " " ..
+                            tostring("yes"))
+                        action_internal_state = 1
+                        end,
+                    [1] = function()    --ENDS IN WARPLISTENER, OVER THE NETWORK
+                        --print("HEALTH DELAY ENDSs")
+                        end,
+                    default = function () print("ERROR - action_internal_state not within switch") end,
+                }
+
+                CheckState:case(action_internal_state)
+            end, 
+
+        ["leg"] = function()    --SEND HEALTH DAMAGE THAT NEEDS STACKING
+
+                local CheckState = switch { 
+                    [0] = function()    --TURN ON THE FACEOFF SCREEN
+                        print("LEG BEING INFLICTED " .. Action.value)
+                        
+                        QueueMessage(
+                        --appWarpClient.sendUpdatePeers(
+                            --tostring("MSG_CODE") .. " " ..
+                            tostring("leg_delay") .. " " .. 
+                            tostring(Action.value) .. " " ..
+                            tostring(Action.applied_to) .. " " ..
+                            tostring("yes"))
+                        action_internal_state = 1
+
+                        --CheckActionPos(false)
+                        end,
+                    [1] = function()    --ENDS IN WARPLISTENER, OVER THE NETWORK
+                        --print("HEALTH DELAY ENDSs")
+                        end,
+                    default = function () print("ERROR - action_internal_state not within switch") end,
+                }
+
+                CheckState:case(action_internal_state)
+            end, 
 
         ["health_delay"] = function()    --SEND HEALTH DAMAGE THAT NEEDS STACKING
 
@@ -345,62 +473,97 @@ function CheckActionState()
         default = function () print( "ERROR - GameInfo Action not within switch") end,
     }
 
-    if (table.getn(GameInfo.actions) > 0 and GameInfo.end_game == false) then
-        --print("applied to" .. GameInfo.actions[action_state].applied_to)
-    	if (GameInfo.actions[action_state].applied_to == 0 and
-            GameInfo.username == GameInfo.player_list[GameInfo.current_player].username) then
-    	   CheckState:case(GameInfo.actions[action_state].type)
-        end
-    end
-    if (table.getn(GameInfo.actions) > 0 and GameInfo.end_game == false) then
-        if (GameInfo.actions[action_state].applied_to == 1 and
-            GameInfo.username ~= GameInfo.player_list[GameInfo.current_player].username) then
-            CheckState:case(GameInfo.actions[action_state].type)
-        end
-    end
-    if (table.getn(GameInfo.actions) > 0 and GameInfo.end_game == false) then
-        if (GameInfo.actions[action_state].applied_to == -1) then
-            CheckState:case(GameInfo.actions[action_state].type)
-        end
-	end
 
-    --if (table.getn(GameInfo.actions) > 0 ) then
-    --    print(GameInfo.actions[action_state].type .. ", INTERNAL: " .. action_internal_state)
-    --end
+    local Check_Animation = switch { 
+
+        [1] = function (x) 
+                if (table.getn(GameInfo.actions) > 0 and GameInfo.end_game == false) then
+                    --print("applied to" .. GameInfo.actions[action_state].applied_to)
+                    if (GameInfo.actions[action_state].applied_to == 0 and
+                        GameInfo.username == GameInfo.player_list[GameInfo.current_player].username) then
+                       CheckState:case(GameInfo.actions[action_state].type)
+                    end
+                end
+                if (table.getn(GameInfo.actions) > 0 and GameInfo.end_game == false) then
+                    if (GameInfo.actions[action_state].applied_to == 1 and
+                        GameInfo.username ~= GameInfo.player_list[GameInfo.current_player].username) then
+                        CheckState:case(GameInfo.actions[action_state].type)
+                    end
+                end
+                if (table.getn(GameInfo.actions) > 0 and GameInfo.end_game == false) then
+                    if (GameInfo.actions[action_state].applied_to == -1) then
+                        CheckState:case(GameInfo.actions[action_state].type)
+                    end
+                end
+            end, 
+        [2] = function (x) 
+                animation_timer = 60 * 3
+                animation_state = animation_state + 1
+            end,
+        [3] = function (x) 
+                animation_timer = animation_timer - 1
+                if (animation_timer <= 0 ) then
+                    animation_timer = 0
+                    animation_state = animation_state + 1
+                end
+            end,
+
+        [4] = function (x) 
+                CompleteAction()
+                animation_state = 1
+            end,
+
+        default = function () 
+                --print( "ERROR - ability not within switch") 
+                end,
+    }
+
+    --print("ANIMATION STATE " .. animation_state)
+    Check_Animation:case(animation_state)
+
     DeathCheck(false)
-    --RoundCheck()
 end
 
-function CheckActionPos(network_used)
+function CheckActionPos(network_used2)
+    --animation_state = 2
+    network_used = network_used2
+    CompleteAction()
+
     local list_size = table.getn(GameInfo.actions)
 
     if (list_size > 0) then
-        --print("action list size:" .. list_size .. " action_state:" .. action_state)
+
+        if ( network_used == false) then
+            QueueMessage(
+            tostring("advance_actions") .. " " .. 
+            tostring(GameInfo.username)) 
+        end
+    end
+end
+
+function ActivateNetwork()
+    network_used = true
+end
+
+function CompleteAction()
+    local list_size = table.getn(GameInfo.actions)
+
+    if (list_size > 0) then
         if (action_state < list_size) then
             action_state = action_state + 1
         else
-            --GameInfo.actions = {}
-            --ResetActionState()
-            --ResetActionInternalState()
             ResetActions()
         end
 
         DeathCheck(false)
-
-        --print("action list size:" .. list_size .. " action_state:" .. action_state .. " action_internal_state: " .. action_internal_state)
-
+        print("NETWORK USED: " , network_used)
         if ( network_used == false) then
-            
             QueueMessage(
-            --appWarpClient.sendUpdatePeers(
-            --tostring("MSG_CODE") .. " " ..
             tostring("advance_actions") .. " " .. 
             tostring(GameInfo.username)) 
         end
 
         ResetActionInternalState()
-        --print("ACTIONS ADVANCED:   " .. action_state)
-        --check_FinalisationButton(GameInfo.current_player)
     end
-    --print("NEW ACTION POS: " .. action_state)
+    --animation_state = 1
 end

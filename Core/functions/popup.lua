@@ -67,6 +67,7 @@ function setMsgFade()
 		local fade_adjusted = false
 		local itts = 0.05
 
+		--FADE 1 = FADE OUT
 		if (MsgBox.fade == 1) then
 			if (MsgBox.msg_fade > 0) then
 				MsgBox.msg_fade = MsgBox.msg_fade - itts
@@ -77,6 +78,7 @@ function setMsgFade()
 			fade_adjusted = true
 		end
 
+		--FADE 2 = FADE IN
 		if (MsgBox.fade == 2) then
 			if (MsgBox.msg_fade < 1) then
 				MsgBox.msg_fade = MsgBox.msg_fade + itts
@@ -86,6 +88,7 @@ function setMsgFade()
 			fade_adjusted = true
 		end
 
+		--ADJUST MSGBOX FADE IF IT'S MESSAGE IS FADING IN OR OUT
 		if (fade_adjusted == true and (MsgBox.fade == 1 or MsgBox.fade == 2)) then
 			MsgBox:setFillColor( colorsRGB.RGB("white"),MsgBox.msg_fade )
 			MsgBox.strokeWidth = 6
@@ -93,16 +96,18 @@ function setMsgFade()
 
 			MsgText:setFillColor( colorsRGB.RGB("black"), MsgBox.msg_fade)
 
+			--IF MESSAGE BOX HAS FADED IN, CREATE TIMER, PAUSE FADE
 			if (MsgBox.fade == 2 and MsgBox.msg_fade == 1) then
 				MsgBox.fade = 0
 				MsgBox.msg_timer = GameInfo.fps * 3
 			end
+			--IF FACE OUT IS COMLETE, PAUSE FADE
 			if (MsgBox.fade == 1 and MsgBox.msg_fade == 0) then
 				MsgBox.fade = 0
 			end
 		end
 
-		--NOW KEEP A TIMER THAT WILL MAKE THE BOX FADE ONCE IT'S COMPLETE
+		--KEEP TRACK OF TIMER, IF IT'S FINISHED, FADE THE MESSAGEBOX OUT
 		if (MsgBox.msg_timer > 0) then
 			MsgBox.msg_timer = MsgBox.msg_timer - 1
 			--print("mesasge timer " .. MsgBox.msg_timer)			
