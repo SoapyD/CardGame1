@@ -28,11 +28,10 @@ function ConfirmMessage(msg_id, msg_num, update_type)
 			--QueueMessage("message_received" .. "_" .. msg_id .. "_" .. msg_num .. "_" .. update_type)
 
 			--DON'T WANT THESE AFFECTING THE OVERALL MESSAGE COUNT
-			local message = "message_received" .. "_" .. msg_id .. "_" .. msg_num .. "_" .. update_type
-			local message_code = tostring(GameInfo.username .. " " .. 0)
-			message = message_code .. " " .. message
-
-			appWarpClient.sendUpdatePeers(message)
+			--local message = "message_received" .. "_" .. msg_id .. "_" .. msg_num .. "_" .. update_type
+			--local message_code = tostring(GameInfo.username .. " " .. 0)
+			--message = message_code .. " " .. message
+			--appWarpClient.sendUpdatePeers(message)
 
 	end
 

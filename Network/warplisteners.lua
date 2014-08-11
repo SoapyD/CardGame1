@@ -388,11 +388,11 @@ function onUpdatePeersReceived(update)
 
   if (update_type == "advance_actions") then
     local username = tostring(func())
-    --print("advancing networked player actions")
+    print("advancing networked player actions")
     if (username ~= GameInfo.username) then
-      CheckActionPos(true)
-      --ActivateNetwork()
-      --CompleteAction()
+      --CheckActionPos(true)
+      ActivateNetwork()
+      CompleteAction()
     end
   end
 
@@ -450,10 +450,15 @@ function onUpdatePeersReceived(update)
   if (update_type == "shrapnel") then
     local username = tostring(func())
     local damage = tonumber(func())
+    local player_int = tonumber(func())
 
     --if (username ~= GameInfo.username) then
       --print("inflicting damage: " .. damage)
       mod_health(1,damage)
+
+      --RESET ARMOUR TO ZERO
+      local applied_player = GameInfo.player_list[player_int]
+      applied_player.armour = 0
     --end
   end
 

@@ -26,9 +26,10 @@ function GetPlayer()
 
 	local current_player = {}
 
-    for i=1, table.getn(GameInfo.player_list) do
-        current_player = GameInfo.player_list[i]
-    end
+    --for i=1, table.getn(GameInfo.player_list) do
+    --    current_player = GameInfo.player_list[i]
+    --end
+    current_player = GameInfo.player_list[GameInfo.current_player]
 
     return current_player
 

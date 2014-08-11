@@ -41,14 +41,15 @@ function InjureEnemy()
     local applied_player = GameInfo.player_list[apply_to]
 
     local shrap_val = -applied_player.armour
-    applied_player.armour = 0
+    --applied_player.armour = 0
 
     QueueMessage(
 	--appWarpClient.sendUpdatePeers(
         --tostring("MSG_CODE") .. " " ..
 		tostring("shrapnel") .. " " ..
 		tostring(GameInfo.username) .. " " ..		
-		tostring(shrap_val))
+		tostring(shrap_val) .. " " ..
+		tostring(apply_to))
 
 	run_popup( shrap_val .. " Shrapnel Damage")
 

@@ -525,20 +525,20 @@ function CheckActionState()
 end
 
 function CheckActionPos(network_used2)
-    --animation_state = 2
+    animation_state = 2
     network_used = network_used2
-    CompleteAction()
+    --CompleteAction()
 
-    local list_size = table.getn(GameInfo.actions)
+    --local list_size = table.getn(GameInfo.actions)
 
-    if (list_size > 0) then
+    --if (list_size > 0) then
 
-        if ( network_used == false) then
-            QueueMessage(
-            tostring("advance_actions") .. " " .. 
-            tostring(GameInfo.username)) 
-        end
-    end
+    --    if ( network_used == false) then
+    --        QueueMessage(
+    --        tostring("advance_actions") .. " " .. 
+    --        tostring(GameInfo.username)) 
+    --   end
+    --end
 end
 
 function ActivateNetwork()
@@ -565,5 +565,5 @@ function CompleteAction()
 
         ResetActionInternalState()
     end
-    --animation_state = 1
+    animation_state = 1
 end
