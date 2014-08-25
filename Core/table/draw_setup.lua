@@ -20,12 +20,27 @@ end
 
 function Show_DrawTable()
     GameInfo.screen_elements.image.isVisible  = true
-    GameInfo.draw_screen.card1.icon.isVisible  = true
-    GameInfo.draw_screen.card2.icon.isVisible  = true
-    GameInfo.draw_screen.card3.icon.isVisible  = true
-    GameInfo.draw_screen.card4.icon.isVisible  = true
-    GameInfo.draw_screen.card5.icon.isVisible  = true
-    GameInfo.draw_screen.card6.icon.isVisible  = true
+
+    local deck_info = GetDeck(); 
+
+    if (table.getn(deck_info[1]) > 0) then
+        GameInfo.draw_screen.card1.icon.isVisible  = true
+    end
+    if (table.getn(deck_info[2]) > 0) then
+        GameInfo.draw_screen.card2.icon.isVisible  = true
+    end
+    if (table.getn(deck_info[3]) > 0) then
+        GameInfo.draw_screen.card3.icon.isVisible  = true
+    end
+    if (table.getn(deck_info[4]) > 0) then   
+        GameInfo.draw_screen.card4.icon.isVisible  = true
+    end
+    if (table.getn(deck_info[5]) > 0) then
+        GameInfo.draw_screen.card5.icon.isVisible  = true
+    end
+    if (table.getn(deck_info[6]) > 0) then
+        GameInfo.draw_screen.card6.icon.isVisible  = true
+    end
     TitleText.text = "Draw Card"
     GameInfo.pause_main = true
     run_popup("Draw: " .. draw_max)
@@ -126,12 +141,12 @@ function LoadDrawCard()
     draw_item.card5 = {}
     draw_item.card6 = {}
 
-    AddCardZone(draw_item.card1,130,300,"red","weapon",1);
-    AddCardZone(draw_item.card2,400,300,"blue","physical",2);
-    AddCardZone(draw_item.card3,670,300,"green","focus",3);
-    AddCardZone(draw_item.card4,130,570,"yellow","speed",4);
-    AddCardZone(draw_item.card5,400,570,"purple","armour",5);
-    AddCardZone(draw_item.card6,670,570,"aqua","cheat",6);
+    AddCardZone(draw_item.card1,130,500,"red","weapon",1);
+    AddCardZone(draw_item.card2,400,500,"blue","physical",2);
+    AddCardZone(draw_item.card3,670,500,"green","focus",3);
+    AddCardZone(draw_item.card4,130,770,"yellow","speed",4);
+    AddCardZone(draw_item.card5,400,770,"purple","armour",5);
+    AddCardZone(draw_item.card6,670,770,"aqua","cheat",6);
 
     GameInfo.draw_screen = draw_item
     Hide_DrawTable()

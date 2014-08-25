@@ -24,104 +24,104 @@ function run_main_loop()
     --print(main_loop_state)
     if (GameInfo.end_game == false) then
 
-    local CheckState = switch { 
-        [1] = function()
-				--print("Round Initiation!!!!")
-				--Show_FOTable("", true)
-				--main_loop_state = main_loop_state + 1
-				main_loop_state = 5
-            end,
-        [2] = function() --START-GAME FACEOFF, DETERMINES ROUND'S STARTING PLAYER
-				Show_FOTable("", true)
-				main_loop_state = main_loop_state + 1
-            end,
+	    local CheckState = switch { 
+	        [1] = function()
+					--print("Round Initiation!!!!")
+					--Show_FOTable("", true)
+					--main_loop_state = main_loop_state + 1
+					main_loop_state = 5
+	            end,
+	        [2] = function() --START-GAME FACEOFF, DETERMINES ROUND'S STARTING PLAYER
+					Show_FOTable("", true)
+					main_loop_state = main_loop_state + 1
+	            end,
 
-        [3] = function() --NORMAL GAME LOOP
-				GameLoop()
-            end,
-
-
-        [4] = function() --SECOND GAME LOOP FOR PRE-GAME ACTIONS, RESETS TO NORMAL WHEN COMPLETE
-				GameLoop()
-
-				local action_state = Get_ActionState()
-				--print(action_state)
-				if (table.getn(GameInfo.actions) < action_state) then
-	            	GameInfo.actions = {}
-	            	ResetActionState()
-	              	ResetActionInternalState()
-	              	main_loop_state = 2
-	              	--print("THE STATE HAS NOW RESET   " .. action_state)			
-				end
-            end,
-        [5] = function() --PRE-GAME ACTIONS
-        --CONTAINS ANYTHING THAT NEEDS TO BE RUN BEFORE A GAME BEGINS,
-        --DRAW/DISCARD CARDS ETC. ALL I NEED TO DO IS CUE THE ACTIONS
-
-        		--GameInfo.saved_actions[1] = "discard"
-        		--print("THIS SHITE IS BEING SET")
-        		local arr_pos = 0
-
-        		if (GameInfo.saved_actions ~= nil) then
-	        		for i=1, table.getn(GameInfo.saved_actions) do
-
-						arr_pos = table.getn(GameInfo.actions) + 1
-
-		                local CheckState = switch {
-		                    ["add_card"] = function()    --
-		                    	local card = GameInfo.selected_card
-		                    	LoadCard2(card.filename,card.sheet,card.sprite,0,0)
-		                    	GameInfo.selected_card = {}
-		                        end,		                	
-		                    ["draw"] = function()    --
-					            GameInfo.actions[arr_pos] = set_action("draw", "", 1, 0)
-					            GameInfo.actions[arr_pos].type = "draw"
-		                        end,
-		                    ["discard"] = function()    --
-			            		GameInfo.actions[arr_pos] = set_action("discard", "", 1, 1)
-			            		GameInfo.actions[arr_pos].type = "discard"
-		                        end,
-		                    default = function () print("ERROR - state not within pre game actions") end,
-		                }
-
-		                CheckState:case(GameInfo.saved_actions[i])   		
-			        end
-	            end
-
-        		--CHECK TO SEE IF THE PLAYER HAS ANY CRIPPLED LIMBS
-        		--GIVE HIM THE ABILITY TO DISCARD A CARD TO ADD A LIMB ACTION
-
-			    for i=1, table.getn(GameInfo.player_list) do
-
-			    	local player = GameInfo.player_list[i]
-
-			    	if (player.arms < 2 or player.legs < 2)  then
-
-				    	local against = 1 --DONATES THE OTHER PLAYER
-				    	local action = "heal_limb1"
-
-						if (player.username == GameInfo.player_list[GameInfo.current_player].username) then
-							against = 0 --DIRECT AT THE CURRENT PLAYER
-							action = "heal_limb0"
-						end
-						--print("AGAINST: " .. against)
-			        	arr_pos = table.getn(GameInfo.actions) + 1
-			            GameInfo.actions[arr_pos] = set_action("limb_discard", action, 1, against)
-			            GameInfo.actions[arr_pos].type = "limb_discard"
-
-			    	end
-				end
+	        [3] = function() --NORMAL GAME LOOP
+					GameLoop()
+	            end,
 
 
-	            main_loop_state = 4 --SECONDARY LOOP
+	        [4] = function() --SECOND GAME LOOP FOR PRE-GAME ACTIONS, RESETS TO NORMAL WHEN COMPLETE
+					GameLoop()
 
-				GameInfo.saved_actions = {}
-            end,
+					local action_state = Get_ActionState()
+					--print(action_state)
+					if (table.getn(GameInfo.actions) < action_state) then
+		            	GameInfo.actions = {}
+		            	ResetActionState()
+		              	ResetActionInternalState()
+		              	main_loop_state = 2
+		              	--print("THE STATE HAS NOW RESET   " .. action_state)			
+					end
+	            end,
+	        [5] = function() --PRE-GAME ACTIONS
+	        --CONTAINS ANYTHING THAT NEEDS TO BE RUN BEFORE A GAME BEGINS,
+	        --DRAW/DISCARD CARDS ETC. ALL I NEED TO DO IS CUE THE ACTIONS
 
-        default = function () print( "ERROR - sub_type not within main_loop_state") end,
-    }
+	        		--GameInfo.saved_actions[1] = "discard"
+	        		--print("THIS SHITE IS BEING SET")
+	        		local arr_pos = 0
 
-    CheckState:case(main_loop_state)
+	        		if (GameInfo.saved_actions ~= nil) then
+		        		for i=1, table.getn(GameInfo.saved_actions) do
+
+							arr_pos = table.getn(GameInfo.actions) + 1
+
+			                local CheckState = switch {
+			                    ["add_card"] = function()    --
+			                    	local card = GameInfo.selected_card
+			                    	LoadCard2(card.filename,card.sheet,card.sprite,0,0)
+			                    	GameInfo.selected_card = {}
+			                        end,		                	
+			                    ["draw"] = function()    --
+						            GameInfo.actions[arr_pos] = set_action("draw", "", 1, 0)
+						            GameInfo.actions[arr_pos].type = "draw"
+			                        end,
+			                    ["discard"] = function()    --
+				            		GameInfo.actions[arr_pos] = set_action("discard", "", 1, 1)
+				            		GameInfo.actions[arr_pos].type = "discard"
+			                        end,
+			                    default = function () print("ERROR - state not within pre game actions") end,
+			                }
+
+			                CheckState:case(GameInfo.saved_actions[i])   		
+				        end
+		            end
+
+	        		--CHECK TO SEE IF THE PLAYER HAS ANY CRIPPLED LIMBS
+	        		--GIVE HIM THE ABILITY TO DISCARD A CARD TO ADD A LIMB ACTION
+
+				    for i=1, table.getn(GameInfo.player_list) do
+
+				    	local player = GameInfo.player_list[i]
+
+				    	if (player.arms < 2 or player.legs < 2)  then
+
+					    	local against = 1 --DONATES THE OTHER PLAYER
+					    	local action = "heal_limb1"
+
+							if (player.username == GameInfo.player_list[GameInfo.current_player].username) then
+								against = 0 --DIRECT AT THE CURRENT PLAYER
+								action = "heal_limb0"
+							end
+							--print("AGAINST: " .. against)
+				        	arr_pos = table.getn(GameInfo.actions) + 1
+				            GameInfo.actions[arr_pos] = set_action("limb_discard", action, 1, against)
+				            GameInfo.actions[arr_pos].type = "limb_discard"
+
+				    	end
+					end
+
+
+		            main_loop_state = 4 --SECONDARY LOOP
+
+					GameInfo.saved_actions = {}
+	            end,
+
+	        default = function () print( "ERROR - sub_type not within main_loop_state") end,
+	    }
+
+	    CheckState:case(main_loop_state)
 
 	else
 		--end_game == true SECTION
@@ -130,32 +130,44 @@ function run_main_loop()
 
 	end --end_game == false function end 
 
+
+
 	if (GameInfo.end_round == true) then
 
-    local CheckState2 = switch { 
-        [1] = function()
-				--GameInfo.round_damage = 0
-        		end_timer = 60 * 3
-        		end_round_state = end_round_state + 1
-            end,
-        [2] = function()
-        		end_timer = end_timer - 1
-        		if (end_timer <= 0) then
-        			end_round_state = end_round_state + 1
-        		end
-            end,
-        [3] = function() --START-GAME FACEOFF, DETERMINES ROUND'S STARTING PLAYER
-				local Round_Ended = EndRound()
-				if (Round_Ended == true) then
-					print("CARD AFTER END ROUND: " .. table.getn(GameInfo.cards))
-					GameInfo.end_round = false
-				end
-            end,
+	    local CheckState2 = switch { 
+	        [1] = function()
+					--GameInfo.round_damage = 0
+	        		end_timer = 60 * 3
+	        		end_round_state = end_round_state + 1
+	            end,
+	        [2] = function()
+	        		end_timer = end_timer - 1
+	        		if (end_timer <= 0) then
+	        			end_round_state = end_round_state + 1
+	        		end
+	            end,
+	        [3] = function()
+	        		--CHECK TO SEE THAT CARDS CAN BE DRAWN ON BOTH SIDES
+	        		local no_more_cards = DrawDeath()
 
-        default = function () print( "ERROR - sub_type not within main_loop_state") end,
-    }
+		        	if (no_more_cards == false) then
+		        		end_round_state = end_round_state + 1
+		        	else
+		        		GameInfo.end_round = false --STOP END ROUND AND END GAME INSTEAD
+		        	end
+	            end,
+	        [4] = function() --START-GAME FACEOFF, DETERMINES ROUND'S STARTING PLAYER
+					local Round_Ended = EndRound()
+					if (Round_Ended == true) then
+						print("CARD AFTER END ROUND: " .. table.getn(GameInfo.cards))
+						GameInfo.end_round = false
+					end
+	            end,
 
-    CheckState2:case(end_round_state)
+	        default = function () print( "ERROR - sub_type not within main_loop_state") end,
+	    }
+
+	    CheckState2:case(end_round_state)
 
 	end
 

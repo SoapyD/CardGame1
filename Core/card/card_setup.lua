@@ -61,38 +61,48 @@ end
 --DRAW A CARD BY AMENDING THE DECK CHOSEN AND LOADING THE CARD AS AN OBJECT
 function DrawCard(deck_index, remove_item)
 	tempCard = CheckDeck(deck_index, remove_item)
-	--LoadCard( suits[deck_index] .. "/" .. tempCard .. ".png",0,150);
-    LoadCard2( suits[deck_index] .. "/" .. tempCard .. ".png", suits[deck_index], tempCard,0,150);
+
+    if (tempCard ~= -1) then
+        LoadCard2( suits[deck_index] .. "/" .. tempCard .. ".png", suits[deck_index], tempCard,0,150);
+    else
+        print("COULDN'T DRAW CARD, DECK NOT LARGE ENOUGH")
+    end
 end
 
 function CheckDeck(deck_index, remove_item)
 
 	--RANDOMLY GENERATE A NUMBER FROM THE SIZE OF THE DECK
-	--local randIndex = math.random(#decks[deck_index])
-	local randIndex = 13 --5
+	local randIndex = math.random(#decks[deck_index])
+	--local randIndex = 29 --5
     --print("indexnum: ", randIndex)
 
 	--GET THE CARD NAME SAVED AT THAT LIST INDEX POSITION
-	tempCard = decks[deck_index][randIndex]
-	--print("card: ", tempCard)
 
-	--REMOVE THE VALUE FROM THE LIST
-    if (remove_item == true) then
-        RemoveDeckCard(deck_index, randIndex)
+    local tempCard = -1
 
-        QueueMessage(
-        --appWarpClient.sendUpdatePeers(
-            --tostring("MSG_CODE") .. " " ..
-            tostring("remove_card") .. " " ..
-            tostring(GameInfo.username) .. " " .. 
-            tostring(deck_index).." ".. 
-            tostring(randIndex))        
+    --print("current size: " .. table.getn(decks[deck_index]))
+    if (randIndex <= table.getn(decks[deck_index])) then
+
+    	tempCard = decks[deck_index][randIndex]
+    	--print("card: ", tempCard)
+
+    	--REMOVE THE VALUE FROM THE LIST
+        if (remove_item == true) then
+            RemoveDeckCard(deck_index, randIndex)
+
+            QueueMessage(
+            --appWarpClient.sendUpdatePeers(
+                --tostring("MSG_CODE") .. " " ..
+                tostring("remove_card") .. " " ..
+                tostring(GameInfo.username) .. " " .. 
+                tostring(deck_index).." ".. 
+                tostring(randIndex))        
+        end
+
+        if ( tempCard > 15) then
+            tempCard = tempCard - 15
+        end
     end
-
-    if ( tempCard > 15) then
-        tempCard = tempCard - 15
-    end
-
 	return tempCard
 end
 
