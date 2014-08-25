@@ -263,12 +263,16 @@ function onUpdatePeersReceived(update)
     local health_modifier = tonumber(func())
     local applied_to = tonumber(func())
     local advance_pos = tostring(func())
+    local advance_action_state = tostring(func())
     --print("HEALTH MOD " .. health_modifier)
     --mod_health(1,health_modifier)
     mod_health(applied_to,health_modifier)
 
     if (advance_pos == "yes") then
       CheckActionPos(true)
+    end
+    if (advance_action_state == "yes") then
+      AdanceActionInternalState()
     end
   end
 

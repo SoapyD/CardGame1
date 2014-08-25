@@ -10,7 +10,8 @@ function RoundCheck()
 	--if (GameInfo.end_game == false) then
 
 		if (GameInfo.username == GameInfo.player_list[GameInfo.current_player].username and
-			GameInfo.current_card_int ~= -1) then
+			GameInfo.current_card_int ~= -1 and
+			GameInfo.end_game == false) then
 			--GameInfo.previous_card_int ~= -1) then
 			--local card_count = 0
 			--print("CURRENT: " .. GameInfo.current_card_int)
@@ -77,6 +78,7 @@ function RoundCheck()
                     tostring("health_delay") .. " " .. 
                     tostring(-card_info.power) .. " " ..
                     tostring(0) .. " " ..
+                    tostring("no") .. " " ..
                     tostring("no"))
 				--GameInfo.round_damage = -card_info.power
 

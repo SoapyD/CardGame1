@@ -8,6 +8,9 @@ function ResetGame()
     --print("RESET STATE: " .. reset_state)
 
     local CheckState = switch { 
+        --[0] = function()
+        --    end,
+
         [1] = function()
                 ResetAllTables()
                 Show_EndTable()
@@ -15,7 +18,7 @@ function ResetGame()
             end,
         [2] = function()
                 --print("RESETTING GAME")
-                clear_popup()
+                --clear_popup()
                 set_MainState(1) --RESET THE STATE IN MAIN_LOOP2
                 createDeck() --RESET THE DECKS
 

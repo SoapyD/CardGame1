@@ -1,6 +1,7 @@
 --local run_main_state = 0
 local action_state = 1
 local action_internal_state = 0
+local action_timer = 0
 
 local animation_state = 1
 local network_used = false
@@ -12,6 +13,11 @@ end
 function ResetActionInternalState()
     action_internal_state = 0
 end
+
+function AdanceActionInternalState()
+    action_internal_state = action_internal_state + 1
+end
+
 
 function Get_ActionState()
     return action_state
@@ -139,7 +145,8 @@ function CheckActionState()
                             tostring("health_delay") .. " " .. 
                             tostring(Action.value) .. " " ..
                             tostring(Action.applied_to) .. " " ..
-                            tostring("yes"))
+                            tostring("yes").. " " ..
+                            tostring("no"))
                         action_internal_state = 1
 
                         --CheckActionPos(false)
@@ -213,7 +220,8 @@ function CheckActionState()
                             tostring("health_delay") .. " " .. 
                             tostring(Action.value) .. " " ..
                             tostring(Action.applied_to) .. " " ..
-                            tostring("yes"))
+                            tostring("yes").. " " ..
+                            tostring("no"))
                         action_internal_state = 1
 
                         --CheckActionPos(false)
@@ -253,7 +261,8 @@ function CheckActionState()
                                 --tostring(-faceoff_card.power) .. " " ..
                                 tostring(-GameInfo.power_damage) .. " " ..
                                 tostring(1) .. " " ..
-                                tostring("yes"))
+                                tostring("yes").. " " ..
+                                tostring("no"))
                         --end
 
                         GameInfo.power_damage = 0
@@ -444,22 +453,37 @@ function CheckActionState()
                             local card_info = retrieve_card(last_card.filename)
 
                             QueueMessage(
-                            --appWarpClient.sendUpdatePeers(
+                                --appWarpClient.sendUpdatePeers(
                                 --tostring("MSG_CODE") .. " " ..
                                 tostring("health_delay") .. " " .. 
                                 tostring(-card_info.power) .. " " ..
                                 tostring(1) .. " " ..
-                                tostring("no"))
+                                tostring("no").. " " ..
+                                tostring("yes"))
                         end
 
                         action_internal_state = 1
                         end,
-                    [1] = function()    --TURN ON THE DISCARD CARDS SCREEN
+                    [1] = function()    --WAIT FOR THE HEALTH DELAY TO BE REGISTERED
+                        end,
+                    [2] = function()
+                            action_timer = 60 * 3
+                            action_internal_state = action_internal_state + 1
+                        end,
+                    [3] = function()
+                            if (action_timer > 0) then
+                                action_timer = action_timer - 1
+                            else
+                                action_timer = 0
+                                action_internal_state = action_internal_state + 1
+                            end
+                        end,
+                    [4] = function()    --TURN ON THE DISCARD CARDS SCREEN
                         --print("ENDING ROUND")
                         EndRound()
                         reset_DoubleDamage()
                         end,
-                    [2] = function()    --WAIT FOR THE ACTION TO COMPLETE
+                    [5] = function()    --WAIT FOR THE ACTION TO COMPLETE
                         end,
                     default = function () print( "ERROR - action_internal_state not within switch") end,
                 }
