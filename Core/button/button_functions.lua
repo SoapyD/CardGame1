@@ -95,6 +95,10 @@ function finishCard( event )
 								tostring(current_card.unique_id) .. " " .. 
 								tostring(GameInfo.username) .. " " ..		
 								tostring(current_card.rotation))
+
+							--MAY HAVE TO CHECK WHAT THIS FUCKS UP IN THE CODE
+							finalise_button.isVisible = false
+							finalise_button.text.isVisible = false
 						end
 			        end,
 			    [2] = function()    --FACEOFF FINALISATION

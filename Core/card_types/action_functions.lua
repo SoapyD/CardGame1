@@ -88,6 +88,7 @@ function action_CounterLoop()
 			        		if ( pause_timer <= 0) then
 			        			pause_timer = 0
 			        			advance_cardPausestate()
+			        			finalise_button.isVisible = false --stop the button from being pressed at all timer the counter advances
 			        		end
 			        		run_popup("COUNTER TIMER: " .. pause_timer)
 			            end,

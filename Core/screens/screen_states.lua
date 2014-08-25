@@ -32,6 +32,15 @@ function Screen_Loop()
     		end,
     	[3] = function()	--
                 SetupButtons();
+
+                local group = display.newGroup() --BRING SCREEN ELEMENTS TO THE FRONT OF SCREEN
+                group:insert(GameInfo.screen_elements2.image)
+                TitleText:toFront()
+                group:insert(MsgBox)
+                MsgText:toFront()
+
+                --GameInfo.screen_elements2.image:toFront()
+                Show_EndTable()
 				timer = 60 * 5
 				internal_state = internal_state + 1  
 				--TitleText.text = "GAME STARTING"	

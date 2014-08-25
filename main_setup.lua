@@ -39,10 +39,6 @@ function loadGame()
 	statusText2:setFillColor( 0, 0, 0 )
 
 
-	--SCREEN STUFF
-	Load_CharacterScreen()
-
-
 	--MAIN GAME STUFF
 
 	print( "LOAD INFO")
@@ -73,6 +69,10 @@ function loadGame()
 	--run_main_loop() --NEEDS TO RUN ONCE IN THE LOAD GAME LOOP
 	Reset_SetCards_state()
 	createMsgBox()
+
+	--SCREEN STUFF
+	Load_CharacterScreen()
+
 
 	--ADVANCE THE GAMESTATE
 	GameInfo.gamestate = GameInfo.gamestate + 1

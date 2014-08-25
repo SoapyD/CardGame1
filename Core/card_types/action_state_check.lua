@@ -500,7 +500,7 @@ function CheckActionState()
 
     local Check_Animation = switch { 
 
-        [1] = function (x) 
+        [1] = function (x) --CHECK THE ACTION STATE AGAINST THE ACTION LIST
                 if (table.getn(GameInfo.actions) > 0 and GameInfo.end_game == false) then
                     --print("applied to" .. GameInfo.actions[action_state].applied_to)
                     if (GameInfo.actions[action_state].applied_to == 0 and
@@ -520,11 +520,11 @@ function CheckActionState()
                     end
                 end
             end, 
-        [2] = function (x) 
+        [2] = function (x) --SET TIMER
                 animation_timer = 60 * 3
                 animation_state = animation_state + 1
             end,
-        [3] = function (x) 
+        [3] = function (x) --COUNT DOWN TIMER, ACTION INFO TO DISPLAY
                 animation_timer = animation_timer - 1
                 if (animation_timer <= 0 ) then
                     animation_timer = 0
@@ -532,7 +532,7 @@ function CheckActionState()
                 end
             end,
 
-        [4] = function (x) 
+        [4] = function (x) --ADVANCE ACTION
                 CompleteAction()
                 animation_state = 1
             end,

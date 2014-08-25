@@ -13,6 +13,11 @@ function ResetGame()
 
         [1] = function()
                 ResetAllTables()
+
+                statusText.isVisible = false
+                statusText2.isVisible = false
+                finalise_button.isVisible = false
+                finalise_button.text.isVisible = false
                 Show_EndTable()
                 reset_state = reset_state + 1
             end,
@@ -51,7 +56,7 @@ function ResetGame()
         [6] = function() --FINISH RESET/
             --print("resetting finish")
             Reset_DeathCheck()
-            Hide_EndTable()
+            --Hide_EndTable()
             reset_state = 1
             end,
 

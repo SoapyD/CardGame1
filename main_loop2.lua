@@ -33,6 +33,11 @@ function run_main_loop()
 	            end,
 	        [2] = function() --START-GAME FACEOFF, DETERMINES ROUND'S STARTING PLAYER
 					TempReset() --RESET A DECK TO CHECK THE DECKDEATH CHECK, A TEMPORARY CHECK
+					Hide_EndTable()
+		            statusText.isVisible = true
+		            statusText2.isVisible = true
+		            finalise_button.isVisible = true
+		            finalise_button.text.isVisible = true
 					Show_FOTable("", true)
 					main_loop_state = main_loop_state + 1
 	            end,
