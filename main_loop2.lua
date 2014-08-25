@@ -32,6 +32,7 @@ function run_main_loop()
 					main_loop_state = 5
 	            end,
 	        [2] = function() --START-GAME FACEOFF, DETERMINES ROUND'S STARTING PLAYER
+					--TempReset() --RESET A DECK TO CHECK THE DECKDEATH CHECK, A TEMPORARY CHECK
 					Show_FOTable("", true)
 					main_loop_state = main_loop_state + 1
 	            end,
@@ -146,20 +147,10 @@ function run_main_loop()
 	        			end_round_state = end_round_state + 1
 	        		end
 	            end,
-	        [3] = function()
-	        		--CHECK TO SEE THAT CARDS CAN BE DRAWN ON BOTH SIDES
-	        		local no_more_cards = DrawDeath()
-
-		        	if (no_more_cards == false) then
-		        		end_round_state = end_round_state + 1
-		        	else
-		        		GameInfo.end_round = false --STOP END ROUND AND END GAME INSTEAD
-		        	end
-	            end,
-	        [4] = function() --START-GAME FACEOFF, DETERMINES ROUND'S STARTING PLAYER
+	        [3] = function() --START-GAME FACEOFF, DETERMINES ROUND'S STARTING PLAYER
 					local Round_Ended = EndRound()
 					if (Round_Ended == true) then
-						print("CARD AFTER END ROUND: " .. table.getn(GameInfo.cards))
+						--print("CARD AFTER END ROUND: " .. table.getn(GameInfo.cards))
 						GameInfo.end_round = false
 					end
 	            end,

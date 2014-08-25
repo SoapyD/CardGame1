@@ -18,7 +18,7 @@ function TempReset()
     --    decks[i] = {}
     --end
 
-    decks[3] = {}
+    decks[4] = {}
 end
 
 --CREATE 4 DECKS CONTAINING 30 CARDS EACH. EACH DECK CONTAINS 2 OF THE EACH CARD (15 SETS)
@@ -72,8 +72,8 @@ end
 function CheckDeck(deck_index, remove_item)
 
 	--RANDOMLY GENERATE A NUMBER FROM THE SIZE OF THE DECK
-	local randIndex = math.random(#decks[deck_index])
-	--local randIndex = 29 --5
+	--local randIndex = math.random(#decks[deck_index])
+	local randIndex = 11 --5
     --print("indexnum: ", randIndex)
 
 	--GET THE CARD NAME SAVED AT THAT LIST INDEX POSITION

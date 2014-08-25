@@ -122,12 +122,17 @@ function DrawDeath()
 
 
 	local end_bool = false
+	print("CHECKING CARDS FOR DRAW DEATH")
 
 	if (GameInfo.end_game == false) then
 
 	    local deck_info = GetDeck(); 
 	    local suit_names = Get_SuitNames()
 	    local empty_deck = ""
+	    local draw_numbers = {}
+		for i=1, 6 do	    
+			draw_numbers[i] = 0
+		end
 
 
 	    for i=1, table.getn(GameInfo.player_list) do --CHECK BOTH PLAYERS
@@ -138,17 +143,19 @@ function DrawDeath()
 
 	            local card_num = user_info.character_info[stat] --GET THE NUMBER OF CARDS IT'LL DRAW
 
-	            if (card_num > 0) then 
-
-					if (table.getn(deck_info[stat]) == 0) then --IF THAT DECK CONTAINS NO CARDS, END THE GAME
-					   	end_bool = true;
-					   	empty_deck = suit_names[stat]
-					end
-
-				end
+	            draw_numbers[stat] = draw_numbers[stat] + card_num --KEEP A RECORD OR THAT TOTAL CARDS WE NEED TO DRAW FROM THAT DECK
 
 			end
 		end
+
+		for i=1, table.getn(draw_numbers) do
+			print ("deck checked: " .. table.getn(deck_info[i]) .. " cards needed: " .. draw_numbers[i])
+			if (table.getn(deck_info[i]) - draw_numbers[i] < 0) then --IF THAT DECK CONTAINS NO CARDS, END THE GAME
+				end_bool = true;
+				empty_deck = suit_names[i]
+			end
+		end
+
 
 		if (end_bool == true) then
 			Winner_Check_Lifes(empty_deck)

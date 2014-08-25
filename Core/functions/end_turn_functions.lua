@@ -114,13 +114,25 @@ function EndRound()
   --print("round ended: " .. EndRound_state)
     local reset_state = false
 
-    local CheckState = switch { 
-        [1] = function()    --RESET THE CARDS ON THE BOARD
+    local CheckState = switch {
+        [1] = function() --RECENTLY INCLUDED THIS, HOPEFULLY IT WILL ALLOW FOR A DRAWDEATH END ROUND CHECK
+              --CHECK TO SEE THAT CARDS CAN BE DRAWN ON BOTH SIDES
+              local no_more_cards = DrawDeath()
+
+              if (no_more_cards == false) then
+                EndRound_state = EndRound_state + 1
+              else --this the same as position 4 on the state check as it won't be triggered otherwise (END_GAME is set to true)
+                ResetActions()
+                reset_state = true
+                set_MainState(1)
+              end
+            end, 
+        [2] = function()    --RESET THE CARDS ON THE BOARD
               ResetCards()
               --print("HAND AFTER RESET: " .. table.getn(GameInfo.cards))
               EndRound_state = EndRound_state + 1
             end,
-        [2] = function()    --DRAW CARDS ON BOTH SIDES
+        [3] = function()    --DRAW CARDS ON BOTH SIDES
                 local HandsSet = SetHands()
                 --print(HandsSet)
                 if (HandsSet == true) then
@@ -129,7 +141,7 @@ function EndRound()
                 end
 
               end,
-        [3] = function()    --END
+        [4] = function()    --END
               ResetActions()
               reset_state = true
               set_MainState(1)

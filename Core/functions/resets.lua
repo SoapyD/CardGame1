@@ -5,7 +5,7 @@ local reset_counter = 0
 
 function ResetGame()
 
-    print("RESET STATE: " .. reset_state)
+    --print("RESET STATE: " .. reset_state)
 
     local CheckState = switch { 
         [1] = function()
@@ -26,7 +26,7 @@ function ResetGame()
                 reset_state = reset_state + 1
             end,
         [3] = function() --DEAL OUT THE HANDS, WAIT, FOR IT TO COMPLETE
-                print("BEING USED")
+                --print("BEING USED")
                 local HandsSet = SetHands()
                 if (HandsSet == true) then
                     --print("HAND RESET FINISHED")
