@@ -15,7 +15,6 @@ function Screen_Loop()
     	[2] = function()	--
     		--GameInfo.gamestate = GameInfo.gamestate + 1
 
-
     			local complete_count = 0
 	    		--KEEP A TRACK ON THE PLAYER NAMES
 			    for i = 1, table.getn(GameInfo.player_list) do
@@ -30,7 +29,20 @@ function Screen_Loop()
 			    	internal_state = internal_state + 1
 			    end
     		end,
-    	[3] = function()	--
+        [3] = function()    --
+                timer = 60 * 3
+                internal_state = internal_state + 1       
+            end,
+        [4] = function()    --
+
+                if (timer <= 0) then
+                    timer = 0
+                    internal_state = internal_state + 1
+                end
+                timer = timer - 1           
+            end,
+
+    	[5] = function()	--
                 SetupButtons();
 
                 local group = display.newGroup() --BRING SCREEN ELEMENTS TO THE FRONT OF SCREEN
@@ -45,7 +57,7 @@ function Screen_Loop()
 				internal_state = internal_state + 1  
 				--TitleText.text = "GAME STARTING"	
     		end,
-    	[4] = function()	--
+    	[6] = function()	--
     			TitleText.text = "GAME STARTING... " .. math.round(timer / 60)
 
     			if (timer <= 0) then
@@ -54,20 +66,20 @@ function Screen_Loop()
     			end
 				timer = timer - 1			
     		end,
-    	[5] = function()	--
+    	[7] = function()	--
     			Hide_CharacterScreen()
 				run_main_loop() --NEEDS TO RUN ONCE IN THE LOAD GAME LOOP
 				internal_state = internal_state + 1  			
     		end,
 
-    	[6] = function()	--
+    	[8] = function()	--
                 local HandsSet = SetHands()
                 if (HandsSet == true) then
                   GameInfo.gamestate = GameInfo.gamestate + 1
                   Hide_EndTable()
                 end    		
     		end,
-    	[7] = function()	--
+    	[9] = function()	--
     			gamestate.gamestate = GameInfo.gamestate + 1
     		end,
 	   	default = function () print( "ERROR - gamestate not within screen_loop states") end,

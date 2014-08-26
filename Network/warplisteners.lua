@@ -169,6 +169,17 @@ function onUpdatePeersReceived(update)
     end 
   end
 
+  if (update_type == "unveal_screen") then
+    local username = tostring(func())
+    
+    for i=1, table.getn(GameInfo.player_list) do
+      if (GameInfo.player_list[i].username == username) then    
+        GameInfo.player_list[i].temp_trigger = true
+        --Hide_EndTable()
+      end
+    end 
+  end
+
   --//////////////////////////////////////////////////////////////////////////
   --////////////////////GAME SOLUTIONS
   --//////////////////////////////////////////////////////////////////////////

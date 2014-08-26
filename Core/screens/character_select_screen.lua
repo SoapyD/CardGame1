@@ -70,7 +70,7 @@ function Show_CharacterScreen()
 
             local button_info = {}
             local x_pos = (GameInfo.width / 2) - 175 + ((x-1) * 350)
-            local y_pos = start_y + ((y-1) * 150)
+            local y_pos = start_y + ((y-1) * 125)
             Add_Screen_Button(button_info,x_pos,y_pos,300,100, "red",characters[id],1);
 
             button_info.icon:addEventListener( "touch", CharacterButton_Presses )

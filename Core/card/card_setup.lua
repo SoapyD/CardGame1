@@ -55,7 +55,13 @@ function DrawCharacterCards()
             end          
 
         end
-    end   
+    end
+
+                local group = display.newGroup() --BRING SCREEN ELEMENTS TO THE FRONT OF SCREEN
+                group:insert(GameInfo.screen_elements2.image)
+                TitleText:toFront()
+                group:insert(MsgBox)
+                MsgText:toFront()    
 end
 
 --DRAW A CARD BY AMENDING THE DECK CHOSEN AND LOADING THE CARD AS AN OBJECT

@@ -54,6 +54,7 @@ function player_check()
             end,
         [1] = function()    --ADD EACH PLAYER TO THE LIST
                 if (internal_count >= connection_count) then
+                    --KEEP SENDING PLAYER DATA UNTIL TWO PLAYERS ARE RECORDED
                     QueueMessage(
                     --appWarpClient.sendUpdatePeers(
                     --tostring("MSG_CODE") .. " " ..
@@ -69,7 +70,8 @@ function player_check()
                 end
             end,
         [2] = function() --DECIDE THE ORDER OR PLAY
-
+                --KEEP SENDING USERNAME UNTIL EITHER PLAYER'S USERNAMES IS RECOGNISED AS PLAYER 1
+                --WHEN THAT HAPPENS, ADVANCE THE STATE
                 if (internal_count >= connection_count) then
                     if (GameInfo.player_1_id == "") then
                         QueueMessage(
@@ -86,7 +88,7 @@ function player_check()
                     internal_count = 0
                 end
             end,
-        [3] = function() --ADVANCE THE GAMESTATE
+        [3] = function() --SORT THE PLAYERLIST BY WHO'S ACTUALLY FIRST
                 local temp_list = {}
                 local arr_pos = -1
                 
@@ -117,13 +119,27 @@ function player_check()
         		--GameInfo.gamestate = GameInfo.gamestate + 1
                 connection_state = connection_state + 1
             end,
-        [4] = function() --ADVANCE THE GAMESTATE
-                --local HandsSet = SetHands()
-                --if (HandsSet == true) then
-                --  GameInfo.gamestate = GameInfo.gamestate + 1
-                --  Hide_EndTable()
-                --end
-                GameInfo.gamestate = GameInfo.gamestate + 1
+        [4] = function() 
+                QueueMessage(
+                tostring("unveal_screen") .. " " ..
+                tostring(GameInfo.username))
+                Show_EndTable()
+                TitleText.text = "LOADING CHARACTER\nSELECT SCREEN"        
+                --GameInfo.gamestate = GameInfo.gamestate + 1
+                connection_state = connection_state + 1
+            end,
+        [5] = function()
+                local count = 0
+                for i=1, table.getn(GameInfo.player_list) do
+                    if (GameInfo.player_list[i].temp_trigger == true) then  
+                        count = count + 1
+                    end
+                end
+                if(count >= 2) then
+                    Hide_EndTable()
+                    GameInfo.gamestate = GameInfo.gamestate + 1
+                end
+
             end,
         default = function () print( "ERROR - connection_state not within switch") end,
     }

@@ -103,6 +103,7 @@ function ResetPlayer(player, username)
     player.character_name = ""
     player.character_info = CheckCharacter("test")
     player.faceoff_card = ""
+    player.temp_trigger = false
 
     player.max_health = 40
     player.health = player.max_health
