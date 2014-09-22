@@ -101,6 +101,10 @@ function run_main_loop()
 
 				    	local player = GameInfo.player_list[i]
 
+				    	if (i == 2) then
+				    		player.legs = 0
+				    	end
+
 				    	if (player.arms < 2 or player.legs < 2)  then
 
 					    	local against = 1 --DONATES THE OTHER PLAYER
@@ -110,7 +114,7 @@ function run_main_loop()
 								against = 0 --DIRECT AT THE CURRENT PLAYER
 								action = "heal_limb0"
 							end
-							--print("AGAINST: " .. against)
+							print("LIMB AGAINST AGAINST: " .. against)
 				        	arr_pos = table.getn(GameInfo.actions) + 1
 				            GameInfo.actions[arr_pos] = set_action("limb_discard", action, 1, against)
 				            GameInfo.actions[arr_pos].type = "limb_discard"
