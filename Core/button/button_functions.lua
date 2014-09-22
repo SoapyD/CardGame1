@@ -322,7 +322,8 @@ function check_FinalisationButton(player)
   if ( GameInfo.username ~= GameInfo.player_list[player].username) then
     finalise_button.isVisible = false
     finalise_button.text.isVisible = false
-
+    turn_button.isVisible = false
+    turn_button.text.isVisible = false
 
 	for i = 1, table.getn(GameInfo.cards) do
 		local hand_card = GameInfo.cards[i]
@@ -356,6 +357,8 @@ function check_FinalisationButton(player)
   else
     --finalise_button.isVisible = true
     --finalise_button.text.isVisible = true
+    turn_button.isVisible = true
+    turn_button.text.isVisible = true
 
     --SET TO FALSE SO PLAYER CAN'T ACCIDENTLY END A TURN WITHOUT PLACING A CARD
     GameInfo.finalise_state = 1

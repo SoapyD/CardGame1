@@ -5,6 +5,7 @@ function SetupButtons()
 	Tab()
 	Finalise_button()
 	Enemy_Stats()
+	Turn_button()
 	--Portrait()			
 end
 
@@ -110,6 +111,28 @@ function Finalise_button()
 	finalise_button.print_text = finalise_button.default_text
 	finalise_button.text = display.newText( finalise_button.print_text, finalise_button.x, finalise_button.y, native.systemFontBold, 32 )
 	finalise_button.text:setFillColor( 0, 0, 0 )
+end
+
+function Turn_button()
+	boxwidth = 200
+	boxheight = 75
+
+	turn_button = display.newRoundedRect(
+		boxwidth / 2,
+		bar2.height + boxheight / 2,
+		boxwidth,boxheight, 0 )
+	turn_button:setFillColor( 1, 1, 1 )
+	turn_button.strokeWidth = 6
+	turn_button:setStrokeColor( 200,200,200,225 )
+		-- Make the button instance respond to touch events
+	turn_button.width = boxwidth
+	turn_button.height = boxheight	
+	--turn_button:addEventListener( "touch", finishCard )
+
+	turn_button.default_text = "YOUR TURN"
+	turn_button.print_text = turn_button.default_text
+	turn_button.text = display.newText( turn_button.print_text, turn_button.x, turn_button.y, native.systemFontBold, 32 )
+	turn_button.text:setFillColor( 0, 0, 0 )
 end
 
 

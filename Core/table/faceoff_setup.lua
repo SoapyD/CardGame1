@@ -35,6 +35,9 @@ function Show_FOTable(temp_sub_action, checks_player)
         finalise_button.text.text = "set faceoff"
         finalise_button.isVisible = true
         finalise_button.text.isVisible = true
+ 
+        turn_button.isVisible = true
+        turn_button.text.isVisible = true
     end
 
     if ( GameInfo.player_list ~= nil) then
