@@ -8,6 +8,14 @@ function Hide_DrawTable()
     GameInfo.draw_screen.card4.icon.isVisible  = false
     GameInfo.draw_screen.card5.icon.isVisible  = false
     GameInfo.draw_screen.card6.icon.isVisible  = false
+
+    GameInfo.draw_screen.card1.icon.text.isVisible = false
+    GameInfo.draw_screen.card2.icon.text.isVisible = false
+    GameInfo.draw_screen.card3.icon.text.isVisible = false
+    GameInfo.draw_screen.card4.icon.text.isVisible = false
+    GameInfo.draw_screen.card5.icon.text.isVisible = false
+    GameInfo.draw_screen.card6.icon.text.isVisible = false
+
     TitleText.text = ""
     GameInfo.pause_main = false
     CheckActionPos(false)
@@ -25,21 +33,27 @@ function Show_DrawTable()
 
     if (table.getn(deck_info[1]) > 0) then
         GameInfo.draw_screen.card1.icon.isVisible  = true
+        GameInfo.draw_screen.card1.icon.text.isVisible = true
     end
     if (table.getn(deck_info[2]) > 0) then
         GameInfo.draw_screen.card2.icon.isVisible  = true
+        GameInfo.draw_screen.card2.icon.text.isVisible = true
     end
     if (table.getn(deck_info[3]) > 0) then
         GameInfo.draw_screen.card3.icon.isVisible  = true
+        GameInfo.draw_screen.card3.icon.text.isVisible = true
     end
     if (table.getn(deck_info[4]) > 0) then   
         GameInfo.draw_screen.card4.icon.isVisible  = true
+        GameInfo.draw_screen.card4.icon.text.isVisible = true
     end
     if (table.getn(deck_info[5]) > 0) then
         GameInfo.draw_screen.card5.icon.isVisible  = true
+        GameInfo.draw_screen.card5.icon.text.isVisible = true
     end
     if (table.getn(deck_info[6]) > 0) then
         GameInfo.draw_screen.card6.icon.isVisible  = true
+        GameInfo.draw_screen.card6.icon.text.isVisible = true
     end
     TitleText.text = "Draw Card"
     GameInfo.pause_main = true
@@ -61,7 +75,9 @@ function DrawTempCard( event )
         local parent = t.parent
         parent:insert( t )
         display.getCurrentStage():setFocus( t ) 
+        print(t.text.text)
         t.isFocus = true
+        t.text:toFront();
 
         if (t.item_loaded == false) then
             --print("loading")
@@ -165,4 +181,8 @@ function AddCardZone(draw_card,x,y,colour,type, type_int)
     icon.card_type = type
     icon.type_int = type_int
     draw_card.icon = icon
+
+    draw_card.print_text = type
+    --draw_card.text = display.newText( draw_card.print_text, x, y, native.systemFontBold, 32 )
+    draw_card.icon.text = display.newText( draw_card.print_text, x, y, native.systemFontBold, 32 )    
 end
