@@ -390,6 +390,7 @@ function CheckActionState()
                         GameInfo.finalise_state = 5 --COPYCAT FUNCTION
                         GameInfo.selected_card = {}
                         finalise_button.text.text = "Copy Card"
+                        
                         end,
                     [1] = function()    --WAIT FOR THE CARD TO BE SELECTED
 

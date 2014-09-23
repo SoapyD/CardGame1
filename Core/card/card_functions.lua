@@ -192,6 +192,8 @@ function onTouch( event )
 
 					GameInfo.selected_card = t
 					run_popup(t.filename .. " card selected")
+					finalise_button.isVisible = true
+					finalise_button.text.isVisible = true
 				end
 			end
 		end
