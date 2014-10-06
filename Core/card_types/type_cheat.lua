@@ -47,7 +47,7 @@ function Check_CheatCards(filename)
         ["c/8.png"] = function()
                 card_info.name = "snatch"
                 set_stats(card_info, 5,5,3,3,0,0,0,8,"cheat",6,2)
-                card_info.actions[table.getn(card_info.actions) + 1] = set_action("steal", "", 1, 0)
+                card_info.actions[table.getn(card_info.actions) + 1] = set_action("steal", "", 1, 1)
             end,
         ["c/9.png"] = function()
                 card_info.name = "backstab"
