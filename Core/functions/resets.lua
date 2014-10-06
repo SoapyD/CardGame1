@@ -107,7 +107,7 @@ function ResetPlayer(player, username)
 
     player.max_health = 40
     player.health = player.max_health
-    player.armour = 30
+    player.armour = 0
     player.max_arms = 2
     player.arms = player.max_arms
     player.max_legs = 2
@@ -142,6 +142,7 @@ function ResetCards()
     for i=1, table.getn(GameInfo.player_list) do
        	GameInfo.player_list[i].faceoff_card = ""
     end
+    print("RESETTING CARDS")
 end
 
 function SetHands()

@@ -443,7 +443,7 @@ function CheckActionState()
                 CheckState:case(action_internal_state)
             end,
         ["end_round"] = function()    --RUN THE END_ROUND
-
+                --print("end: " .. action_internal_state)
                 local CheckState = switch { 
                     [0] = function()    --SETUP ACTION
 
@@ -466,6 +466,20 @@ function CheckActionState()
                         action_internal_state = 1
                         end,
                     [1] = function()    --WAIT FOR THE HEALTH DELAY TO BE REGISTERED
+                            --NEEDS TO BE A PAUSE HERE WHERE BOTH PLAYERS DON'T ADVANCE UNTIL THEY'RE BOTH ON THIS SPOT
+
+                            local count = 0
+                            for i=1, table.getn(GameInfo.player_list) do
+                                if (GameInfo.player_list[i].temp_trigger == true) then  
+                                    count = count + 1
+                                end
+                            end
+                            if(count >= 2) then
+                                AdanceActionInternalState()
+                                for i=1, table.getn(GameInfo.player_list) do
+                                    GameInfo.player_list[i].temp_trigger = false  
+                                end 
+                            end
                         end,
                     [2] = function()
                             action_timer = 60 * 3
@@ -502,20 +516,20 @@ function CheckActionState()
     local Check_Animation = switch { 
 
         [1] = function (x) --CHECK THE ACTION STATE AGAINST THE ACTION LIST
-                if (table.getn(GameInfo.actions) > 0 and GameInfo.end_game == false) then
+                if (table.getn(GameInfo.actions) > 0 and GameInfo.end_game == false and GameInfo.end_round == false) then
                     --print("applied to" .. GameInfo.actions[action_state].applied_to)
                     if (GameInfo.actions[action_state].applied_to == 0 and
                         GameInfo.username == GameInfo.player_list[GameInfo.current_player].username) then
                        CheckState:case(GameInfo.actions[action_state].type)
                     end
                 end
-                if (table.getn(GameInfo.actions) > 0 and GameInfo.end_game == false) then
+                if (table.getn(GameInfo.actions) > 0 and GameInfo.end_game == false and GameInfo.end_round == false) then
                     if (GameInfo.actions[action_state].applied_to == 1 and
                         GameInfo.username ~= GameInfo.player_list[GameInfo.current_player].username) then
                         CheckState:case(GameInfo.actions[action_state].type)
                     end
                 end
-                if (table.getn(GameInfo.actions) > 0 and GameInfo.end_game == false) then
+                if (table.getn(GameInfo.actions) > 0 and GameInfo.end_game == false and GameInfo.end_round == false) then
                     if (GameInfo.actions[action_state].applied_to == -1) then
                         CheckState:case(GameInfo.actions[action_state].type)
                     end
@@ -534,8 +548,10 @@ function CheckActionState()
             end,
 
         [4] = function (x) --ADVANCE ACTION
-                CompleteAction()
-                animation_state = 1
+                if (GameInfo.end_game == false and GameInfo.end_round == false) then
+                    CompleteAction()
+                    animation_state = 1
+                end
             end,
 
         default = function () 
@@ -547,6 +563,7 @@ function CheckActionState()
     Check_Animation:case(animation_state)
 
     DeathCheck(false)
+
 end
 
 function CheckActionPos(network_used2)
@@ -569,6 +586,7 @@ function CheckActionPos(network_used2)
             tostring(GameInfo.username)) 
        end
     end
+    print("ACTION POS: " .. action_state .. " INTERNAL: " .. action_internal_state)
 end
 
 function ActivateNetwork()

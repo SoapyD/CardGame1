@@ -293,7 +293,9 @@ function finishCard( event )
 
 						if (GameInfo.selected_card ~= "") then
 							GameInfo.finalise_state = 1
-							finalise_button.text.text = finalise_button.default_text	
+							finalise_button.text.text = finalise_button.default_text
+							finalise_button.isVisible = true
+							finalise_button.text.isVisible = true	
 							GameInfo.saved_actions[table.getn(GameInfo.saved_actions) + 1] = "add_card"
 							CheckActionPos(false)
 						else

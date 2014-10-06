@@ -283,7 +283,12 @@ function onUpdatePeersReceived(update)
       CheckActionPos(true)
     end
     if (advance_action_state == "yes") then
-      AdanceActionInternalState()
+      --AdanceActionInternalState()
+
+      --NEEDED SO THAT BOTH PLAYERS HAVE TO WAIT IN ORDER FOR THIS ACTION TO APPLY IN END_ROUND ACTION LOOP
+                      QueueMessage(
+                tostring("unveal_screen") .. " " ..
+                tostring(GameInfo.username))
     end
   end
 
