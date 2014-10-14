@@ -31,8 +31,10 @@ function Show_DiscardTable(temp_sub_action)
             finalise_button.text.isVisible = true
             GameInfo.finalise_state = 6
         end
-    else       
-        run_popup("Discard: " .. discard_max)
+    else
+        if (discard_max ~= 0) then       
+            run_popup("Discard: " .. discard_max)
+        end
     end
 
     --if (discard_max == 0) then

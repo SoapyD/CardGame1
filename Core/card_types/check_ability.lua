@@ -74,7 +74,7 @@ function mod_health(applied_to, value)
     local apply_value = true
     local popup_String = ""
 
-    if (value < 0 and applied_player.armour > 0) then
+    if (value < 0 and applied_player.armour > 0 and remaining_mod ~= 0) then
         remaining_mod = remaining_mod + applied_player.armour
 
         local armour_mod = value * -1
@@ -93,7 +93,7 @@ function mod_health(applied_to, value)
         end        
     end
 
-    if (apply_value == true) then
+    if (apply_value == true and remaining_mod ~= 0) then
         applied_player.health = applied_player.health + remaining_mod
         if (applied_player.health < 1 ) then
             applied_player.health = 0
@@ -106,7 +106,11 @@ function mod_health(applied_to, value)
     end
 
     --print("health add:" .. remaining_mod)
-    run_popup(popup_String)
+    if (popup_String ~= "") then
+        run_popup(popup_String)
+    else
+        run_popup("no health modifier to apply")
+    end
     --if (remaining_mod > 0) then
     --    run_popup( "+" .. remaining_mod .. " Health")
     --else
@@ -131,10 +135,14 @@ function mod_life(applied_to, value)
         applied_player.health = applied_player.max_health
     end
     --print("health add:" .. value)
-    if (value > 0) then
-        run_popup( "+" .. value .. " Health")
+    if (value ~= 0) then
+        if (value > 0) then
+            run_popup( "+" .. value .. " Health")
+        else
+            run_popup( value .. " Health")
+        end
     else
-        run_popup( value .. " Health")
+        run_popup("no health modifier to apply")
     end
 end
 
@@ -148,10 +156,14 @@ function mod_armour(applied_to, value)
         applied_player.armour = 0
     end
     --print("armour add:" .. value)
-    if (value > 0) then
-        run_popup( "+" .. value .. " Armour")
+    if (armour_mod ~= 0) then
+        if (value > 0) then
+            run_popup( "+" .. value .. " Armour")
+        else
+            run_popup( value .. " Armour")
+        end
     else
-        run_popup( value .. " Armour")
+        run_popup("no armour modifier to apply")
     end
 end
 
@@ -160,6 +172,15 @@ function mod_arm(applied_to, value)
     apply_to = find_applied_to(applied_to)
 
     local applied_player = GameInfo.player_list[apply_to]
+
+    local skip_string = ""
+    if (applied_player.arms == 2 and value > 0) then
+        skip_string = "both arms already healed"
+    end
+    if (applied_player.arms == 0 and value < 0) then
+        skip_string = "both arms already crippled"
+    end
+
     applied_player.arms = applied_player.arms + value
     if (applied_player.arms < 0 ) then
         applied_player.arms = 0
@@ -168,10 +189,14 @@ function mod_arm(applied_to, value)
         applied_player.arms = applied_player.max_arms
     end
     --print("arms add:" .. value)
-    if (value > 0) then
-        run_popup( "+" .. value .. " Arms Crippled")
+    if (skip_string == "") then
+        if (value > 0) then
+            run_popup( value .. " Arms Healed")
+        else
+            run_popup( value .. " Arms Crippled")
+        end
     else
-        run_popup( value .. " Arms Crippled")
+        run_popup(skip_string)
     end
 end
 
@@ -180,6 +205,15 @@ function mod_leg(applied_to, value)
     apply_to = find_applied_to(applied_to)
 
     local applied_player = GameInfo.player_list[apply_to]
+
+    local skip_string = ""
+    if (applied_player.arms == 2 and value > 0) then
+        skip_string = "both legs already healed"
+    end
+    if (applied_player.arms == 0 and value < 0) then
+        skip_string = "both legs already crippled"
+    end
+
     applied_player.legs = applied_player.legs + value
     if (applied_player.legs < 0 ) then
         applied_player.legs = 0
@@ -188,10 +222,14 @@ function mod_leg(applied_to, value)
         applied_player.legs = applied_player.max_legs
     end
     --print("legs add:" .. value)
-    if (value > 0) then
-        run_popup( "+" .. value .. " Legs Crippled")
+    if (skip_string == "") then
+        if (value > 0) then
+            run_popup( value .. " Legs Healed")
+        else
+            run_popup( value .. " Legs Crippled")
+        end
     else
-        run_popup( value .. " Legs Crippled")
+        run_popup(skip_string)
     end
 end
 

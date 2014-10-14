@@ -57,7 +57,9 @@ function Show_DrawTable()
     end
     TitleText.text = "Draw Card"
     GameInfo.pause_main = true
-    run_popup("Draw: " .. draw_max)
+    if (draw_max ~= 0) then
+        run_popup("Draw: " .. draw_max)
+    end
 
     if (finalise_button ~= nil) then
         finalise_button.isVisible = false
@@ -174,7 +176,7 @@ function AddCardZone(draw_card,x,y,colour,type, type_int)
         x, y, 250, 250, 1 )
             icon:setFillColor( colorsRGB.RGB(colour) )
             icon.strokeWidth = 6
-            icon:setStrokeColor( 200,200,200,255 )
+            icon:setStrokeColor( colorsRGB.RGB("black") )
 
     icon:addEventListener( "touch", DrawTempCard )
     icon.item_loaded = false
@@ -184,5 +186,6 @@ function AddCardZone(draw_card,x,y,colour,type, type_int)
 
     draw_card.print_text = type
     --draw_card.text = display.newText( draw_card.print_text, x, y, native.systemFontBold, 32 )
-    draw_card.icon.text = display.newText( draw_card.print_text, x, y, native.systemFontBold, 32 )    
+    draw_card.icon.text = display.newText( draw_card.print_text, x, y, native.systemFontBold, 32 )  
+    draw_card.icon.text:setFillColor( colorsRGB.RGB("black"), 1)
 end

@@ -446,6 +446,21 @@ function CheckActionState()
                 --print("end: " .. action_internal_state)
                 local CheckState = switch { 
                     [0] = function()    --SETUP ACTION
+                            action_timer = 60 * 3
+                            run_popup("Ending Round")
+                            AdanceActionInternalState()
+                        end,
+
+                    [1] = function()    --SETUP ACTION
+                            if (action_timer > 0) then
+                                action_timer = action_timer - 1
+                            else
+                                action_timer = 0
+                                AdanceActionInternalState()
+                            end
+                        end,
+
+                    [2] = function()    --SETUP ACTION
 
                         --THIS SHOULD ACTUALLY BE A PASS IN THE END ROUND CHECK
                         
@@ -463,9 +478,9 @@ function CheckActionState()
                                 tostring("yes"))
                         end
 
-                        action_internal_state = 1
+                        AdanceActionInternalState()
                         end,
-                    [1] = function()    --WAIT FOR THE HEALTH DELAY TO BE REGISTERED
+                    [3] = function()    --WAIT FOR THE HEALTH DELAY TO BE REGISTERED
                             --NEEDS TO BE A PAUSE HERE WHERE BOTH PLAYERS DON'T ADVANCE UNTIL THEY'RE BOTH ON THIS SPOT
 
                             local count = 0
@@ -481,24 +496,24 @@ function CheckActionState()
                                 end 
                             end
                         end,
-                    [2] = function()
+                    [4] = function()
                             action_timer = 60 * 3
-                            action_internal_state = action_internal_state + 1
+                            AdanceActionInternalState()
                         end,
-                    [3] = function()
+                    [5] = function()
                             if (action_timer > 0) then
                                 action_timer = action_timer - 1
                             else
                                 action_timer = 0
-                                action_internal_state = action_internal_state + 1
+                                AdanceActionInternalState()
                             end
                         end,
-                    [4] = function()    --TURN ON THE DISCARD CARDS SCREEN
+                    [6] = function()    --TURN ON THE DISCARD CARDS SCREEN
                         --print("ENDING ROUND")
                         EndRound()
                         reset_DoubleDamage()
                         end,
-                    [5] = function()    --WAIT FOR THE ACTION TO COMPLETE
+                    [7] = function()    --WAIT FOR THE ACTION TO COMPLETE
                         end,
                     default = function () print( "ERROR - action_internal_state not within switch") end,
                 }
