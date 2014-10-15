@@ -57,7 +57,7 @@ function LoopLimbCheck()
         end
         applied_player = GameInfo.player_list[pos]
     end
-
+    print("APPLIED LIMB PLAYER: " .. applied_player)
     Set_LimbColour(applied_player,GameInfo.limb_screen.card1,"arm",1)
     Set_LimbColour(applied_player,GameInfo.limb_screen.card2,"arm",2)
     Set_LimbColour(applied_player,GameInfo.limb_screen.card3,"leg",1)
