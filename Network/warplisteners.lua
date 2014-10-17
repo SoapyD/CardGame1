@@ -122,6 +122,22 @@ function onUpdatePeersReceived(update)
   print("ID: " .. msg_id .. " , NUM: " .. msg_num .. " , TYPE: " .. update_type)
   ConfirmMessage(msg_id, msg_num, update_type)
 
+
+  if (GameInfo.player_list ~= nil) then
+    --print("table size: " .. table.getn(GameInfo.player_list))
+  if (table.getn(GameInfo.player_list) > 1) then
+  --if (GameInfo.player_list[GameInfo.current_player].username ~= nil) then
+    --print ("USERNAME: " .. GameInfo.player_list[GameInfo.current_player].username)
+    if (GameInfo.player_list[GameInfo.current_player].username ~= GameInfo.username) then
+      local count = 0
+      for i = 0,5000000 do
+        count = i
+      end
+      print("DELAYED")
+    end
+  end
+  end
+
   --//////////////////////////////////////////////////////////////////////////
   --////////////////////SCREEN STATE STUFF
   --//////////////////////////////////////////////////////////////////////////

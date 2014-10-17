@@ -64,7 +64,7 @@ function CheckActionState()
                 CheckState:case(action_internal_state)
             end, 
 
-        ["next_round"] = function()    --SEND HEALTH DAMAGE THAT NEEDS STACKING
+        ["next_round"] = function()    --SAVE ACTIONS THAT NEEDS PLAYING NEXT TURN
 
                 local CheckState = switch { 
                     [0] = function()    --
@@ -164,7 +164,7 @@ function CheckActionState()
 
                 local CheckState = switch { 
                     [0] = function()    --TURN ON THE FACEOFF SCREEN
-                        print("ARM BEING INFLICTED " .. Action.value)
+                        --print("ARM BEING INFLICTED " .. Action.value)
                         
                         QueueMessage(
                             tostring("arm_delay") .. " " .. 
@@ -186,7 +186,7 @@ function CheckActionState()
 
                 local CheckState = switch { 
                     [0] = function()    --TURN ON THE FACEOFF SCREEN
-                        print("LEG BEING INFLICTED " .. Action.value)
+                        --print("LEG BEING INFLICTED " .. Action.value)
                         
                         QueueMessage(
                         --appWarpClient.sendUpdatePeers(
@@ -510,6 +510,7 @@ function CheckActionState()
                         end,
                     [6] = function()    --TURN ON THE DISCARD CARDS SCREEN
                         --print("ENDING ROUND")
+                        --THIS IS BEING TRIGGERED TO EARLY IF THERE'S A NETWORK DELAY
                         EndRound()
                         reset_DoubleDamage()
                         end,
@@ -551,6 +552,7 @@ function CheckActionState()
                 end
             end, 
         [2] = function (x) --SET TIMER
+                print("NEXT ACTION")
                 animation_timer = 60 * 3
                 animation_state = animation_state + 1
             end,
@@ -587,7 +589,7 @@ function CheckActionPos(network_used2)
         print("STILL TIME ON THE TIMER")
     end
 
-    animation_state = 2
+    animation_state = 2 --advance the animation state, an artificial pause so players can see what actions are playing
     network_used = network_used2
     --CompleteAction()
 
@@ -595,13 +597,14 @@ function CheckActionPos(network_used2)
 
     if (list_size > 0) then
 
-        if ( network_used == false) then
+        if ( network_used == false) then --send the advance_actions message message if its not been sent over the network already
+        --also isn't sent if both players run the action, so won'#t run with any -1 actions
             QueueMessage(
             tostring("advance_actions") .. " " .. 
             tostring(GameInfo.username)) 
        end
     end
-    print("ACTION POS: " .. action_state .. " INTERNAL: " .. action_internal_state)
+    --print("ACTION POS: " .. action_state .. " INTERNAL: " .. action_internal_state)
 end
 
 function ActivateNetwork()
@@ -612,21 +615,15 @@ function CompleteAction()
     local list_size = table.getn(GameInfo.actions)
 
     if (list_size > 0) then
-        if (action_state < list_size) then
+        if (action_state < list_size) then --advance action_state and play next action if there's one to play
             action_state = action_state + 1
         else
-            ResetActions()
+            ResetActions() --else, reset the action list and anything actions use
         end
 
-        DeathCheck(false)
-        --print("NETWORK USED: " , network_used)
-        --if ( network_used == false) then
-        --    QueueMessage(
-        --    tostring("advance_actions") .. " " .. 
-        --    tostring(GameInfo.username)) 
-        --end
+        DeathCheck(false) --check to see if anyones dead before the next action has time to play
 
-        ResetActionInternalState()
+        ResetActionInternalState() --reset internal_state so it's ready to use for the next action
     end
-    animation_state = 1
+    animation_state = 1 --reset the animation state
 end

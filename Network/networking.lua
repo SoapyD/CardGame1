@@ -138,6 +138,9 @@ function player_check()
                 if(count >= 2) then
                     Hide_EndTable()
                     GameInfo.gamestate = GameInfo.gamestate + 1
+                    for i=1, table.getn(GameInfo.player_list) do
+                        GameInfo.player_list[i].temp_trigger = false 
+                    end
                 end
 
             end,
