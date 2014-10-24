@@ -125,7 +125,9 @@ function DrawTempCard( event )
                     --else
                         draw_max = draw_max - 1
                     --end
-                    run_popup("Draw: " .. draw_max)
+                    if (draw_max ~= 0) then
+                        run_popup("Draw: " .. draw_max)
+                    end
                 end
                 GameInfo.temp_card.icon:removeSelf()
                 GameInfo.temp_card.icon.text:removeSelf()

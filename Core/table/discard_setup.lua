@@ -110,7 +110,9 @@ function CheckDiscard(current_card)
                 tostring(GameInfo.username)) 
         end
         discard_max = discard_max - 1
-        run_popup("Discard: " .. discard_max)
+        if (discard_max ~= 0) then  
+            run_popup("Discard: " .. discard_max)
+        end
     end
 
 end

@@ -435,6 +435,7 @@ function CheckActionState()
                         action_internal_state = 2
                         end,
                     [2] = function()    --WAIT FOR THE ACTION TO COMPLETE
+                        print("PASSING TURN")
                         CheckActionPos(true) --DONE THIS WAS AS BOTH PLAYERS RUN THIS FUNCTION AT THE SAME TIME AS IT'S -1
                         end,
                     default = function () print( "ERROR - action_internal_state not within switch") end,
@@ -604,7 +605,7 @@ function CheckActionPos(network_used2)
             tostring(GameInfo.username)) 
        end
     end
-    --print("ACTION POS: " .. action_state .. " INTERNAL: " .. action_internal_state)
+    print("advance action --- ACTION POS: " .. action_state .. " INTERNAL: " .. action_internal_state)
 end
 
 function ActivateNetwork()
@@ -626,4 +627,5 @@ function CompleteAction()
         ResetActionInternalState() --reset internal_state so it's ready to use for the next action
     end
     animation_state = 1 --reset the animation state
+    print("complete action --- ACTION POS: " .. action_state .. " INTERNAL: " .. action_internal_state)
 end

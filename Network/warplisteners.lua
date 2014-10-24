@@ -119,7 +119,11 @@ function onUpdatePeersReceived(update)
   local msg_id = tostring(func())
   local msg_num = tonumber(func())
   local update_type = tostring(func())
-  print("ID: " .. msg_id .. " , NUM: " .. msg_num .. " , TYPE: " .. update_type)
+  local is_it_me = "opponent's messasge"
+  if (msg_id == GameInfo.username) then
+    is_it_me = "my message"
+  end
+  print("ID: " .. is_it_me .. " , NUM: " .. msg_num .. " , TYPE: " .. update_type)
   ConfirmMessage(msg_id, msg_num, update_type)
 
 
