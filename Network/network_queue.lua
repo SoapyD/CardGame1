@@ -20,7 +20,7 @@ function QueueMessage(message)
 
 end
 
-function ConfirmMessage(msg_id, msg_num, update_type)
+function ConfirmMessage(message, msg_id, msg_num, update_type)
 
 	if (msg_id ~= GameInfo.username and
 		update_type:sub(1, 16) ~= "message_received") then
@@ -35,7 +35,18 @@ function ConfirmMessage(msg_id, msg_num, update_type)
 
 	end
 
+	--if (GameInfo.network_messages ~= nil) then
+	--	local list_len = table.getn(GameInfo.network_messages) + 1
+	--	GameInfo.network_messages[list_len] = message
+		--print("list length: " .. list_len)
+	--	for i=1,list_len do
+		--	print("Pos " .. i .. " :" .. GameInfo.network_messages[list_len])
+	--	end
+	--end	
+
 end
+
+
 
 function WriteToFile()
 	local saveData = "My app state data"

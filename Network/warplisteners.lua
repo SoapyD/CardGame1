@@ -123,24 +123,23 @@ function onUpdatePeersReceived(update)
   if (msg_id == GameInfo.username) then
     is_it_me = "my message"
   end
-  print("ID: " .. is_it_me .. " , NUM: " .. msg_num .. " , TYPE: " .. update_type)
-  ConfirmMessage(msg_id, msg_num, update_type)
+  
+  ConfirmMessage(update, msg_id, msg_num, update_type)
 
-
+  delayed = ""
   if (GameInfo.player_list ~= nil) then
-    --print("table size: " .. table.getn(GameInfo.player_list))
   if (table.getn(GameInfo.player_list) > 1) then
-  --if (GameInfo.player_list[GameInfo.current_player].username ~= nil) then
-    --print ("USERNAME: " .. GameInfo.player_list[GameInfo.current_player].username)
     if (GameInfo.player_list[GameInfo.current_player].username ~= GameInfo.username) then
       local count = 0
-      for i = 0,5000000 do
-        count = i
-      end
-      print("DELAYED")
+      --for i = 0,7000000 do
+      --  count = i
+      --end
+      --delayed = " --DELAYED"
     end
   end
   end
+
+  print("ID: " .. is_it_me .. " , NUM: " .. msg_num .. " , TYPE: " .. update_type .. delayed)
 
   --//////////////////////////////////////////////////////////////////////////
   --////////////////////SCREEN STATE STUFF
@@ -218,21 +217,46 @@ function onUpdatePeersReceived(update)
     local username = tostring(func())
     --print("FINISHING DRAW")
     if (username ~= GameInfo.username) then
+
+        local draw_allowed = true
+        local action_timer = Get_ActionTimer()
+        local action_internalstate = Get_ActionInternalState()
+        local endround_state = Get_EndRoundState();
+        --print("ATTENTION!!!!!! timer: " .. action_timer .. ", internal state: ".. action_internalstate)
+        if (action_timer > 0) then
+          print("ACTION TIMER STILL COUNTING")
+          --ResetCards()
+          draw_allowed = false
+        end
+        print("END STATE: " .. endround_state .. " action state: " .. action_internalstate)
+        if (endround_state == 0) then
+          print("NOT ON CORRECT END STATE")
+          draw_allowed = false
+        end
+
+      if (draw_allowed == true) then
          QueueMessage(
          --appWarpClient.sendUpdatePeers(
             --tostring("MSG_CODE") .. " " ..
             tostring("complete_action") .. " " .. 
             tostring(username)) 
 
-      --print("CARDS IN HAND: " .. table.getn(GameInfo.cards))
-      if (table.getn(GameInfo.cards) == 0) then
-        DrawCharacterCards()
+        --print("CARDS IN HAND: " .. table.getn(GameInfo.cards))
+        if (table.getn(GameInfo.cards) == 0) then
+          DrawCharacterCards()
 
+          QueueMessage(
+          --appWarpClient.sendUpdatePeers(
+            --tostring("MSG_CODE") .. " " ..
+            tostring("finish_draw") .. " " ..
+            tostring(GameInfo.username))    
+        end
+      else
         QueueMessage(
         --appWarpClient.sendUpdatePeers(
           --tostring("MSG_CODE") .. " " ..
           tostring("finish_draw") .. " " ..
-          tostring(GameInfo.username))    
+          tostring(username))  
       end
     end
   end

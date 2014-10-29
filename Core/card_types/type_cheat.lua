@@ -39,6 +39,7 @@ function Check_CheatCards(filename)
                 set_stats(card_info, -1,2,2,2,0,0,0,0,"cheat",6,1)
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("counter", "w_or_a", 0, 0)
                 --card_info.actions[table.getn(card_info.actions) + 1] = set_action("half_damage", "", 0, 0)
+                card_info.actions[table.getn(card_info.actions) + 1] = set_action("armour", "", 5, 0)
             end,
         ["c/7.png"] = function()
                 card_info.name = "stubborn-mule"
@@ -51,13 +52,13 @@ function Check_CheatCards(filename)
             end,
         ["c/9.png"] = function()
                 card_info.name = "backstab"
-                set_stats(card_info, 7,5,5,5,1,0,0,10,"cheat",6,2)
+                set_stats(card_info, 7,5,3,3,1,0,0,10,"cheat",6,2)
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("next_card", "damage", 0, 1)
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("play", "", 0, 0)
             end,
         ["c/10.png"] = function()
                 card_info.name = "berserk"
-                set_stats(card_info, 15,15,2,2,0,0,0,12,"cheat",6,2)
+                set_stats(card_info, 13,13,2,2,0,0,0,12,"cheat",6,2)
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("health", "", -9, 1)
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("health", "", 10, 0)
             end,
@@ -79,7 +80,8 @@ function Check_CheatCards(filename)
             end,
         ["c/14.png"] = function()
                 card_info.name = "sabotage"
-                set_stats(card_info, 10,10,2,2,0,0,0,10,"cheat",6,3)
+                set_stats(card_info, 10,10,2,2,0,0,0,20,"cheat",6,3)
+                card_info.actions[table.getn(card_info.actions) + 1] = set_action("life", "", -2, 1)
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("save_card", "", 1, 0)
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("end_round", "", 0, -1) 
                 --ALTERNATE RULES, SELECT CARD, KEEP A COPY OF THAT CARD

@@ -62,14 +62,14 @@ function Check_FocusCards(filename)
             end,
         ["f/9.png"] = function()
                 card_info.name = "arm-wrestle"
-                set_stats(card_info, 9,7,4,4,1,0,0,0,"focus",3,2)
+                set_stats(card_info, 9,7,4,4,1,0,0,3,"focus",3,2)
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("faceoff", "", 1, -1)
                 --VICTORY ACTIONS
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("power_damage", "", 0, 0)
             end,
         ["f/10.png"] = function()
                 card_info.name = "grapple"
-                set_stats(card_info, 7,7,5,5,2,0,0,0,"focus",3,2)
+                set_stats(card_info, 7,7,5,5,2,0,0,3,"focus",3,2)
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("faceoff", "", 0, -1) 
                 --VICTORY ACTIONS
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("limb", "", -2, 0)
@@ -82,7 +82,7 @@ function Check_FocusCards(filename)
             end,
         ["f/12.png"] = function()
                 card_info.name = "battle-of-wills"
-                set_stats(card_info, -1,-1,-1,-1,0,0,0,10,"focus",3,2)
+                set_stats(card_info, -1,-1,0,0,0,0,0,0,"focus",3,2)
                 --IMMUNE TO CHEAT NO LONGER USED
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("faceoff", "", 1, -1)
                 --VICTORY ACTIONS

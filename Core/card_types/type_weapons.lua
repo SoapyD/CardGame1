@@ -38,7 +38,6 @@ function Check_WeaponCards(filename)
         ["w/6.png"] = function()
                 card_info.name = "wrench"
                 set_stats(card_info, 10,2,5,5,1,0,0,10,"weapon",1,1)
-                card_info.actions[table.getn(card_info.actions) + 1] = set_action("health", "", -3, 1)
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("armour", "", -10, 1)
             end,                                
         ["w/7.png"] = function()
@@ -49,26 +48,27 @@ function Check_WeaponCards(filename)
 
         ["w/8.png"] = function()
                 card_info.name = "backslash"
-                set_stats(card_info, 11,6,3,3,1,0,0,5,"weapon",1,2)
-                card_info.actions[table.getn(card_info.actions) + 1] = set_action("health", "", -6, 1)
+                set_stats(card_info, 11,6,6,6,1,0,0,17,"weapon",1,2)
+                card_info.actions[table.getn(card_info.actions) + 1] = set_action("health", "", -3, 1)
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("draw", "", 1, 0)
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("play", "", 1, 0)
             end,
         ["w/9.png"] = function()
                 card_info.name = "skewer"
-                set_stats(card_info, 12,6,4,4,1,0,0,20,"weapon",1,2)
+                set_stats(card_info, 12,6,4,4,1,0,0,16,"weapon",1,2)
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("health", "", -3, 1) 
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("discard", "", 1, 1)
             end,
         ["w/10.png"] = function()
                 card_info.name = "slash"
-                set_stats(card_info, 10,4,6,6,1,0,0,10,"weapon",1,2)
+                set_stats(card_info, 10,4,6,6,1,0,0,13,"weapon",1,2)
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("health", "", -6, 1)
             end,
     	["w/11.png"] = function()
     			card_info.name = "dismember"
     			set_stats(card_info, 3,3,3,3,1,0,0,5,"weapon",1,2)
     			card_info.actions[table.getn(card_info.actions) + 1] = set_action("limb", "", -2, 0)
+                card_info.actions[table.getn(card_info.actions) + 1] = set_action("discard", "", 1, 1)
     		end,
         ["w/12.png"] = function()
                 card_info.name = "wall-of-swords"
@@ -78,17 +78,17 @@ function Check_WeaponCards(filename)
     	["w/13.png"] = function()
     			card_info.name = "crush"
     			set_stats(card_info, 13,1,5,5,2,0,0,18,"weapon",1,3)
+                card_info.actions[table.getn(card_info.actions) + 1] = set_action("life", "", -2, 1)
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("armour", "", -20, 1)
-    			card_info.actions[table.getn(card_info.actions) + 1] = set_action("life", "", -5, 1)
     		end,
     	["w/14.png"] = function()
     			card_info.name = "cleave"
-    			set_stats(card_info, 13,3,6,6,2,0,0,20,"weapon",1,3)
-    			card_info.actions[table.getn(card_info.actions) + 1] = set_action("health", "", -11, 1)
+    			set_stats(card_info, 13,3,6,6,2,0,0,18,"weapon",1,3)
+    			card_info.actions[table.getn(card_info.actions) + 1] = set_action("health", "", -9, 1)
     		end,    		    	
     	["w/15.png"] = function()
     			card_info.name = "wall-of-blades"
-    			set_stats(card_info, 10,10,10,10,2,0,0,10,"weapon",1,3.5)
+    			set_stats(card_info, 10,10,10,10,2,0,0,20,"weapon",1,3.5)
     			card_info.actions[table.getn(card_info.actions) + 1] = set_action("health", "", -10, 1)
     		end,
 

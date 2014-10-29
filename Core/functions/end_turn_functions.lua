@@ -108,6 +108,14 @@ end
 
 
 local EndRound_state = 1
+local EndRound_set = -1
+
+function Get_EndRoundState()
+  return EndRound_set
+end
+function Set_EndSet(value)
+  EndRound_set = value
+end
 
 function EndRound()
 
@@ -126,6 +134,7 @@ function EndRound()
                 reset_state = true
                 set_MainState(1)
               end
+              --EndRound_set = 0
             end, 
         [2] = function()    --RESET THE CARDS ON THE BOARD
               ResetCards()
@@ -139,7 +148,7 @@ function EndRound()
                   EndRound_state = EndRound_state + 1
                   --print("HANDS NOW SET")
                 end
-
+                EndRound_set = 1
               end,
         [4] = function()    --END
               ResetActions()

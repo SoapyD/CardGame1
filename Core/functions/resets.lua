@@ -20,6 +20,8 @@ function ResetGame()
                 finalise_button.text.isVisible = false
                 Show_EndTable()
                 reset_state = reset_state + 1
+                Set_EndSet(0)
+                Set_ActionTimer(0)
             end,
         [2] = function()
                 --print("RESETTING GAME")
@@ -41,6 +43,7 @@ function ResetGame()
                     run_card_loop()
                     reset_state = reset_state + 1
                 end
+                Set_EndSet(1)
             end,
         [4] = function() --SET TIMER
                 reset_counter = 3 * 60

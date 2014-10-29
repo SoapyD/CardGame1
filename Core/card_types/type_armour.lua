@@ -10,7 +10,7 @@ function Check_ArmourCards(filename)
     --//////////////////////////////////////////////////////////////////    
         ["a/1.png"] = function()
                 card_info.name = "occularium"
-                set_stats(card_info, 9,9,10,10,1,0,0,0,"armour",5,1)
+                set_stats(card_info, 9,9,4,4,1,0,0,0,"armour",5,1)
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("block", "", 1, 0) --BLOCK WEAPONS 
                card_info.actions[table.getn(card_info.actions) + 1] = set_action("block", "", 5, 0) --BLOCK CHEAT
                card_info.actions[table.getn(card_info.actions) + 1] = set_action("armour", "", 5, 0)
@@ -52,9 +52,9 @@ function Check_ArmourCards(filename)
         ["a/7.png"] = function()
                 card_info.name = "fortify"
                 set_stats(card_info, -1,-1,-1,-1,0,0,0,0,"armour",5,1.5)
-                card_info.actions[table.getn(card_info.actions) + 1] = set_action("draw", "", 2, 0)
+                card_info.actions[table.getn(card_info.actions) + 1] = set_action("draw", "", 1, 0)
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("play", "", 1, 0) 
-                card_info.actions[table.getn(card_info.actions) + 1] = set_action("strat_alter", "", 6, 0)
+                --card_info.actions[table.getn(card_info.actions) + 1] = set_action("strat_alter", "", 6, 0)
             end,
                 
         ["a/8.png"] = function()
@@ -65,7 +65,7 @@ function Check_ArmourCards(filename)
         ["a/9.png"] = function()
                 card_info.name = "onslaught"
                 set_stats(card_info, 10,10,7,7,0,0,0,6,"armour",5,2)
-                card_info.actions[table.getn(card_info.actions) + 1] = set_action("health", "", -3, 1)
+                card_info.actions[table.getn(card_info.actions) + 1] = set_action("health", "", -6, 1)
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("armour", "", 5, 0) 
             end,
         ["a/10.png"] = function()
@@ -84,8 +84,7 @@ function Check_ArmourCards(filename)
                 card_info.name = "dig-in"
                 set_stats(card_info, -1,-1,-1,-1,0,0,4,"armour",5,2.5)
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("armour", "", 10, 0)
-                card_info.actions[table.getn(card_info.actions) + 1] = set_action("play", "", 1, 0)
-                card_info.actions[table.getn(card_info.actions) + 1] = set_action("strat_alter", "", 10, 0)
+                --card_info.actions[table.getn(card_info.actions) + 1] = set_action("strat_alter", "", 10, 0)
                 end,
                 
         ["a/13.png"] = function()
@@ -101,7 +100,7 @@ function Check_ArmourCards(filename)
             end,
         ["a/15.png"] = function()
                 card_info.name = "brutality"
-                set_stats(card_info, 4,4,4,4,1,0,0,5,"armour",5,3.5)
+                set_stats(card_info, 4,4,4,4,1,0,0,6,"armour",5,3.5)
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("prev_card", "armour", -1, 0)
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("end_round", "", 0, -1)
             end,

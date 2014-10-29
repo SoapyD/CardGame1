@@ -23,6 +23,17 @@ function Get_ActionState()
     return action_state
 end
 
+function Get_ActionInternalState()
+    return action_internal_state
+end
+
+function Get_ActionTimer()
+    return action_timer
+end
+function Set_ActionTimer(value)
+    action_timer = value
+end
+
 function CheckActionState()
 
     --print("a_state: " .. action_state .. " a_i_state: " .. action_internal_state)
@@ -95,8 +106,6 @@ function CheckActionState()
                             tostring(Action.applied_to) .. " " ..
                             tostring("yes"))
                         action_internal_state = 1
-
-                        --CheckActionPos(false)
                         end,
                     [1] = function()    --ENDS IN WARPLISTENER, OVER THE NETWORK
                         --print("HEALTH DELAY ENDSs")
@@ -121,8 +130,6 @@ function CheckActionState()
                             tostring(Action.applied_to) .. " " ..
                             tostring("yes"))
                         action_internal_state = 1
-
-                        --CheckActionPos(false)
                         end,
                     [1] = function()    --ENDS IN WARPLISTENER, OVER THE NETWORK
                         --print("HEALTH DELAY ENDSs")
@@ -148,8 +155,6 @@ function CheckActionState()
                             tostring("yes").. " " ..
                             tostring("no"))
                         action_internal_state = 1
-
-                        --CheckActionPos(false)
                         end,
                     [1] = function()    --ENDS IN WARPLISTENER, OVER THE NETWORK
                         --print("HEALTH DELAY ENDSs")
@@ -196,8 +201,6 @@ function CheckActionState()
                             tostring(Action.applied_to) .. " " ..
                             tostring("yes"))
                         action_internal_state = 1
-
-                        --CheckActionPos(false)
                         end,
                     [1] = function()    --ENDS IN WARPLISTENER, OVER THE NETWORK
                         --print("HEALTH DELAY ENDSs")
@@ -223,8 +226,6 @@ function CheckActionState()
                             tostring("yes").. " " ..
                             tostring("no"))
                         action_internal_state = 1
-
-                        --CheckActionPos(false)
                         end,
                     [1] = function()    --ENDS IN WARPLISTENER, OVER THE NETWORK
                         --print("HEALTH DELAY ENDSs")
@@ -450,6 +451,7 @@ function CheckActionState()
                             action_timer = 60 * 3
                             run_popup("Ending Round")
                             AdanceActionInternalState()
+                            Set_EndSet(0)
                         end,
 
                     [1] = function()    --SETUP ACTION
@@ -552,6 +554,9 @@ function CheckActionState()
                     end
                 end
             end, 
+        --[2] = function (x) --WAIT FOR THE TIMER TO RUN OUT
+
+        --    end,
         [2] = function (x) --SET TIMER
                 print("NEXT ACTION")
                 animation_timer = 60 * 3
@@ -587,7 +592,8 @@ end
 function CheckActionPos(network_used2)
     
     if (animation_timer > 0) then
-        print("STILL TIME ON THE TIMER")
+        print("STILL TIME ON THE TIMER, network_used: " , network_used2)
+        CompleteAction()
     end
 
     animation_state = 2 --advance the animation state, an artificial pause so players can see what actions are playing
@@ -605,7 +611,7 @@ function CheckActionPos(network_used2)
             tostring(GameInfo.username)) 
        end
     end
-    print("advance action --- ACTION POS: " .. action_state .. " INTERNAL: " .. action_internal_state)
+    --print("advance action --- ACTION POS: " .. action_state .. " INTERNAL: " .. action_internal_state)
 end
 
 function ActivateNetwork()

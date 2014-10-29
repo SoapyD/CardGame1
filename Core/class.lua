@@ -72,7 +72,7 @@ function cGameInfo.methods:init(gamestate)
 	self.power_damage = 0
 
 	self.selected_character = ""
-
+	self.network_messages = {}
 	self.card_group = display.newGroup()
 end
 
