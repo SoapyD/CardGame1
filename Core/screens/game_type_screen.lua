@@ -57,6 +57,9 @@ function Show_GameTypeScreen()
                     button_name = "Find Match"
                     end,
                 [3] = function()    --
+                    button_name = "Create Match"
+                    end,
+                [4] = function()    --
                     button_name = "Single Player"
                     end,
                     default = function () print("ERROR - state not within variable options") end,
