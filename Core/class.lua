@@ -40,6 +40,7 @@ function cGameInfo.methods:init(gamestate)
 	self.or_screen = {}
 
 	self.character_screen = {}
+	self.gametype_screen = {}
 
 	self.temp_card = {}
 

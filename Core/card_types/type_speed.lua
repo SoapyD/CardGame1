@@ -59,14 +59,13 @@ function Check_SpeedCards(filename)
             end,
         ["s/9.png"] = function()
                 card_info.name = "accelerate"
-                set_stats(card_info, 0,12,0,0,1,0,0,1,"speed",4,2)
+                set_stats(card_info, 0,12,0,0,0,2,0,1,"speed",4,2)
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("draw", "", 4, 0)
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("discard", "", 3, 0)
             end,
         ["s/10.png"] = function()
                 card_info.name = "stamp"
                 set_stats(card_info, 1,11,1,1,0,1,0,5,"speed",4,2)
-                card_info.actions[table.getn(card_info.actions) + 1] = set_action("life", "", -2, 1)
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("draw", "", 1, 0)
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("limb", "", -1, 0)
                 end,            

@@ -22,6 +22,7 @@ function Check_FocusCards(filename)
                 --card_info.actions[table.getn(card_info.actions) + 1] = set_action("OR_limb", "", 2, 0)
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("or_action", "health_limb", 0, 0) 
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("draw", "", 1, 0)
+                card_info.actions[table.getn(card_info.actions) + 1] = set_action("play", "", 1, 0)
                 end,
         ["f/3.png"] = function()
                 card_info.name = "steady"

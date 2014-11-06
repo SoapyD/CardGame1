@@ -43,6 +43,8 @@ require("Core.card_types.type_cheat")
 
 require("Network.networking")
 require("Network.network_queue")
+require("Network.connection_types")
+require("Network.network_messages")
 
 require("Core.functions.camera_controls") --REQUIRES THE ZOOM VALUE FROM GAMEINFO
 require("Core.table.screen_elements")
@@ -57,6 +59,7 @@ require("Core.table.or_setup")
 require("Core.table.endgame_table")
 
 require("Core.screens.screen_states")
+require("Core.screens.game_type_screen")
 require("Core.screens.character_select_screen")
 
 --local hand;
@@ -74,13 +77,20 @@ local function GameLoop( event )
     	[0] = function()	--GIVE THE CAMERA TIME TO READJUST
     		GameInfo.gamestate = GameInfo.gamestate + 1
     		end,
-   		[1] = LoadConnection,--SET ANYTHING THAT ONLY NEEDS LOADING ONCE 
-    	--[2] = player_check, --REGISTER BOTH PLAYERS
-    	--[3] = loadGame,--SET ANYTHING THAT ONLY NEEDS LOADING ONCE 
-        [2] = loadGame,--SET ANYTHING THAT ONLY NEEDS LOADING ONCE
-        [3] = player_check, --REGISTER BOTH PLAYERS IN NETWORKING
-        [4] = Screen_Loop, 
-    	[5] = run_main_loop,
+        [1] = loadGame,--SET ANYTHING THAT ONLY NEEDS LOADING ONCE
+        [2] = function()
+            Load_GameTypeScreen()
+            Show_GameTypeScreen()
+            GameInfo.gamestate = GameInfo.gamestate + 1
+            end,--SHOW THE GAMETYPE MENU
+        [3] = function()
+                --WAIT FOR THE PLAYER TO CHOOSE AN OPTION
+            end,
+   		[4] = QuickMatch_Connection,--SET ANYTHING THAT ONLY NEEDS LOADING ONCE 
+        --[3] = loadGame,--SET ANYTHING THAT ONLY NEEDS LOADING ONCE
+        [5] = player_check, --REGISTER BOTH PLAYERS IN NETWORKING
+        [6] = Screen_Loop, 
+    	[7] = run_main_loop,
 
 	   	default = function () print( "ERROR - gamestate not within switch") end,
 	}

@@ -20,14 +20,6 @@ function SetGame()
 end
 
 
-function LoadConnection()
-	print("SET CONNECTION")
-	networkSetup();
-	networkConnection(); 
-	GameInfo.gamestate = GameInfo.gamestate + 1
-end
-
-
 function loadGame()
 	--HERE'S WHERE WE CAN LOAD ANYTHING THAT ONLY NEEDS INITIALISING
 	GameInfo.print_string = ""

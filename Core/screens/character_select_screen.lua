@@ -45,7 +45,6 @@ function Show_CharacterScreen()
     end
 
     TitleText.text = "Select Character"
-
     --SELECTED CHARACTERS
     for i=1, 2 do
 
