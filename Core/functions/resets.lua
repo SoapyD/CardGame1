@@ -19,6 +19,7 @@ function ResetGame()
                 finalise_button.isVisible = false
                 finalise_button.text.isVisible = false
                 Show_EndTable()
+                print("showing end screen#2")
                 reset_state = reset_state + 1
                 Set_EndSet(0)
                 Set_ActionTimer(0)

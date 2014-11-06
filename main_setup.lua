@@ -73,16 +73,9 @@ function loadGame()
 	--SCREEN STUFF
 	Load_CharacterScreen()
 
-
 	--ADVANCE THE GAMESTATE
 	GameInfo.gamestate = GameInfo.gamestate + 1
 end
-
-
-
-
-
-
 
 
 function EndBounds()

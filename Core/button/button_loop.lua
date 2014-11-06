@@ -72,8 +72,9 @@ function run_button_loop()
 
 	--LOCK THE BAR.Y TO THE TAB.Y ALLOWING IT BE LOWERED BELOW SCREEN
     bar.y = tab.y  + (tab.height / 2) + (bar.height / 2)
-    finalise_button.y = tab.y
-    finalise_button.text.y = tab.y
+    bar3.y = tab.y
+    --finalise_button.y = tab.y
+    --finalise_button.text.y = tab.y
     --LOCK THE HAND.X TO THE SCROLL BAR.X POSITION
 	GameInfo.hand.x = bar.x
 	GameInfo.hand.y = bar.y + (bar.height / 2) + (GameInfo.hand.height / 2)

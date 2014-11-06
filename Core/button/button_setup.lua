@@ -2,9 +2,10 @@
 function SetupButtons()
 	PlayerHand()
 	ScrollBar()
+	Player_Stats()
 	Tab()
-	Finalise_button()
 	Enemy_Stats()
+	Finalise_button()
 	Turn_button()
 	--Portrait()			
 end
@@ -64,12 +65,31 @@ function Enemy_Stats()
 		boxwidth / 2,
 		boxheight / 2,
 		boxwidth,boxheight, 0 )
-	bar2:setFillColor( 255, 128, 0 )
+	bar2:setFillColor( colorsRGB.RGB("white") )
 	bar2.strokeWidth = 6
 	bar2:setStrokeColor( 200,200,200,255 )
 
 	bar2.width = boxwidth
 	bar2.height = boxheight	
+	
+end
+
+function Player_Stats()
+	--print("height: ", display.contentHeight)
+
+	boxwidth = GameInfo.width
+	boxheight = 100
+
+	bar3 = display.newRoundedRect(
+		boxwidth / 2,
+		GameInfo.height - GameInfo.hand.height - bar.height - boxheight / 2,
+		boxwidth,boxheight, 0 )
+	bar3:setFillColor( colorsRGB.RGB("white") )
+	bar3.strokeWidth = 6
+	bar3:setStrokeColor( 200,200,200,255 )
+
+	bar3.width = boxwidth
+	bar3.height = boxheight	
 	
 end
 
@@ -92,12 +112,14 @@ function Tab()
 end
 
 function Finalise_button()
-	boxwidth = 300
-	boxheight = 100
+	boxwidth = 200
+	boxheight = 75
 
 	finalise_button = display.newRoundedRect(
-		GameInfo.portrait_start + boxwidth / 2,
-		GameInfo.height - GameInfo.hand.height - bar.height - boxheight / 2,
+		--GameInfo.portrait_start + boxwidth / 2,
+		--GameInfo.height - GameInfo.hand.height - bar.height - boxheight / 2,
+		GameInfo.width - boxwidth / 2,
+		bar2.y + (bar2.height / 2) + boxheight / 2 ,
 		boxwidth,boxheight, 0 )
 	finalise_button:setFillColor( 1, 1, 1 )
 	finalise_button.strokeWidth = 6

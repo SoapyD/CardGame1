@@ -226,7 +226,7 @@ function GameLoop()
 
 	statusText.text = GameInfo.print_string
 	statusText.x = statusText.width / 2
-	statusText.y = bar.y + (bar.height / 2) - statusText.height / 2
+	statusText.y = bar3.y + (bar3.height / 2) - statusText.height / 2
 
 	statusText2.text = GameInfo.print_string2
 	statusText2.x = statusText2.width / 2

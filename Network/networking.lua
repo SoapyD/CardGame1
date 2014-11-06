@@ -26,16 +26,23 @@ end
 local connection_state = 0
 local connection_count = 200
 local internal_count = 0
+local end_loaded = false
 
 function player_check()
 
     local CheckState = switch { 
         [0] = function()    --CHECK PLAYERS ARE CONNECTED
-                Show_EndTable()
+                
+                if ( end_loaded == false) then
+                    Show_EndTable()
+                    print("showing end screen#3")
+                    end_loaded = true
+                end
 
                 if (GameInfo.attacker_ready == true and
                     GameInfo.opponent_ready == true) then
                     print("opponent ready")
+                    TitleText.text = "Starting Game"
                     connection_state = connection_state + 1
                     internal_count = 0
                 end

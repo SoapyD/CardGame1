@@ -1,9 +1,13 @@
 require("Network.update_cards")
 
+local saved_room = ""
+
 function onConnectDone(resultCode)
+
   if(resultCode == WarpResponseResultCode.SUCCESS) then
     --statusText.text = "Joining Room.."
     print("Joining Room..")
+    TitleText.text = "Joining Room.."
     --appWarpClient.joinRoom(STATIC_ROOM_ID)
     appWarpClient.joinRoomInRange (1, 1, false)
     --appWarpClient.deleteRoom ( 1402891999 )
@@ -13,6 +17,9 @@ function onConnectDone(resultCode)
   else
     --statusText.text = "Connect Failed. Restart"
     print("Connect Failed. Restart")
+
+    Show_EndTable()
+    TitleText.text = "CONNECTION FAILED.\nRESTART"
   end  
 end
 
@@ -21,7 +28,8 @@ function onCreateRoomDone(resultCode, roomId, roomName)
   if(resultCode == WarpResponseResultCode.SUCCESS) then
     isNewRoomCreated = true;
     appWarpClient.joinRoom(roomId)
-     print("joining to: "  .. roomId .. " " .. roomName)
+    print("joining to: "  .. roomId .. " " .. roomName)
+    TitleText.text = "joining to: "  .. roomId .. " " .. roomName
 
     print("room created!!!")
     --var = appWarpClient.getLiveRoomInfo(roomId);
@@ -50,15 +58,19 @@ function onJoinRoomDone(resultCode, roomId)
     --appWarpClient.subscribeRoom(STATIC_ROOM_ID)
     appWarpClient.subscribeRoom(roomId)
     print("Subscribing to room.." .. roomId)
+    TitleText.text = "Subscribing to Room\n" .. roomId
+    saved_room = roomId
     appWarpClient.getAllRooms();
 
   elseif(resultCode == WarpResponseResultCode.RESOURCE_NOT_FOUND) then
     -- no room found with one user creating new room
     if (join_state == 0) then
       appWarpClient.joinRoomInRange (0, 0, false)
+      TitleText.text = "Joining Empty Room"
       join_state = 1
     else
       print("creating room")
+      TitleText.text = "Creating Room"
       local roomPropertiesTable = {}
       roomPropertiesTable["result"] = ""
       appWarpClient.createRoom ( "testroom1" ,GameInfo.username ,2 ,nil ) 
@@ -106,6 +118,7 @@ function onSubscribeRoomDone(resultCode)
   if(resultCode == WarpResponseResultCode.SUCCESS) then    
     --statusText.text = "Started!"
     print("Started!")
+    TitleText.text = "Subscribed to\n" .. saved_room
   else
     --statusText.text = "Room Subscribe Failed"
     print("Room Subscribe Failed")
@@ -172,13 +185,22 @@ function onUpdatePeersReceived(update)
       GameInfo.attacker_ready = true
     end
     if (username ~= GameInfo.username) then
+
+      --THIS BIT SHOULD STOP THE BUG WHEN I TRY TO RECONNECT TWO PLAYERS AFTER A NETWORK RESET
+      if (GameInfo.opponent_ready == false and 
+        GameInfo.attacker_ready == true) then
+        GameInfo.attacker_ready = false
+        --print("RESET OF READY VAR OCCURED")
+      end
       GameInfo.opponent_ready = true
     end
   end
+
   if (update_type == "add_player") then
     local username = tostring(func())
     AddPlayer(username)
   end
+
   if (update_type == "set_player_1") then
     local username = tostring(func())
     

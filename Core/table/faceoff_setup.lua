@@ -173,20 +173,22 @@ function Check_FaceOff_End()
                 if (winner == GameInfo.current_player) then
 
                 else
-                    --IF THE FACEOFF FAILS, REMOVE ALL "WIN ACTIONS" AND PASS THE TURN
-                    GameInfo.actions = {}
-                    ResetActionState()
-                    ResetActionInternalState()
-                    --THIS IS TAKEN FROM THE END TURN FUNCTION
-                    local temp_mods = {}
-                    temp_mods.type = "pass_turn"
-                    temp_mods.sub_action = ""
-                    temp_mods.applied_to = -1
-                    temp_mods.value = 0
+                    if (p1_score ~= p2_score) then--DONT RESET IF THE SCORES ARE TIED
+                        --IF THE FACEOFF FAILS, REMOVE ALL "WIN ACTIONS" AND PASS THE TURN
+                        GameInfo.actions = {}
+                        ResetActionState()
+                        ResetActionInternalState()
+                        --THIS IS TAKEN FROM THE END TURN FUNCTION
+                        local temp_mods = {}
+                        temp_mods.type = "pass_turn"
+                        temp_mods.sub_action = ""
+                        temp_mods.applied_to = -1
+                        temp_mods.value = 0
 
-                    local arr_pos = table.getn(GameInfo.actions) + 1
-                    GameInfo.actions[arr_pos] = {}
-                    GameInfo.actions[arr_pos] = temp_mods
+                        local arr_pos = table.getn(GameInfo.actions) + 1
+                        GameInfo.actions[arr_pos] = {}
+                        GameInfo.actions[arr_pos] = temp_mods
+                    end
                 end
             end
 

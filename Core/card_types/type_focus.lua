@@ -39,6 +39,8 @@ function Check_FocusCards(filename)
                 card_info.name = "surge"
                 set_stats(card_info, 4,4,-1,-1,0,0,0,0,"focus",3,1)
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("draw", "", 2, 0)
+                card_info.actions[table.getn(card_info.actions) + 1] = set_action("discard", "", 1, 0)
+                card_info.actions[table.getn(card_info.actions) + 1] = set_action("play", "", 1, 0)
             end,            
         ["f/6.png"] = function()
                 card_info.name = "harden"

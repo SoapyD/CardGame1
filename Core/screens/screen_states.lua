@@ -53,6 +53,7 @@ function Screen_Loop()
 
                 --GameInfo.screen_elements2.image:toFront()
                 Show_EndTable()
+                print("showing end screen#1")
 				timer = 60 * 5
 				internal_state = internal_state + 1  
 				--TitleText.text = "GAME STARTING"	

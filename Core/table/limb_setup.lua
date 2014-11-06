@@ -53,11 +53,12 @@ function LoopLimbCheck()
         local pos = GameInfo.current_player
         pos = pos + 1
         if (pos > 2) then
-            pos = 0
+            pos = 1
         end
         applied_player = GameInfo.player_list[pos]
+        print("PLAYER POS: " .. pos .. ", LIST LENGTH: " .. table.getn(GameInfo.player_list))
     end
-    print("APPLIED LIMB PLAYER: " .. applied_player)
+    print("APPLIED LIMB PLAYER: " .. applied_player.username)
     Set_LimbColour(applied_player,GameInfo.limb_screen.card1,"arm",1)
     Set_LimbColour(applied_player,GameInfo.limb_screen.card2,"arm",2)
     Set_LimbColour(applied_player,GameInfo.limb_screen.card3,"leg",1)
@@ -102,7 +103,9 @@ function CheckLimbs()
     end
     --print("chagnged value" .. discard_max)
     discard_max = discard_max - 1
-    run_popup(TitleText.text .. ": " .. discard_max)
+    if (discard_max > 0) then
+        run_popup(TitleText.text .. ": " .. discard_max)
+    end 
 
 end
 
