@@ -96,7 +96,7 @@ function Check_FocusCards(filename)
                 card_info.name = "energise"
                 set_stats(card_info, 8,8,8,8,0,0,0,2,"focus",3,3)
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("limb", "", 2, 0)
-                card_info.actions[table.getn(card_info.actions) + 1] = set_action("draw", "", 3, 0)
+                card_info.actions[table.getn(card_info.actions) + 1] = set_action("draw", "", 2, 0)
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("play", "", 1, 0)
             end,            
         ["f/14.png"] = function()
