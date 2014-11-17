@@ -7,11 +7,17 @@ local animation_state = 1
 local network_used = false
 local animation_timer = 0
 
+local has_run = false
+
 function ResetActionState()
     action_state = 1
 end
 function ResetActionInternalState()
     action_internal_state = 0
+end
+function ResetAnimationState()
+    animation_state = 1
+    print("reset used!!!!")
 end
 
 function AdanceActionInternalState()
@@ -336,6 +342,7 @@ function CheckActionState()
                     [0] = function()    --SETUP ACTION
                         --run_main_state = 1
                         action_internal_state = 1
+                        --print("LIMB DISCARD")
                         end,
                     [1] = function()    --TURN ON THE DISCARD CARDS SCREEN
                         Show_LimbDiscardTable()
@@ -553,11 +560,18 @@ function CheckActionState()
                         CheckState:case(GameInfo.actions[action_state].type)
                     end
                 end
-            end, 
+
+                if (has_run == false) then
+                    print("ACTIONS RUN")
+                    has_run = true
+                end
+            end,
         --[2] = function (x) --WAIT FOR THE TIMER TO RUN OUT
 
         --    end,
         [2] = function (x) --SET TIMER
+                has_run = false
+                --print("PREVIOUS ACTION: " .. GameInfo.actions[action_state].name)
                 print("NEXT ACTION")
                 animation_timer = 60 * 3
                 animation_state = animation_state + 1
@@ -595,7 +609,7 @@ function CheckActionPos(network_used2)
         print("STILL TIME ON THE TIMER, network_used: " , network_used2)
         CompleteAction()
     end
-
+    print("CheckActionPos USED!!!")
     animation_state = 2 --advance the animation state, an artificial pause so players can see what actions are playing
     network_used = network_used2
     --CompleteAction()

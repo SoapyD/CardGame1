@@ -48,11 +48,15 @@ function run_main_loop()
 
 
 	        [4] = function() --SECOND GAME LOOP FOR PRE-GAME ACTIONS, RESETS TO NORMAL WHEN COMPLETE
+					--local action_state = Get_ActionState()
+					--print("ACTION STATE: " .. action_state .. " LIST SIZE: " .. table.getn(GameInfo.actions))
 					GameLoop()
 
 					local action_state = Get_ActionState()
+					--
 					--print(action_state)
 					if (table.getn(GameInfo.actions) < action_state) then
+		            	print("ACTION STATE: " .. action_state .. " LIST SIZE: " .. table.getn(GameInfo.actions))
 		            	GameInfo.actions = {}
 		            	ResetActionState()
 		              	ResetActionInternalState()
@@ -104,6 +108,7 @@ function run_main_loop()
 				    	if (i == 2) then
 				    	--	player.legs = 0
 				    	end
+				    	--player.legs = 0
 
 				    	if (player.arms < 2 or player.legs < 2)  then
 
@@ -114,15 +119,16 @@ function run_main_loop()
 								against = 0 --DIRECT AT THE CURRENT PLAYER
 								action = "heal_limb0"
 							end
-							print("LIMB AGAINST AGAINST: " .. against)
+							
 				        	arr_pos = table.getn(GameInfo.actions) + 1
 				            GameInfo.actions[arr_pos] = set_action("limb_discard", action, 1, against)
 				            GameInfo.actions[arr_pos].type = "limb_discard"
-
+				            --print("LIMB AGAINST: " .. against .. " Action Pos: " .. arr_pos)
 				    	end
 					end
 
-
+					local action_state = Get_ActionState()
+					--print("STATE: " .. action_state)
 		            main_loop_state = 4 --SECONDARY LOOP
 
 					GameInfo.saved_actions = {}

@@ -10,7 +10,7 @@ function Hide_CharacterScreen()
 
     TitleText.text = ""
     GameInfo.pause_main = false
-    CheckActionPos(false)
+    --CheckActionPos(false)
 
     if (finalise_button ~= nil) then
         finalise_button.text.text = finalise_button.default_text

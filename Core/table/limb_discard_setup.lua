@@ -7,6 +7,7 @@ function Hide_LimbDiscardTable()
     GameInfo.limb_discard_screen.card2.icon.isVisible  = false
     TitleText.text = ""
     GameInfo.pause_add = 0
+    --print("HIDING TABLE!!!!!!")
     CheckActionPos(false)
     GameInfo.finalise_state = 1
 

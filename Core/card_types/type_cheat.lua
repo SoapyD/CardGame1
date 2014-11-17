@@ -10,77 +10,77 @@ function Check_CheatCards(filename)
     --//////////////////////////////////////////////////////////////////    
         ["c/1.png"] = function()
                 card_info.name = "shuriken"
-                set_stats(card_info, 5,3,3,3,1,0,0,0,"cheat",6,1)
+                set_stats(card_info, 2,2,1,4,1,0,0,0,"cheat",6,1)
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("health", "", -9, 1)
             end,
         ["c/2.png"] = function()
                 card_info.name = "weak-spot"
-                set_stats(card_info, 2,2,2,2,0,0,0,0,"cheat",6,1)
+                set_stats(card_info, 2,2,1,4,0,0,0,0,"cheat",6,1)
                 --card_info.actions[table.getn(card_info.actions) + 1] = set_action("next_card", "double_damage", 0, 0)
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("play", "", 0, 0)
             end,
         ["c/3.png"] = function()
                 card_info.name = "taunt"
-                set_stats(card_info, -1,1,1,1,0,0,0,0,"cheat",6,1)
+                set_stats(card_info, 2,2,1,4,0,0,0,0,"cheat",6,1)
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("or_action", "damage_discard", 0, 1)
             end,
         ["c/4.png"] = function()
                 card_info.name = "poke-in-the-eye"
-                set_stats(card_info, 4,2,2,2,1,0,0,"cheat",6,1)
+                set_stats(card_info, 2,2,1,4,1,0,0,"cheat",6,1)
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("life", "", -6, 1)
                 end,
         ["c/5.png"] = function()
                 card_info.name = "stop-hitting-yourself"
-                set_stats(card_info, 5,3,3,3,0,0,0,0,"cheat",6,1)
+                set_stats(card_info, 2,2,1,4,0,0,0,0,"cheat",6,1)
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("discard", "damage", 1, 1)
                 end,                
         ["c/6.png"] = function()
                 card_info.name = "stabproof-vest"
-                set_stats(card_info, -1,2,2,2,0,0,0,0,"cheat",6,1)
+                set_stats(card_info, 2,2,1,4,0,0,0,0,"cheat",6,1)
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("counter", "w_or_a", 0, 0)
                 --card_info.actions[table.getn(card_info.actions) + 1] = set_action("half_damage", "", 0, 0)
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("armour", "", 5, 0)
             end,
         ["c/7.png"] = function()
                 card_info.name = "stubborn-mule"
-                set_stats(card_info, 12,12,12,12,0,0,0,1,"cheat",6,1.5)
+                set_stats(card_info, 2,2,1,4,0,0,0,1,"cheat",6,1.5)
             end,
         ["c/8.png"] = function()
                 card_info.name = "snatch"
-                set_stats(card_info, 5,5,3,3,0,0,0,8,"cheat",6,2)
+                set_stats(card_info, 2,1,2,1,0,0,0,8,"cheat",6,2)
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("steal", "", 1, 1)
             end,
         ["c/9.png"] = function()
                 card_info.name = "backstab"
-                set_stats(card_info, 7,5,3,3,1,0,0,10,"cheat",6,2)
+                set_stats(card_info, 2,1,2,1,1,0,0,10,"cheat",6,2)
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("next_card", "damage", 0, 1)
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("play", "", 0, 0)
             end,
         ["c/10.png"] = function()
                 card_info.name = "berserk"
-                set_stats(card_info, 13,13,2,2,0,0,0,12,"cheat",6,2)
+                set_stats(card_info, 2,1,2,1,0,0,0,12,"cheat",6,2)
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("health", "", -9, 1)
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("health", "", 10, 0)
             end,
         ["c/11.png"] = function()
                 card_info.name = "copycat"
-                set_stats(card_info, -1,-1,-1,-1,0,0,0,0,"cheat",6,2)
+                set_stats(card_info, 2,1,2,1,0,0,0,0,"cheat",6,2)
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("copycat", "", 1, 0)
             end,
         ["c/12.png"] = function()
                 card_info.name = "smoke-bomb"
-                set_stats(card_info, 3,0,0,0,0,0,0,7,"cheat",6,2.5)
+                set_stats(card_info, 2,1,2,1,0,0,0,7,"cheat",6,2.5)
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("end_round", "", 0, -1)
             end,
         ["c/13.png"] = function()
                 card_info.name = "net"
-                set_stats(card_info, 7,7,1,1,0,0,0,20,"cheat",6,3)
+                set_stats(card_info, 2,2,2,2,0,0,0,20,"cheat",6,3)
                 --EXTRA LIMB NO LONGER USED
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("discard", "", 3, 1)
             end,
         ["c/14.png"] = function()
                 card_info.name = "sabotage"
-                set_stats(card_info, 10,10,2,2,0,0,0,20,"cheat",6,3)
+                set_stats(card_info, 2,2,2,2,0,0,0,20,"cheat",6,3)
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("life", "", -2, 1)
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("save_card", "", 1, 0)
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("end_round", "", 0, -1) 
@@ -88,7 +88,7 @@ function Check_CheatCards(filename)
             end,
         ["c/15.png"] = function()
                 card_info.name = "square-in-the-rocks"
-                set_stats(card_info, 5,0,0,0,0,2,0,0,"cheat",6,3)
+                set_stats(card_info, 2,2,2,2,0,2,0,0,"cheat",6,3.5)
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("prev_card", "damage", 0, 1)
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("health", "", -7, 0)
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("end_round", "", 0, -1)

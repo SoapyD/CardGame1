@@ -52,7 +52,7 @@ function Check_Quad_Region(current_card, search_section, full_check)
 
                         if ( temp_allow == false) then
                             --run_popup("Can't use card, strat points not high enough")
-                            popup_message = "Can't use card, strat points not high enough"
+                            popup_message = "Can't use card, colours dont match"
                             allow_placement = false
                         end
 
@@ -226,7 +226,8 @@ function compare_card_info(clash_dir, current_card, current_info, quad, surround
 
     local return_info = false
 
-    if (current_val >= opposite_val or current_val == -1 or opposite_val == -1) then
+    --if (current_val >= opposite_val or current_val == -1 or opposite_val == -1) then --CHANGED AS MATCHES ARE NOW NEEDED
+    if (current_val == opposite_val or current_val == -1 or opposite_val == -1) then
     --    print("placement available, curr:" .. current_val .. ", opp:" .. opposite_val)
         return_info = true
     else

@@ -113,12 +113,16 @@ function Check_FaceOff_End()
                 local saved_score = 0
                 local saved_power = 0
                 --HIGHEST STRAT WINS FACEOFF
-                for n=1, table.getn(card_info.strat_scores) do
-                    if ( saved_score < card_info.strat_scores[n]) then
-                        saved_score = card_info.strat_scores[n]
-                        saved_power = card_info.power
-                    end 
-                end
+                --for n=1, table.getn(card_info.strat_scores) do
+                --    if ( saved_score < card_info.strat_scores[n]) then
+                --        saved_score = card_info.strat_scores[n]
+                --        saved_power = card_info.power
+                --    end 
+                --end
+
+                --HIGHEST POWER WINS FACEOFF
+                saved_score = card_info.power
+                --print("card power: " .. card_info.power)
 
                 --CHECK TO SEE IF IT JUST WINS FACEOFF REGARDLESS
                 if ( table.getn(card_info.actions) > 0) then
@@ -131,10 +135,6 @@ function Check_FaceOff_End()
                         end
                     end
                 end
-
-                --HIGHEST POWER WINS FACEOFF
-                --saved_score = card_info.power
-                --print("card power: " .. card_info.power)
 
                 if (i == 1) then
                     p1_score = saved_score

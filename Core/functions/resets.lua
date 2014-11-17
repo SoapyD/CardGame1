@@ -90,6 +90,7 @@ function ResetActions()
     GameInfo.actions = {}
     ResetActionState()
     ResetActionInternalState()
+    ResetAnimationState()
 end
 
 function ResetPlayers()
