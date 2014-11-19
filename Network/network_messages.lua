@@ -18,10 +18,10 @@ function Read_NetworkMessage(update)
   if (table.getn(GameInfo.player_list) > 1) then
     if (GameInfo.player_list[GameInfo.current_player].username ~= GameInfo.username) then
       local count = 0
-      --for i = 0,7000000 do
-      --  count = i
-      --end
-      --delayed = " --DELAYED"
+      for i = 0,7000000 do
+        count = i
+      end
+      delayed = " --DELAYED"
     end
   end
   end
@@ -125,7 +125,7 @@ function Read_NetworkMessage(update)
           draw_allowed = false
         end
         print("END STATE: " .. endround_state .. " action state: " .. action_internalstate)
-        if (endround_state == 0) then
+        if (endround_state == 0) then --THIS IS SET BY BOTH PLAYERS WHEN THEY START THE END_TURN PROCESS
           print("NOT ON CORRECT END STATE")
           draw_allowed = false
         end
@@ -147,7 +147,7 @@ function Read_NetworkMessage(update)
             tostring("finish_draw") .. " " ..
             tostring(GameInfo.username))    
         end
-      else
+      else --RESEND THE MESSAGE TO YOURSELF SO IT CAN BE RETESTED
         QueueMessage(
         --appWarpClient.sendUpdatePeers(
           --tostring("MSG_CODE") .. " " ..
@@ -452,6 +452,10 @@ function Read_NetworkMessage(update)
     --EndRound()
     --print("ENDING ROUND " .. GameInfo.username)
     GameInfo.end_round = true
+    Set_EndSet(0)
+                      QueueMessage(
+                tostring("unveal_screen") .. " " ..
+                tostring(GameInfo.username))
   end
 
 end

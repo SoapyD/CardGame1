@@ -152,17 +152,31 @@ function run_main_loop()
 
 	    local CheckState2 = switch { 
 	        [1] = function()
+                 	local count = 0
+                    for i=1, table.getn(GameInfo.player_list) do
+                        if (GameInfo.player_list[i].temp_trigger == true) then  
+                            count = count + 1
+                        end
+                    end
+                    if(count >= 2) then
+                        end_round_state = end_round_state + 1
+                        for i=1, table.getn(GameInfo.player_list) do
+                            GameInfo.player_list[i].temp_trigger = false  
+                        end 
+                    end
+	            end,
+	        [2] = function()
 					--GameInfo.round_damage = 0
 	        		end_timer = 60 * 3
 	        		end_round_state = end_round_state + 1
 	            end,
-	        [2] = function()
+	        [3] = function()
 	        		end_timer = end_timer - 1
 	        		if (end_timer <= 0) then
 	        			end_round_state = end_round_state + 1
 	        		end
 	            end,
-	        [3] = function() --START-GAME FACEOFF, DETERMINES ROUND'S STARTING PLAYER
+	        [4] = function() --START-GAME FACEOFF, DETERMINES ROUND'S STARTING PLAYER
 					local Round_Ended = EndRound()
 					if (Round_Ended == true) then
 						--print("CARD AFTER END ROUND: " .. table.getn(GameInfo.cards))
