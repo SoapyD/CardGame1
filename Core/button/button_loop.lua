@@ -2,30 +2,30 @@
 function run_button_loop()
 
     --STOCK THE TAB GOING HIGHER THAN HAND AND BAR HEIGHT OR LOWER THAN SCREEN EDGE
-	if(tab.y < GameInfo.height - (tab.height / 2) - bar.height - GameInfo.hand.height ) then
-		tab.y = GameInfo.height - (tab.height / 2) - bar.height - GameInfo.hand.height
+	if(tab.icon.y < GameInfo.height - (tab.height / 2) - bar.height - GameInfo.hand.height ) then
+		tab.icon.y = GameInfo.height - (tab.height / 2) - bar.height - GameInfo.hand.height
 	end
-	if(tab.y > GameInfo.height - (tab.height / 2)) then
-		tab.y = GameInfo.height - (tab.height / 2)
+	if(tab.icon.y > GameInfo.height - (tab.height / 2)) then
+		tab.icon.y = GameInfo.height - (tab.height / 2)
 	end
 
 	--MAKE THE HAND HIDE AWAY IF THE PLAYER IS CURRENTLY HOLDING A CARD
 	if ( GameInfo.hand.hide == true) then
-		if (tab.y < GameInfo.height - (tab.height / 2)) then
-			tab.y = tab.y + 50
+		if (tab.icon.y < GameInfo.height - (tab.height / 2)) then
+			tab.icon.y = tab.icon.y + 50
 
-			if(tab.y > GameInfo.height - (tab.height / 2)) then
-				tab.y = GameInfo.height - (tab.height / 2)
+			if(tab.icon.y > GameInfo.height - (tab.height / 2)) then
+				tab.icon.y = GameInfo.height - (tab.height / 2)
 				GameInfo.hand.hide  = false
 			end
 		end		
 	end
 
 	if ( GameInfo.hand.show == true) then
-		tab.y = tab.y - 50
+		tab.icon.y = tab.icon.y - 50
 
-		if(tab.y < GameInfo.height - GameInfo.hand.height - bar.height - boxheight / 2) then
-			tab.y = GameInfo.height - GameInfo.hand.height - bar.height - boxheight / 2
+		if(tab.icon.y < GameInfo.height - GameInfo.hand.height - bar.height - boxheight / 2) then
+			tab.icon.y = GameInfo.height - GameInfo.hand.height - bar.height - boxheight / 2
 			GameInfo.hand.show = false
 		end	
 	end
@@ -50,7 +50,7 @@ function run_button_loop()
     		pos_count = i
     	end
     end
-    local bar_start = bar.x - (bar.width / 2)
+    local bar_start = bar.icon.x - (bar.width / 2)
     --local card_diff = (GameInfo.cards[pos_count].x - GameInfo.cards[pos_count].width / 2) - bar_start
     
 
@@ -59,24 +59,24 @@ function run_button_loop()
     --max_x = bar_start + card_diff
     --max_x = GameInfo.cards[pos_count].x - 10
 
-	if(bar.x <= max_x) then
-		bar.x = max_x 
+	if(bar.icon.x <= max_x) then
+		bar.icon.x = max_x 
 	end
 	--if(bar.x > GameInfo.portrait_start + (bar.width / 2) ) then
 	--	bar.x = GameInfo.portrait_start + (bar.width / 2) 
 	--end
 
-	if(bar.x > (bar.width / 2) ) then
-		bar.x = (bar.width / 2) 
+	if(bar.icon.x > (bar.width / 2) ) then
+		bar.icon.x = (bar.width / 2) 
 	end
 
 	--LOCK THE BAR.Y TO THE TAB.Y ALLOWING IT BE LOWERED BELOW SCREEN
-    bar.y = tab.y  + (tab.height / 2) + (bar.height / 2)
-    bar3.y = tab.y
+    bar.icon.y = tab.icon.y  + (tab.height / 2) + (bar.height / 2)
+    bar3.y = tab.icon.y
     --finalise_button.y = tab.y
     --finalise_button.text.y = tab.y
     --LOCK THE HAND.X TO THE SCROLL BAR.X POSITION
-	GameInfo.hand.x = bar.x
-	GameInfo.hand.y = bar.y + (bar.height / 2) + (GameInfo.hand.height / 2)
+	GameInfo.hand.x = bar.icon.x
+	GameInfo.hand.y = bar.icon.y + (bar.height / 2) + (GameInfo.hand.height / 2)
 
 end

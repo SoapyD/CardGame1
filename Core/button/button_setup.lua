@@ -25,6 +25,7 @@ function PlayerHand()
 		GameInfo.portrait_start + boxwidth / 2,
 		GameInfo.height - boxheight / 2,
 		boxwidth,boxheight, 0 )
+
 	GameInfo.hand:setFillColor( 255, 0, 128 )
 	GameInfo.hand.strokeWidth = 6
 	GameInfo.hand:setStrokeColor( 200,200,200,255 )
@@ -36,20 +37,30 @@ end
 
 function ScrollBar()
 	--print("height: ", display.contentHeight)
+	local group = display.newGroup()
 
 	boxwidth = GameInfo.hand.width
 	boxheight = 100
 
-	bar = display.newRoundedRect(
-		--GameInfo.portrait_start + boxwidth / 2,
-		boxwidth / 2,
-		GameInfo.height - GameInfo.hand.height - boxheight / 2,
-		boxwidth,boxheight, 0 )
-	bar:setFillColor( 255, 128, 0 )
-	bar.strokeWidth = 6
-	bar:setStrokeColor( 200,200,200,255 )
+	bar = {}
+	local icon = display.newImage(group, "Images/" .. "scrollbar.png", 
+        boxwidth / 2, 
+        GameInfo.height - GameInfo.hand.height - boxheight / 2)
+
+	--bar = display.newRoundedRect(
+	--	boxwidth / 2,
+	--	GameInfo.height - GameInfo.hand.height - boxheight / 2,
+	--	boxwidth,boxheight, 0 )
+	--bar:setFillColor( 255, 128, 0 )
+	--bar.strokeWidth = 6
+	--bar:setStrokeColor( 200,200,200,255 )
 		-- Make the button instance respond to touch events
-	bar:addEventListener( "touch", onStrafe )
+
+	icon:addEventListener( "touch", onStrafe )
+	
+	bar.x = boxwidth / 2
+	bar.y = GameInfo.height - GameInfo.hand.height - boxheight / 2
+	bar.icon = icon
 	bar.width = boxwidth
 	bar.height = boxheight	
 	
@@ -94,18 +105,27 @@ function Player_Stats()
 end
 
 function Tab()
+	local group = display.newGroup()
+
 	boxwidth = 100
 	boxheight = 100
 
-	tab = display.newRoundedRect(
-		GameInfo.width - boxwidth / 2,
-		GameInfo.height - GameInfo.hand.height - bar.height - boxheight / 2,
-		boxwidth,boxheight, 0 )
-	tab:setFillColor( 0, 128, 128 )
-	tab.strokeWidth = 6
-	tab:setStrokeColor( 200,200,200,225 )
+	tab = {}
+	local icon = display.newImage(group, "Images/" .. "uparrow.png", 
+        GameInfo.width - boxwidth / 2, 
+        GameInfo.height - GameInfo.hand.height - bar.height - boxheight / 2)
+
+	--tab = display.newRoundedRect(
+	--	GameInfo.width - boxwidth / 2,
+	--	GameInfo.height - GameInfo.hand.height - bar.height - boxheight / 2,
+	--	boxwidth,boxheight, 0 )
+	--tab:setFillColor( 0, 128, 128 )
+	--tab.strokeWidth = 6
+	--tab:setStrokeColor( 200,200,200,225 )
 		-- Make the button instance respond to touch events
-	tab:addEventListener( "touch", onStrafe_vert )
+	icon:addEventListener( "touch", onStrafe_vert )
+	
+	tab.icon = icon
 	tab.width = boxwidth
 	tab.height = boxheight	
 	tab.hide_once = true

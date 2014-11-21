@@ -84,7 +84,9 @@ function RoundCheck()
 				QueueMessage(
 				--appWarpClient.sendUpdatePeers(
                 	--tostring("MSG_CODE") .. " " ..
-                    tostring("end_round"))
+                    tostring("end_round") .. " " ..
+                    tostring(GameInfo.username) .. " " ..
+                    tostring(-card_info.power))
 				--EndRound()
 			end
 

@@ -195,6 +195,14 @@ function Check_FaceOff_End()
             local reset_faceoff = false
 
             if (end_process == true) then
+                        for i=1, table.getn(GameInfo.player_list) do
+                            --local checked_player = GameInfo.player_list[i]
+                            --print("checked player: " .. checked_player.username .. " : " .. checked_player.faceoff_card)
+                            --if (checked_player.username ~= GameInfo.player_list[GameInfo.current_player].username) then
+                            --    LoadCard2("p.png","p",1,200,200)
+                            --end
+                        end
+
                 end_faceoff = true
                 if (sets_player == true) then
                     GameInfo.current_player = winner

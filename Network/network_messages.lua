@@ -18,10 +18,10 @@ function Read_NetworkMessage(update)
   if (table.getn(GameInfo.player_list) > 1) then
     if (GameInfo.player_list[GameInfo.current_player].username ~= GameInfo.username) then
       local count = 0
-      for i = 0,7000000 do
-        count = i
-      end
-      delayed = " --DELAYED"
+      --for i = 0,7000000 do
+      --  count = i
+      --end
+      --delayed = " --DELAYED"
     end
   end
   end
@@ -449,6 +449,17 @@ function Read_NetworkMessage(update)
   end
 
   if (update_type == "end_round") then
+    local username = tostring(func())
+    local damage = tonumber(func())
+
+    --APPLY THE DAMAGE, CHECKING WHO TO ACTUALLY APPLY IT TOO
+    local current_user = GameInfo.player_list[GameInfo.current_player]
+    if (current_user.username == username) then
+      mod_health(0,damage)
+    else
+      mod_health(1,damage)
+    end
+
     --EndRound()
     --print("ENDING ROUND " .. GameInfo.username)
     GameInfo.end_round = true

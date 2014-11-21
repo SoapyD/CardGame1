@@ -101,7 +101,7 @@ function Check_FocusCards(filename)
             end,            
         ["f/14.png"] = function()
                 card_info.name = "deflect"
-                set_stats(card_info, 4,4,4,4,0,1,6,"focus",3,3)
+                set_stats(card_info, 4,4,4,4,0,0,1,6,"focus",3,3)
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("counter", "", 0, 0)
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("health", "", -6, 0) --because its other persons turn
                 end,

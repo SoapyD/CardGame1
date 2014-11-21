@@ -89,6 +89,7 @@ function action_CounterLoop()
 			        			pause_timer = 0
 			        			advance_cardPausestate()
 			        			finalise_button.isVisible = false --stop the button from being pressed at all timer the counter advances
+			        			finalise_button.text.isVisible = false
 			        		end
 			        		run_popup("COUNTER TIMER: " .. pause_timer)
 			            end,
