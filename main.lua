@@ -78,15 +78,15 @@ local function GameLoop( event )
     		GameInfo.gamestate = GameInfo.gamestate + 1
     		end,
         [1] = loadGame,--SET ANYTHING THAT ONLY NEEDS LOADING ONCE
-        [2] = function()
+        [2] = Setup_Connection,--SETUP THE CONNECTION OR JOIN A ROOM 
+        [3] = function()
             Load_GameTypeScreen()
             Show_GameTypeScreen()
             GameInfo.gamestate = GameInfo.gamestate + 1
             end,--SHOW THE GAMETYPE MENU
-        [3] = function()
+        [4] = function()
                 --WAIT FOR THE PLAYER TO CHOOSE AN OPTION
             end,
-   		[4] = QuickMatch_Connection,--SET ANYTHING THAT ONLY NEEDS LOADING ONCE 
         --[3] = loadGame,--SET ANYTHING THAT ONLY NEEDS LOADING ONCE
         [5] = player_check, --REGISTER BOTH PLAYERS IN NETWORKING
         [6] = Screen_Loop, 

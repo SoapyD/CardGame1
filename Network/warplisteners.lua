@@ -1,13 +1,31 @@
 require("Network.update_cards")
-
 local saved_room = ""
+local join_state = 0
+local connection_type = ""
+
+function set_connectiontype(type_string)
+  connection_type = type_string
+end
 
 function onConnectDone(resultCode)
 
   if(resultCode == WarpResponseResultCode.SUCCESS) then
     print("Joining Room..")
     TitleText.text = "Joining Room.."
-    appWarpClient.joinRoomInRange (1, 1, false) --go to onJoinRoomDone and resolve
+
+    local CheckState = switch { 
+        ["Quick Match"] = function()
+            appWarpClient.joinRoomInRange (1, 1, false) --go to onJoinRoomDone and resolve
+            end,
+        ["Find Match"] = function()
+            print("GETTING FRIEND LIST")
+            appWarpClient.getAllRooms();
+            end,
+
+        default = function () print( "ERROR - connection_state not within switch") end,
+    }
+    CheckState:case(connection_type)
+
   elseif(resultCode == WarpResponseResultCode.AUTH_ERROR) then
     print("Incorrect app keys")
   else
@@ -18,14 +36,16 @@ function onConnectDone(resultCode)
   end  
 end
 
+
+
 function onCreateRoomDone(resultCode, roomId, roomName)
   print("room id is: " .. roomId)
   if(resultCode == WarpResponseResultCode.SUCCESS) then
     isNewRoomCreated = true;
     appWarpClient.joinRoom(roomId)
     --print("room created!!!")
-    print("joining to: "  .. roomId .. " " .. roomName)
-    TitleText.text = "joining to: "  .. roomId .. " " .. roomName
+    print("Room Created, joining to: "  .. roomId .. " " .. roomName)
+    TitleText.text = "Room Created, joining to: "  .. roomId .. " " .. roomName
   else
     print("Room Create Failed")
   end  
@@ -39,8 +59,6 @@ function onDeleteRoomDone (resultCode , roomId , name )
     print("Room Could be Deleted")
   end  
 end
-
-local join_state = 0
 
 function onJoinRoomDone(resultCode, roomId)  
   if(resultCode == WarpResponseResultCode.SUCCESS) then
@@ -104,9 +122,7 @@ end
 
 
 function onUpdatePeersReceived(update)
-
   Read_NetworkMessage(update)
-
 end
 
 

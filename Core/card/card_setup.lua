@@ -288,3 +288,52 @@ function AddCard2(unique_id,filename,sheet,sprite,x,y,scale)
     --print("current card: " .. GameInfo.current_card_int)
     --print("previous card: " .. GameInfo.previous_card_int)
 end
+
+
+local SetCards_state = 0
+
+function Reset_SetCards_state()
+    SetCards_state = 0
+end
+
+function SetPlayerCards_Networked()
+
+    local setup_complete = false
+
+    CheckState = switch { 
+        [0] = function()    --SEND CARD DATA
+                DrawCharacterCards()
+
+                SetGame()
+                --print("SENDING FINISH" .. GameInfo.username)
+
+                QueueMessage(
+                --appWarpClient.sendUpdatePeers(
+                    --tostring("MSG_CODE") .. " " ..
+                    tostring("finish_draw") .. " " ..
+                    tostring(GameInfo.username))  
+
+                SetCards_state = SetCards_state + 1
+            end,
+        [1] = function()    --WAIT TO RECEIVE THE COMPLETE STATUS
+
+                if (GameInfo.switch1 == true) then
+
+                    GameInfo.switch1 = false
+                    SetCards_state = SetCards_state + 1
+                    --print("switch triggered")
+                end
+            end,
+        [2] = function()    --WAIT FOR THE OPPONENT TO FINISH DRAWING
+                --GameInfo.gamestate = GameInfo.gamestate + 1
+                setup_complete = true
+            end,
+
+        default = function () print( "ERROR - SetCards_state not within switch") end,
+    }
+
+    CheckState:case(SetCards_state)
+
+    return setup_complete;
+
+end

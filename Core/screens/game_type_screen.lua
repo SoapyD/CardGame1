@@ -45,7 +45,7 @@ function Show_GameTypeScreen()
     TitleText.text = "Select Game Type"
     --GameInfo.gamestate = GameInfo.gamestate + 1
 
-    for i=1, 1 do
+    for i=1, 2 do
 
             local button_name = ""
 
@@ -140,6 +140,8 @@ function GameType_Presses( event )
             --tostring(t.type)) 
             --
             Hide_GameTypeScreen()
+
+            set_connectiontype(t.button_text.text)
             --print("PRESSED")
 
             local stage = display.getCurrentStage()
