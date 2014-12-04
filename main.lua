@@ -58,8 +58,11 @@ require("Core.table.limb_discard_setup")
 require("Core.table.or_setup")
 require("Core.table.endgame_table")
 
+require("Core.screens.screen_functions")
+require("Core.screens.button_options")
 require("Core.screens.screen_states")
 require("Core.screens.game_type_screen")
+require("Core.screens.networked_rooms_screen")
 require("Core.screens.character_select_screen")
 
 --local hand;

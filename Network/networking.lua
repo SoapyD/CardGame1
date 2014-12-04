@@ -20,7 +20,7 @@ function networkConnection()
 	-- start connecting with a random name
 	GameInfo.username  = tostring(os.clock())
 	appWarpClient.connectWithUserName(GameInfo.username)
-	--print(GameInfo.username)
+	print("PHONE'S USERNAME: " .. GameInfo.username)
 end
 
 local connection_state = 0

@@ -11,7 +11,7 @@ function CheckCharacter(character_name)
     local character_info = {}
 
     CheckState = switch { 
-        ["assassin"] = function()    --
+        ["test"] = function()    --
                 character_info[1] = 2
                 character_info[2] = 0
                 character_info[3] = 0
@@ -19,7 +19,7 @@ function CheckCharacter(character_name)
                 character_info[5] = 0
                 character_info[6] = 0
             end,
-        ["test"] = function()    --
+        ["assassin"] = function()    --
         		character_info[1] = 1
         		character_info[2] = 0
         		character_info[3] = 0

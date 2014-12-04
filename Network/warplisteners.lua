@@ -2,6 +2,8 @@ require("Network.update_cards")
 local saved_room = ""
 local join_state = 0
 local connection_type = ""
+local room_list = {}
+local user_list = {}
 
 function set_connectiontype(type_string)
   connection_type = type_string
@@ -19,7 +21,13 @@ function onConnectDone(resultCode)
             end,
         ["Find Match"] = function()
             print("GETTING FRIEND LIST")
-            appWarpClient.getAllRooms();
+            if (table.getn(room_list) == 0) then
+              appWarpClient.getAllRooms();
+            else
+              --appWarpClient.gGetLiveRoomInfo(room_list[1])
+              --appWarpClient.joinRoom(room_list[1])
+            end
+
             end,
 
         default = function () print( "ERROR - connection_state not within switch") end,
@@ -66,7 +74,7 @@ function onJoinRoomDone(resultCode, roomId)
     print("Subscribing to room.." .. roomId)
     TitleText.text = "Subscribing to Room\n" .. roomId
     saved_room = roomId
-    appWarpClient.getAllRooms();
+    --appWarpClient.getAllRooms();
 
   elseif(resultCode == WarpResponseResultCode.RESOURCE_NOT_FOUND) then
     -- no room found with one user creating new room
@@ -93,8 +101,15 @@ function onGetAllRoomsDone(resultCode , roomsTable )
     print("room table: " .. table.getn(roomsTable))
 
     for i=1, table.getn(roomsTable) do
-      print("pos" .. i .. ": " .. roomsTable[i])
+      --print("pos" .. i .. ": " .. roomsTable[i])
+      room_list[table.getn(room_list) + 1] = roomsTable[i]
+      print("pos" .. i .. ": " .. room_list[i])
+    
+      appWarpClient.getLiveRoomInfo(room_list[i])
     end
+
+    --appWarpClient.getLiveRoomInfo(room_list[1])
+    --appWarpClient.joinRoom(room_list[1])
   else
     print("Get All Rooms Failed")
   end  
@@ -104,6 +119,11 @@ function onGetLiveRoomInfoDone (resultCode , roomTable )
 
   if(resultCode == WarpResponseResultCode.SUCCESS) then
     print("Room Info Available: " .. roomTable.name)
+    --print("Users: " .. roomTable.joinedUsersTable[1])
+    user_list[table.getn(user_list) + 1] = {}
+    user_list[table.getn(user_list)] = roomTable.joinedUsersTable
+    local user_list = user_list[table.getn(user_list)]
+    print("Users: " .. user_list[1])
   else
     print("No Room Info Available")
   end  
