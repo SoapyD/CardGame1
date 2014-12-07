@@ -32,10 +32,11 @@ function Show_GameTypeScreen()
         local y_pos = 350 + ((i-1) * 150)
         local button_width = 400
         local button_height = 125
+        local button_type = "connection_type"
 
-        Add_GameType_Button(button_info,i,x_pos,y_pos,button_width,button_height,"white",button_name,1);
+        Add_GameType_Button(button_info,i,x_pos,y_pos,button_width,button_height,"white",button_name,button_type,1);
     end
 
     Show_GameTypeButtons()
-    set_ButtonFunctions("connection_type")
+    --set_ButtonFunctions("connection_type")
 end

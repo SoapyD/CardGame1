@@ -1,11 +1,5 @@
 
-local button_function = ""
-
-function set_ButtonFunctions(value)
-	button_function = value
-end
-
-function Check_ButtonOptions(value)
+function Check_ButtonOptions(button_function,value)
     local CheckState = switch { 
         ["connection_type"] = function()
         		set_connectiontype(value)

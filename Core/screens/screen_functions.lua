@@ -41,7 +41,7 @@ function Hide_GameTypeScreen()
     GameInfo.gamestate = GameInfo.gamestate + 1
 end
 
-function Add_GameType_Button(button_info,ID,x,y,width,height,colour,type,type_int)
+function Add_GameType_Button(button_info,ID,x,y,width,height,colour,button_name,type,type_int)
 
     local icon = display.newRoundedRect( 
         x, y, width, height, 1 )
@@ -54,9 +54,9 @@ function Add_GameType_Button(button_info,ID,x,y,width,height,colour,type,type_in
     icon.type_int = type_int
 
 
-    icon.button_text = display.newText( type, x, y, native.systemFontBold, 48 )
+    icon.button_text = display.newText( button_name, x, y, native.systemFontBold, 48 )
     icon.button_text:setFillColor( colorsRGB.RGB("black") )
-    icon.button_text.text = type
+    icon.button_text.text = button_name
 
     button_info.icon = icon
 
@@ -85,7 +85,7 @@ function GameType_Presses( event )
 
             Hide_GameTypeScreen()
 
-            Check_ButtonOptions(t.button_text.text)
+            Check_ButtonOptions(t.type,t.button_text.text)
 
             local stage = display.getCurrentStage()
             stage:setFocus( nil )
