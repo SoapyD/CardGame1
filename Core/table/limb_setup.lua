@@ -71,16 +71,24 @@ function Set_LimbColour(applied_player,button_info,button_type,pos)
     if (button_type == "arm") then
         if (pos == 1 and applied_player.arms < 2) then
             button_info.icon:setFillColor( colorsRGB.RGB("gray") )
+        else
+            button_info.icon:setFillColor( colorsRGB.RGB("red") )            
         end 
         if (pos == 2 and applied_player.arms < 1) then
             button_info.icon:setFillColor( colorsRGB.RGB("gray") )
+        else
+            button_info.icon:setFillColor( colorsRGB.RGB("red") )
         end 
     else
         if (pos == 1 and applied_player.legs < 2) then
             button_info.icon:setFillColor( colorsRGB.RGB("gray") )
+        else
+            button_info.icon:setFillColor( colorsRGB.RGB("red") )
         end 
         if (pos == 2 and applied_player.legs < 1) then
             button_info.icon:setFillColor( colorsRGB.RGB("gray") )
+        else
+            button_info.icon:setFillColor( colorsRGB.RGB("red") )
         end 
     end
 end
@@ -139,7 +147,7 @@ function AddLimbZone(draw_card,x,y,colour,type, type_int)
         x, y, 300, 150, 1 )
             icon:setFillColor( colorsRGB.RGB(colour) )
             icon.strokeWidth = 6
-            icon:setStrokeColor( 200,200,200,255 )
+            icon:setStrokeColor( colorsRGB.RGB("black") )
             
     icon:addEventListener( "touch", CrippleLimb_button )
     icon.item_loaded = false
@@ -153,6 +161,7 @@ function AddLimbZone(draw_card,x,y,colour,type, type_int)
 
     draw_card.print_text = type
     draw_card.icon.text = display.newText( draw_card.print_text, x, y, native.systemFontBold, 32)
+    draw_card.icon.text:setFillColor( colorsRGB.RGB("black") )
 end
 
 function CrippleLimb_button( event )

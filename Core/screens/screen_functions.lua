@@ -47,7 +47,7 @@ function Add_GameType_Button(button_info,ID,x,y,width,height,colour,button_name,
         x, y, width, height, 1 )
             icon:setFillColor( colorsRGB.RGB(colour) )
             icon.strokeWidth = 6
-            icon:setStrokeColor( 200,200,200,255 )
+            icon:setStrokeColor( colorsRGB.RGB("black") )
 
     icon.bbox_min_x = x - (width / 2)
     icon.bbox_max_x = x + (width / 2)
