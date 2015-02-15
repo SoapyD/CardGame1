@@ -35,10 +35,18 @@ function Show_LimbTable(action_var)
         limb_modifier = -1
         applied_to = 1
         TitleText.text = "Damage Limb"
+        GameInfo.limb_screen.card1.icon.text.text = "cripple arm"
+        GameInfo.limb_screen.card2.icon.text.text = "cripple arm"
+        GameInfo.limb_screen.card3.icon.text.text = "cripple leg"
+        GameInfo.limb_screen.card4.icon.text.text = "cripple leg"
     else
         limb_modifier = 1
         applied_to = 0
         TitleText.text = "Heal Limb"
+        GameInfo.limb_screen.card1.icon.text.text = "heal arm"
+        GameInfo.limb_screen.card2.icon.text.text = "heal arm"
+        GameInfo.limb_screen.card3.icon.text.text = "heal leg"
+        GameInfo.limb_screen.card4.icon.text.text = "heal leg"
     end
     run_popup(TitleText.text .. ": " .. discard_max)
 
