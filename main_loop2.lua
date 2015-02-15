@@ -106,7 +106,7 @@ function run_main_loop()
 				    	local player = GameInfo.player_list[i]
 
 				    	if (i == 2) then
-				    	--	player.legs = 0
+				    		player.legs = 0
 				    	end
 				    	--player.legs = 0
 

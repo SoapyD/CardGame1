@@ -46,6 +46,13 @@ require("Network.network_queue")
 require("Network.connection_types")
 require("Network.network_messages")
 
+require("Core.screens.screen_functions")
+require("Core.screens.button_options")
+require("Core.screens.screen_states")
+require("Core.screens.game_type_screen")
+require("Core.screens.networked_rooms_screen")
+require("Core.screens.character_select_screen")
+
 require("Core.functions.camera_controls") --REQUIRES THE ZOOM VALUE FROM GAMEINFO
 require("Core.table.screen_elements")
 require("Core.table.table_setup")
@@ -57,13 +64,6 @@ require("Core.table.discard_setup")
 require("Core.table.limb_discard_setup")
 require("Core.table.or_setup")
 require("Core.table.endgame_table")
-
-require("Core.screens.screen_functions")
-require("Core.screens.button_options")
-require("Core.screens.screen_states")
-require("Core.screens.game_type_screen")
-require("Core.screens.networked_rooms_screen")
-require("Core.screens.character_select_screen")
 
 --local hand;
 local board = {}
@@ -83,7 +83,6 @@ local function GameLoop( event )
         [1] = loadGame,--SET ANYTHING THAT ONLY NEEDS LOADING ONCE
         [2] = Setup_Connection,--SETUP THE CONNECTION OR JOIN A ROOM 
         [3] = function()
-            Load_GameTypeScreen()
             Show_GameTypeScreen()
             GameInfo.gamestate = GameInfo.gamestate + 1
             end,--SHOW THE GAMETYPE MENU

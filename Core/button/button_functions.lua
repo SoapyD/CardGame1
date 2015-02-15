@@ -304,6 +304,7 @@ function finishCard( event )
 			        end,	      
 			    [8] = function()    --END LIMB DISCARD
 		            Hide_LimbDiscardTable()
+		            print("ITS HERE!!!!")
 			        end,
 
 			        

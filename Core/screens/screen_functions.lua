@@ -38,7 +38,7 @@ function Hide_GameTypeScreen()
         check_FinalisationButton(GameInfo.current_player)
     end
 
-    GameInfo.gamestate = GameInfo.gamestate + 1
+    --GameInfo.gamestate = GameInfo.gamestate + 1
 end
 
 function Add_GameType_Button(button_info,ID,x,y,width,height,colour,button_name,type,type_int)
@@ -48,6 +48,11 @@ function Add_GameType_Button(button_info,ID,x,y,width,height,colour,button_name,
             icon:setFillColor( colorsRGB.RGB(colour) )
             icon.strokeWidth = 6
             icon:setStrokeColor( 200,200,200,255 )
+
+    icon.bbox_min_x = x - (width / 2)
+    icon.bbox_max_x = x + (width / 2)
+    icon.bbox_min_y = y - (height / 2)
+    icon.bbox_max_y = y + (height / 2)
 
     icon.item_loaded = false
     icon.type = type
@@ -82,8 +87,6 @@ function GameType_Presses( event )
 
         elseif "ended" == phase then
             display.getCurrentStage():setFocus( nil )
-
-            Hide_GameTypeScreen()
 
             Check_ButtonOptions(t.type,t.button_text.text)
 

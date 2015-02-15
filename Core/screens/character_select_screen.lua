@@ -50,7 +50,7 @@ function Show_CharacterScreen()
 
         local selected_info = {}
         local x_pos = (GameInfo.width / 2)
-        local y_pos = 300 + ((i-1) * 125)
+        local y_pos = 350 + ((i-1) * 125)
         Add_Screen_Button(selected_info,x_pos,y_pos,300,100,"white","",1);
 
         --selected_info.icon:addEventListener( "touch", CharacterButton_Presses )
@@ -60,7 +60,7 @@ function Show_CharacterScreen()
 
     --THESE ARE THE CHARACTER BUTTONS
 
-    local start_y = 550
+    local start_y = 600
     local characters = Get_CharacterList()
     local id = 1
 

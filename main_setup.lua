@@ -45,6 +45,7 @@ function loadGame()
 	--SET THE MARKERS
 	setBoards();
 
+	Load_GameTypeScreen()
 
 	EndBounds();
 	createDeck();
@@ -54,7 +55,7 @@ function loadGame()
 	LoadLimbTable();
 	LoadFaceOff();
 	LoadCounter();
-	LoadLimbDiscardCard();
+	--LoadLimbDiscardCard();
 	LoadOptions();
 	
 	--SetupButtons();

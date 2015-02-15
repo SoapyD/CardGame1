@@ -29,7 +29,7 @@ function Show_GameTypeScreen()
 
         local button_info = {}
         local x_pos = (GameInfo.width / 2)
-        local y_pos = 350 + ((i-1) * 150)
+        local y_pos = 400 + ((i-1) * 150)
         local button_width = 400
         local button_height = 125
         local button_type = "connection_type"
