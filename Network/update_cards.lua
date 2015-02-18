@@ -171,4 +171,10 @@ function UpdateLimbs(username, action_var, cripple_type, applied_to)
     applied_player.legs = 2
   end
 
+  if (applied_player.username == GameInfo.username) then
+      --print("YES, THIS IS BEING USED")
+      --Hide_LimbTable()
+      --Show_LimbTable(action_var)    
+  end
+
 end

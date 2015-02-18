@@ -2,10 +2,6 @@ local discard_max = 0
 local sub_action = ""
 
 function Hide_LimbDiscardTable()
-    --GameInfo.screen_elements.image.isVisible  = false
-    --GameInfo.limb_discard_screen.card1.icon.isVisible  = false
-    --GameInfo.limb_discard_screen.card2.icon.isVisible  = false
-
     Hide_GameTypeScreen();
 
     TitleText.text = ""
@@ -21,10 +17,6 @@ function Hide_LimbDiscardTable()
 end
 
 function Show_LimbDiscardTable()
-    --GameInfo.screen_elements.image.isVisible  = true
-    --GameInfo.limb_discard_screen.card1.icon.isVisible  = true
-    --GameInfo.limb_discard_screen.card2.icon.isVisible  = true
-    
     LoadLimbDiscardCard();
     Show_GameTypeButtons();
 
@@ -66,12 +58,6 @@ function LoadLimbDiscardCard()
     draw_item.card1 = {}
     draw_item.card2 = {}
 
-    --AddDiscardZone(draw_item.card1,GameInfo.width / 2 - 250,GameInfo.height / 2 - 150,
-    --    200,400,"red","discard",1);
-
-    --AddDiscardZone(draw_item.card2,GameInfo.width / 2 + 250,GameInfo.height / 2 - 150,
-    --    200,400,"red","discard",1);
-
     local current_user = {};
     for i=1, table.getn(GameInfo.player_list) do
         if (GameInfo.username == GameInfo.player_list[i].username) then
@@ -79,6 +65,7 @@ function LoadLimbDiscardCard()
         end
     end
 
+    --HEAL ARM BUTTONS
     local colour = "red"
     if (current_user.arms == 2) then
         colour = "gray"
@@ -88,6 +75,7 @@ function LoadLimbDiscardCard()
         GameInfo.width / 2 - 250, GameInfo.height / 2 - 150,
         200,400,colour,"heal arm","discard to heal",1)
 
+    --HEAL LEG BUTTONS
     colour = "red"
     if (current_user.legs == 2) then
         colour = "gray"
@@ -98,5 +86,4 @@ function LoadLimbDiscardCard()
         200,400,"red","heal leg","discard to heal",2)
 
     GameInfo.limb_discard_screen = draw_item
-    --Hide_LimbDiscardTable()
 end

@@ -24,7 +24,6 @@ function Show_GameTypeButtons()
 end
 
 function Hide_GameTypeScreen()
-
     GameInfo.screen_elements.image.isVisible  = false
 
     --GET RID OF THE BUTTON ICONS
@@ -57,7 +56,7 @@ function Add_GameType_Button(button_info,ID,x,y,width,height,colour,button_name,
     icon.item_loaded = false
     icon.type = type
     icon.type_int = type_int
-
+    icon.colour = colour
 
     icon.button_text = display.newText( button_name, x, y, native.systemFontBold, 48 )
     icon.button_text:setFillColor( colorsRGB.RGB("black") )
@@ -81,6 +80,8 @@ function GameType_Presses( event )
         parent:insert( t )
         display.getCurrentStage():setFocus( t ) 
         t.isFocus = true
+        t.button_text:toFront();
+        t:setFillColor( colorsRGB.RGB("gray") )
 
     elseif t.isFocus then
         if "moved" == phase then
@@ -88,11 +89,13 @@ function GameType_Presses( event )
         elseif "ended" == phase then
             display.getCurrentStage():setFocus( nil )
 
-            Check_ButtonOptions(t.type,t.button_text.text)
+            Check_ButtonOptions(t, t.type,t.button_text.text)
 
             local stage = display.getCurrentStage()
             stage:setFocus( nil )
             t.button_text:toFront()
+
+            t:setFillColor( colorsRGB.RGB(t.colour) )
         end
     end
 

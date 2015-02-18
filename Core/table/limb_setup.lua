@@ -2,16 +2,16 @@ local discard_max = 0
 local limb_modifier = 0
 local applied_to = 0
 
+function Get_LimbTable_Info()
+    local limb_info = {}
+    limb_info.limb_modifier = limb_modifier
+    limb_info.applied_to = applied_to
+
+    return limb_info
+end
+
 function Hide_LimbTable()
-    GameInfo.screen_elements.image.isVisible  = false
-    --GameInfo.limb_screen.card1.icon.isVisible  = false
-    --GameInfo.limb_screen.card2.icon.isVisible  = false
-    --GameInfo.limb_screen.card3.icon.isVisible  = false
-    --GameInfo.limb_screen.card4.icon.isVisible  = false
-    Hide_LimbButton(GameInfo.limb_screen.card1)
-    Hide_LimbButton(GameInfo.limb_screen.card2)
-    Hide_LimbButton(GameInfo.limb_screen.card3)
-    Hide_LimbButton(GameInfo.limb_screen.card4)
+    Hide_GameTypeScreen();
 
     TitleText.text = ""
     CheckActionPos(false)
@@ -24,30 +24,23 @@ function Hide_LimbButton(button_info)
 end
 
 function Show_LimbTable(action_var)
-    GameInfo.screen_elements.image.isVisible  = true
-    --GameInfo.limb_screen.card1.icon.isVisible  = true
-    --GameInfo.limb_screen.card2.icon.isVisible  = true
-    --GameInfo.limb_screen.card3.icon.isVisible  = true
-    --GameInfo.limb_screen.card4.icon.isVisible  = true
-
+    local used_text = ""
 
     if (action_var < 0) then
         limb_modifier = -1
         applied_to = 1
         TitleText.text = "Damage Limb"
-        GameInfo.limb_screen.card1.icon.text.text = "cripple arm"
-        GameInfo.limb_screen.card2.icon.text.text = "cripple arm"
-        GameInfo.limb_screen.card3.icon.text.text = "cripple leg"
-        GameInfo.limb_screen.card4.icon.text.text = "cripple leg"
+        used_text = "cripple"
     else
         limb_modifier = 1
         applied_to = 0
         TitleText.text = "Heal Limb"
-        GameInfo.limb_screen.card1.icon.text.text = "heal arm"
-        GameInfo.limb_screen.card2.icon.text.text = "heal arm"
-        GameInfo.limb_screen.card3.icon.text.text = "heal leg"
-        GameInfo.limb_screen.card4.icon.text.text = "heal leg"
+        used_text = "heal"
     end
+
+    LoadLimbTable(used_text)
+    Show_GameTypeButtons();
+
     run_popup(TitleText.text .. ": " .. discard_max)
 
     LoopLimbCheck()
@@ -64,41 +57,9 @@ function LoopLimbCheck()
             pos = 1
         end
         applied_player = GameInfo.player_list[pos]
-        print("PLAYER POS: " .. pos .. ", LIST LENGTH: " .. table.getn(GameInfo.player_list))
+        --print("PLAYER POS: " .. pos .. ", LIST LENGTH: " .. table.getn(GameInfo.player_list))
     end
-    print("APPLIED LIMB PLAYER: " .. applied_player.username)
-    Set_LimbColour(applied_player,GameInfo.limb_screen.card1,"arm",1)
-    Set_LimbColour(applied_player,GameInfo.limb_screen.card2,"arm",2)
-    Set_LimbColour(applied_player,GameInfo.limb_screen.card3,"leg",1)
-    Set_LimbColour(applied_player,GameInfo.limb_screen.card4,"leg",2)
-end
-
-function Set_LimbColour(applied_player,button_info,button_type,pos)
-    button_info.icon.isVisible  = true
-    button_info.icon.text.isVisible = true
-    if (button_type == "arm") then
-        if (pos == 1 and applied_player.arms < 2) then
-            button_info.icon:setFillColor( colorsRGB.RGB("gray") )
-        else
-            button_info.icon:setFillColor( colorsRGB.RGB("red") )            
-        end 
-        if (pos == 2 and applied_player.arms < 1) then
-            button_info.icon:setFillColor( colorsRGB.RGB("gray") )
-        else
-            button_info.icon:setFillColor( colorsRGB.RGB("red") )
-        end 
-    else
-        if (pos == 1 and applied_player.legs < 2) then
-            button_info.icon:setFillColor( colorsRGB.RGB("gray") )
-        else
-            button_info.icon:setFillColor( colorsRGB.RGB("red") )
-        end 
-        if (pos == 2 and applied_player.legs < 1) then
-            button_info.icon:setFillColor( colorsRGB.RGB("gray") )
-        else
-            button_info.icon:setFillColor( colorsRGB.RGB("red") )
-        end 
-    end
+    --print("APPLIED LIMB PLAYER: " .. applied_player.username)
 end
 
 function SetCrippleMax(draw_value)
@@ -108,7 +69,6 @@ function SetCrippleMax(draw_value)
         --A MODIFIER IS CREATED WHEN THE LIMB TABLE IS SHOWN
     end
     discard_max = draw_value
-    --print("draw value" .. discard_max)
 end
 
 function CheckLimbs()
@@ -117,7 +77,6 @@ function CheckLimbs()
     else
         LoopLimbCheck()
     end
-    --print("chagnged value" .. discard_max)
     discard_max = discard_max - 1
     if (discard_max > 0) then
         run_popup(TitleText.text .. ": " .. discard_max)
@@ -127,79 +86,54 @@ end
 
 function SetLimbMax(discard_value)
     discard_max = discard_value
-    --print("draw value" .. draw_max)
 end
 
-function LoadLimbTable()
-    local group = display.newGroup()
-    -- width, height, x, y
-    local draw_item = {}
-    draw_item.card1 = {}
-    draw_item.card2 = {}
-    draw_item.card3 = {}
-    draw_item.card4 = {}
+function SetLimbColour(limb_figure, limb_function)
+    
+    local return_info = {}
 
-    AddLimbZone(draw_item.card1,180,500,"red","cripple_arm",1);
-    AddLimbZone(draw_item.card2,620,500,"red","cripple_arm",2);
-    AddLimbZone(draw_item.card3,180,700,"red","cripple_leg",1);
-    AddLimbZone(draw_item.card4,620,700,"red","cripple_leg",2);
+    local limb = limb_function
+    local colour = "red"
 
-    GameInfo.limb_screen = draw_item
-    Hide_LimbTable()
-    --Show_LimbTable()
-end
-
-function AddLimbZone(draw_card,x,y,colour,type, type_int)
-
-    local icon = display.newRoundedRect( 
-        x, y, 300, 150, 1 )
-            icon:setFillColor( colorsRGB.RGB(colour) )
-            icon.strokeWidth = 6
-            icon:setStrokeColor( colorsRGB.RGB("black") )
-            
-    icon:addEventListener( "touch", CrippleLimb_button )
-    icon.item_loaded = false
-    icon.card_type = type
-    icon.type_int = type_int
-    icon.bbox_min_x = x - (400 / 2)
-    icon.bbox_max_x = x + (400 / 2)
-    icon.bbox_min_y = y - (400 / 2)
-    icon.bbox_max_y = y + (400 / 2)
-    draw_card.icon = icon
-
-    draw_card.print_text = type
-    draw_card.icon.text = display.newText( draw_card.print_text, x, y, native.systemFontBold, 32)
-    draw_card.icon.text:setFillColor( colorsRGB.RGB("black") )
-end
-
-function CrippleLimb_button( event )
-    local t = event.target
-    local phase = event.phase
-
-    if "began" == phase then
-        
-        local parent = t.parent
-        parent:insert( t )
-        display.getCurrentStage():setFocus( t ) 
-        t.isFocus = true
-        t.text:toFront();
-
-    elseif t.isFocus then
-        if "moved" == phase then
-
-        elseif "ended" == phase then
-            display.getCurrentStage():setFocus( nil )
-            
-            QueueMessage(
-            --appWarpClient.sendUpdatePeers(
-            --tostring("MSG_CODE") .. " " ..
-            tostring("cripple_limb") .. " " .. 
-            tostring(GameInfo.username) .. " " ..
-            tostring(limb_modifier) .. " " ..
-            tostring(t.card_type) .. " " ..
-            tostring(applied_to)) 
+    if (limb_modifier == -1) then
+        --CRIPPLE FUNCTIONS
+        if (limb_figure == 0) then
+            limb = ""
+            colour = "gray"
+        end
+    else
+        --HEAL FUNCTIONS
+        if (limb_figure == 2) then
+            limb = ""
+            colour = "gray"
         end
     end
 
-    return true
+    return_info.limb = limb
+    return_info.colour = colour
+
+    return return_info
+end
+
+function LoadLimbTable(used_text)
+    local group = display.newGroup()
+
+    local button_info = {}
+    local apply_to = find_applied_to(applied_to)
+    local applied_player = GameInfo.player_list[apply_to]
+
+    --ARM BUTTONS
+    local limb_info = SetLimbColour(applied_player.arms, "cripple_arm")
+
+    Add_GameType_Button(button_info,1,
+        GameInfo.width / 2, 500,
+        300,150,limb_info.colour,used_text .. " arm",limb_info.limb,1)
+
+    --LEG BUTTONS
+    local limb_info = SetLimbColour(applied_player.legs, "cripple_leg")
+
+    button_info = {}
+    Add_GameType_Button(button_info,3,
+        GameInfo.width / 2, 700,
+        300,150,limb_info.colour,used_text .. " leg",limb_info.limb,1)
 end

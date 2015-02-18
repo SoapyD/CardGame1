@@ -52,7 +52,7 @@ function loadGame()
 	Setup_ScreenElements()
 	LoadDrawCard();
 	LoadDiscardCard();
-	LoadLimbTable();
+	--LoadLimbTable();
 	LoadFaceOff();
 	LoadCounter();
 	--LoadLimbDiscardCard();
