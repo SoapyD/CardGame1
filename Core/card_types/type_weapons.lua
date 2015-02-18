@@ -42,7 +42,7 @@ function Check_WeaponCards(filename)
             end,                                
         ["w/7.png"] = function()
                 card_info.name = "wall-of-knives"
-                set_stats(card_info, 5,5,5,5,2,0,0,5,"weapon",1,1.5)
+                set_stats(card_info, 1,1,4,2,2,0,0,5,"weapon",1,1.5)
                 card_info.actions[table.getn(card_info.actions) + 1] = set_action("health", "", -5, 1)
             end,            
 
@@ -88,7 +88,7 @@ function Check_WeaponCards(filename)
     		end,    		    	
     	["w/15.png"] = function()
     			card_info.name = "wall-of-blades"
-    			set_stats(card_info, 1,1,1,1,2,0,0,20,"weapon",1,3.5)
+    			set_stats(card_info, 1,1,1,1,2,0,0,10,"weapon",1,3.5)
     			card_info.actions[table.getn(card_info.actions) + 1] = set_action("health", "", -10, 1)
     		end,
 
