@@ -6,6 +6,7 @@ function Get_LimbTable_Info()
     local limb_info = {}
     limb_info.limb_modifier = limb_modifier
     limb_info.applied_to = applied_to
+    limb_info.discard_max = discard_max
 
     return limb_info
 end

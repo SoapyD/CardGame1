@@ -126,7 +126,7 @@ function run_main_loop()
 				            GameInfo.actions[arr_pos].type = "limb_discard"
 
 				        	--arr_pos = table.getn(GameInfo.actions) + 1
-				            --GameInfo.actions[arr_pos] = set_action("limb", action, -2, against)
+				            --GameInfo.actions[arr_pos] = set_action("limb", action, 2, against)
 				            --GameInfo.actions[arr_pos].type = "limb"
 				            --print("LIMB AGAINST: " .. against .. " Action Pos: " .. arr_pos)
 				    	end
